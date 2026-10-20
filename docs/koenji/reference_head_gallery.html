@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Koenji · Reference portraits</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px; background: #201b16; color: #f3e6c9; font: 16px/1.5 system-ui, sans-serif; }
+    main { max-width: 1320px; margin: auto; }
+    h1 { margin: 4px 0; font: bold 32px Georgia, serif; }
+    p { color: #cbbd9f; margin: 8px 0 22px; }
+    small { color: #dfbd74; letter-spacing: .12em; }
+    nav { display: flex; flex-wrap: wrap; gap: 18px; margin: 24px 0; }
+    label { display: grid; gap: 4px; font-size: 13px; }
+    select { padding: 9px; border: 1px solid #806944; background: #33291e; color: #f3e6c9; font: inherit; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    article { background: #30271e; border: 1px solid #6d583c; padding: 14px; }
+    article .custom-character { height: 240px; background: radial-gradient(ellipse at center, #514434, #29221b); }
+    article .custom-character > svg { width: 100%; height: 100%; }
+    h2 { margin: 12px 0 2px; font: bold 18px Georgia, serif; }
+    article p { font-size: 13px; margin: 0; }
+    a { color: #edcb87; }
+    footer { margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <main>
+    <small>高円寺 · KOENJI RAILWAY CLUB</small>
+    <h1>Reference portraits</h1>
+    <p id="portrait-summary">Each portrait has nine static expressions and works with all twelve outfits.</p>
+    <nav aria-label="Portrait preview controls">
+      <label>Show <select id="portrait-set"><option value="all">All portraits</option><option value="latest">Latest additions</option></select></label>
+      <label>Expression <select id="expression"></select></label>
+      <label>Clothes <select id="clothes"></select></label>
+      <label>Pose <select id="pose"></select></label>
+    </nav>
+    <section class="gallery" aria-label="New portraits"></section>
+    <footer><a href="./semi_photoreal_face_test.html">Open the full animation workbench</a> · <a href="/">Open the app</a></footer>
+  </main>
+  <script type="module">
+    import { APPEARANCE_CATALOG, renderCharacter } from '../../src/scene/Character.js';
+    import { VALID_EXPRESSIONS, VALID_POSES } from '../../src/scene/paperDollArt.js';
+    const faces = APPEARANCE_CATALOG.faces.filter(face => face.headAtlas);
+    const latestBatch = faces.at(-1)?.portraitBatch;
+    const latestFaces = faces.filter(face => face.portraitBatch === latestBatch);
+    document.querySelector('#portrait-set option[value="latest"]').textContent = `Latest additions (${latestFaces.length})`;
+    document.getElementById('portrait-summary').textContent = `${faces.length} portraits based on your photos, numbered in the order received. Each has nine static expressions and works with all twelve outfits.`;
+    const expression = document.getElementById('expression');
+    const clothes = document.getElementById('clothes');
+    const pose = document.getElementById('pose');
+    const portraitSet = document.getElementById('portrait-set');
+    function options(select, values) {
+      for (const {id, name} of values) select.add(new Option(name, id));
+    }
+    options(expression, VALID_EXPRESSIONS.map(id => ({id, name: id})));
+    options(clothes, APPEARANCE_CATALOG.clothes);
+    options(pose, VALID_POSES.map(id => ({id, name: id})));
+    for (const batch of new Set(faces.map(face => face.portraitBatch))) {
+      const group = faces.filter(face => face.portraitBatch === batch);
+      const first = group[0].id.split('-').at(-1).replace(/^0/, '');
+      const last = group.at(-1).id.split('-').at(-1).replace(/^0/, '');
+      portraitSet.add(new Option(`Portraits ${first}–${last}`, batch));
+    }
+    function render() {
+      const visibleFaces = portraitSet.value === 'latest' ? latestFaces
+        : portraitSet.value === 'all' ? faces
+        : faces.filter(face => face.portraitBatch === portraitSet.value);
+      document.querySelector('.gallery').innerHTML = visibleFaces.map(face => {
+        const [title, description] = face.name.split(' · ');
+        return `<article>${renderCharacter({face: face.id, clothes: clothes.value}, {
+          name: title, expression: expression.value, pose: pose.value,
+        })}<h2>${title}</h2><p>${description}</p></article>`;
+      }).join('');
+    }
+    for (const select of [portraitSet, expression, clothes, pose]) select.addEventListener('change', render);
+    render();
+  </script>
+</body>
+</html>

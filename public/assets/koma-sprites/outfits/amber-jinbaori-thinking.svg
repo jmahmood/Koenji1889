@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="600" height="720">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#221a14"/>
+        <stop offset="100%" stop-color="#140f0c"/>
+      </linearGradient>
+      <radialGradient id="key-light" cx="0.25" cy="0.2" r="0.75">
+        <stop offset="0%" stop-color="#ffcf78" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+    <rect width="100%" height="100%" fill="url(#key-light)"/>
+    <g id="layer1-torso" >
+          <path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>
+          <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="#2c1d14" stroke="#170f0a" stroke-width="2.5"/>
+          <ellipse cx="100" cy="95" rx="20" ry="7" fill="#16100c" stroke="#3b2818" stroke-width="1.5"/>
+          <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="#e8d7b4" stroke="#473623" stroke-width="2"/>
+          <path d="M48 235 L54 110 Q68 104 80 104 L94 235 Z M152 235 L146 110 Q132 104 120 104 L106 235 Z" fill="#8f5b22" stroke="#e3b963" stroke-width="2.2"/>
+          <path d="M78 104 L62 156 L88 178 L92 140 Z M122 104 L138 156 L112 178 L108 140 Z" fill="#ab6f2c" stroke="#e3b963" stroke-width="2"/>
+          <circle cx="68" cy="134" r="6" fill="none" stroke="#f5d77f" stroke-width="1.8"/><circle cx="68" cy="134" r="2.2" fill="#f5d77f"/>
+          <circle cx="132" cy="134" r="6" fill="none" stroke="#f5d77f" stroke-width="1.8"/><circle cx="132" cy="134" r="2.2" fill="#f5d77f"/>
+          <path d="M74 168 Q100 180 126 168" fill="none" stroke="#e3b963" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="100" cy="173" r="5.5" fill="#e3b963" stroke="#472c0e" stroke-width="1.5"/>
+        </g><g id="layer3-arms">
+          <path d="M44 176 L118 172 L118 194 L42 198 Z" fill="#2c1d14" stroke="#472c0e" stroke-width="2.2"/>
+          <path d="M148 182 L114 118 L98 124 L122 190 Z" fill="#2c1d14" stroke="#472c0e" stroke-width="2.2"/>
+          <line x1="114" y1="122" x2="99" y2="128" stroke="#e3b963" stroke-width="3.5"/>
+          <path d="M92 108 Q106 102 114 112 L112 126 L96 124 Z" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+        </g>
+</svg>

@@ -1,0 +1,109 @@
+{
+  "title": "File:Yawatahama Port 20250107.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Yawatahama_Port_20250107.jpg/1280px-Yawatahama_Port_20250107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 750,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/5/54/Yawatahama_Port_20250107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Yawatahama_Port_20250107.jpg/1280px-Yawatahama_Port_20250107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 750,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/5/54/Yawatahama_Port_20250107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Yawatahama_Port_20250107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Yawatahama_Port_20250107.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=170721114",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2025-07-26 04:19:27",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Yawatahama Port 20250107",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "CC-Zero|Self-published work|Files with coordinates missing SDC location of creation|Port of Yawatahama|Japan photographs taken on 2025-01-07|January 2025 in transport in Ehime prefecture",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "GPSLatitude": {
+      "value": "33.458457",
+      "source": "commons-desc-page"
+    },
+    "GPSLongitude": {
+      "value": "132.415775",
+      "source": "commons-desc-page"
+    },
+    "GPSMapDatum": {
+      "value": "WGS-84",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "八幡浜港（2025年1月）",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "<span class=\"mw-empty-elt\"><link rel=\"mw:PageProp/Category\" href=\"./Category:Japan_photographs_taken_on_2025-01-07\"></span>7 January 2025, 09:00:52",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "<a rel=\"mw:WikiLink\" href=\"https://commons.wikimedia.org/wiki/User:%E7%89%B9%E6%80%A5%E3%81%84%E3%82%88%E3%81%AE%E3%81%9F%E3%81%BF\" title=\"User:特急いよのたみ\">特急いよのたみ</a>",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "CC0",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Creative Commons Zero, Public Domain Dedication",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "LicenseUrl": {
+      "value": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source": "commons-desc-page"
+    },
+    "Copyrighted": {
+      "value": "True",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "cc0",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/B3-reference.jpg"
+}

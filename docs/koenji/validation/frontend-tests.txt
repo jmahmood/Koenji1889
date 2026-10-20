@@ -1,0 +1,40 @@
+✔ discard decisions are usable by the affected president, never waiting players, spectators or history (8.812125ms)
+✔ ER can decline or confirm a tile while the interrupted corporation is at train purchase (3.38325ms)
+✔ emergency blocks and out-of-turn DR have explicit reviewed controls (0.157875ms)
+✔ routes expose a non-mutating plan, custom segment builder, quotation and separate commitment (0.114959ms)
+✔ stock sales use a selectable block and actual market exemptions permit legal purchases (3.821334ms)
+✔ empty authoritative tile results never fall back to geometric candidates (0.354334ms)
+✔ negotiations use named assets, matching consent and actual price inputs; results rank by score (0.363209ms)
+✔ ordinary invitations store only one seat locally and strip credentials from the address (0.635083ms)
+✔ feedback uses a reserved status area, escapes messages, and prioritizes errors (0.482708ms)
+✔ only the actor in the loaded live state can submit, including replay at the live endpoint (0.257ms)
+✔ financial workspace starts usefully and preserves intentionally closed windows across historical rounds (0.459583ms)
+✔ Escape closes only one context and preserves historical revision and room (0.082458ms)
+✔ shortcut descriptions preserve optional-step advancement and clearing preview is presentation-only (0.058375ms)
+✔ timestamps require an actual instant rather than a fictional or timezone-free clock (9.322333ms)
+✔ observer ticket names its perspective and hides purchase/sell controls when not active player (2.885083ms)
+✔ president purchase is one certificate and hides action controls while replaying or waiting for another player (0.470125ms)
+✔ auction history keeps selection separate from bidding permission (0.093542ms)
+✔ journal selection and inspecting a resulting position are separate controls (0.412458ms)
+✔ real operating fixture preserves shortcuts while historical map only inspects (240.640708ms)
+✔ waiting players and observers see observation, not president instructions, at every operating step (161.219833ms)
+✔ private-company permission does not grant normal operating authority (148.551625ms)
+✔ map financial-round callout opens its financial room without leaving the viewed revision (149.31875ms)
+✔ stock-screen operating-round callout opens the map for presidents, waiting players, and observers (145.132542ms)
+✔ cross-screen consistency: Journal renders unified player strip, Auction anchors viewer cash, and Map port button binds inspected hex (144.701875ms)
+✔ live stock workspace hands off to the map with the new operating context (0.957458ms)
+✔ social table and unrelated inspection rooms announce without being relocated (0.213375ms)
+✔ rewind, playback, and pending snapshot loads never start a live handoff (0.068292ms)
+✔ open dialogs and explicit Journal inspection suppress automatic navigation (0.061ms)
+✔ auction completion, operating-set completion, and match end have destinations (0.074666ms)
+✔ operating rounds use set and round numbers, never the corporation turn index (0.050708ms)
+✔ initial connection, duplicate polls, and ordinary moves do not announce rounds (0.037625ms)
+✔ announcements escape names, offer explicit destinations, and are dismissible (0.065042ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1047.547583

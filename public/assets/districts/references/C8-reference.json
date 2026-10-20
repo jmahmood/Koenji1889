@@ -1,0 +1,92 @@
+{
+  "title": "File:国道320鬼北町川上.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg/1280px-%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 707,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/5/5d/%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg/1280px-%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 707,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/5/5d/%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:%E5%9B%BD%E9%81%93320%E9%AC%BC%E5%8C%97%E7%94%BA%E5%B7%9D%E4%B8%8A.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=92823953",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2012-08-11 01:18:39",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "国道320鬼北町川上",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Route 320 (Japan)|Rivers of Ehime prefecture|Self-published work|PD-self|Hiromi, Kihoku|Files uploaded by Osamiw|Transport in Kihoku, Ehime",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "愛媛県鬼北町川上",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2012-08",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "osami",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/C8-reference.jpg"
+}

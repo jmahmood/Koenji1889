@@ -1,0 +1,12 @@
+[Unit]
+Description=Koenji home network web server
+After=koenji-backend.service
+Wants=koenji-backend.service
+[Service]
+ExecStartPre=/home/jawaad/koenji/tools/extracted/usr/sbin/nginx -t -p /home/jawaad/koenji/nginx/ -c /home/jawaad/koenji/nginx/nginx.conf
+ExecStart=/home/jawaad/koenji/tools/extracted/usr/sbin/nginx -p /home/jawaad/koenji/nginx/ -c /home/jawaad/koenji/nginx/nginx.conf -g "daemon off;"
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+[Install]
+WantedBy=default.target

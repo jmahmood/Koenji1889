@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+
+  <defs>
+    <linearGradient id="bgWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22150e"/>
+      <stop offset="50%" stop-color="#160e09"/>
+      <stop offset="100%" stop-color="#0d0805"/>
+    </linearGradient>
+    <linearGradient id="mahoganyPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b2416"/>
+      <stop offset="100%" stop-color="#1e120b"/>
+    </linearGradient>
+    <linearGradient id="brassFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5d77f"/>
+      <stop offset="50%" stop-color="#b88728"/>
+      <stop offset="100%" stop-color="#785312"/>
+    </linearGradient>
+    <linearGradient id="parchment" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbf2dc"/>
+      <stop offset="100%" stop-color="#e5cfa4"/>
+    </linearGradient>
+    <linearGradient id="baizeGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f4e37"/>
+      <stop offset="100%" stop-color="#112e20"/>
+    </linearGradient>
+    <linearGradient id="crimsonVelvet" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5e1914"/>
+      <stop offset="100%" stop-color="#2e0b08"/>
+    </linearGradient>
+    <linearGradient id="steelSafe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#565e66"/>
+      <stop offset="50%" stop-color="#363c42"/>
+      <stop offset="100%" stop-color="#1f2326"/>
+    </linearGradient>
+    <linearGradient id="hankoRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d93829"/>
+      <stop offset="100%" stop-color="#8f1d14"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#3d6b78"/>
+      <stop offset="100%" stop-color="#1e3840"/>
+    </radialGradient>
+    <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe17d" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ff9914" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ff9914" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bgWood)"/>
+
+  <!-- Top Context Header -->
+  <rect x="10" y="10" width="1260" height="46" rx="6" fill="#2a1a11" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="28" y="27" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="1.4">KOENJI RAILWAY CLUB 1889 · COMPLEX DECISIONS &amp; PLANNING POPUP (3 ILLUSTRATED COLUMNS)</text>
+  <text x="28" y="45" fill="#f7eed7" font-family="Georgia, serif" font-size="15.5" font-weight="bold">2. The Meiji Railway Boardroom: Roundhouse Depot  |  Counting House &amp; Vault  |  Club Deal Table</text>
+  <text x="1250" y="32" text-anchor="end" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Each column uses a distinct 1990s strategy-game visual header &amp; physical props</text>
+
+  <!-- Grand Boardroom Modal Frame -->
+  <rect x="24" y="64" width="1232" height="642" rx="12" fill="url(#mahoganyPanel)" stroke="url(#brassFrame)" stroke-width="3"/>
+
+  <!-- Ornate Brass Title Plaque -->
+  <rect x="380" y="54" width="520" height="36" rx="8" fill="#23160d" stroke="url(#brassFrame)" stroke-width="2.5"/>
+  <text x="640" y="78" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="18" font-weight="bold" letter-spacing="1">DECISIONS &amp; PLANNING · REV 33 (IR BOARDROOM)</text>
+  <rect x="1210" y="74" width="32" height="32" rx="6" fill="#23160d" stroke="url(#brassFrame)" stroke-width="1.5"/>
+  <text x="1226" y="96" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="18" font-weight="bold">×</text>
+
+  <!-- ===================================================================== -->
+  <!-- COLUMN 1 (LEFT): THE ROUNDHOUSE & DEPOT (Locomotive Works Imagery)    -->
+  <!-- ===================================================================== -->
+  <g transform="translate(42, 102)">
+    <rect x="0" y="0" width="382" height="492" rx="8" fill="#18100a" stroke="url(#brassFrame)" stroke-width="2"/>
+    <rect x="0" y="0" width="382" height="32" rx="8" fill="#3a2415" stroke="url(#brassFrame)" stroke-width="1.5"/>
+    <text x="191" y="21" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold" letter-spacing="0.8">I. THE ROUNDHOUSE &amp; DEPOT</text>
+
+    <!-- Column 1 Visual Header Diorama: Meiji Steam Yard & 4-Stall Roundhouse -->
+
+    <g transform="translate(12,40)">
+      <!-- Brick Roundhouse Facade -->
+      <rect x="0" y="0" width="358" height="106" rx="8" fill="#4f2419" stroke="url(#brassFrame)" stroke-width="2"/>
+      <!-- Pitched Slate Roof -->
+      <polygon points="0,20 179.0,2 358,20" fill="#28262b" stroke="#8c6836" stroke-width="1.2"/>
+      <rect x="93.0" y="4" width="172" height="18" rx="4" fill="#231710" stroke="#d8a24a" stroke-width="1.2"/>
+      <text x="179.0" y="16" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold">ROUNDHOUSE FLEET (1/4 LIMIT)</text>
+
+        <g transform="translate(14.0, 26)">
+          <path d="M 0,72 L 0,18 Q 40.25,-4 80.5,18 L 80.5,72 Z" fill="#3b2816" stroke="#ffd46b" stroke-width="2.2"/>
+          <!-- Rails into bay -->
+          <line x1="22.540000000000003" y1="72" x2="30.59" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="57.96" y1="72" x2="49.91" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <circle cx="40.25" cy="34" r="24" fill="url(#lanternGlow)"/>
+
+            <!-- Front-on Golden Steam Engine inside Roundhouse Stall -->
+            <circle cx="40.25" cy="36" r="13" fill="#231c16" stroke="#ffd46b" stroke-width="2"/>
+            <circle cx="40.25" cy="36" r="5" fill="#ffd46b"/>
+            <rect x="37.25" y="14" width="6" height="10" fill="#ffd46b"/>
+            <polygon points="26.25,50 54.25,50 58.25,58 22.25,58" fill="#c85a32" stroke="#ffd46b" stroke-width="1"/>
+            <text x="40.25" y="70" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="9.5" font-weight="bold">2-TRAIN</text>
+
+        </g>
+
+        <g transform="translate(98.5, 26)">
+          <path d="M 0,72 L 0,18 Q 40.25,-4 80.5,18 L 80.5,72 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="22.540000000000003" y1="72" x2="30.59" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="57.96" y1="72" x2="49.91" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="40.25" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="40.25" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 2</text>
+
+        </g>
+
+        <g transform="translate(183.0, 26)">
+          <path d="M 0,72 L 0,18 Q 40.25,-4 80.5,18 L 80.5,72 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="22.540000000000003" y1="72" x2="30.59" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="57.96" y1="72" x2="49.91" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="40.25" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="40.25" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 3</text>
+
+        </g>
+
+        <g transform="translate(267.5, 26)">
+          <path d="M 0,72 L 0,18 Q 40.25,-4 80.5,18 L 80.5,72 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="22.540000000000003" y1="72" x2="30.59" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="57.96" y1="72" x2="49.91" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="40.25" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="40.25" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 4</text>
+
+        </g>
+
+
+    </g>
+
+
+    <!-- Illustrated Locomotive Certificate Cards -->
+    <text x="16" y="166" fill="#f3d285" font-family="Georgia, serif" font-size="11.5" font-weight="bold">DEPOT LOCOMOTIVE CERTIFICATES (GROUPED BY TIER)</text>
+
+    <!-- 2-Train Card (Selected) -->
+    <g transform="translate(12, 174)">
+      <rect x="0" y="0" width="358" height="104" rx="7" fill="url(#parchment)" stroke="#ffd46b" stroke-width="3"/>
+      <!-- Mini Woodblock Locomotive Scene -->
+      <rect x="10" y="10" width="128" height="62" rx="4" fill="#e5cfa4" stroke="#8c6836" stroke-width="1.2"/>
+      <rect x="10" y="58" width="128" height="14" fill="#8b7355"/>
+
+    <g transform="translate(28,22) scale(1.08)">
+      <path d="M58 6 C46 -6, 26 -6, 8 2 C22 -12, 48 -12, 62 2 Z" fill="#f7f0df" opacity="0.8"/>
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#1e2428" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#1e2428" stroke="#d8a24a" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#1e2428" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#d8a24a" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#d8a24a" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#1e2428" stroke="#d8a24a" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#d8a24a" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#d8a24a" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+      <rect x="10" y="76" width="128" height="18" rx="3" fill="#b82921"/>
+      <text x="74" y="89" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">★ STAGED (#2-0)</text>
+
+      <text x="150" y="26" fill="#231710" font-family="Georgia, serif" font-size="16" font-weight="bold">2-Train · ¥80</text>
+      <!-- 6 Brass Supply Tokens -->
+      <g transform="translate(268, 14)">
+        <circle cx="6" cy="6" r="4.5" fill="#2ca568"/><circle cx="18" cy="6" r="4.5" fill="#2ca568"/><circle cx="30" cy="6" r="4.5" fill="#2ca568"/>
+        <circle cx="42" cy="6" r="4.5" fill="#2ca568"/><circle cx="54" cy="6" r="4.5" fill="#2ca568"/><circle cx="66" cy="6" r="4.5" fill="#2ca568"/>
+      </g>
+      <text x="150" y="45" fill="#4a3822" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">6 of 6 Left in Depot · Runs 2 Stops</text>
+      <text x="150" y="63" fill="#8f1d14" font-family="Helvetica, sans-serif" font-size="10.5" font-weight="bold">⚠ Rusts when first 4-Train is bought</text>
+      <rect x="150" y="72" width="196" height="22" rx="4" fill="#2c1d11"/>
+      <text x="248" y="87" text-anchor="middle" fill="#86efac" font-family="monospace" font-size="10.5" font-weight="bold">Safe: ¥800 → ¥720 · Fleet: 1/4</text>
+    </g>
+
+    <!-- 3-Train Card (Phase 3 Green Preview) -->
+    <g transform="translate(12, 288)">
+      <rect x="0" y="0" width="358" height="90" rx="7" fill="#261c14" stroke="#6b4e27" stroke-width="1.5"/>
+      <rect x="10" y="10" width="114" height="52" rx="4" fill="#1e2b20" stroke="#4f7754" stroke-width="1"/>
+
+    <g transform="translate(22,18) scale(0.95)">
+
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#283d2b" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#283d2b" stroke="#86efac" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#283d2b" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#86efac" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#86efac" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#283d2b" stroke="#86efac" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#86efac" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#86efac" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#86efac" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#86efac" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#86efac" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#86efac" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+      <rect x="10" y="66" width="114" height="16" rx="3" fill="#2d5a3c"/>
+      <text x="67" y="78" text-anchor="middle" fill="#e9f5db" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">PHASE 3 · GREEN</text>
+
+      <text x="136" y="26" fill="#e6d3ad" font-family="Georgia, serif" font-size="15" font-weight="bold">3-Train · ¥180 <tspan font-size="11" fill="#cbb68e">(5 in Depot)</tspan></text>
+      <text x="136" y="45" fill="#a39070" font-family="Helvetica, sans-serif" font-size="10.5">• Unlocks Green Tiles &amp; Private Purchases</text>
+      <text x="136" y="62" fill="#a39070" font-family="Helvetica, sans-serif" font-size="10.5">• Rusts when first 6-Train is bought</text>
+      <text x="136" y="79" fill="#d8a24a" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">🔒 Locked until all six 2-Trains sell out</text>
+    </g>
+
+    <!-- 4-Train Card (Rusts 2-Trains Warning Preview) -->
+    <g transform="translate(12, 388)">
+      <rect x="0" y="0" width="358" height="90" rx="7" fill="#261c14" stroke="#6b4e27" stroke-width="1.5"/>
+      <rect x="10" y="10" width="114" height="52" rx="4" fill="#331c18" stroke="#8f3b2c" stroke-width="1"/>
+
+    <g transform="translate(22,18) scale(0.95)">
+
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#3d1e1a" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#3d1e1a" stroke="#e07a5f" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#3d1e1a" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#e07a5f" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#e07a5f" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#3d1e1a" stroke="#e07a5f" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#e07a5f" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#e07a5f" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+      <rect x="10" y="66" width="114" height="16" rx="3" fill="#8f1d14"/>
+      <text x="67" y="78" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">☠ RUSTS ALL 2-TRAINS</text>
+
+      <text x="136" y="26" fill="#e6d3ad" font-family="Georgia, serif" font-size="15" font-weight="bold">4-Train · ¥300 <tspan font-size="11" fill="#cbb68e">(4 in Depot)</tspan></text>
+      <text x="136" y="45" fill="#e07a5f" font-family="Helvetica, sans-serif" font-size="10.5" font-weight="bold">• Destroys all 2-Trains immediately!</text>
+      <text x="136" y="62" fill="#a39070" font-family="Helvetica, sans-serif" font-size="10.5">• Tightens train limit from 4 → 3 trains</text>
+      <text x="136" y="79" fill="#d8a24a" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">🔒 Locked until all five 3-Trains sell out</text>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- COLUMN 2 (CENTER): THE COUNTING HOUSE & VAULT (Safe, Scale & Certs)   -->
+  <!-- ===================================================================== -->
+  <g transform="translate(442, 102)">
+    <rect x="0" y="0" width="396" height="492" rx="8" fill="#18100a" stroke="url(#brassFrame)" stroke-width="2"/>
+    <rect x="0" y="0" width="396" height="32" rx="8" fill="#3a2415" stroke="url(#brassFrame)" stroke-width="1.5"/>
+    <text x="198" y="21" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold" letter-spacing="0.8">II. THE COUNTING HOUSE &amp; VAULT</text>
+
+    <!-- Visual Scene: Open Cast-Iron Vault + Brass Scale + President Haruka Portrait -->
+    <rect x="12" y="40" width="372" height="148" rx="8" fill="#22170f" stroke="#8c6836" stroke-width="1.5"/>
+    <text x="198" y="58" text-anchor="middle" fill="#f3d285" font-family="Georgia, serif" font-size="11" font-weight="bold">MANDATORY TRAIN FINANCING BALANCE</text>
+
+    <g transform="translate(22,66)">
+      <!-- Safe Body -->
+      <rect x="14" y="4" width="84" height="72" rx="5" fill="url(#steelSafe)" stroke="#8c969e" stroke-width="2"/>
+      <rect x="20" y="10" width="72" height="60" rx="2" fill="#16191c" stroke="#d8a24a" stroke-width="1.2"/>
+      <!-- Open Safe Door on Left -->
+      <polygon points="0,8 14,4 14,76 0,72" fill="#3a4046" stroke="#8c969e" stroke-width="1.5"/>
+      <circle cx="7" cy="40" r="4" fill="#d8a24a"/>
+      <!-- Stacked Yen Banknote Bundles inside Safe -->
+
+      <g transform="translate(26, 22)">
+        <rect x="0" y="24" width="26" height="14" rx="1.5" fill="#cbe0c5" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="6" y="24" width="14" height="14" fill="#c85a32" opacity="0.7"/>
+        <rect x="30" y="24" width="26" height="14" rx="1.5" fill="#cbe0c5" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="36" y="24" width="14" height="14" fill="#c85a32" opacity="0.7"/>
+        <rect x="4" y="12" width="26" height="14" rx="1.5" fill="#dcebd7" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="10" y="12" width="14" height="14" fill="#c85a32" opacity="0.7"/>
+        <rect x="32" y="12" width="26" height="14" rx="1.5" fill="#dcebd7" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="16" y="0" width="28" height="14" rx="1.5" fill="#eef7eb" stroke="#2d5a3c" stroke-width="1"/>
+        <text x="30" y="10" text-anchor="middle" fill="#1e3d28" font-family="Georgia, serif" font-size="8.5" font-weight="bold">¥100</text>
+      </g>
+
+      <!-- Brass Plaque under Safe -->
+      <rect x="10" y="70" width="92" height="22" rx="4" fill="#231710" stroke="url(#brassFrame)" stroke-width="1.5"/>
+      <text x="56" y="85" text-anchor="middle" fill="#6ee7b7" font-family="Georgia, serif" font-size="13" font-weight="bold">¥800 Safe</text>
+      <text x="56" y="103" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">IR Corporate Treasury</text>
+    </g>
+
+
+    <g transform="translate(148,72)">
+      <!-- Brass Bezel -->
+      <path d="M 8,54 A 42,42 0 0,1 92,54 Z" fill="#1b130d" stroke="url(#brassFrame)" stroke-width="3"/>
+      <!-- Green Safe Zone vs Red Shortfall Zone -->
+      <path d="M 14,50 A 36,36 0 0,1 50,14 L 50,50 Z" fill="#2ca568" opacity="0.45"/>
+      <path d="M 50,14 A 36,36 0 0,1 86,50 L 50,50 Z" fill="#c83e32" opacity="0.45"/>
+      <!-- Gauge Needle -->
+      <g transform="translate(50,50) rotate(-38)">
+        <line x1="0" y1="0" x2="0" y2="-32" stroke="#ffd46b" stroke-width="2.5"/>
+        <polygon points="-3,-26 0,-35 3,-26" fill="#ffd46b"/>
+      </g>
+      <circle cx="50" cy="50" r="5" fill="#d8a24a" stroke="#231710" stroke-width="1.2"/>
+      <!-- Brass Readout Plate -->
+      <rect x="0" y="54" width="100" height="34" rx="5" fill="#193d29" stroke="#52b788" stroke-width="1.5"/>
+      <text x="50" y="68" text-anchor="middle" fill="#86efac" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">VAULT COVERS 100%</text>
+      <text x="50" y="82" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="11.5" font-weight="bold">Shortfall: ¥0</text>
+    </g>
+
+
+    <g transform="translate(272,66)">
+      <!-- Framed Meiji Portrait -->
+      <rect x="6" y="4" width="56" height="66" rx="5" fill="#f2dfc1" stroke="url(#brassFrame)" stroke-width="2"/>
+      <!-- Stylized Meiji Character Bust -->
+      <path d="M 14,68 C 14,48 54,48 54,68 Z" fill="#6b3fa0" stroke="#231710" stroke-width="1.2"/>
+      <path d="M 26,48 L 34,60 L 42,48" fill="none" stroke="#f7eed7" stroke-width="2"/>
+      <circle cx="34" cy="26" r="14" fill="#241c18"/>
+      <circle cx="34" cy="31" r="10.5" fill="#f4d4b8" stroke="#3a2818" stroke-width="1"/>
+      <path d="M 23,27 Q 34,18 45,27" fill="#241c18"/>
+      <circle cx="30" cy="31" r="1.3" fill="#241c18"/>
+      <circle cx="38" cy="31" r="1.3" fill="#241c18"/>
+      <path d="M 31,36 Q 34,38 37,36" fill="none" stroke="#8f3b2c" stroke-width="1.2"/>
+      <!-- Leather Coin Purse with Brass Clasp -->
+      <path d="M 52,44 C 46,44 44,66 52,70 L 82,70 C 90,66 88,44 82,44 Z" fill="#7a4424" stroke="#2b170b" stroke-width="1.5"/>
+      <rect x="58" y="40" width="18" height="5" rx="2" fill="#d8a24a" stroke="#2b170b" stroke-width="1"/>
+      <circle cx="64" cy="38" r="2" fill="#ffd46b"/>
+      <circle cx="70" cy="38" r="2" fill="#ffd46b"/>
+      <!-- Cash Plaque -->
+      <rect x="4" y="70" width="88" height="22" rx="4" fill="#231710" stroke="url(#brassFrame)" stroke-width="1.5"/>
+      <text x="48" y="85" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">¥95 Purse</text>
+      <text x="48" y="103" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">President Personal Cash</text>
+    </g>
+
+
+    <!-- Visual Ledger Flow Bar -->
+    <g transform="translate(12, 198)">
+      <rect x="0" y="0" width="372" height="82" rx="7" fill="#231911" stroke="#52b788" stroke-width="1.5"/>
+      <text x="16" y="22" fill="#86efac" font-family="Georgia, serif" font-size="12" font-weight="bold">✓ NO PRESIDENTIAL BAILOUT REQUIRED</text>
+      <text x="16" y="42" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10.5">Cheapest Depot Train is <tspan fill="#ffd46b" font-weight="bold">¥80 (2-Train)</tspan>. IR's <tspan fill="#86efac" font-weight="bold">¥800 Vault</tspan> covers it 10× over.</text>
+      <!-- Visual Banknote Flow -->
+      <rect x="16" y="50" width="340" height="22" rx="4" fill="#16100b"/>
+      <text x="186" y="65" text-anchor="middle" fill="#ffd46b" font-family="monospace" font-size="11" font-weight="bold">[IR Safe ¥800]  ──( -¥80 Note )──►  [Safe After: ¥720]</text>
+    </g>
+
+    <!-- Green Baize Banker's Mat: Emergency Stock Certificate Tray (Standby State) -->
+    <g transform="translate(12, 290)">
+      <rect x="0" y="0" width="372" height="190" rx="8" fill="url(#baizeGreen)" stroke="url(#brassFrame)" stroke-width="2"/>
+      <text x="186" y="22" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="12" font-weight="bold">EMERGENCY STOCK LIQUIDATION MAT (STANDBY)</text>
+      <text x="186" y="39" text-anchor="middle" fill="#b7e4c7" font-family="Helvetica, sans-serif" font-size="10.5">Engraved certificates unlock automatically if Vault &lt; Train Cost</text>
+
+      <!-- Stacked Standby Stock Certificates on Green Felt -->
+      <g transform="translate(26, 52)">
+        <rect x="0" y="0" width="150" height="96" rx="5" fill="url(#parchment)" stroke="#8c6836" stroke-width="1.5" opacity="0.82"/>
+        <rect x="6" y="6" width="138" height="18" rx="3" fill="#b84a27"/>
+        <text x="75" y="19" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="10.5" font-weight="bold">IYO RAILWAY · 10%</text>
+        <text x="75" y="46" text-anchor="middle" fill="#231710" font-family="Georgia, serif" font-size="15" font-weight="bold">Worth ¥80</text>
+        <text x="75" y="64" text-anchor="middle" fill="#5c4228" font-family="Helvetica, sans-serif" font-size="9.5">Haruka Holds: 30% (Pres.)</text>
+        <rect x="14" y="72" width="122" height="16" rx="3" fill="#3a2818"/>
+        <text x="75" y="83" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9">🔒 No Shortfall</text>
+
+        <rect x="170" y="0" width="150" height="96" rx="5" fill="url(#parchment)" stroke="#8c6836" stroke-width="1.5" opacity="0.82"/>
+        <rect x="176" y="6" width="138" height="18" rx="3" fill="#2d6a4f"/>
+        <text x="245" y="19" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="10.5" font-weight="bold">SANUKI · 10%</text>
+        <text x="245" y="46" text-anchor="middle" fill="#231710" font-family="Georgia, serif" font-size="15" font-weight="bold">Worth ¥70</text>
+        <text x="245" y="64" text-anchor="middle" fill="#5c4228" font-family="Helvetica, sans-serif" font-size="9.5">Haruka Holds: 10%</text>
+        <rect x="184" y="72" width="122" height="16" rx="3" fill="#3a2818"/>
+        <text x="245" y="83" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9">🔒 No Shortfall</text>
+      </g>
+      <text x="186" y="172" text-anchor="middle" fill="#d8f3dc" font-family="Helvetica, sans-serif" font-size="10">See Screen 3 for the active Shortfall &amp; Certificate Liquidation state →</text>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- COLUMN 3 (RIGHT): THE CLUB DEAL TABLE & TRANSFERS (Portraits & Hanko) -->
+  <!-- ===================================================================== -->
+  <g transform="translate(856, 102)">
+    <rect x="0" y="0" width="382" height="492" rx="8" fill="#18100a" stroke="url(#brassFrame)" stroke-width="2"/>
+    <rect x="0" y="0" width="382" height="32" rx="8" fill="#3a2415" stroke="url(#brassFrame)" stroke-width="1.5"/>
+    <text x="191" y="21" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold" letter-spacing="0.8">III. THE CLUB DEAL TABLE &amp; TRANSFERS</text>
+
+    <!-- Visual Header Scene: Two Club Members Across the Mahogany Table with Contract Scroll -->
+    <g transform="translate(12, 40)">
+      <rect x="0" y="0" width="358" height="114" rx="8" fill="#28180e" stroke="#8c6836" stroke-width="1.5"/>
+      <!-- Warm Hanging Club Lamps -->
+      <circle cx="80" cy="24" r="22" fill="url(#lanternGlow)"/>
+      <circle cx="278" cy="24" r="22" fill="url(#lanternGlow)"/>
+
+      <!-- Left Negotiator: Daisuke -->
+      <rect x="16" y="14" width="54" height="62" rx="5" fill="#f2dfc1" stroke="#d8a24a" stroke-width="1.5"/>
+      <path d="M 22,74 C 22,56 64,56 64,74 Z" fill="#2b4c65"/>
+      <circle cx="43" cy="38" r="11" fill="#f4d4b8" stroke="#3a2818"/>
+      <path d="M 32,34 Q 43,24 54,34" fill="#1e1814"/>
+      <text x="43" y="92" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="10.5" font-weight="bold">Daisuke</text>
+      <text x="43" y="105" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9">Seller (DR / AR)</text>
+
+      <!-- Center Mahogany Table with Contract Scroll & Stacked Yen Chips -->
+      <polygon points="86,66 272,66 286,96 72,96" fill="#4a2816" stroke="#d8a24a" stroke-width="1.5"/>
+      <!-- Unrolled Parchment Contract on Table -->
+      <polygon points="126,69 232,69 238,91 120,91" fill="url(#parchment)" stroke="#5c3a18" stroke-width="1"/>
+      <circle cx="152" cy="80" r="6" fill="#b82921"/>
+      <circle cx="206" cy="80" r="6" fill="none" stroke="#b82921" stroke-width="1.2" stroke-dasharray="2 1"/>
+      <text x="179" y="52" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="11" font-weight="bold">⇄ TWO-SEAL DEAL TABLE</text>
+
+      <!-- Right Negotiator: Haruka (IR President) -->
+      <rect x="288" y="14" width="54" height="62" rx="5" fill="#f2dfc1" stroke="#ffd46b" stroke-width="2"/>
+      <path d="M 294,74 C 294,56 336,56 336,74 Z" fill="#6b3fa0"/>
+      <circle cx="315" cy="38" r="11" fill="#f4d4b8" stroke="#3a2818"/>
+      <path d="M 304,34 Q 315,24 326,34" fill="#1e1814"/>
+      <text x="315" y="92" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="10.5" font-weight="bold">Haruka (IR)</text>
+      <text x="315" y="105" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9">Buyer (¥800 Safe)</text>
+    </g>
+
+    <!-- Illustrated Private Company Card & Train Transfer Offer Cards -->
+    <g transform="translate(12, 164)">
+      <rect x="0" y="0" width="358" height="154" rx="8" fill="#231710" stroke="#8c6836" stroke-width="1.5"/>
+      <text x="14" y="20" fill="#ffd46b" font-family="Georgia, serif" font-size="11.5" font-weight="bold">PRIVATE COMPANY &amp; USED TRAIN OFFERS</text>
+
+      <!-- Mini Illustrated Dougo Railway Card -->
+      <rect x="14" y="28" width="160" height="86" rx="6" fill="url(#parchment)" stroke="#d8a24a" stroke-width="2"/>
+      <rect x="20" y="34" width="148" height="18" rx="3" fill="#8f3b2c"/>
+      <text x="26" y="47" fill="#fff" font-family="Georgia, serif" font-size="10" font-weight="bold">DR · Dougo Railway</text>
+      <text x="162" y="47" text-anchor="end" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold">¥60</text>
+      <text x="22" y="68" fill="#231710" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">⚡ Power: Exchange for</text>
+      <text x="22" y="82" fill="#231710" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">10% IR Share from IPO</text>
+      <rect x="20" y="90" width="148" height="18" rx="3" fill="#2c1d11"/>
+      <text x="94" y="102" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">Click to Exchange DR → 10% IR</text>
+
+      <!-- Stackable Brass Yen Chips for Price Negotiation -->
+      <g transform="translate(188, 30)">
+        <text x="80" y="14" text-anchor="middle" fill="#f3d285" font-family="Georgia, serif" font-size="11" font-weight="bold">AGREED TRANSFER PRICE</text>
+        <!-- Brass Chip Stacks -->
+        <g transform="translate(10, 22)">
+          <ellipse cx="22" cy="42" rx="18" ry="7" fill="#b88728" stroke="#231710"/><ellipse cx="22" cy="36" rx="18" ry="7" fill="#d8a24a" stroke="#231710"/><ellipse cx="22" cy="30" rx="18" ry="7" fill="#f5d77f" stroke="#231710"/>
+          <text x="22" y="33" text-anchor="middle" fill="#231710" font-family="Georgia, serif" font-size="9.5" font-weight="bold">¥10</text>
+
+          <ellipse cx="70" cy="42" rx="18" ry="7" fill="#8f2922" stroke="#231710"/><ellipse cx="70" cy="36" rx="18" ry="7" fill="#b82921" stroke="#231710"/><ellipse cx="70" cy="30" rx="18" ry="7" fill="#e0533c" stroke="#231710"/>
+          <text x="70" y="33" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="9.5" font-weight="bold">¥50</text>
+
+          <ellipse cx="118" cy="42" rx="18" ry="7" fill="#2d5a3c" stroke="#231710"/><ellipse cx="118" cy="36" rx="18" ry="7" fill="#408055" stroke="#231710"/><ellipse cx="118" cy="30" rx="18" ry="7" fill="#52b788" stroke="#231710"/>
+          <text x="118" y="33" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="9.5" font-weight="bold">¥100</text>
+        </g>
+        <rect x="8" y="76" width="144" height="22" rx="4" fill="#16100b" stroke="#8c6836"/>
+        <text x="80" y="91" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="11.5" font-weight="bold">Offer: ¥60 (Phase 3–4)</text>
+      </g>
+
+      <text x="18" y="138" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.8">Private purchases unlock in Phase 3; used train transfers anytime.</text>
+    </g>
+
+    <!-- Two-Slot Red Japanese Hanko Seal Block (Seller Seal + Buyer Seal) -->
+    <g transform="translate(12, 328)">
+      <rect x="0" y="0" width="358" height="152" rx="8" fill="#261910" stroke="url(#brassFrame)" stroke-width="1.8"/>
+      <text x="179" y="22" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="12" font-weight="bold">TWO-PARTY HANKO CONSENT LEDGER (契約印)</text>
+
+      <!-- Seller Seal Box -->
+      <rect x="18" y="34" width="152" height="76" rx="6" fill="url(#parchment)" stroke="#8c6836" stroke-width="1.5"/>
+      <text x="94" y="52" text-anchor="middle" fill="#4a3822" font-family="Georgia, serif" font-size="10.5" font-weight="bold">1. SELLER SEAL (売主印)</text>
+      <circle cx="94" cy="80" r="18" fill="none" stroke="#b82921" stroke-width="2"/>
+      <text x="94" y="85" text-anchor="middle" fill="#b82921" font-family="Georgia, serif" font-size="12" font-weight="bold">大輔</text>
+
+      <!-- Buyer Seal Box -->
+      <rect x="188" y="34" width="152" height="76" rx="6" fill="url(#parchment)" stroke="#8c6836" stroke-width="1.5"/>
+      <text x="264" y="52" text-anchor="middle" fill="#4a3822" font-family="Georgia, serif" font-size="10.5" font-weight="bold">2. BUYER SEAL (買主印)</text>
+      <circle cx="264" cy="80" r="18" fill="none" stroke="#8c7656" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="264" y="84" text-anchor="middle" fill="#7d6b4f" font-family="Helvetica, sans-serif" font-size="9.5">Awaiting Stamp</text>
+
+      <text x="179" y="132" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10.5">Both presidents stamp the scroll to execute an inter-company transfer.</text>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- BOTTOM PARCHMENT DISPATCH & HANKO CONFIRMATION BAR                    -->
+  <!-- ===================================================================== -->
+  <g transform="translate(42, 604)">
+    <rect x="0" y="0" width="1196" height="86" rx="10" fill="url(#parchment)" stroke="url(#brassFrame)" stroke-width="2.5"/>
+    <!-- Left Staged Locomotive Emblem -->
+    <rect x="16" y="12" width="108" height="62" rx="6" fill="#2c1d11" stroke="#d8a24a" stroke-width="1.5"/>
+
+    <g transform="translate(28,22) scale(0.95)">
+
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#1e2428" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#1e2428" stroke="#ffd46b" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#1e2428" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#ffd46b" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#ffd46b" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#1e2428" stroke="#ffd46b" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#ffd46b" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#ffd46b" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#ffd46b" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#ffd46b" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#ffd46b" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#ffd46b" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+
+    <text x="140" y="30" fill="#7d2e14" font-family="Georgia, serif" font-size="11.5" font-weight="bold" letter-spacing="1">STAGED DISPATCH ORDER · REVISION 33</text>
+    <text x="140" y="54" fill="#231710" font-family="Georgia, serif" font-size="20" font-weight="bold">Iyo Railway (IR) buys 2-Train (#2-0) from Depot for ¥80</text>
+    <text x="140" y="73" fill="#4a3822" font-family="monospace" font-size="12" font-weight="bold">IR Vault: ¥800 → ¥720 (-¥80)   |   Roundhouse Bay: 0/4 → 1/4   |   Depot 2-Trains: 6 → 5</text>
+
+    <rect x="780" y="18" width="118" height="50" rx="7" fill="#332215" stroke="#8c6836" stroke-width="1.5"/>
+    <text x="839" y="48" text-anchor="middle" fill="#e6d3ad" font-family="Georgia, serif" font-size="14" font-weight="bold">Cancel</text>
+
+
+    <g transform="translate(912,18)">
+      <rect x="0" y="0" width="266" height="50" rx="7" fill="url(#hankoRed)" stroke="#ffd46b" stroke-width="2"/>
+      <rect x="4" y="4" width="258" height="42" rx="4" fill="none" stroke="#f7eed7" stroke-width="0.9" stroke-dasharray="3 2"/>
+      <!-- Circular Traditional Red Hanko Seal Emblem -->
+      <circle cx="26" cy="25.0" r="14" fill="#f7eed7" stroke="#8f1d14" stroke-width="1.5"/>
+      <circle cx="26" cy="25.0" r="11.5" fill="none" stroke="#b82921" stroke-width="1.2"/>
+      <text x="26" y="29.0" text-anchor="middle" fill="#b82921" font-family="Georgia, serif" font-size="12" font-weight="bold">承認</text>
+      <text x="146.0" y="30.0" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="13.5" font-weight="bold">Stamp &amp; Confirm (¥80)</text>
+    </g>
+
+  </g>
+</svg>

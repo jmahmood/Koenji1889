@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <rect x="20" y="18" width="120" height="84" rx="6" fill="#2b1d12" stroke="#e0b054" stroke-width="3"/>
+      <circle cx="80" cy="52" r="20" fill="#e0b054"/>
+      <text x="80" y="58" text-anchor="middle" fill="#24140a" font-family="Georgia, serif" font-size="16" font-weight="bold">先</text>
+      <text x="80" y="90" text-anchor="middle" fill="#f5d78e" font-family="monospace" font-size="10" font-weight="bold">PRIORITY DEAL</text>
+    </svg>

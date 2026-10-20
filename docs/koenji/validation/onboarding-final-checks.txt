@@ -1,0 +1,63 @@
+✔ appearance persists across client instances with independent face/outfit layers and legacy defaults (2.810584ms)
+✔ arrival cursor orders/deduplicates delivery; returned and reduced-motion presentations never animate (0.489958ms)
+✔ waiting-table start follows authoritative readiness and host labels stay independent of seat number (0.627459ms)
+✔ motion rules disable interpolation and reserve a separate arrival footer lane (1.471375ms)
+✔ discard decisions are usable by the affected president, never waiting players, spectators or history (12.788291ms)
+✔ ER can decline or confirm a tile while the interrupted corporation is at train purchase (5.410167ms)
+✔ emergency blocks and out-of-turn DR have explicit reviewed controls (0.242ms)
+✔ routes expose a non-mutating plan, custom segment builder, quotation and separate commitment (0.152208ms)
+✔ stock sales use a selectable block and actual market exemptions permit legal purchases (5.966375ms)
+✔ empty authoritative tile results never fall back to geometric candidates (0.481208ms)
+✔ negotiations use named assets, matching consent and actual price inputs; results rank by score (0.561292ms)
+✔ ordinary invitations store only one seat locally and strip credentials from the address (0.886292ms)
+✔ feedback uses a reserved status area, escapes messages, and prioritizes errors (1.258542ms)
+✔ only the actor in the loaded live state can submit, including replay at the live endpoint (0.452375ms)
+✔ financial workspace starts usefully and preserves intentionally closed windows across historical rounds (0.30825ms)
+✔ Escape closes only one context and preserves historical revision and room (0.137333ms)
+✔ shortcut descriptions preserve optional-step advancement and clearing preview is presentation-only (0.087666ms)
+✔ timestamps require an actual instant rather than a fictional or timezone-free clock (13.266042ms)
+✔ observer ticket names its perspective and hides purchase/sell controls when not active player (4.137791ms)
+✔ president purchase is one certificate and hides action controls while replaying or waiting for another player (0.806708ms)
+✔ auction history keeps selection separate from bidding permission (0.139541ms)
+✔ journal selection and inspecting a resulting position are separate controls (0.443833ms)
+✔ real operating fixture preserves shortcuts while historical map only inspects (253.25275ms)
+✔ waiting players and observers see observation, not president instructions, at every operating step (250.303167ms)
+✔ private-company permission does not grant normal operating authority (237.5425ms)
+✔ map financial-round callout opens its financial room without leaving the viewed revision (241.793167ms)
+✔ stock-screen operating-round callout opens the map for presidents, waiting players, and observers (237.969375ms)
+✔ cross-screen consistency: Journal renders unified player strip, Auction anchors viewer cash, and Map port button binds inspected hex (230.612042ms)
+✔ live stock workspace hands off to the map with the new operating context (1.074041ms)
+✔ social table and unrelated inspection rooms announce without being relocated (0.284083ms)
+✔ rewind, playback, and pending snapshot loads never start a live handoff (0.086958ms)
+✔ open dialogs and explicit Journal inspection suppress automatic navigation (0.084667ms)
+✔ auction completion, operating-set completion, and match end have destinations (0.229208ms)
+✔ operating rounds use set and round numbers, never the corporation turn index (0.107167ms)
+✔ initial connection, duplicate polls, and ordinary moves do not announce rounds (0.071458ms)
+✔ announcements escape names, offer explicit destinations, and are dismissible (0.112916ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 36
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1536.091125
+test_defaults_validation_and_nonplaying_host (test_character_arrivals.CharacterArrivalTests) ... ok
+test_legacy_database_upgrade_preserves_state_and_credentials (test_character_arrivals.CharacterArrivalTests) ... ok
+test_observer_appearance_is_separate_and_arrivals_leave_history_unchanged (test_character_arrivals.CharacterArrivalTests) ... ok
+test_reordering_preserves_identity_look_host_route_and_credentials (test_character_arrivals.CharacterArrivalTests) ... ok
+test_start_requires_claims_but_not_online_and_cannot_bypass_with_names (test_character_arrivals.CharacterArrivalTests) ... ok
+test_tabs_and_polls_deduplicate_arrivals_returns_are_quiet_and_persistent (test_character_arrivals.CharacterArrivalTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.122s
+
+OK
+test_presence_distinguishes_polling_from_seated_away_and_bad_timestamps (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_public_claim_is_single_use_and_never_leaks_other_seat_tokens (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_waiting_view_claim_stamp_seating_start_and_reload (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.045s
+
+OK

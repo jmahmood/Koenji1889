@@ -1,0 +1,20 @@
+{
+  "file": "marugame-district-illustration.png",
+  "mimeType": "image/png",
+  "width": 1774,
+  "height": 887,
+  "focalPoint": {
+    "x": 0.5,
+    "y": 0.45
+  },
+  "title": "Marugame — conceptual district portrait",
+  "alt": "Conceptual painted castle town and harbor, used only to identify the place.",
+  "kind": "generated-concept",
+  "creator": "Built-in imagegen",
+  "date": null,
+  "sourceUrl": null,
+  "collection": null,
+  "itemIdentifier": null,
+  "reuseTerms": "Generated concept artwork; see wide-v1/design-notes.md for the generation prompt.",
+  "credit": "Concept illustration"
+}

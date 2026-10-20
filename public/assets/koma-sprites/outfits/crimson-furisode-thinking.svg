@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="600" height="720">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#221a14"/>
+        <stop offset="100%" stop-color="#140f0c"/>
+      </linearGradient>
+      <radialGradient id="key-light" cx="0.25" cy="0.2" r="0.75">
+        <stop offset="0%" stop-color="#ffcf78" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+    <rect width="100%" height="100%" fill="url(#key-light)"/>
+    <g id="layer1-torso" >
+          <path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>
+          <path d="M20 235 L32 132 Q50 108 78 104 L122 104 Q150 108 168 132 L180 235 Z" fill="#7a2026" stroke="#4a1115" stroke-width="2.5"/>
+          <path d="M32 132 Q50 110 78 106 L68 195 L26 225 Z" fill="#962a31" opacity="0.5"/>
+          <ellipse cx="100" cy="95" rx="20" ry="7" fill="#16100c" stroke="#3b2818" stroke-width="1.5"/>
+          <path d="M74 98 L100 164 L126 98 L116 90 L84 90 Z" fill="#f7ebd2" stroke="#5c3d1e" stroke-width="2"/>
+          <path d="M78 100 L105 156 M122 100 L95 144" stroke="#e0b458" stroke-width="3"/>
+          <g fill="none" stroke="#e0b458" stroke-width="1.8">
+            <circle cx="58" cy="142" r="9"/><circle cx="58" cy="142" r="4"/>
+            <circle cx="142" cy="142" r="9"/><circle cx="142" cy="142" r="4"/>
+          </g>
+          <rect x="56" y="172" width="88" height="32" rx="2" fill="#241a16" stroke="#e0b458" stroke-width="2.2"/>
+          <path d="M62 180 L72 196 L82 180 L92 196 L102 180 L112 196 L122 180 L132 196" fill="none" stroke="#e0b458" stroke-width="1.5" opacity="0.75"/>
+          <line x1="56" y1="188" x2="144" y2="188" stroke="#d94e34" stroke-width="3.5"/>
+          <ellipse cx="100" cy="188" rx="7" ry="4.5" fill="#e0b458" stroke="#4a1115" stroke-width="1.5"/>
+        </g><g id="layer3-arms">
+          <path d="M44 176 L118 172 L118 194 L42 198 Z" fill="#7a2026" stroke="#4a1115" stroke-width="2.2"/>
+          <path d="M148 182 L114 118 L98 124 L122 190 Z" fill="#7a2026" stroke="#4a1115" stroke-width="2.2"/>
+          <line x1="114" y1="122" x2="99" y2="128" stroke="#e0b458" stroke-width="3.5"/>
+          <path d="M92 108 Q106 102 114 112 L112 126 L96 124 Z" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+        </g>
+</svg>

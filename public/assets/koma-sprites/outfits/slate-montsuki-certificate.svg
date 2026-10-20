@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="600" height="720">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#221a14"/>
+        <stop offset="100%" stop-color="#140f0c"/>
+      </linearGradient>
+      <radialGradient id="key-light" cx="0.25" cy="0.2" r="0.75">
+        <stop offset="0%" stop-color="#ffcf78" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+    <rect width="100%" height="100%" fill="url(#key-light)"/>
+    <g id="layer1-torso" >
+      <path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>
+      <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="#3d434d" stroke="#22262c" stroke-width="2.5"/>
+      <path d="M34 132 Q52 110 78 106 L68 195 L28 220 Z" fill="#4e5663" opacity="0.5"/>
+      <ellipse cx="100" cy="95" rx="20" ry="7" fill="#16100c" stroke="#3b2818" stroke-width="1.5"/>
+      <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="#f0ead8" stroke="#473623" stroke-width="2"/>
+      <path d="M80 100 L106 154 M120 100 L94 142" stroke="#cfc5b0" stroke-width="2.2"/>
+      <g fill="none" stroke="#f2ebd9" stroke-width="2">
+        <circle cx="62" cy="144" r="7.5"/><circle cx="62" cy="144" r="3" fill="#f2ebd9"/>
+        <circle cx="138" cy="144" r="7.5"/><circle cx="138" cy="144" r="3" fill="#f2ebd9"/>
+      </g>
+      <path d="M74 166 Q100 176 126 166" fill="none" stroke="#f2ebd9" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="100" cy="170" r="5.5" fill="#f2ebd9" stroke="#22262c" stroke-width="1.5"/>
+    </g><g id="layer3-arms">
+          <path d="M158 166 L142 106 L122 114 L134 176 Z" fill="#3d434d" stroke="#22262c" stroke-width="2.2"/>
+          <g transform="translate(116, 46) rotate(8)">
+            <rect x="0" y="0" width="66" height="46" rx="2" fill="#f5e6c4" stroke="#b88636" stroke-width="2.5"/>
+            <rect x="4" y="4" width="58" height="38" fill="none" stroke="#d4822a" stroke-width="1.2"/>
+            <text x="33" y="18" text-anchor="middle" fill="#2b190d" font-size="9" font-weight="bold">1889 · IR</text>
+            <text x="33" y="29" text-anchor="middle" fill="#8a3324" font-size="7" font-family="monospace">20% PRES</text>
+            <circle cx="52" cy="34" r="4.5" fill="#b82921"/>
+          </g>
+          <ellipse cx="136" cy="96" rx="11" ry="8" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+        </g>
+</svg>

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+
+  <defs>
+    <linearGradient id="bgWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22150e"/>
+      <stop offset="50%" stop-color="#160e09"/>
+      <stop offset="100%" stop-color="#0d0805"/>
+    </linearGradient>
+    <linearGradient id="mahoganyPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b2416"/>
+      <stop offset="100%" stop-color="#1e120b"/>
+    </linearGradient>
+    <linearGradient id="brassFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5d77f"/>
+      <stop offset="50%" stop-color="#b88728"/>
+      <stop offset="100%" stop-color="#785312"/>
+    </linearGradient>
+    <linearGradient id="parchment" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbf2dc"/>
+      <stop offset="100%" stop-color="#e5cfa4"/>
+    </linearGradient>
+    <linearGradient id="baizeGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f4e37"/>
+      <stop offset="100%" stop-color="#112e20"/>
+    </linearGradient>
+    <linearGradient id="crimsonVelvet" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5e1914"/>
+      <stop offset="100%" stop-color="#2e0b08"/>
+    </linearGradient>
+    <linearGradient id="steelSafe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#565e66"/>
+      <stop offset="50%" stop-color="#363c42"/>
+      <stop offset="100%" stop-color="#1f2326"/>
+    </linearGradient>
+    <linearGradient id="hankoRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d93829"/>
+      <stop offset="100%" stop-color="#8f1d14"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#3d6b78"/>
+      <stop offset="100%" stop-color="#1e3840"/>
+    </radialGradient>
+    <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe17d" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ff9914" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ff9914" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bgWood)"/>
+
+  <!-- Top Context Header -->
+  <rect x="10" y="10" width="1260" height="46" rx="6" fill="#3b1512" stroke="#e07a5f" stroke-width="1.5"/>
+  <text x="28" y="27" fill="#ffb4a2" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="1.4">KOENJI RAILWAY CLUB 1889 · EMERGENCY SHORTFALL &amp; STOCK LIQUIDATION POPUP (PROPOSAL C)</text>
+  <text x="28" y="45" fill="#ffffff" font-family="Georgia, serif" font-size="15.5" font-weight="bold">3. When Corporate Safe Is Short: Flashing Roundhouse Lantern, Tilted Brass Scale &amp; Stock Liquidation Mat</text>
+  <text x="1250" y="32" text-anchor="end" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="11">Automatically pops open when Mandatory Train Cost &gt; Corporate Safe</text>
+
+  <!-- Grand Boardroom Modal Frame -->
+  <rect x="24" y="64" width="1232" height="642" rx="12" fill="url(#mahoganyPanel)" stroke="#e07a5f" stroke-width="3"/>
+
+  <!-- Ornate Emergency Title Plaque -->
+  <rect x="330" y="54" width="620" height="36" rx="8" fill="#4a1410" stroke="url(#brassFrame)" stroke-width="2.5"/>
+  <text x="640" y="78" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="17" font-weight="bold" letter-spacing="0.8">⚠ MANDATORY TRAIN SHORTFALL · PRESIDENTIAL BAILOUT</text>
+
+  <!-- ===================================================================== -->
+  <!-- COLUMN 1 (LEFT): EMPTY ROUNDHOUSE & MANDATORY 4-TRAIN (¥300)          -->
+  <!-- ===================================================================== -->
+  <g transform="translate(42, 102)">
+    <rect x="0" y="0" width="360" height="492" rx="8" fill="#18100a" stroke="url(#brassFrame)" stroke-width="2"/>
+    <rect x="0" y="0" width="360" height="32" rx="8" fill="#4a1812" stroke="#e07a5f" stroke-width="1.5"/>
+    <text x="180" y="21" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">I. EMPTY ROUNDHOUSE (0/3 TRAINS)</text>
+
+    <!-- Empty Roundhouse Bay with Flashing Amber Lantern -->
+
+    <g transform="translate(12,40)">
+      <!-- Brick Roundhouse Facade -->
+      <rect x="0" y="0" width="336" height="108" rx="8" fill="#4f2419" stroke="url(#brassFrame)" stroke-width="2"/>
+      <!-- Pitched Slate Roof -->
+      <polygon points="0,20 168.0,2 336,20" fill="#28262b" stroke="#8c6836" stroke-width="1.2"/>
+      <rect x="82.0" y="4" width="172" height="18" rx="4" fill="#231710" stroke="#d8a24a" stroke-width="1.2"/>
+      <text x="168.0" y="16" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold">ROUNDHOUSE FLEET (0/4 LIMIT)</text>
+
+        <g transform="translate(14.0, 26)">
+          <path d="M 0,74 L 0,18 Q 37.5,-4 75.0,18 L 75.0,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="21.000000000000004" y1="74" x2="28.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="54.0" y1="74" x2="46.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="37.5" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="37.5" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 1</text>
+
+        </g>
+
+        <g transform="translate(93.0, 26)">
+          <path d="M 0,74 L 0,18 Q 37.5,-4 75.0,18 L 75.0,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="21.000000000000004" y1="74" x2="28.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="54.0" y1="74" x2="46.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="37.5" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="37.5" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 2</text>
+
+        </g>
+
+        <g transform="translate(172.0, 26)">
+          <path d="M 0,74 L 0,18 Q 37.5,-4 75.0,18 L 75.0,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="21.000000000000004" y1="74" x2="28.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="54.0" y1="74" x2="46.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="37.5" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="37.5" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 3</text>
+
+        </g>
+
+        <g transform="translate(251.0, 26)">
+          <path d="M 0,74 L 0,18 Q 37.5,-4 75.0,18 L 75.0,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="21.000000000000004" y1="74" x2="28.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="54.0" y1="74" x2="46.5" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="37.5" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="37.5" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 4</text>
+
+        </g>
+
+
+      <!-- Flashing Amber Warning Lantern -->
+      <circle cx="312" cy="18" r="18" fill="url(#lanternGlow)"/>
+      <rect x="306" y="10" width="12" height="16" rx="3" fill="#ffae33" stroke="#231710" stroke-width="1.2"/>
+
+    </g>
+
+
+    <rect x="12" y="156" width="336" height="46" rx="6" fill="url(#crimsonVelvet)" stroke="#e07a5f" stroke-width="1.5"/>
+    <text x="180" y="176" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="12" font-weight="bold">2-TRAINS RUSTED! FLEET IS EMPTY (0/3)</text>
+    <text x="180" y="193" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10.5">IR must purchase a train this turn. Cheapest depot train is ¥300.</text>
+
+    <!-- Mandatory 4-Train Certificate Card -->
+    <g transform="translate(12, 212)">
+      <rect x="0" y="0" width="336" height="266" rx="8" fill="url(#parchment)" stroke="#e07a5f" stroke-width="3"/>
+      <rect x="12" y="12" width="312" height="30" rx="4" fill="#4a1410"/>
+      <text x="22" y="32" fill="#ffd46b" font-family="Georgia, serif" font-size="15" font-weight="bold">MANDATORY: 4-TRAIN</text>
+      <text x="314" y="32" text-anchor="end" fill="#ffffff" font-family="Georgia, serif" font-size="16" font-weight="bold">¥300</text>
+
+      <!-- Large Heavy 4-Train Illustration -->
+      <rect x="14" y="50" width="308" height="106" rx="5" fill="#e5cfa4" stroke="#8c6836" stroke-width="1.5"/>
+      <path d="M14 134 L322 134 L322 156 L14 156 Z" fill="#6e563d"/>
+
+    <g transform="translate(82,66) scale(1.8)">
+      <path d="M58 6 C46 -6, 26 -6, 8 2 C22 -12, 48 -12, 62 2 Z" fill="#f7f0df" opacity="0.8"/>
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#231c18" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#231c18" stroke="#e07a5f" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#231c18" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#e07a5f" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#e07a5f" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#231c18" stroke="#e07a5f" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#e07a5f" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#e07a5f" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#e07a5f" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+
+      <text x="20" y="180" fill="#231710" font-family="Georgia, serif" font-size="13" font-weight="bold">Cheapest Available Depot Locomotive</text>
+      <text x="20" y="200" fill="#4a3822" font-family="Helvetica, sans-serif" font-size="11">• Corporate Safe contributes all ¥180 first</text>
+      <text x="20" y="218" fill="#8f1d14" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">• President Haruka must cover ¥120 Shortfall</text>
+
+      <rect x="14" y="230" width="308" height="26" rx="4" fill="#2c1d11"/>
+      <text x="168" y="247" text-anchor="middle" fill="#ffd46b" font-family="monospace" font-size="11" font-weight="bold">¥180 Safe + ¥95 Purse + ¥25 Stock Sale = ¥300</text>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- COLUMN 2 (CENTER): EMERGENCY COUNTING HOUSE & STOCK LIQUIDATION MAT   -->
+  <!-- ===================================================================== -->
+  <g transform="translate(418, 102)">
+    <rect x="0" y="0" width="464" height="492" rx="8" fill="#18100a" stroke="url(#brassFrame)" stroke-width="2"/>
+    <rect x="0" y="0" width="464" height="32" rx="8" fill="#4a1812" stroke="#e07a5f" stroke-width="1.5"/>
+    <text x="232" y="21" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">II. EMERGENCY COUNTING HOUSE (RAISE ¥25)</text>
+
+    <!-- Drained Safe + Red Shortfall Gauge + Drained Purse -->
+    <rect x="12" y="40" width="440" height="146" rx="8" fill="#24140e" stroke="#e07a5f" stroke-width="1.5"/>
+    <text x="232" y="58" text-anchor="middle" fill="#ffb4a2" font-family="Georgia, serif" font-size="11" font-weight="bold">SAFE (¥180) + HARUKA PURSE (¥95) = ¥275  →  SHORT BY ¥25!</text>
+
+    <g transform="translate(28,66)">
+      <!-- Safe Body -->
+      <rect x="14" y="4" width="84" height="72" rx="5" fill="url(#steelSafe)" stroke="#8c969e" stroke-width="2"/>
+      <rect x="20" y="10" width="72" height="60" rx="2" fill="#16191c" stroke="#d8a24a" stroke-width="1.2"/>
+      <!-- Open Safe Door on Left -->
+      <polygon points="0,8 14,4 14,76 0,72" fill="#3a4046" stroke="#8c969e" stroke-width="1.5"/>
+      <circle cx="7" cy="40" r="4" fill="#d8a24a"/>
+      <!-- Stacked Yen Banknote Bundles inside Safe -->
+
+      <text x="56" y="42" text-anchor="middle" fill="#e07a5f" font-family="Georgia, serif" font-size="10" font-weight="bold">DRAINED</text>
+
+      <!-- Brass Plaque under Safe -->
+      <rect x="10" y="70" width="92" height="22" rx="4" fill="#231710" stroke="url(#brassFrame)" stroke-width="1.5"/>
+      <text x="56" y="85" text-anchor="middle" fill="#ffb4a2" font-family="Georgia, serif" font-size="13" font-weight="bold">¥180 → ¥0</text>
+      <text x="56" y="103" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">IR Safe Emptied</text>
+    </g>
+
+
+    <g transform="translate(182,72)">
+      <!-- Brass Bezel -->
+      <path d="M 8,54 A 42,42 0 0,1 92,54 Z" fill="#1b130d" stroke="url(#brassFrame)" stroke-width="3"/>
+      <!-- Green Safe Zone vs Red Shortfall Zone -->
+      <path d="M 14,50 A 36,36 0 0,1 50,14 L 50,50 Z" fill="#2ca568" opacity="0.45"/>
+      <path d="M 50,14 A 36,36 0 0,1 86,50 L 50,50 Z" fill="#c83e32" opacity="0.45"/>
+      <!-- Gauge Needle -->
+      <g transform="translate(50,50) rotate(42)">
+        <line x1="0" y1="0" x2="0" y2="-32" stroke="#ffd46b" stroke-width="2.5"/>
+        <polygon points="-3,-26 0,-35 3,-26" fill="#ffd46b"/>
+      </g>
+      <circle cx="50" cy="50" r="5" fill="#d8a24a" stroke="#231710" stroke-width="1.2"/>
+      <!-- Brass Readout Plate -->
+      <rect x="0" y="54" width="100" height="34" rx="5" fill="#5c1a16" stroke="#e07a5f" stroke-width="1.5"/>
+      <text x="50" y="68" text-anchor="middle" fill="#ffb4a2" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">SHORTFALL: -¥25</text>
+      <text x="50" y="82" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="11.5" font-weight="bold">Shortfall: ¥25</text>
+    </g>
+
+
+    <g transform="translate(328,66)">
+      <!-- Framed Meiji Portrait -->
+      <rect x="6" y="4" width="56" height="66" rx="5" fill="#f2dfc1" stroke="url(#brassFrame)" stroke-width="2"/>
+      <!-- Stylized Meiji Character Bust -->
+      <path d="M 14,68 C 14,48 54,48 54,68 Z" fill="#6b3fa0" stroke="#231710" stroke-width="1.2"/>
+      <path d="M 26,48 L 34,60 L 42,48" fill="none" stroke="#f7eed7" stroke-width="2"/>
+      <circle cx="34" cy="26" r="14" fill="#241c18"/>
+      <circle cx="34" cy="31" r="10.5" fill="#f4d4b8" stroke="#3a2818" stroke-width="1"/>
+      <path d="M 23,27 Q 34,18 45,27" fill="#241c18"/>
+      <circle cx="30" cy="31" r="1.3" fill="#241c18"/>
+      <circle cx="38" cy="31" r="1.3" fill="#241c18"/>
+      <path d="M 31,36 Q 34,38 37,36" fill="none" stroke="#8f3b2c" stroke-width="1.2"/>
+      <!-- Leather Coin Purse with Brass Clasp -->
+      <path d="M 52,44 C 46,44 44,66 52,70 L 82,70 C 90,66 88,44 82,44 Z" fill="#7a4424" stroke="#2b170b" stroke-width="1.5"/>
+      <rect x="58" y="40" width="18" height="5" rx="2" fill="#d8a24a" stroke="#2b170b" stroke-width="1"/>
+      <circle cx="64" cy="38" r="2" fill="#ffd46b"/>
+      <circle cx="70" cy="38" r="2" fill="#ffd46b"/>
+      <!-- Cash Plaque -->
+      <rect x="4" y="70" width="88" height="22" rx="4" fill="#231710" stroke="url(#brassFrame)" stroke-width="1.5"/>
+      <text x="48" y="85" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">¥95 → ¥0</text>
+      <text x="48" y="103" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">Purse Committed</text>
+    </g>
+
+
+    <!-- Green Baize Banker's Mat: Active Stock Certificates to Slide & Sell -->
+    <g transform="translate(12, 196)">
+      <rect x="0" y="0" width="440" height="284" rx="8" fill="url(#baizeGreen)" stroke="url(#brassFrame)" stroke-width="2.5"/>
+      <text x="220" y="24" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">CLICK A STOCK CERTIFICATE TO SELL &amp; COVER ¥25 SHORTFALL</text>
+      <text x="220" y="42" text-anchor="middle" fill="#d8f3dc" font-family="Helvetica, sans-serif" font-size="11">Selling 10% raises personal cash immediately and drops that stock 1 row on the Exchange</text>
+
+      <!-- Certificate 1: Sanuki Railway 10% (+¥70) — SELECTED -->
+      <g transform="translate(16, 54)">
+        <rect x="0" y="0" width="196" height="214" rx="7" fill="url(#parchment)" stroke="#ffd46b" stroke-width="3.5"/>
+        <rect x="8" y="8" width="180" height="26" rx="4" fill="#2d6a4f"/>
+        <text x="98" y="25" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="12" font-weight="bold">SR · SANUKI RAILWAY</text>
+        <text x="98" y="52" text-anchor="middle" fill="#4a3822" font-family="Georgia, serif" font-size="11" font-weight="bold">10% SHARE CERTIFICATE</text>
+        <text x="98" y="82" text-anchor="middle" fill="#1b4332" font-family="Georgia, serif" font-size="24" font-weight="bold">+¥70 Cash</text>
+
+        <!-- Mini 2D Stock Market Cell Drop Visual -->
+        <rect x="14" y="96" width="168" height="44" rx="4" fill="#231710" stroke="#8c6836"/>
+        <text x="98" y="113" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Stock Market Impact:</text>
+        <text x="98" y="131" text-anchor="middle" fill="#e07a5f" font-family="monospace" font-size="11.5" font-weight="bold">¥70 ──( ↓ 1 Row )──► ¥65</text>
+
+        <text x="98" y="160" text-anchor="middle" fill="#231710" font-family="Helvetica, sans-serif" font-size="10.5" font-weight="bold">Haruka Cash: ¥95 → ¥165</text>
+        <rect x="12" y="172" width="172" height="30" rx="5" fill="#b82921"/>
+        <text x="98" y="191" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="11.5" font-weight="bold">✓ STAGED SALE (+¥70)</text>
+      </g>
+
+      <!-- Certificate 2: Iyo Railway 10% (+¥80) -->
+      <g transform="translate(228, 54)">
+        <rect x="0" y="0" width="196" height="214" rx="7" fill="url(#parchment)" stroke="#8c6836" stroke-width="1.5"/>
+        <rect x="8" y="8" width="180" height="26" rx="4" fill="#b84a27"/>
+        <text x="98" y="25" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="12" font-weight="bold">IR · IYO RAILWAY</text>
+        <text x="98" y="52" text-anchor="middle" fill="#4a3822" font-family="Georgia, serif" font-size="11" font-weight="bold">10% SHARE (KEEPS PRES.)</text>
+        <text x="98" y="82" text-anchor="middle" fill="#1b4332" font-family="Georgia, serif" font-size="24" font-weight="bold">+¥80 Cash</text>
+
+        <rect x="14" y="96" width="168" height="44" rx="4" fill="#231710" stroke="#8c6836"/>
+        <text x="98" y="113" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Stock Market Impact:</text>
+        <text x="98" y="131" text-anchor="middle" fill="#e07a5f" font-family="monospace" font-size="11.5" font-weight="bold">¥80 ──( ↓ 1 Row )──► ¥75</text>
+
+        <text x="98" y="160" text-anchor="middle" fill="#231710" font-family="Helvetica, sans-serif" font-size="10.5">Haruka Holdings: 50% → 40%</text>
+        <rect x="12" y="172" width="172" height="30" rx="5" fill="#3a2818" stroke="#8c6836"/>
+        <text x="98" y="191" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="11.5" font-weight="bold">Sell 10% IR (+¥80)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- COLUMN 3 (RIGHT): ALTERNATIVE — BUY USED TRAIN FROM ANOTHER CORP      -->
+  <!-- ===================================================================== -->
+  <g transform="translate(898, 102)">
+    <rect x="0" y="0" width="340" height="492" rx="8" fill="#18100a" stroke="url(#brassFrame)" stroke-width="2"/>
+    <rect x="0" y="0" width="340" height="32" rx="8" fill="#3a2415" stroke="url(#brassFrame)" stroke-width="1.5"/>
+    <text x="170" y="21" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">III. OR BUY USED TRAIN (DEAL TABLE)</text>
+
+    <!-- Deal Table Scene: Kenji (AR) offering a cheaper train to Haruka (IR) -->
+    <g transform="translate(12, 40)">
+      <rect x="0" y="0" width="316" height="122" rx="8" fill="#28180e" stroke="#8c6836" stroke-width="1.5"/>
+      <text x="158" y="20" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="11" font-weight="bold">AVOID SHORTFALL VIA INTER-COMPANY DEAL</text>
+
+      <!-- Kenji Portrait -->
+      <rect x="14" y="28" width="50" height="58" rx="5" fill="#f2dfc1" stroke="#d8a24a"/>
+      <path d="M 20,84 C 20,66 58,66 58,84 Z" fill="#2d6a4f"/>
+      <circle cx="39" cy="50" r="10" fill="#f4d4b8" stroke="#3a2818"/>
+      <text x="39" y="102" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="10" font-weight="bold">Kenji (AR)</text>
+
+      <!-- Used 3-Train Scroll in Center -->
+      <rect x="78" y="34" width="160" height="68" rx="6" fill="url(#parchment)" stroke="#52b788" stroke-width="2"/>
+      <text x="158" y="52" text-anchor="middle" fill="#1b4332" font-family="Georgia, serif" font-size="12" font-weight="bold">Used 3-Train for ¥100</text>
+      <text x="158" y="68" text-anchor="middle" fill="#231710" font-family="Helvetica, sans-serif" font-size="10">AR → IR (Fits ¥180 Safe!)</text>
+      <text x="158" y="84" text-anchor="middle" fill="#b82921" font-family="Georgia, serif" font-size="10" font-weight="bold">● Kenji Stamped Offer [印]</text>
+
+      <!-- Haruka Portrait -->
+      <rect x="252" y="28" width="50" height="58" rx="5" fill="#f2dfc1" stroke="#ffd46b"/>
+      <path d="M 258,84 C 258,66 296,66 296,84 Z" fill="#6b3fa0"/>
+      <circle cx="277" cy="50" r="10" fill="#f4d4b8" stroke="#3a2818"/>
+      <text x="277" y="102" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold">Haruka (IR)</text>
+    </g>
+
+    <!-- Recorded Used-Train Offer Card -->
+    <g transform="translate(12, 174)">
+      <rect x="0" y="0" width="316" height="172" rx="8" fill="#231911" stroke="#52b788" stroke-width="2"/>
+      <text x="16" y="24" fill="#86efac" font-family="Georgia, serif" font-size="12.5" font-weight="bold">● RECORDED TRAIN OFFER AVAILABLE</text>
+      <text x="16" y="46" fill="#ffffff" font-family="Georgia, serif" font-size="15" font-weight="bold">AR sells 3-Train (#3-1) to IR for ¥100</text>
+      <text x="16" y="68" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">• Paid 100% from IR Safe (¥180 → ¥80)</text>
+      <text x="16" y="86" fill="#86efac" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">• Zero Presidential Cash or Stock Sales needed!</text>
+
+      <!-- Two Seals -->
+      <rect x="16" y="102" width="284" height="54" rx="6" fill="url(#parchment)" stroke="#8c6836"/>
+      <circle cx="44" cy="129" r="16" fill="none" stroke="#b82921" stroke-width="2"/>
+      <text x="44" y="134" text-anchor="middle" fill="#b82921" font-family="Georgia, serif" font-size="11" font-weight="bold">健二</text>
+      <text x="176" y="125" text-anchor="middle" fill="#231710" font-family="Georgia, serif" font-size="12" font-weight="bold">Click to Stamp &amp; Buy</text>
+      <text x="176" y="142" text-anchor="middle" fill="#5c3a18" font-family="Helvetica, sans-serif" font-size="10">Saves Haruka ¥120 out-of-pocket</text>
+    </g>
+
+    <!-- Last Resort Bankruptcy Seal -->
+    <g transform="translate(12, 360)">
+      <rect x="0" y="0" width="316" height="118" rx="8" fill="#1e130e" stroke="#5c4228" stroke-width="1.2"/>
+      <text x="16" y="24" fill="#a39070" font-family="Georgia, serif" font-size="12" font-weight="bold">BANKRUPTCY PROTECTION GATE</text>
+      <text x="16" y="46" fill="#8c7656" font-family="Helvetica, sans-serif" font-size="10.5">Presidential Bankruptcy is locked while Haruka</text>
+      <text x="16" y="62" fill="#8c7656" font-family="Helvetica, sans-serif" font-size="10.5">holds salable shares covering the ¥25 gap.</text>
+      <rect x="16" y="76" width="284" height="28" rx="4" fill="#140d09" stroke="#4d3922"/>
+      <text x="158" y="94" text-anchor="middle" fill="#6b543a" font-family="Helvetica, sans-serif" font-size="10.5" font-weight="bold">🔒 Declare Bankruptcy (Locked — Solvent)</text>
+    </g>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- BOTTOM PARCHMENT DISPATCH & HANKO CONFIRMATION BAR                    -->
+  <!-- ===================================================================== -->
+  <g transform="translate(42, 604)">
+    <rect x="0" y="0" width="1196" height="86" rx="10" fill="url(#parchment)" stroke="url(#brassFrame)" stroke-width="2.5"/>
+    <rect x="16" y="12" width="108" height="62" rx="6" fill="#2d6a4f" stroke="#ffd46b" stroke-width="1.5"/>
+    <text x="70" y="38" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="13" font-weight="bold">SELL 10% SR</text>
+    <text x="70" y="58" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="15" font-weight="bold">+¥70 CASH</text>
+
+    <text x="140" y="30" fill="#8f1d14" font-family="Georgia, serif" font-size="11.5" font-weight="bold" letter-spacing="1">STAGED EMERGENCY LIQUIDATION · STEP 1 OF 2</text>
+    <text x="140" y="54" fill="#231710" font-family="Georgia, serif" font-size="19" font-weight="bold">Haruka sells 10% Sanuki Railway (SR) for ¥70 emergency funds</text>
+    <text x="140" y="73" fill="#4a3822" font-family="monospace" font-size="12" font-weight="bold">Haruka Purse: ¥95 → ¥165 (Covers ¥120 Shortfall!)  |  SR Price: ¥70 → ¥65  |  Unlocks ¥300 4-Train</text>
+
+    <rect x="780" y="18" width="118" height="50" rx="7" fill="#332215" stroke="#8c6836" stroke-width="1.5"/>
+    <text x="839" y="48" text-anchor="middle" fill="#e6d3ad" font-family="Georgia, serif" font-size="14" font-weight="bold">Cancel</text>
+
+
+    <g transform="translate(912,18)">
+      <rect x="0" y="0" width="266" height="50" rx="7" fill="url(#hankoRed)" stroke="#ffd46b" stroke-width="2"/>
+      <rect x="4" y="4" width="258" height="42" rx="4" fill="none" stroke="#f7eed7" stroke-width="0.9" stroke-dasharray="3 2"/>
+      <!-- Circular Traditional Red Hanko Seal Emblem -->
+      <circle cx="26" cy="25.0" r="14" fill="#f7eed7" stroke="#8f1d14" stroke-width="1.5"/>
+      <circle cx="26" cy="25.0" r="11.5" fill="none" stroke="#b82921" stroke-width="1.2"/>
+      <text x="26" y="29.0" text-anchor="middle" fill="#b82921" font-family="Georgia, serif" font-size="12" font-weight="bold">承認</text>
+      <text x="146.0" y="30.0" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="13.5" font-weight="bold">Stamp Share Sale (+¥70)</text>
+    </g>
+
+  </g>
+</svg>

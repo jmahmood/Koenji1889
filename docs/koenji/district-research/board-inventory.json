@@ -1,0 +1,210 @@
+{
+  "D3": {
+    "code": "",
+    "color": "white"
+  },
+  "H3": {
+    "code": "",
+    "color": "white"
+  },
+  "J3": {
+    "code": "",
+    "color": "white"
+  },
+  "B5": {
+    "code": "",
+    "color": "white"
+  },
+  "C8": {
+    "code": "",
+    "color": "white"
+  },
+  "E8": {
+    "code": "",
+    "color": "white"
+  },
+  "I8": {
+    "code": "",
+    "color": "white"
+  },
+  "D9": {
+    "code": "",
+    "color": "white"
+  },
+  "I10": {
+    "code": "",
+    "color": "white"
+  },
+  "F3": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "G4": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "H7": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "A10": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "J11": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "G12": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "E2": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "I2": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "K8": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "C10": {
+    "code": "city=revenue:0",
+    "color": "white"
+  },
+  "J5": {
+    "code": "town=revenue:0",
+    "color": "white"
+  },
+  "B11": {
+    "code": "town=revenue:0;icon=image:port",
+    "color": "white"
+  },
+  "G10": {
+    "code": "town=revenue:0;icon=image:port",
+    "color": "white"
+  },
+  "I12": {
+    "code": "town=revenue:0;icon=image:port",
+    "color": "white"
+  },
+  "J9": {
+    "code": "town=revenue:0;icon=image:port",
+    "color": "white"
+  },
+  "K6": {
+    "code": "upgrade=cost:80,terrain:water",
+    "color": "white"
+  },
+  "H5": {
+    "code": "upgrade=cost:80,terrain:water|mountain",
+    "color": "white"
+  },
+  "I6": {
+    "code": "upgrade=cost:80,terrain:water|mountain",
+    "color": "white"
+  },
+  "E4": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "D5": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "F5": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "C6": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "E6": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "G6": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "D7": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "F7": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "A8": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "G8": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "B9": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "H9": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "H11": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "H13": {
+    "code": "upgrade=cost:80,terrain:mountain",
+    "color": "white"
+  },
+  "I4": {
+    "code": "city=revenue:0;label=H;upgrade=cost:80",
+    "color": "white"
+  },
+  "C4": {
+    "code": "city=revenue:20;path=a:2,b:_0",
+    "color": "yellow"
+  },
+  "K4": {
+    "code": "city=revenue:30;path=a:0,b:_0;path=a:1,b:_0;path=a:2,b:_0;label=T",
+    "color": "yellow"
+  },
+  "B7": {
+    "code": "city=revenue:40,slots:2;path=a:1,b:_0;path=a:3,b:_0;path=a:5,b:_0",
+    "color": "gray"
+  },
+  "B3": {
+    "code": "town=revenue:20;path=a:0,b:_0;path=a:_0,b:5",
+    "color": "gray"
+  },
+  "G14": {
+    "code": "town=revenue:20;path=a:3,b:_0;path=a:_0,b:4",
+    "color": "gray"
+  },
+  "J7": {
+    "code": "path=a:1,b:5",
+    "color": "gray"
+  },
+  "F1": {
+    "code": "offboard=revenue:yellow_30|brown_60|diesel_100;path=a:0,b:_0;path=a:1,b:_0",
+    "color": "red"
+  },
+  "J1": {
+    "code": "offboard=revenue:yellow_20|brown_40|diesel_80;path=a:0,b:_0;path=a:1,b:_0",
+    "color": "red"
+  },
+  "L7": {
+    "code": "offboard=revenue:yellow_20|brown_40|diesel_80;path=a:1,b:_0;path=a:2,b:_0",
+    "color": "red"
+  },
+  "F9": {
+    "code": "city=revenue:30,slots:2;path=a:2,b:_0;path=a:3,b:_0;path=a:4,b:_0;path=a:5,b:_0;label=K;upgrade=cost:80",
+    "color": "green"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "title": "File:Naruto Whirlpools taken 4-21-2008.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Naruto_Whirlpools_taken_4-21-2008.jpg/1280px-Naruto_Whirlpools_taken_4-21-2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 667,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Naruto_Whirlpools_taken_4-21-2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Naruto_Whirlpools_taken_4-21-2008.jpg/1280px-Naruto_Whirlpools_taken_4-21-2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 667,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Naruto_Whirlpools_taken_4-21-2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Naruto_Whirlpools_taken_4-21-2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Naruto_Whirlpools_taken_4-21-2008.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=3917656",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2008-04-21 08:12:17",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Naruto Whirlpools taken 4-21-2008",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Ocean currents|Taken with Canon EOS 350D|Tides|Naruto whirlpools|Self-published work|Featured pictures on Wikipedia, Japanese|Spring in Hyogo prefecture|Spring in Tokushima prefecture|Files with coordinates missing SDC location of creation|Japan photographs taken on 2008-04-21|Illustrations used in Salute, Jonathan!",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "quality",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "GPSLatitude": {
+      "value": "34.238333",
+      "source": "commons-desc-page"
+    },
+    "GPSLongitude": {
+      "value": "134.651389",
+      "source": "commons-desc-page"
+    },
+    "GPSMapDatum": {
+      "value": "WGS-84",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "This is the Naruto Whirlpools taken on 4-21-2008 from a boat which cruises directly to the whirlpools.",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2008-04-21",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Hellbuny~commonswiki&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Hellbuny~commonswiki (page does not exist)\">Hellbuny</a>",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "CC BY-SA 3.0",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Creative Commons Attribution-Share Alike 3.0",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "true",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "LicenseUrl": {
+      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "commons-desc-page"
+    },
+    "Copyrighted": {
+      "value": "True",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "cc-by-sa-3.0",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/L7-reference.jpg"
+}

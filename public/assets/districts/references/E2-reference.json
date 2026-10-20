@@ -1,0 +1,92 @@
+{
+  "title": "File:Dogo Onsen 1894.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Dogo_Onsen_1894.jpg/1280px-Dogo_Onsen_1894.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 666,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Dogo_Onsen_1894.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Dogo_Onsen_1894.jpg/1280px-Dogo_Onsen_1894.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 666,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Dogo_Onsen_1894.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Dogo_Onsen_1894.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Dogo_Onsen_1894.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=15914450",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2011-07-27 09:25:59",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Dogo Onsen 1894",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "1894 in Japan|Dōgo Onsen main building|History of Matsuyama, Ehime|PD-1996 (with a reason)|PD-Japan-oldphoto|Template Unknown (author)|Black and white photographs of Japan in the 1890s",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Dogo Onsen 1894",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2011-07-22",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "ふるさと松山<span typeof=\"mw:DisplaySpace\"> </span>: 松山市制施行120周年記念写真集<span typeof=\"mw:DisplaySpace\"> </span>: 保存版. -- 郷土出版社, 2010.",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "Unknown author<link rel=\"mw:PageProp/Category\" href=\"./Category:Template_Unknown_(author)\"><span style=\"display: none;\">Unknown author</span>",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/E2-reference.jpg"
+}

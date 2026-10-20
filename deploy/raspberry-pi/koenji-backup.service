@@ -1,0 +1,6 @@
+[Unit]
+Description=Back up Koenji games
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/jawaad/koenji/backup.py
+UMask=0077

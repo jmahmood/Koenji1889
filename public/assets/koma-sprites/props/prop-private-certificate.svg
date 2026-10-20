@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <rect x="14" y="16" width="132" height="88" rx="4" fill="#f2e2c4" stroke="#6e4b26" stroke-width="3"/>
+      <rect x="20" y="22" width="120" height="76" fill="none" stroke="#8c6234" stroke-width="1.5"/>
+      <rect x="20" y="22" width="120" height="18" fill="#5e391c"/>
+      <text x="80" y="35" text-anchor="middle" fill="#f7e6c4" font-family="Georgia, serif" font-size="10" font-weight="bold">PRIVATE CONCESSION · 私有鉄道</text>
+      <text x="80" y="64" text-anchor="middle" fill="#2b190d" font-family="monospace" font-size="11" font-weight="bold">[TR / MR / ER / MF / UTF]</text>
+      <text x="80" y="82" text-anchor="middle" fill="#6e4b26" font-family="monospace" font-size="9">REVENUE &amp; SPECIAL ABILITY</text>
+    </svg>

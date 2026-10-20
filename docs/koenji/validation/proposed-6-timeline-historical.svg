@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bgWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#231710"/>
+      <stop offset="100%" stop-color="#140d09"/>
+    </linearGradient>
+    <linearGradient id="parchment" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7eed7"/>
+      <stop offset="100%" stop-color="#e8d7b4"/>
+    </linearGradient>
+    <linearGradient id="darkCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e2016"/>
+      <stop offset="100%" stop-color="#21160f"/>
+    </linearGradient>
+    <linearGradient id="goldBtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e6bd60"/>
+      <stop offset="100%" stop-color="#b88928"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#477682"/>
+      <stop offset="100%" stop-color="#294852"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bgWood)"/>
+  <rect x="10" y="10" width="1260" height="700" rx="8" fill="none" stroke="#8c6836" stroke-width="2"/>
+  <rect x="10" y="10" width="1260" height="52" rx="6" fill="#2c1d13" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="28" y="28" fill="#d8b467" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="1.4">KOENJI RAILWAY CLUB 1889 · PROPOSED UI STATE MOCKUP</text>
+  <text x="28" y="49" fill="#f7eed7" font-family="Georgia, serif" font-size="16" font-weight="bold">6. TimelineBar.js — Historical Snapshot Frame, Locked Ticket &amp; Scrubber Pin</text>
+  <text x="1250" y="29" text-anchor="end" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Replaces replay onboarding prose with archival frame, padlocked actions &amp; live badge</text>
+  
+  <rect x="24" y="74" width="1232" height="504" rx="10" fill="none" stroke="#d49b27" stroke-width="4" stroke-dasharray="12 6"/>
+  <rect x="340" y="66" width="600" height="34" rx="17" fill="#5c3d14" stroke="#ffd46b" stroke-width="2"/>
+  <text x="640" y="88" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="14" font-weight="bold">HISTORICAL SNAPSHOT · REVISION 14 OF 22 (READ-ONLY VIEW)</text>
+
+  <rect x="44" y="114" width="730" height="446" rx="8" fill="url(#darkCard)" stroke="#9e7840" stroke-width="1.5"/>
+  <text x="66" y="144" fill="#f3d285" font-family="Georgia, serif" font-size="16" font-weight="bold">Action Journal · 棋譜 (Inspecting Rev 14)</text>
+
+  <rect x="66" y="156" width="200" height="26" rx="13" fill="#332215" stroke="#8c6836" stroke-width="1"/>
+  <text x="166" y="173" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">● Click Row: Compare Snapshot</text>
+  <rect x="276" y="156" width="230" height="26" rx="13" fill="#332215" stroke="#8c6836" stroke-width="1"/>
+  <text x="391" y="173" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Open Board at Selected Revision</text>
+  <rect x="516" y="156" width="236" height="26" rx="13" fill="#1e3d28" stroke="#4ca66b" stroke-width="1"/>
+  <text x="634" y="173" text-anchor="middle" fill="#7be89e" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">● Live Match Continues at Rev 22</text>
+
+  
+      <g>
+        <rect x="66" y="196" width="686" height="72" rx="6" fill="#21160f" stroke="#5c4228" stroke-width="1.2"/>
+        <rect x="80" y="212" width="72" height="24" rx="4" fill="#c85a32"/>
+        <text x="116" y="228" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold">REV 16</text>
+        <text x="116" y="252" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">OR 1.1</text>
+        <text x="168" y="228" fill="#f7eed7" font-family="Georgia, serif" font-size="14" font-weight="bold">IR lays Tile #57 on E2 Matsuyama (0°)</text>
+        <text x="168" y="250" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Daisuke · 20:51 </text>
+        <rect x="572" y="214" width="164" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+        <text x="654" y="236" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Inspect Board · Rev 16 →</text>
+      </g>
+    
+      <g>
+        <rect x="66" y="280" width="686" height="72" rx="6" fill="#21160f" stroke="#5c4228" stroke-width="1.2"/>
+        <rect x="80" y="296" width="72" height="24" rx="4" fill="#396684"/>
+        <text x="116" y="312" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold">REV 15</text>
+        <text x="116" y="336" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">SR 1</text>
+        <text x="168" y="312" fill="#f7eed7" font-family="Georgia, serif" font-size="14" font-weight="bold">Yumiko buys 10% IR from IPO (¥80)</text>
+        <text x="168" y="334" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Yumiko · 20:49 </text>
+        <rect x="572" y="298" width="164" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+        <text x="654" y="320" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Inspect Board · Rev 15 →</text>
+      </g>
+    
+      <g>
+        <rect x="66" y="364" width="686" height="72" rx="6" fill="#422f1d" stroke="#ffd46b" stroke-width="2.5"/>
+        <rect x="80" y="380" width="72" height="24" rx="4" fill="#396684"/>
+        <text x="116" y="396" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold">REV 14</text>
+        <text x="116" y="420" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">SR 1</text>
+        <text x="168" y="396" fill="#f7eed7" font-family="Georgia, serif" font-size="14" font-weight="bold">Daisuke sets IR Par ¥80 &amp; buys 20% President Certificate</text>
+        <text x="168" y="418" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Daisuke · 20:47 · [PINNED SNAPSHOT]</text>
+        <rect x="572" y="382" width="164" height="36" rx="5" fill="url(#goldBtn)" stroke="#8c6836" stroke-width="1.2"/>
+        <text x="654" y="404" text-anchor="middle" fill="#1e130a" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Inspect Board · Rev 14 →</text>
+      </g>
+    
+      <g>
+        <rect x="66" y="448" width="686" height="72" rx="6" fill="#21160f" stroke="#5c4228" stroke-width="1.2"/>
+        <rect x="80" y="464" width="72" height="24" rx="4" fill="#d8a24a"/>
+        <text x="116" y="480" text-anchor="middle" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold">REV 13</text>
+        <text x="116" y="504" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">AUCTION</text>
+        <text x="168" y="480" fill="#f7eed7" font-family="Georgia, serif" font-size="14" font-weight="bold">Haruka buys Private TR for ¥20 · Auction concludes</text>
+        <text x="168" y="502" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Haruka · 20:44 </text>
+        <rect x="572" y="466" width="164" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+        <text x="654" y="488" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Inspect Board · Rev 13 →</text>
+      </g>
+    
+
+  <rect x="792" y="114" width="444" height="446" rx="8" fill="#dfd3bc" stroke="#8c6836" stroke-width="2"/>
+  <rect x="810" y="130" width="408" height="48" rx="6" fill="#4a3822"/>
+  <text x="1014" y="159" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="14" font-weight="bold">[LOCKED] SNAPSHOT AT REV 14 · ACTIONS READ-ONLY</text>
+  <text x="816" y="206" fill="#2c1d11" font-family="Georgia, serif" font-size="16" font-weight="bold">Snapshot State: Daisuke (Cash ¥180 · IR 20% ★)</text>
+  <text x="816" y="228" fill="#5c4228" font-family="Helvetica, sans-serif" font-size="12">Controls show their historical values with a read-only padlock:</text>
+
+  
+    <rect x="816" y="250" width="396" height="48" rx="6" fill="#c2b49a" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="4 2"/>
+    <text x="1014" y="279" text-anchor="middle" fill="#5c4d3c" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">[LOCKED] Buy 10% IR from IPO (¥80) — Read-Only History</text>
+  
+    <rect x="816" y="312" width="396" height="48" rx="6" fill="#c2b49a" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="4 2"/>
+    <text x="1014" y="341" text-anchor="middle" fill="#5c4d3c" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">[LOCKED] Sell Shares to Bank Pool — Read-Only History</text>
+  
+    <rect x="816" y="374" width="396" height="48" rx="6" fill="#c2b49a" stroke="#7a6852" stroke-width="1.5" stroke-dasharray="4 2"/>
+    <text x="1014" y="403" text-anchor="middle" fill="#5c4d3c" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">[LOCKED] Pass / Finish Stock Turn — Read-Only History</text>
+  
+
+  <rect x="816" y="450" width="396" height="88" rx="8" fill="#1b3324" stroke="#4ca66b" stroke-width="2"/>
+  <text x="1014" y="480" text-anchor="middle" fill="#7be89e" font-family="Georgia, serif" font-size="14" font-weight="bold">● Live Match Has Advanced (+8 New Moves)</text>
+  <text x="1014" y="502" text-anchor="middle" fill="#d9ebd8" font-family="Helvetica, sans-serif" font-size="11">Live table is at Rev 22 (Operating Round 1.1 · IR Step 4)</text>
+  <text x="1014" y="522" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Click "Return to Live" below to unlock your controls</text>
+
+  <rect x="24" y="592" width="1232" height="104" rx="8" fill="#1c120c" stroke="#c79c4c" stroke-width="2"/>
+  
+    <rect x="42" y="618" width="36" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+    <text x="60" y="641" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">|‹</text>
+  
+    <rect x="84" y="618" width="36" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+    <text x="102" y="641" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">‹</text>
+  
+    <rect x="126" y="618" width="36" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+    <text x="144" y="641" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">▶</text>
+  
+    <rect x="168" y="618" width="36" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+    <text x="186" y="641" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">›</text>
+  
+    <rect x="210" y="618" width="36" height="36" rx="5" fill="#332215" stroke="#8c6836" stroke-width="1.2"/>
+    <text x="228" y="641" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="13" font-weight="bold">1x</text>
+  
+
+  <line x1="276" y1="642" x2="940" y2="642" stroke="#4a3525" stroke-width="6" stroke-linecap="round"/>
+  <line x1="276" y1="642" x2="698" y2="642" stroke="#d49b27" stroke-width="6" stroke-linecap="round"/>
+  
+      <g>
+        <circle cx="276" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="306.1818181818182" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="336.3636363636364" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="366.5454545454545" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="396.72727272727275" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="426.9090909090909" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="457.09090909090907" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="487.27272727272725" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="517.4545454545455" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="547.6363636363636" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="577.8181818181818" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="608" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="638.1818181818181" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="668.3636363636364" cy="642" r="5" fill="#d8a24a" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="698.5454545454545" cy="642" r="10" fill="#ffd46b" stroke="#1c120c" stroke-width="1.5"/>
+        
+          <rect x="588.5454545454545" y="598" width="220" height="28" rx="6" fill="#5c3d14" stroke="#ffd46b" stroke-width="1.8"/>
+          <text x="698.5454545454545" y="616" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">[PIN] Rev 14: Daisuke Par ¥80 IR</text>
+        
+      </g>
+    
+      <g>
+        <circle cx="728.7272727272727" cy="642" r="5" fill="#396684" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="758.909090909091" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="789.0909090909091" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="819.2727272727273" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="849.4545454545455" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="879.6363636363636" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="909.8181818181819" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+      <g>
+        <circle cx="940" cy="642" r="5" fill="#c85a32" stroke="#1c120c" stroke-width="1.5"/>
+        
+      </g>
+    
+  <text x="276" y="674" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Rev 0 (Start)</text>
+  <text x="698" y="674" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Inspecting Rev 14 / 22 (History)</text>
+  <text x="940" y="674" text-anchor="end" fill="#7be89e" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Live Rev 22</text>
+
+  <rect x="968" y="610" width="268" height="64" rx="8" fill="#1e5932" stroke="#6be694" stroke-width="2.5"/>
+  <circle cx="992" cy="634" r="6" fill="#6be694"/>
+  <text x="1110" y="638" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="15" font-weight="bold">Return to Live (Rev 22) →</text>
+  <text x="1102" y="658" text-anchor="middle" fill="#a5f2be" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">+8 new live moves recorded</text>
+  
+</svg>

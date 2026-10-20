@@ -1,0 +1,92 @@
+{
+  "title": "File:Ikeda-2130-r1.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Ikeda-2130-r1.jpg/1280px-Ikeda-2130-r1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 750,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Ikeda-2130-r1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Ikeda-2130-r1.jpg/1280px-Ikeda-2130-r1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 750,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Ikeda-2130-r1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Ikeda-2130-r1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Ikeda-2130-r1.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=1324555",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2009-05-15 16:34:40",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Ikeda-2130-r1",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "GFDL|Taken with Ricoh Caplio R6|PD-user|Ikeda Dam (Miyoshi, Tokushima)|License migration completed",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Dam",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2006-10-30",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:%E6%B2%B3%E5%B7%9D%E4%B8%80%E7%AD%89%E5%85%B5&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:河川一等兵 (page does not exist)\">河川一等兵</a>",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/H5-reference.jpg"
+}

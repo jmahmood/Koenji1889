@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="600" height="720">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#221a14"/>
+        <stop offset="100%" stop-color="#140f0c"/>
+      </linearGradient>
+      <radialGradient id="key-light" cx="0.25" cy="0.2" r="0.75">
+        <stop offset="0%" stop-color="#ffcf78" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+    <rect width="100%" height="100%" fill="url(#key-light)"/>
+    <g id="layer1-torso" ><path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>
+          <path d="M28 235 L38 132 Q54 108 78 104 L122 104 Q146 108 162 132 L172 235 Z" fill="#dfd3bc" stroke="#8c7d65" stroke-width="2.5"/>
+          <ellipse cx="100" cy="95" rx="20" ry="7" fill="#16100c" stroke="#3b2818" stroke-width="1.5"/>
+          <path d="M78 96 L100 138 L122 96 L116 88 L84 88 Z" fill="#ffffff" stroke="#8c7d65" stroke-width="1.8"/>
+          <polygon points="78,110 100,154 122,110 118,225 82,225" fill="#4a607a" stroke="#263342" stroke-width="1.8"/>
+          <polygon points="86,110 100,116 86,122" fill="#1e334d"/><polygon points="114,110 100,116 114,122" fill="#1e334d"/>
+          <path d="M76 104 L56 146 L84 176 L88 136 Z M124 104 L144 146 L116 176 L112 136 Z" fill="#c4b293" stroke="#8c7d65" stroke-width="1.8"/>
+          <circle cx="70" cy="142" r="5" fill="#b82921" stroke="#5e110d" stroke-width="1.2"/>
+        </g><g id="layer3-arms">
+          <path d="M38 172 L78 206 L72 222 L28 198 Z" fill="#dfd3bc" stroke="#8c7d65" stroke-width="2.2"/>
+          <ellipse cx="82" cy="212" rx="12" ry="8" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+          <path d="M162 164 L112 148 L106 170 L152 190 Z" fill="#dfd3bc" stroke="#8c7d65" stroke-width="2.2"/>
+          <g id="replaceable-prop-slot" transform="translate(74, 122) rotate(-6)">
+            <rect x="0" y="0" width="48" height="32" rx="2" fill="#f5e6c4" stroke="#b88636" stroke-width="2"/>
+            <rect x="4" y="4" width="40" height="24" fill="none" stroke="#8a3324" stroke-width="1"/>
+          </g>
+          <ellipse cx="108" cy="154" rx="14" ry="8.5" transform="rotate(-10 108 154)" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+        </g>
+</svg>

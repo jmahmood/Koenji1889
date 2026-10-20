@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Koenji 1889 — Proposed Visual State Screenshots</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 28px 36px;
+      background: #17100b;
+      color: #f7eed7;
+      font-family: Georgia, serif;
+    }
+    h1 {
+      margin: 0 0 6px;
+      color: #ffd46b;
+      font-size: 26px;
+    }
+    p.lead {
+      margin: 0 0 28px;
+      color: #cbb68e;
+      font-family: Helvetica, sans-serif;
+      font-size: 14px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      max-width: 1280px;
+    }
+    figure {
+      margin: 0;
+      padding: 16px;
+      background: #241810;
+      border: 2px solid #8c6836;
+      border-radius: 10px;
+    }
+    figcaption {
+      margin-bottom: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #f3d285;
+    }
+    figcaption small {
+      display: block;
+      margin-top: 4px;
+      font-family: Helvetica, sans-serif;
+      font-size: 13px;
+      font-weight: normal;
+      color: #cbb68e;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      border: 1px solid #5c4228;
+    }
+  </style>
+</head>
+<body>
+  <h1>Koenji Railway Club 1889 — Proposed Visual State Screenshots</h1>
+  <p class="lead">Rendered 1280×720 UI mockups resolving the "show, don't tell" items and the Decisions &amp; Planning (Rev 33) train-buying &amp; financing redesign across CharacterSetup.js, GatheringLobby.js, HexMap1889.js, DecisionDesk.js, StockExchange.js, and TimelineBar.js.</p>
+  <div class="gallery">
+    <figure>
+      <figcaption>7. Proposal A (DecisionDesk.js + HexMap1889.js) — Inline Right-Dock Operating Ticket (Zero Modal Blocking)
+        <small>Keeps the Shikoku map uncovered during Step 5 train purchases, collapses 2-0..2-5 into a single 2-Train Depot Card (6 of 6 left), fixes the 4-chip financing grid, and stages confirmation inline.</small>
+      </figcaption>
+      <img src="validation/proposed-7-decision-desk-inline-ticket.png" alt="Proposal A: Inline Right-Dock Operating Ticket">
+    </figure>
+    <figure>
+      <figcaption>8. Proposal B (DecisionDesk.js) — Structured 3-Tab Decisions &amp; Planning Ledger Modal
+        <small>Replaces unspaced financing text, 6 duplicate train buttons, and stacked accordions with a 3-tab ledger, 4-card financing summary strip, Locomotive Certificate cards, and a bottom Consequence Dock.</small>
+      </figcaption>
+      <img src="validation/proposed-8-decision-desk-tabbed-ledger.png" alt="Proposal B: Structured 3-Tab Decisions &amp; Planning Modal">
+    </figure>
+    <figure>
+      <figcaption>9. Proposal C (DecisionDesk.js) — Visual Shortfall Thermometer, Emergency Share Sales &amp; Corporate Transfers
+        <small>Visualizes corporate + presidential cash shortfalls, emergency share sales with market row drops, and 2-step inter-company transfer consent cards.</small>
+      </figcaption>
+      <img src="validation/proposed-9-decision-desk-emergency-financing.png" alt="Proposal C: Emergency Train Financing &amp; Corporate Transfers">
+    </figure>
+    <figure>
+      <figcaption>1. CharacterSetup.js — Direct Portrait &amp; Meiji Wardrobe Swatch Studio
+        <small>Replaces native dropdowns and compatibility prose with clickable 17-portrait and 12-outfit visual swatches that update the central character preview immediately.</small>
+      </figcaption>
+      <img src="validation/proposed-1-character-setup.png" alt="Proposed CharacterSetup UI">
+    </figure>
+    <figure>
+      <figcaption>2. GatheringLobby.js — Visual Chair Readiness, Presence Pills &amp; Segmented Claim Bar
+        <small>Shows readiness through occupied vs. empty zabuton chairs, online/away status pills, stamp seals, and a 3/4 segmented progress bar.</small>
+      </figcaption>
+      <img src="validation/proposed-2-gathering-lobby.png" alt="Proposed GatheringLobby UI">
+    </figure>
+    <figure>
+      <figcaption>3. HexMap1889.js — Board-Synchronized Token Targets, Route Ribbons &amp; Visual Dividend Split
+        <small>Extends visual board feedback to Step 2 token target rings, Step 3 route ribbons with stop revenue badges, and Step 4 Payout vs. Withhold consequence cards.</small>
+      </figcaption>
+      <img src="validation/proposed-3-operating-map-ticket.png" alt="Proposed HexMap1889 Operating UI">
+    </figure>
+    <figure>
+      <figcaption>4. DecisionDesk.js — Multi-Train Colored Map Routes &amp; Stop Chip Builder
+        <small>Docks the route planner alongside the map, drawing per-train colored paths and stop revenue pills directly on the board.</small>
+      </figcaption>
+      <img src="validation/proposed-4-route-planning-map.png" alt="Proposed DecisionDesk Route Planner UI">
+    </figure>
+    <figure>
+      <figcaption>5. StockExchange.js — Spotlighted Active Seat &amp; Before → After Consequence Strip
+        <small>Marks the active player's seat and previews Cash, Share Holdings, Certificate Slots, and Market Cell movement right above the action buttons.</small>
+      </figcaption>
+      <img src="validation/proposed-5-stock-auction-preview.png" alt="Proposed StockExchange UI">
+    </figure>
+    <figure>
+      <figcaption>6. TimelineBar.js — Self-Demonstrating Historical Snapshot Frame, Locked Ticket &amp; Scrubber Pin
+        <small>Frames historical inspection with a sepia border, padlocked ticket controls, a pinned scrubber marker, and a live-continuation return pill.</small>
+      </figcaption>
+      <img src="validation/proposed-6-timeline-historical.png" alt="Proposed TimelineBar Historical UI">
+    </figure>
+  </div>
+</body>
+</html>

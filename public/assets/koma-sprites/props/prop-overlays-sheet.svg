@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <!-- Rusted Overlay -->
+      <rect x="8" y="10" width="68" height="44" rx="3" fill="#6e2919" stroke="#e07a5f" stroke-width="2"/>
+      <text x="42" y="30" text-anchor="middle" fill="#ffdfd6" font-family="monospace" font-size="9.5" font-weight="bold">RUSTED · 廃車</text>
+      <text x="42" y="44" text-anchor="middle" fill="#e0b054" font-family="monospace" font-size="7.5">OBSOLETE</text>
+      <!-- Returned to Depot Overlay -->
+      <rect x="84" y="10" width="68" height="44" rx="3" fill="#22384a" stroke="#7cb8e8" stroke-width="2"/>
+      <text x="118" y="30" text-anchor="middle" fill="#e3f2fd" font-family="monospace" font-size="9" font-weight="bold">RETURNED</text>
+      <text x="118" y="44" text-anchor="middle" fill="#90caf9" font-family="monospace" font-size="7.5">TO DEPOT</text>
+      <!-- Closed Private Seal -->
+      <rect x="8" y="64" width="68" height="44" rx="3" fill="#2b1c17" stroke="#b82921" stroke-width="2"/>
+      <text x="42" y="84" text-anchor="middle" fill="#f58278" font-family="monospace" font-size="9.5" font-weight="bold">CLOSED · 閉鎖</text>
+      <text x="42" y="98" text-anchor="middle" fill="#bfa87e" font-family="monospace" font-size="7.5">UTF: ¥50 OPEN</text>
+      <!-- Ability Used / Block Lifted -->
+      <rect x="84" y="64" width="68" height="44" rx="3" fill="#1e362b" stroke="#66bb8a" stroke-width="2"/>
+      <text x="118" y="84" text-anchor="middle" fill="#d7f7e3" font-family="monospace" font-size="8.5" font-weight="bold">ABILITY USED</text>
+      <text x="118" y="98" text-anchor="middle" fill="#f5ca70" font-family="monospace" font-size="7.5">UNLOCKED ✓</text>
+    </svg>

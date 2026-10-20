@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koenji 1889 · Semi-Photorealistic Paper-Doll &amp; Checklist Workbench</title>
+  <style>
+    :root {
+      --bg: #120d0a;
+      --panel: #1e1610;
+      --border: #6e4e2a;
+      --gold: #e0b054;
+      --cream: #f2e3c2;
+      --muted: #b09b78;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 18px 22px;
+      background: radial-gradient(circle at 50% 12%, #332114, #0d0907 75%);
+      color: var(--cream);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+    header {
+      max-width: 1480px;
+      margin: 0 auto 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    h1 { margin: 4px 0 0; font-size: 22px; color: #f7e6c4; }
+    .kicker { font-family: monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; }
+    .layout {
+      max-width: 1480px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 410px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 14px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+    }
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--gold);
+      border-bottom: 1px solid #47321b;
+      padding-bottom: 5px;
+    }
+    .control-group { margin-bottom: 11px; }
+    .control-group label {
+      display: block;
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .btn-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+    .btn-stack { display: flex; flex-direction: column; gap: 5px; }
+    button, select {
+      background: #2b1e14;
+      color: var(--cream);
+      border: 1px solid #75532c;
+      padding: 6px 8px;
+      font-family: monospace;
+      font-size: 11px;
+      cursor: pointer;
+      text-align: left;
+    }
+    select { width: 100%; }
+    button:hover { border-color: var(--gold); background: #3b2819; }
+    button.active {
+      background: #8c5d23;
+      color: #fff4d6;
+      border-color: #f5ca70;
+      font-weight: bold;
+    }
+    .trigger-btn {
+      background: #23382e;
+      border-color: #559675;
+      color: #d6faea;
+      font-weight: bold;
+    }
+    .trigger-btn:hover { background: #2e4b3d; border-color: #7ce0ae; }
+
+    .upload-zone {
+      border: 1.5px dashed #b8863c;
+      background: #17110c;
+      padding: 8px;
+      font-family: monospace;
+      font-size: 10.5px;
+      color: #dfc99e;
+      margin-top: 6px;
+    }
+    .upload-zone input[type="file"] { width: 100%; font-size: 10px; margin-bottom: 6px; }
+    .slider-row {
+      display: grid;
+      grid-template-columns: 74px 1fr 38px;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      margin: 3px 0;
+    }
+
+    .stage-column { display: flex; flex-direction: column; gap: 14px; }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .table-viewport {
+      position: relative;
+      height: 350px;
+      background: linear-gradient(180deg, #2b190f 0%, #3d2415 62%, #1d3d30 62%, #132a21 100%);
+      border: 2px solid #8a6232;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .table-rim {
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      bottom: 32%;
+      height: 18px;
+      background: linear-gradient(90deg, #3b2011, #784525 50%, #3b2011);
+      border-top: 2px solid #b88444;
+      border-bottom: 2px solid #241209;
+      z-index: 3;
+    }
+    .stage-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(18, 13, 10, 0.92);
+      border: 1px solid var(--gold);
+      padding: 4px 8px;
+      font-family: monospace;
+      font-size: 10px;
+      z-index: 10;
+    }
+    .paper-doll-main {
+      width: 245px;
+      height: 285px;
+      position: relative;
+      z-index: 4;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.75));
+    }
+    .plaque {
+      position: absolute;
+      bottom: 8px;
+      background: #d4b26e;
+      color: #26160c;
+      border: 2px solid #69421f;
+      padding: 3px 12px;
+      font-weight: bold;
+      font-size: 12px;
+      z-index: 6;
+    }
+
+    .mini-compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .mini-card {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      align-items: center;
+      background: #231812;
+      border: 2px solid #f5c767;
+      height: 76px;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(245, 199, 103, 0.25);
+    }
+    .mini-portrait-frame {
+      height: 100%;
+      background: #1a1410;
+      border-right: 2px solid #78542b;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mini-portrait-frame > svg {
+      width: 100%;
+      height: 100%;
+    }
+    .mini-card-body { padding: 6px 12px; font-family: monospace; }
+    .mini-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; }
+    .mini-sub { font-size: 10.5px; color: var(--gold); margin-top: 4px; }
+
+    .exploded-layers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .layer-card {
+      background: #16100c;
+      border: 1px dashed #5e4324;
+      padding: 8px;
+      text-align: center;
+    }
+    .layer-card small {
+      display: block;
+      font-family: monospace;
+      color: var(--gold);
+      font-size: 9.5px;
+      margin-bottom: 5px;
+    }
+    .layer-card > div > svg {
+      width: 112px;
+      height: 132px;
+      background: repeating-conic-gradient(#1f1813 0% 25%, #15100c 0% 50%) 50% / 14px 14px;
+      border: 1px solid #382817;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="kicker">Koenji Railway Club · 1889 Checklist Complete Workbench (9 Expressions · 16 Poses · 12 Costumes · Separable Props)</div>
+      <h1>Semi-Photorealistic Raster Face Layer + 16-Pose コマ送り &amp; Separable Prop Workbench</h1>
+    </div>
+    <div class="kicker" id="global-stage-banner">STAGE: IDLE AT TABLE · steps(1, end)</div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel">
+      <h2>1. Semi-Photorealistic Face Source &amp; Member</h2>
+      <div class="control-group">
+        <div class="btn-stack" id="mode-buttons">
+          <button data-mode="photoreal-png" class="active">Mode A: Semi-Photoreal PNGs</button>
+          <button data-mode="custom-photo">Custom reference photo / AI portrait</button>
+        </div>
+        <div class="upload-zone" id="custom-upload-box" hidden>
+          <input type="file" id="photo-file-input" accept="image/*" />
+          <div class="slider-row"><span>Scale</span><input type="range" id="photo-scale" min="60" max="180" value="105" /><b id="val-scale">105%</b></div>
+          <div class="slider-row"><span>Offset Y</span><input type="range" id="photo-y" min="-40" max="40" value="0" /><b id="val-y">0px</b></div>
+          <div class="slider-row"><span>Meiji Warmth</span><input type="range" id="photo-warmth" min="0" max="100" value="45" /><b id="val-warmth">45%</b></div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>Club Member / Reference Portrait</label>
+        <div class="btn-grid" id="member-buttons">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>12 Customizable Meiji Costumes (`Layer 1 + Layer 3`)</label>
+        <div class="btn-grid" id="clothes-buttons">
+          <button data-clothes="indigo-haori" class="active">1. Indigo Haori</button>
+          <button data-clothes="charcoal-suit">2. Charcoal Suit</button>
+          <button data-clothes="plum-kimono">3. Plum Kimono</button>
+          <button data-clothes="moss-hakama">4. Moss Hakama</button>
+          <button data-clothes="imperial-railway-uniform">5. Railway Uniform</button>
+          <button data-clothes="crimson-furisode">6. Crimson Brocade</button>
+          <button data-clothes="inverness-cape">7. Inverness Cape</button>
+          <button data-clothes="merchant-hanten">8. Merchant Hanten</button>
+          <button data-clothes="ivory-summer-suit">9. Ivory Linen Suit</button>
+          <button data-clothes="amber-jinbaori">10. Amber Jinbaori</button>
+          <button data-clothes="teal-frock-coat">11. Teal Frock Coat</button>
+          <button data-clothes="slate-montsuki">12. Slate Montsuki</button>
+        </div>
+      </div>
+
+      <h2>2. Checklist Event Sequences (`animation_asset_checklist.md`)</h2>
+      <div class="control-group">
+        <label>Select Any of the 23 Checklist Sequences &amp; Click Play</label>
+        <div style="display:flex;gap:6px;margin-bottom:6px">
+          <select id="sequence-select">
+            <optgroup label="House &amp; Club Sequences">
+              <option value="guest_arrival">1. Guest First Arrival (Door → Wave → Bow)</option>
+              <option value="yumiko_kitchen">2. Yumiko from Kitchen (Tea → Wave)</option>
+              <option value="owner_bedroom">3. Owner from Downstairs Bedroom (Neutral → Bow)</option>
+              <option value="host_opens_game">4. Host Opens Match (Ledger → Declare → Point)</option>
+              <option value="membership_stamp">5. Membership Hanko Stamp (Offer → Place Stamp)</option>
+              <option value="tea_toast">6. Note / Explicit Tea Toast</option>
+              <option value="evening_farewell">7. Evening Farewell (Wave → Bow → Close Ledger)</option>
+            </optgroup>
+            <optgroup label="Auction &amp; Financial Sequences">
+              <option value="bid_submitted">8. Bid Submitted (Ledger → Escrow Envelope)</option>
+              <option value="outbid_reaction">9. Outbid Reaction (Shock → Concerned Thinking)</option>
+              <option value="private_awarded">10. Private Concession Awarded (Receive → Present → Triumph)</option>
+              <option value="share_purchase" selected>11. Share Purchase (Declare → Receive → Present Cert)</option>
+              <option value="corporation_floats">12. Corporation Floats (10×Par Treasury + Triumph)</option>
+              <option value="share_sale">13. Share Sale (Offer Cert → Count Proceeds Cash)</option>
+              <option value="presidency_changes">14. Presidency Handoff (Disappointed Offer → Receive)</option>
+              <option value="private_exchange_dr">15. DR Private Exchange (Offer DR → Receive 10% Share)</option>
+              <option value="negotiated_purchase">16. Negotiated Purchase (Offer → Receive → Count Cash)</option>
+            </optgroup>
+            <optgroup label="Railway Operations &amp; 1889 Rule Consequences">
+              <option value="track_laid">17. Track Laid / Upgraded (Point → Hold Hex → Place Hex)</option>
+              <option value="station_placed">18. Station Token Placed (Hold Token → Place Token)</option>
+              <option value="routes_committed">19. Routes Committed (Point → Check Ledger → Smile)</option>
+              <option value="dividend_paid">20. Dividend Paid (Count Cash → Offer → Receive)</option>
+              <option value="revenue_withheld">21. Revenue Withheld (Check Ledger → Close Ledger)</option>
+              <option value="train_bought">22. Train Bought (Ledger → Offer Cash → Receive Train)</option>
+              <option value="phase_obsolescence">23. Phase Change / Train Rust &amp; UTF ¥50 Exception</option>
+              <option value="emergency_funding">24. Emergency Funding (Concerned → Count Personal Cash)</option>
+              <option value="bankruptcy">25. Bankruptcy (Concerned → Disappointed → Close Ledger)</option>
+              <option value="bank_exhaustion">26. Bank Exhaustion Warning (End Pending Card)</option>
+              <option value="final_results">27. Final Results (Winner Laugh/Triumph → Tea → Bow)</option>
+            </optgroup>
+          </select>
+          <button class="trigger-btn" id="play-selected-seq" style="white-space:nowrap">▶ Play</button>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;margin-top:4px">
+          <input type="checkbox" id="motion-off-toggle" />
+          <span>Motion Off / Reduced-Motion Static Fallback Frame</span>
+        </label>
+      </div>
+
+      <h2>3. All 9 Head Expressions (`Layer 2`)</h2>
+      <div class="control-group">
+        <div class="btn-grid-3" id="expr-buttons">
+          <button data-expr="neutral" class="active">E1: Neutral</button>
+          <button data-expr="smile">E2: Smile</button>
+          <button data-expr="calculating">E3: Calculating</button>
+          <button data-expr="declare">E4: Declare</button>
+          <button data-expr="shock">E5: Shock</button>
+          <button data-expr="concerned">E6: Concerned ★</button>
+          <button data-expr="disappointed">E7: Disappointed ★</button>
+          <button data-expr="laugh">E8: Laugh ★</button>
+          <button data-expr="blink">E9: Blink ★</button>
+        </div>
+      </div>
+
+      <h2>4. All 16 Body Poses (`Layer 1 + Layer 3`)</h2>
+      <div class="control-group">
+        <div class="btn-grid" id="pose-buttons">
+          <button data-pose="idle" class="active">P1: Idle</button>
+          <button data-pose="tea">P2: Sip Tea</button>
+          <button data-pose="thinking">P3: Chin Think</button>
+          <button data-pose="ledger">P4: Open Ledger</button>
+          <button data-pose="point">P5: Point</button>
+          <button data-pose="certificate">P6: Certificate</button>
+          <button data-pose="token">P7: Hold Hex/Token</button>
+          <button data-pose="shock">P8: Shock Hands</button>
+          <button data-pose="wave">P9: Wave ★</button>
+          <button data-pose="bow">P10: Bow ★</button>
+          <button data-pose="triumphant">P11: Triumphant ★</button>
+          <button data-pose="offer">P12: Offer ★</button>
+          <button data-pose="receive">P13: Receive ★</button>
+          <button data-pose="place">P14: Place ★</button>
+          <button data-pose="count">P15: Count Cash ★</button>
+          <button data-pose="close_ledger">P16: Close Ledger ★</button>
+        </div>
+      </div>
+
+      <h2>5. Separable Prop &amp; Rule Overlay (`Section 2 &amp; 6`)</h2>
+      <div class="control-group" style="margin-bottom:0">
+        <select id="prop-select">
+          <option value="auto">Auto (Default Prop for Pose)</option>
+          <option value="share_ir_pres">Share Certificate: IR 20% President ★</option>
+          <option value="share_ko_10">Share Certificate: KO 10% IPO</option>
+          <option value="private_tr">Private Certificate: TR Concession</option>
+          <option value="private_utf_open">Private Certificate: UTF (¥50 OPEN Exception)</option>
+          <option value="private_closed">Private Certificate: CLOSED Seal (閉鎖)</option>
+          <option value="train_5">Train Card: 5-Train (¥450)</option>
+          <option value="train_rusted">Train Card: 2-Train with RUSTED (廃車) Overlay</option>
+          <option value="train_returned">Train Card: 4-Train with RETURNED TO DEPOT Overlay</option>
+          <option value="track_green">Track Hex: Green Tile #439 (Separable)</option>
+          <option value="station_ir">Station Token: IR Corporate Marker</option>
+          <option value="station_home">Station Token: Free Home Station ★</option>
+          <option value="cash_escrow">Cash Envelope: Auction Escrow Reserved</option>
+          <option value="cash_treasury">Cash Envelope: 10×Par Flotation Treasury</option>
+          <option value="hanko_stamp">Hanko &amp; Membership Card Imprint</option>
+          <option value="priority_deal">Priority Deal Card (先)</option>
+          <option value="phase_card">Phase Change Notice Card</option>
+          <option value="bank_end_pending">Bank Exhaustion (END PENDING) Card</option>
+          <option value="empty_hand">Empty Hand (After Transfer)</option>
+        </select>
+      </div>
+    </aside>
+
+    <main class="stage-column">
+      <div class="comparison-grid">
+        <section class="panel">
+          <h2>Left: Semi-Photorealistic Raster PNG Head (`Layer 2`) + Meiji Outfit (`Layer 1 &amp; 3`)</h2>
+          <div class="table-viewport">
+            <div class="stage-badge" id="photoreal-badge">SEMI-PHOTOREAL RASTER PNG LAYER</div>
+            <div class="paper-doll-main" id="photoreal-main-viewport"></div>
+            <div class="table-rim"></div>
+            <div class="plaque" id="photoreal-plaque">Member 1 · Semi-Photoreal PNG</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Right: Flat SVG Vector Head Baseline (For Comparison)</h2>
+          <div class="table-viewport">
+            <div class="stage-badge">FLAT SVG VECTOR BASELINE</div>
+            <div class="paper-doll-main" id="svg-main-viewport"></div>
+            <div class="table-rim"></div>
+            <div class="plaque" id="svg-plaque">Member 1 · Flat SVG</div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel">
+        <h2>Mini-Screen Comparison: Stock Exchange &amp; Map Top Player Strip (`portrait` viewBox `24 8 152 145`)</h2>
+        <div class="mini-compare-row">
+          <div class="mini-card">
+            <div class="mini-portrait-frame" id="photoreal-mini-viewport"></div>
+            <div class="mini-card-body">
+              <div class="mini-top"><span>Semi-Photoreal PNG Mini-Portrait</span><span>¥340</span></div>
+              <div class="mini-sub" id="photoreal-mini-status">Stage: Idle at Table</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-portrait-frame" id="svg-mini-viewport"></div>
+            <div class="mini-card-body">
+              <div class="mini-top"><span>Flat SVG Mini-Portrait</span><span>¥340</span></div>
+              <div class="mini-sub" id="svg-mini-status">Stage: Idle at Table</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Exploded 4-Part Breakdown: Back Outfit + Semi-Photoreal Head + Foreground Hands + Separable Prop</h2>
+        <div class="exploded-layers">
+          <div class="layer-card">
+            <small>1. BACK OUTFIT TORSO (`Layer 1`)</small>
+            <div id="exploded-1"></div>
+          </div>
+          <div class="layer-card">
+            <small>2. SEMI-PHOTOREAL HEAD (`Layer 2`)</small>
+            <div id="exploded-2"></div>
+          </div>
+          <div class="layer-card">
+            <small>3. FOREGROUND HANDS (`Layer 3`)</small>
+            <div id="exploded-3"></div>
+          </div>
+          <div class="layer-card">
+            <small>4. SEPARABLE PROP / OVERLAY</small>
+            <div id="exploded-4"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import {
+      OUTFIT_STYLES,
+      renderTorso,
+      renderHead,
+      renderForeground,
+      renderReplaceableProp,
+    } from '../../src/scene/paperDollArt.js';
+    import { SEQUENCE_RECIPES } from '../../src/ui/characterPlayback.js';
+    import catalogue from '../../src/data/appearance.json' with { type: 'json' };
+
+    const ASSET_BASE = location.protocol === 'file:' ? '../../public/assets/koma-sprites/photoreal-heads' : '/assets/koma-sprites/photoreal-heads';
+
+    const MEMBERS = {};
+    for (const face of catalogue.faces.filter(face => face.headAtlas)) {
+      MEMBERS[face.id] = face;
+      const button = document.createElement('button');
+      button.dataset.member = face.id;
+      button.classList.toggle('active',face.id==='reference-01');
+      button.textContent = face.name;
+      document.getElementById('member-buttons').append(button);
+    }
+    document.querySelector('[data-mode="photoreal-png"]').textContent = `Mode A: Semi-Photoreal PNGs (${Object.keys(MEMBERS).length} Portraits × 9 Expressions)`;
+
+    const PROP_PRESETS = {
+      auto: null,
+      share_ir_pres: { kind: 'share_cert', label: 'IR · 20%', sublabel: 'PRESIDENT ★', color: '#c94a38' },
+      share_ko_10: { kind: 'share_cert', label: 'KO · 10%', sublabel: 'IPO SHARE', color: '#2b5b84' },
+      private_tr: { kind: 'private_cert', label: 'TR PRIVATE', sublabel: '¥5 REVENUE' },
+      private_utf_open: { kind: 'private_cert', label: 'UTF PRIVATE', sublabel: 'STAYS OPEN', overlay: 'utf_open' },
+      private_closed: { kind: 'private_cert', label: 'MR PRIVATE', sublabel: 'PHASE 5', overlay: 'closed' },
+      train_5: { kind: 'train_card', label: '5-TRAIN', sublabel: '¥450 DEPOT' },
+      train_rusted: { kind: 'train_card', label: '2-TRAIN', sublabel: 'PHASE 4', overlay: 'rusted' },
+      train_returned: { kind: 'train_card', label: '4-TRAIN', sublabel: 'EXCESS', overlay: 'returned' },
+      track_green: { kind: 'track_hex', color: '#5da667', label: '#439' },
+      station_ir: { kind: 'station_token', label: 'IR', sublabel: 'STATION', color: '#c94a38' },
+      station_home: { kind: 'station_token', label: 'HOME', sublabel: 'FREE ★', color: '#2b5b84' },
+      cash_escrow: { kind: 'cash_envelope', label: '¥70', sublabel: 'ESCROW' },
+      cash_treasury: { kind: 'cash_envelope', label: '10×PAR', sublabel: 'TREASURY' },
+      hanko_stamp: { kind: 'hanko_stamp', label: '高円寺' },
+      priority_deal: { kind: 'priority_deal', label: '先' },
+      phase_card: { kind: 'phase_card', label: 'PHASE 5', sublabel: 'LIMIT 2' },
+      bank_end_pending: { kind: 'bank_end_pending', sublabel: 'FINISH OR SET' },
+      empty_hand: { empty: true },
+    };
+
+    const state = {
+      mode: 'photoreal-png',
+      member: 'reference-01',
+      clothes: 'indigo-haori',
+      expr: 'neutral',
+      pose: 'idle',
+      propKey: 'auto',
+      activePropOverride: null,
+      motionOff: false,
+      stageLabel: 'STAGE: IDLE AT TABLE',
+      customDataUrl: null,
+      rawUploadedImg: null,
+      photoScale: 105,
+      photoY: 0,
+      photoWarmth: 45,
+      timer: null,
+    };
+
+    function renderFlatSVGHead(memberId, expr, pose) {
+      const m = MEMBERS[memberId];
+      const tilt = pose === 'bow' ? 'transform="translate(0, 6)"' : expr === 'declare' ? 'transform="translate(0, 2)"' : expr === 'shock' ? 'transform="translate(0, -4)"' : '';
+      let brows = `<path d="M73 53 Q86 48 96 53 M106 53 Q116 48 129 53" fill="none" stroke="#1c1512" stroke-width="3.8" stroke-linecap="round"/>`;
+      let eyes = `<circle cx="85" cy="62" r="3.3" fill="#1f140e"/><circle cx="116" cy="62" r="3.3" fill="#1f140e"/>`;
+      let mouth = `<path d="M90 88 Q101 93 112 88" fill="none" stroke="#3d1e16" stroke-width="2.2" stroke-linecap="round"/>`;
+      if (expr === 'smile') mouth = `<path d="M88 86 Q101 98 114 86 Z" fill="#fff2dc" stroke="#3d1e16" stroke-width="2"/>`;
+      if (expr === 'calculating') { brows = `<path d="M74 51 L97 56 M128 51 L105 56" fill="none" stroke="#1c1512" stroke-width="4.2"/>`; mouth = `<line x1="91" y1="89" x2="111" y2="88" stroke="#3d1e16" stroke-width="2.4"/>`; }
+      if (expr === 'declare') mouth = `<ellipse cx="101" cy="89" rx="9.5" ry="6" fill="#6e221b" stroke="#2b120e" stroke-width="2"/>`;
+      if (expr === 'shock') { eyes = `<ellipse cx="85" cy="61" rx="6" ry="5" fill="#fff"/><circle cx="86" cy="61" r="2.5" fill="#111"/><ellipse cx="116" cy="61" rx="6" ry="5" fill="#fff"/><circle cx="116" cy="61" r="2.5" fill="#111"/>`; mouth = `<ellipse cx="101" cy="90" rx="10.5" ry="7.5" fill="#5e1d17" stroke="#2b120e" stroke-width="2"/>`; }
+      if (expr === 'concerned') { brows = `<path d="M73 55 L96 48 M129 55 L105 48" fill="none" stroke="#1c1512" stroke-width="3.8"/>`; mouth = `<path d="M92 90 Q101 86 110 90" fill="none" stroke="#3d1e16" stroke-width="2.2"/>`; }
+      if (expr === 'disappointed') { brows = `<path d="M72 56 Q85 50 96 51 M105 51 Q116 50 130 56" fill="none" stroke="#1c1512" stroke-width="3.6"/>`; mouth = `<path d="M91 91 Q101 87 111 90" fill="none" stroke="#3d1e16" stroke-width="2"/>`; }
+      if (expr === 'laugh') { eyes = `<path d="M78 61 Q85 54 92 61 M109 61 Q116 54 123 61" fill="none" stroke="#1f140e" stroke-width="2.8"/>`; mouth = `<path d="M86 85 Q101 102 116 85 Z" fill="#6e221b" stroke="#2b120e" stroke-width="2"/>`; }
+      if (expr === 'blink') { eyes = `<path d="M77 62 Q85 66 93 62 M108 62 Q116 66 124 62" fill="none" stroke="#1f140e" stroke-width="2.4"/>`; }
+
+      return `<g ${tilt}>
+        <path d="M84 88 L84 114 Q100 124 116 114 L116 88 Z" fill="${m.skin}" stroke="${m.stroke}" stroke-width="2"/>
+        <ellipse cx="66" cy="66" rx="6" ry="11.5" fill="${m.skin}" stroke="${m.stroke}" stroke-width="2"/>
+        <ellipse cx="134" cy="66" rx="6" ry="11.5" fill="${m.skin}" stroke="${m.stroke}" stroke-width="2"/>
+        <path d="M68 58 C68 18, 132 18, 132 58 C132 92, 118 108, 100 108 C82 108, 68 92, 68 58 Z" fill="${m.skin}" stroke="${m.stroke}" stroke-width="2.2"/>
+        <path d="M100 58 L96 73 L105 74" fill="none" stroke="${m.stroke}" stroke-width="2"/>
+        ${brows}${eyes}${mouth}
+      </g>`;
+    }
+
+    function renderSelectedPhotorealHead(memberId, expr, pose) {
+      if (state.mode === 'custom-photo' && state.customDataUrl) {
+        const tilt = pose === 'bow' ? 'transform="translate(0, 6)"' : '';
+        return `<g ${tilt}><image href="${state.customDataUrl}" x="32" y="4" width="136" height="128" preserveAspectRatio="xMidYMid meet"/></g>`;
+      }
+      return renderHead(MEMBERS[memberId], expr, { rawPose: pose, assetBase: ASSET_BASE, mode: 'photoreal' });
+    }
+
+    function render() {
+      const m = MEMBERS[state.member];
+      const activeProp = state.activePropOverride || PROP_PRESETS[state.propKey];
+      const l1 = renderTorso(state.clothes, state.pose);
+      const l2Photoreal = renderSelectedPhotorealHead(state.member, state.expr, state.pose);
+      const l2Flat = renderFlatSVGHead(state.member, state.expr, state.pose);
+      const l3 = renderForeground(m, state.clothes, state.pose, activeProp);
+      const propPreview = renderReplaceableProp(activeProp || { kind: 'share_cert', label: 'IR · 20%', sublabel: 'PRESIDENT ★' });
+
+      document.getElementById('photoreal-main-viewport').innerHTML = `<svg viewBox="0 0 200 240">${l1}${l2Photoreal}${l3}</svg>`;
+      document.getElementById('svg-main-viewport').innerHTML = `<svg viewBox="0 0 200 240">${l1}${l2Flat}${l3}</svg>`;
+
+      document.getElementById('photoreal-mini-viewport').innerHTML = `<svg viewBox="24 8 152 145">${l1}${l2Photoreal}${l3}</svg>`;
+      document.getElementById('svg-mini-viewport').innerHTML = `<svg viewBox="24 8 152 145">${l1}${l2Flat}${l3}</svg>`;
+
+      document.getElementById('exploded-1').innerHTML = `<svg viewBox="0 0 200 240">${l1}</svg>`;
+      document.getElementById('exploded-2').innerHTML = `<svg viewBox="0 0 200 240">${l2Photoreal}</svg>`;
+      document.getElementById('exploded-3').innerHTML = `<svg viewBox="0 0 200 240">${l3}</svg>`;
+      document.getElementById('exploded-4').innerHTML = `<svg viewBox="-15 -25 100 100">${propPreview}</svg>`;
+
+      const cName = OUTFIT_STYLES[state.clothes].name;
+      document.getElementById('photoreal-plaque').textContent = `${m.name} · ${cName} (Semi-Photoreal PNG)`;
+      document.getElementById('svg-plaque').textContent = `${m.name} · ${cName} (Flat SVG)`;
+      document.getElementById('global-stage-banner').textContent = `${state.stageLabel} · [${state.member} / ${state.expr} / ${state.pose}]`;
+      document.getElementById('photoreal-mini-status').textContent = `${state.stageLabel} (${state.expr} · ${state.pose})`;
+      document.getElementById('svg-mini-status').textContent = `${state.stageLabel} (${state.expr} · ${state.pose})`;
+
+      document.getElementById('custom-upload-box').hidden = state.mode !== 'custom-photo';
+
+      document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === state.mode));
+      document.querySelectorAll('[data-member]').forEach(b => b.classList.toggle('active', b.dataset.member === state.member));
+      document.querySelectorAll('[data-clothes]').forEach(b => b.classList.toggle('active', b.dataset.clothes === state.clothes));
+      document.querySelectorAll('[data-expr]').forEach(b => b.classList.toggle('active', b.dataset.expr === state.expr));
+      document.querySelectorAll('[data-pose]').forEach(b => b.classList.toggle('active', b.dataset.pose === state.pose));
+    }
+
+    function playChecklistSequence(seqKey) {
+      if (state.timer) clearTimeout(state.timer);
+      const recipe = SEQUENCE_RECIPES[seqKey];
+      if (!recipe) return;
+
+      if (state.motionOff) {
+        state.expr = recipe.staticFallback.expr;
+        state.pose = recipe.staticFallback.pose;
+        state.activePropOverride = recipe.staticFallback.prop || null;
+        state.stageLabel = `MOTION OFF STATIC FRAME: ${recipe.title}`;
+        render();
+        return;
+      }
+
+      let i = 0;
+      const step = () => {
+        if (i >= recipe.frames.length) return;
+        const f = recipe.frames[i];
+        state.expr = f.expr;
+        state.pose = f.pose;
+        state.activePropOverride = f.prop || null;
+        state.stageLabel = f.label;
+        render();
+        const wait = f.ms;
+        i += 1;
+        if (i < recipe.frames.length && wait > 0) {
+          state.timer = setTimeout(step, wait);
+        }
+      };
+      step();
+    }
+
+    document.querySelectorAll('[data-mode]').forEach(btn => {
+      btn.addEventListener('click', () => { state.mode = btn.dataset.mode; render(); });
+    });
+    document.querySelectorAll('[data-member]').forEach(btn => {
+      btn.addEventListener('click', () => { state.member = btn.dataset.member; render(); });
+    });
+    document.querySelectorAll('[data-clothes]').forEach(btn => {
+      btn.addEventListener('click', () => { state.clothes = btn.dataset.clothes; render(); });
+    });
+    document.querySelectorAll('[data-expr]').forEach(btn => {
+      btn.addEventListener('click', () => { state.expr = btn.dataset.expr; state.stageLabel = `MANUAL EXPRESSION: ${state.expr.toUpperCase()}`; render(); });
+    });
+    document.querySelectorAll('[data-pose]').forEach(btn => {
+      btn.addEventListener('click', () => { state.pose = btn.dataset.pose; state.activePropOverride = null; state.stageLabel = `MANUAL POSE: ${state.pose.toUpperCase()}`; render(); });
+    });
+    document.getElementById('prop-select').addEventListener('change', (e) => {
+      state.propKey = e.target.value;
+      state.activePropOverride = null;
+      render();
+    });
+    document.getElementById('motion-off-toggle').addEventListener('change', (e) => {
+      state.motionOff = e.target.checked;
+    });
+    document.getElementById('play-selected-seq').addEventListener('click', () => {
+      playChecklistSequence(document.getElementById('sequence-select').value);
+    });
+    document.getElementById('sequence-select').addEventListener('change', (e) => {
+      playChecklistSequence(e.target.value);
+    });
+
+    render();
+  </script>
+</body>
+</html>

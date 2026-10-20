@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="800" height="960">
+    <defs>
+      <!-- 3D Volumetric Subsurface Face Gradient -->
+      <radialGradient id="face-grad" cx="0.36" cy="0.32" r="0.65">
+        <stop offset="0%" stop-color="#f5c99a"/>
+        <stop offset="48%" stop-color="#d99e6c"/>
+        <stop offset="84%" stop-color="#996035"/>
+        <stop offset="100%" stop-color="#5e371a"/>
+      </radialGradient>
+      <linearGradient id="neck-grad" x1="0" y1="0" x2="1" y2="0.6">
+        <stop offset="0%" stop-color="#d99e6c"/>
+        <stop offset="60%" stop-color="#996035"/>
+        <stop offset="100%" stop-color="#5e371a"/>
+      </linearGradient>
+      <radialGradient id="spec-grad" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#f5c99a" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="cheek-blush" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0%" stop-color="#cf6855" stop-opacity="0.32"/>
+        <stop offset="100%" stop-color="#cf6855" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="hair-grad" x1="0" y1="0" x2="0.3" y2="1">
+        <stop offset="0%" stop-color="#4d433c"/>
+        <stop offset="35%" stop-color="#1c1815"/>
+        <stop offset="100%" stop-color="#0a0706"/>
+      </linearGradient>
+      <linearGradient id="frame-burgundy" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#7a1e24"/>
+        <stop offset="100%" stop-color="#1f1414"/>
+      </linearGradient>
+      <linearGradient id="lens-sheen" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+        <stop offset="50%" stop-color="#8cb8ff" stop-opacity="0.06"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.08"/>
+      </linearGradient>
+      <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#140b06" flood-opacity="0.55"/>
+      </filter>
+    </defs>
+
+    <g id="photoreal-head-layer"  filter="url(#soft-shadow)">
+      
+      <!-- Volumetric Neck with Jaw Cast Shadow -->
+      <path d="M84 88 L84 114 Q100 124 116 114 L116 88 Z" fill="url(#neck-grad)" stroke="#5e371a" stroke-width="1.4"/>
+      <path d="M85 92 Q100 112 115 95 L115 106 Q100 118 85 104 Z" fill="#5e371a" opacity="0.55"/>
+
+      <!-- Detailed Ears with Inner Concha Shading -->
+      <ellipse cx="66" cy="66" rx="6.2" ry="11.8" fill="url(#face-grad)" stroke="#5e371a" stroke-width="1.5"/>
+      <path d="M65 61 Q63 66 66 71" fill="none" stroke="#5e371a" stroke-width="1.4" opacity="0.7"/>
+      <ellipse cx="134" cy="66" rx="6.2" ry="11.8" fill="url(#face-grad)" stroke="#5e371a" stroke-width="1.5"/>
+      <path d="M135 61 Q137 66 134 71" fill="none" stroke="#5e371a" stroke-width="1.4" opacity="0.7"/>
+
+      <!-- 3D Shaded Cranium & Jaw -->
+      <path d="M68 58 C68 18, 132 18, 132 58 C132 92, 118 109, 100 109 C82 109, 68 92, 68 58 Z" fill="url(#face-grad)" stroke="#5e371a" stroke-width="1.6"/>
+
+      <!-- Subsurface Cheek & Nose Bridge Highlights -->
+      <ellipse cx="79" cy="74" rx="11" ry="8" fill="url(#cheek-blush)"/>
+      <ellipse cx="121" cy="74" rx="11" ry="8" fill="url(#cheek-blush)"/>
+      <ellipse cx="80" cy="69" rx="7" ry="4" fill="url(#spec-grad)"/>
+      <ellipse cx="120" cy="69" rx="7" ry="4" fill="url(#spec-grad)"/>
+
+      <!-- Nasolabial & Eye Socket Volumetric Contours -->
+      <path d="M88 76 Q83 83 84 91 M112 76 Q117 83 116 91" fill="none" stroke="#996035" stroke-width="1.1" opacity="0.55" stroke-linecap="round"/>
+
+      <!-- 3D Shaded Nose Bridge, Tip Highlight & Nostrils -->
+      <path d="M97 56 L93 73 Q100 78 107 73 L103 56 Z" fill="#996035" opacity="0.28"/>
+      <path d="M100 55 L100 71" stroke="url(#spec-grad)" stroke-width="3.2" stroke-linecap="round"/>
+      <circle cx="100" cy="71.5" r="2.8" fill="url(#spec-grad)"/>
+      <path d="M93.5 73.5 Q96.5 76 98.5 74.5 M106.5 73.5 Q103.5 76 101.5 74.5" fill="none" stroke="#5e371a" stroke-width="1.6" stroke-linecap="round"/>
+
+      
+      <ellipse cx="89" cy="32" rx="18" ry="10" fill="url(#spec-grad)" opacity="0.65"/>
+      <path d="M66 60 C63 34, 73 21, 88 19 C75 30, 70 45, 70 60 Z M134 60 C137 34, 127 21, 112 19 C125 30, 130 45, 130 60 Z" fill="url(#hair-grad)"/>
+      <path d="M90 19 Q96 29 93 38 M99 18 Q104 28 101 39 M107 20 Q112 29 108 37" fill="none" stroke="#1c1815" stroke-width="1.6" stroke-linecap="round"/>
+      
+      <path d="M68 69 C69 96, 83 113, 101 113 C119 113, 132 96, 133 69 L127 67 C125 87, 116 98, 101 98 C86 98, 76 87, 74 67 Z" fill="url(#hair-grad)"/>
+      <path d="M85 81 Q101 74 117 81" fill="none" stroke="url(#hair-grad)" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M93 95 C94 104, 97 112, 102 112 C107 112, 110 104, 109 95 Z" fill="#d9d6ce" opacity="0.9"/>
+      <line x1="84.0" y1="96" x2="83.2" y2="107" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="85.3" y1="97" x2="86.0" y2="110" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="86.5" y1="98" x2="85.7" y2="109" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="87.8" y1="96" x2="88.5" y2="108" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="89.0" y1="97" x2="88.2" y2="107" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="90.3" y1="98" x2="91.0" y2="110" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="91.5" y1="96" x2="90.7" y2="109" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="92.8" y1="97" x2="93.5" y2="108" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="94.0" y1="98" x2="93.2" y2="107" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="95.3" y1="96" x2="96.0" y2="110" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="96.5" y1="97" x2="95.7" y2="109" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="97.8" y1="98" x2="98.5" y2="108" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="99.0" y1="96" x2="98.2" y2="107" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="100.3" y1="97" x2="101.0" y2="110" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="101.5" y1="98" x2="100.7" y2="109" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="102.8" y1="96" x2="103.5" y2="108" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="104.0" y1="97" x2="103.2" y2="107" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="105.3" y1="98" x2="106.0" y2="110" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="106.5" y1="96" x2="105.7" y2="109" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="107.8" y1="97" x2="108.5" y2="108" stroke="#e2dfd7" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="109.0" y1="98" x2="108.2" y2="107" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="110.3" y1="96" x2="111.0" y2="110" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="111.5" y1="97" x2="110.7" y2="109" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="112.8" y1="98" x2="113.5" y2="108" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="114.0" y1="96" x2="113.2" y2="107" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="115.3" y1="97" x2="116.0" y2="110" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="116.5" y1="98" x2="115.7" y2="109" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/><line x1="117.8" y1="96" x2="118.5" y2="108" stroke="#3a322d" stroke-width="0.85" opacity="0.85" stroke-linecap="round"/>
+      
+    <path d="M72 53 C78 47, 89 47, 97 53 C89 50, 79 50, 72 53 Z" fill="#1c1815"/>
+    <path d="M105 53 C113 47, 124 47, 130 53 C123 50, 113 50, 105 53 Z" fill="#1c1815"/>
+      
+    <!-- Sclera with realistic upper-lid shadow -->
+    <path d="M76 62 Q85 55 94 62 Q85 67 76 62 Z" fill="#f7f2eb"/>
+    <path d="M107 62 Q116 55 125 62 Q116 67 107 62 Z" fill="#f7f2eb"/>
+    <!-- Multi-layered Iris & Pupil -->
+    <circle cx="85.5" cy="61.5" r="4.3" fill="#2b190e"/>
+    <circle cx="85.5" cy="61.5" r="3.1" fill="#4f2f1a"/>
+    <circle cx="85.5" cy="61.5" r="1.8" fill="#0d0806"/>
+    <circle cx="84.2" cy="60.2" r="1.2" fill="#ffffff" opacity="0.95"/>
+    <circle cx="86.8" cy="62.8" r="0.6" fill="#ffffff" opacity="0.55"/>
+
+    <circle cx="116.5" cy="61.5" r="4.3" fill="#2b190e"/>
+    <circle cx="116.5" cy="61.5" r="3.1" fill="#4f2f1a"/>
+    <circle cx="116.5" cy="61.5" r="1.8" fill="#0d0806"/>
+    <circle cx="115.2" cy="60.2" r="1.2" fill="#ffffff" opacity="0.95"/>
+    <circle cx="117.8" cy="62.8" r="0.6" fill="#ffffff" opacity="0.55"/>
+    <!-- Upper & Lower Eyelid Creases -->
+    <path d="M75 61 Q85 54 95 61" fill="none" stroke="#24140b" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M76 58 Q85 52 94 58" fill="none" stroke="#996035" stroke-width="0.9" opacity="0.7"/>
+    <path d="M106 61 Q116 54 126 61" fill="none" stroke="#24140b" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M107 58 Q116 52 125 58" fill="none" stroke="#996035" stroke-width="0.9" opacity="0.7"/>
+    <path d="M78 65 Q85 68 92 65 M109 65 Q116 68 123 65" fill="none" stroke="#996035" stroke-width="1.1" opacity="0.65"/>
+      
+      <g stroke="#1b2e54" stroke-width="2.6" fill="url(#lens-sheen)">
+        <rect x="71.5" y="54.5" width="25.5" height="13.5" rx="6.2"/>
+        <rect x="104" y="54.5" width="25.5" height="13.5" rx="6.2"/>
+        <line x1="97" y1="60" x2="104" y2="60"/>
+        <line x1="65" y1="58" x2="71.5" y2="59"/>
+        <line x1="129.5" y1="59" x2="135" y2="58"/>
+      </g>
+      <path d="M75 56 L80 66 M108 56 L113 66" stroke="#ffffff" stroke-width="1.3" opacity="0.3" stroke-linecap="round"/>
+      
+    <path d="M89 88 Q95 85 101 87 Q107 85 113 88 Q101 90 89 88 Z" fill="#754238"/>
+    <path d="M90 88 Q101 95 112 88 Q101 91 90 88 Z" fill="#a66356"/>
+    <path d="M95 90 Q101 92 107 90" fill="none" stroke="#ffdfcf" stroke-width="0.8" opacity="0.5"/>
+    <path d="M88 88 Q101 91 114 88" fill="none" stroke="#361912" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+  </svg>

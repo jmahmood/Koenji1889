@@ -1,0 +1,420 @@
+{
+  "schema_version": "1.0.0",
+  "prepared_date": "2026-10-17",
+  "coordinate_space": {
+    "viewBox": "0 0 200 240",
+    "collar_anchor": {
+      "x": 100,
+      "y": 92
+    }
+  },
+  "surface_crops": {
+    "table": {
+      "viewBox": "0 0 200 240",
+      "description": "Waist-up seated view at the Koenji clubroom table"
+    },
+    "setup": {
+      "viewBox": "0 0 200 240",
+      "description": "Full character preview card in onboarding"
+    },
+    "portrait": {
+      "viewBox": "24 8 152 145",
+      "description": "Chest/head + raised-prop crop for Stock & Map player strips"
+    },
+    "arrival": {
+      "viewBox": "10 0 180 215",
+      "description": "Waist-up doorway/kitchen/bedroom arrival dock cut"
+    }
+  },
+  "faces": [
+    {
+      "id": "member-1",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral"
+    },
+    {
+      "id": "member-2",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral"
+    },
+    {
+      "id": "member-3",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral"
+    },
+    {
+      "id": "member-4",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral"
+    },
+    {
+      "id": "member-5",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral"
+    },
+    {
+      "id": "reference-01",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-01-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-02",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-02-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-03",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-03-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-04",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-04-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-05",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-05-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-06",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-06-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-07",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-07-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-08",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-08-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-09",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-09-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-10",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-10-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-11",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-11-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-12",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-12-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-13",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-13-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-14",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-14-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-15",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-15-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-16",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-16-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    },
+    {
+      "id": "reference-17",
+      "photoreal_dir": "photoreal-heads",
+      "default_expression": "neutral",
+      "atlas": "reference-17-expressions.png",
+      "frame_metadata": "src/data/appearance.json"
+    }
+  ],
+  "expressions": {
+    "neutral": {
+      "hold_ms": 0,
+      "head_offset": [
+        0,
+        0
+      ],
+      "uses": "Rest, waiting, observation, static reduced-motion state"
+    },
+    "smile": {
+      "hold_ms": 750,
+      "head_offset": [
+        0,
+        0
+      ],
+      "uses": "Greeting, tea, accepted purchases, congratulations"
+    },
+    "calculating": {
+      "hold_ms": 650,
+      "head_offset": [
+        0,
+        1
+      ],
+      "uses": "Local planning, ledger inspection, reviewing an offer"
+    },
+    "declare": {
+      "hold_ms": 600,
+      "head_offset": [
+        0,
+        2
+      ],
+      "uses": "Confirmed bid, purchase, track action, host announcement"
+    },
+    "shock": {
+      "hold_ms": 850,
+      "head_offset": [
+        0,
+        -4
+      ],
+      "uses": "Occasional verified outbid or adverse outcome"
+    },
+    "concerned": {
+      "hold_ms": 750,
+      "head_offset": [
+        0,
+        1
+      ],
+      "uses": "Emergency funding, obsolete trains, difficult financial decisions"
+    },
+    "disappointed": {
+      "hold_ms": 800,
+      "head_offset": [
+        0,
+        2
+      ],
+      "uses": "Lost concession, bankruptcy/end-of-game loss, setback reaction"
+    },
+    "laugh": {
+      "hold_ms": 850,
+      "head_offset": [
+        0,
+        -2
+      ],
+      "uses": "Explicit social celebration"
+    },
+    "blink": {
+      "hold_ms": 180,
+      "head_offset": [
+        0,
+        0
+      ],
+      "uses": "Occasional idle detail preserving glasses"
+    }
+  },
+  "poses": {
+    "idle": {
+      "id": "P1",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "uses": "Default and final hold for most clips"
+    },
+    "tea": {
+      "id": "P2",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "teacup_raised",
+      "uses": "Social idle, kitchen arrival, occasional toast"
+    },
+    "thinking": {
+      "id": "P3",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "uses": "Planning and observation (hand overlaps chin)"
+    },
+    "ledger": {
+      "id": "P4",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "ledger_open",
+      "uses": "Financial review, route claim, negotiation"
+    },
+    "point": {
+      "id": "P5",
+      "layer_offsets": [
+        0,
+        4
+      ],
+      "uses": "Declaration before a confirmed action"
+    },
+    "certificate": {
+      "id": "P6",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "share_cert",
+      "uses": "Shares, private companies, train cards, presidency card"
+    },
+    "token": {
+      "id": "P7",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "track_hex",
+      "uses": "Holding a replaceable track tile OR station token"
+    },
+    "shock": {
+      "id": "P8",
+      "layer_offsets": [
+        0,
+        -3
+      ],
+      "uses": "Brief setback reaction"
+    },
+    "wave": {
+      "id": "P9",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "uses": "Guest/resident greeting and acknowledging a newcomer"
+    },
+    "bow": {
+      "id": "P10",
+      "layer_offsets": [
+        0,
+        6
+      ],
+      "uses": "Entering the house, thanks, end-of-evening courtesy"
+    },
+    "triumphant": {
+      "id": "P11",
+      "layer_offsets": [
+        0,
+        -3
+      ],
+      "uses": "Auction win, corporation milestone, final winner"
+    },
+    "offer": {
+      "id": "P12",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "share_cert",
+      "uses": "Offering a certificate, train, cash, or membership card"
+    },
+    "receive": {
+      "id": "P13",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "share_cert",
+      "uses": "Accepting an item, then held near chest"
+    },
+    "place": {
+      "id": "P14",
+      "layer_offsets": [
+        0,
+        4
+      ],
+      "default_prop": "track_hex",
+      "uses": "Hand reaching downward to place tile, token, hanko stamp, or cup"
+    },
+    "count": {
+      "id": "P15",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "cash_envelope",
+      "uses": "Cash payment, dividends, emergency contribution, treasury bookkeeping"
+    },
+    "close_ledger": {
+      "id": "P16",
+      "layer_offsets": [
+        0,
+        0
+      ],
+      "default_prop": "ledger_closed",
+      "uses": "Withhold, endgame, quiet conclusion"
+    }
+  },
+  "outfits": [
+    "indigo-haori",
+    "charcoal-suit",
+    "plum-kimono",
+    "moss-hakama",
+    "imperial-railway-uniform",
+    "crimson-furisode",
+    "inverness-cape",
+    "merchant-hanten",
+    "ivory-summer-suit",
+    "amber-jinbaori",
+    "teal-frock-coat",
+    "slate-montsuki"
+  ],
+  "props": [
+    "prop-share-certificate",
+    "prop-private-certificate",
+    "prop-train-card",
+    "prop-track-hex",
+    "prop-station-token",
+    "prop-cash-envelope",
+    "prop-ledger-open",
+    "prop-ledger-closed",
+    "prop-teacup-raised",
+    "prop-teacup-setdown",
+    "prop-hanko-stamp",
+    "prop-priority-deal",
+    "prop-operating-marker",
+    "prop-phase-card",
+    "prop-bank-end-pending",
+    "prop-overlays-sheet"
+  ]
+}

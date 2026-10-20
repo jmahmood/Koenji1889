@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koenji Railway Club 1889 · Adaptive Audio & Stem Mixer</title>
+  <style>
+    :root {
+      --bg-dark: #12100e;
+      --bg-panel: #1e1a16;
+      --bg-card: #27221c;
+      --bg-strip: #2f2922;
+      --border: #443a2f;
+      --border-light: #665643;
+      --brass: #d4a359;
+      --brass-bright: #f0c377;
+      --brass-dim: #99743a;
+      --text: #e6dfd5;
+      --text-muted: #a69888;
+      --accent-red: #c94a38;
+      --accent-green: #4da664;
+      --accent-blue: #4a8cc7;
+      --meter-peak: #f43f5e;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text);
+      font-family: var(--font-main);
+      padding: 24px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .title-group h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--brass-bright);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-group p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(212, 163, 89, 0.15);
+      border: 1px solid var(--brass-dim);
+      color: var(--brass);
+    }
+
+    .badge.green {
+      border-color: #4da664;
+      color: #79d792;
+      background: rgba(77, 166, 100, 0.15);
+    }
+
+    /* Set Selector Bar */
+    .set-selector-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 8px;
+    }
+
+    .set-switch-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-set {
+      background: var(--bg-strip);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-set:hover {
+      color: var(--brass-bright);
+      border-color: var(--brass);
+    }
+
+    .btn-set.active {
+      background: var(--brass);
+      border-color: var(--brass-bright);
+      color: #1a1612;
+    }
+
+    /* Master Transport Bar */
+    .master-transport {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .transport-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button.btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+
+    button.btn:hover {
+      background: var(--bg-strip);
+      border-color: var(--brass);
+      color: var(--brass-bright);
+    }
+
+    button.btn-primary {
+      background: var(--brass);
+      border-color: var(--brass-bright);
+      color: #1a1612;
+    }
+
+    button.btn-primary:hover {
+      background: var(--brass-bright);
+      box-shadow: 0 0 12px rgba(240, 195, 119, 0.4);
+    }
+
+    button.btn.active {
+      background: var(--accent-green);
+      border-color: #79d792;
+      color: #fff;
+    }
+
+    .timeline-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .timeline-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--text-muted);
+    }
+
+    .timeline-bar-wrapper {
+      position: relative;
+      height: 14px;
+      background: #14110e;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .timeline-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, var(--brass-dim), var(--brass));
+      transition: width 0.05s linear;
+    }
+
+    .timeline-loop-region {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0%;
+      width: 100%;
+      background: rgba(212, 163, 89, 0.1);
+      border-left: 2px dashed var(--brass);
+      border-right: 2px dashed var(--brass);
+      pointer-events: none;
+    }
+
+    .master-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .master-vol-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .master-vol-group label {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--brass);
+    }
+
+    input[type="range"] {
+      appearance: none;
+      background: #171411;
+      height: 6px;
+      border-radius: 3px;
+      outline: none;
+      border: 1px solid var(--border);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--brass-bright);
+      border: 2px solid #1a1612;
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(0,0,0,0.5);
+    }
+
+    /* Room Simulator Presets */
+    .room-simulator {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--brass-bright);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .simulator-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .transition-speed-select {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    select.vintage-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 4px 8px;
+      border-radius: 4px;
+      outline: none;
+      font-size: 12px;
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .preset-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preset-card:hover {
+      border-color: var(--brass);
+      background: var(--bg-strip);
+      transform: translateY(-2px);
+    }
+
+    .preset-card.active {
+      border-color: var(--brass-bright);
+      background: rgba(212, 163, 89, 0.12);
+      box-shadow: 0 0 16px rgba(212, 163, 89, 0.25);
+    }
+
+    .preset-card.active::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--brass-bright);
+    }
+
+    .preset-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .preset-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    .preset-stems-preview {
+      display: flex;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .stem-pip {
+      height: 4px;
+      flex: 1;
+      border-radius: 2px;
+      background: #332b21;
+      transition: background 0.2s ease;
+    }
+
+    .stem-pip.lit {
+      background: var(--brass);
+    }
+
+    /* 4-Channel Mixer Console */
+    .mixer-console {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .mixer-console {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .channel-strip {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .channel-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .channel-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--brass);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .channel-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .channel-role {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .fader-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .fader-track-wrapper {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fader-slider {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+    }
+
+    .meter-container {
+      width: 16px;
+      height: 100px;
+      background: #14110e;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column-reverse;
+      padding: 2px;
+    }
+
+    .meter-fill {
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(0deg, var(--accent-green) 0%, var(--brass) 75%, var(--meter-peak) 95%);
+      border-radius: 2px;
+      transition: height 0.05s ease-out;
+    }
+
+    .channel-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-ch {
+      flex: 1;
+      padding: 6px 0;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-ch.mute.active {
+      background: var(--accent-red);
+      border-color: #ff6b6b;
+      color: #fff;
+    }
+
+    .btn-ch.solo.active {
+      background: var(--brass);
+      border-color: var(--brass-bright);
+      color: #12100e;
+    }
+
+    .fader-readout {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--text-muted);
+    }
+
+    .fader-pct {
+      font-weight: 700;
+      color: var(--brass-bright);
+    }
+
+    /* Offset / Nudge controls */
+    .nudge-controls {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nudge-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .nudge-val {
+      color: var(--brass);
+      font-family: monospace;
+    }
+
+    .nudge-btns {
+      display: flex;
+      gap: 4px;
+    }
+
+    .btn-nudge {
+      flex: 1;
+      background: var(--bg-strip);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 10px;
+      padding: 4px 0;
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: monospace;
+    }
+
+    .btn-nudge:hover {
+      background: var(--brass-dim);
+      color: #fff;
+    }
+
+    /* Diagnostics & Tools Drawer */
+    .tools-panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .tools-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+
+    .tool-box h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brass-bright);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tool-box p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .loop-slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .loop-inputs {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .loop-input-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .loop-input-item input {
+      width: 60px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    canvas.master-scope {
+      width: 100%;
+      height: 48px;
+      background: #14110e;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="title-group">
+      <h1>高円寺鉄道倶楽部 1889 · Adaptive Audio Testbed</h1>
+      <p>Vertical Stem Layering & Seamless Mood Transition Console</p>
+    </div>
+    <div class="badges">
+      <span class="badge green" id="badge-engine-mode">Smooth Direct Audio</span>
+      <span class="badge" style="border-color:#4da664; color:#79d792;">BPM: 84 Locked</span>
+    </div>
+  </header>
+
+  <!-- A/B Set Switcher Bar -->
+  <div class="set-selector-bar">
+    <div class="set-switch-group">
+      <span style="font-size:12px; font-weight:700; color:var(--brass-bright); margin-right:4px;">Audio Bank:</span>
+      <button class="btn-set active" id="btn-set-new" data-set="new">✨ New Ambient Set (Non-Intrusive Loops)</button>
+      <button class="btn-set" id="btn-set-old" data-set="old">🏛️ Original Set (Melodic Pieces)</button>
+    </div>
+    <div style="font-size:11px; color:var(--text-muted);">
+      Active Set: <strong id="lbl-active-set" style="color:var(--brass);">New Ambient Loops</strong>
+    </div>
+  </div>
+
+  <!-- Master Transport Bar -->
+  <div class="master-transport">
+    <div class="transport-buttons">
+      <button class="btn btn-primary" id="btn-master-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span>Play Ensemble</span>
+      </button>
+      <button class="btn" id="btn-master-stop">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h12v12H6z"/></svg>
+        <span>Stop</span>
+      </button>
+      <button class="btn active" id="btn-master-loop" title="Toggle Continuous Looping">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        <span>Loop: ON</span>
+      </button>
+    </div>
+
+    <div class="timeline-container">
+      <div class="timeline-top">
+        <span id="txt-current-time">00:00.00</span>
+        <span id="txt-bpm-beat">Beat: 1.1</span>
+        <span id="txt-total-duration">--:--</span>
+      </div>
+      <div class="timeline-bar-wrapper" id="timeline-bar">
+        <div class="timeline-loop-region" id="loop-region-marker"></div>
+        <div class="timeline-progress" id="timeline-progress"></div>
+      </div>
+    </div>
+
+    <div class="master-controls">
+      <div class="master-vol-group">
+        <label for="master-vol">Master</label>
+        <input type="range" id="master-vol" min="0" max="1" step="0.01" value="0.85">
+        <span style="font-size:12px; font-family:monospace; color:var(--brass-bright); width:36px;" id="master-vol-readout">85%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Room Simulator Presets -->
+  <div class="room-simulator">
+    <div class="section-header">
+      <div class="section-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Simulate 1889 Game Room Transitions (Tuned Base Ducking)</span>
+      </div>
+      <div class="simulator-controls">
+        <div class="transition-speed-select">
+          <span>Crossfade:</span>
+          <select id="sel-transition-speed" class="vintage-select">
+            <option value="0">Instant (Cut)</option>
+            <option value="0.5">Snappy (0.5s)</option>
+            <option value="1.5" selected>Standard (1.5s)</option>
+            <option value="3.0">Gentle (3.0s)</option>
+            <option value="5.0">Cinematic (5.0s)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="preset-grid">
+      <!-- Preset 1: Lounge -->
+      <div class="preset-card active" data-preset="lounge">
+        <div class="preset-name">🍵 Club Table (Lounge)</div>
+        <div class="preset-desc">Base Hearth at full 100%. Cozy, solo felt piano and quiet brush train-beat.</div>
+        <div class="preset-stems-preview">
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip"></div>
+          <div class="stem-pip"></div>
+          <div class="stem-pip"></div>
+        </div>
+      </div>
+
+      <!-- Preset 2: Auction -->
+      <div class="preset-card" data-preset="auction">
+        <div class="preset-name">🔨 Private Auction</div>
+        <div class="preset-desc">Base ducks to 30%. Koto & Soroban take the lead at 85%.</div>
+        <div class="preset-stems-preview">
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip"></div>
+        </div>
+      </div>
+
+      <!-- Preset 3: Stock Exchange -->
+      <div class="preset-card" data-preset="stock">
+        <div class="preset-name">📈 Stock Exchange</div>
+        <div class="preset-desc">Base ducks to 25%. Stock & Concessions dominate at 95%.</div>
+        <div class="preset-stems-preview">
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip"></div>
+        </div>
+      </div>
+
+      <!-- Preset 4: Map Operations -->
+      <div class="preset-card" data-preset="operations">
+        <div class="preset-name">🚂 Map & Operations</div>
+        <div class="preset-desc">Base ducks to 30%. Locomotive rail pulse takes over at 95%.</div>
+        <div class="preset-stems-preview">
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip"></div>
+          <div class="stem-pip"></div>
+        </div>
+      </div>
+
+      <!-- Preset 5: Rust & Crisis -->
+      <div class="preset-card" data-preset="crisis">
+        <div class="preset-name">⚠️ Train Rust & Crisis</div>
+        <div class="preset-desc">Base drops to 15%. High-tension strings & steam take over at 100%.</div>
+        <div class="preset-stems-preview">
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+        </div>
+      </div>
+
+      <!-- Preset 6: Full Ensemble -->
+      <div class="preset-card" data-preset="full">
+        <div class="preset-name">🎶 Full Ensemble</div>
+        <div class="preset-desc">Balanced master mix: Base at 35%, operational and market layers at 70%.</div>
+        <div class="preset-stems-preview">
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+          <div class="stem-pip lit"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4-Channel Mixer Console -->
+  <div class="mixer-console">
+    <!-- Channel 1 -->
+    <div class="channel-strip" id="ch-1" data-index="0">
+      <div class="channel-header">
+        <div class="channel-num">Stem 1 · Base Bed</div>
+        <div class="channel-name" id="ch-title-0">1. Across the Shoji Screens</div>
+        <div class="channel-role" id="ch-desc-0">Soft Felt Piano, Muffled Brush Snare, Warm Bass</div>
+      </div>
+
+      <div class="fader-area">
+        <div class="meter-container">
+          <div class="meter-fill" id="meter-fill-0"></div>
+        </div>
+        <div class="fader-track-wrapper">
+          <div class="fader-readout">
+            <span>Level</span>
+            <span class="fader-pct" id="fader-val-0">100%</span>
+          </div>
+          <input type="range" class="fader-slider" id="fader-0" min="0" max="1" step="0.01" value="1.0">
+        </div>
+      </div>
+
+      <div class="channel-buttons">
+        <button class="btn-ch mute" id="mute-0">MUTE</button>
+        <button class="btn-ch solo" id="solo-0">SOLO</button>
+      </div>
+
+      <div class="nudge-controls">
+        <div class="nudge-label">
+          <span>Downbeat Sync Offset</span>
+          <span class="nudge-val" id="nudge-val-0">0 ms</span>
+        </div>
+        <div class="nudge-btns">
+          <button class="btn-nudge" data-delta="-50">-50ms</button>
+          <button class="btn-nudge" data-delta="-10">-10ms</button>
+          <button class="btn-nudge" data-delta="0">0</button>
+          <button class="btn-nudge" data-delta="10">+10ms</button>
+          <button class="btn-nudge" data-delta="50">+50ms</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel 2 -->
+    <div class="channel-strip" id="ch-2" data-index="1">
+      <div class="channel-header">
+        <div class="channel-num">Stem 2 · Operations</div>
+        <div class="channel-name" id="ch-title-1">2. Through the Paper Screen</div>
+        <div class="channel-role" id="ch-desc-1">Muted Acoustic Guitar Chug, Distant Bells</div>
+      </div>
+
+      <div class="fader-area">
+        <div class="meter-container">
+          <div class="meter-fill" id="meter-fill-1"></div>
+        </div>
+        <div class="fader-track-wrapper">
+          <div class="fader-readout">
+            <span>Level</span>
+            <span class="fader-pct" id="fader-val-1">0%</span>
+          </div>
+          <input type="range" class="fader-slider" id="fader-1" min="0" max="1" step="0.01" value="0.0">
+        </div>
+      </div>
+
+      <div class="channel-buttons">
+        <button class="btn-ch mute" id="mute-1">MUTE</button>
+        <button class="btn-ch solo" id="solo-1">SOLO</button>
+      </div>
+
+      <div class="nudge-controls">
+        <div class="nudge-label">
+          <span>Downbeat Sync Offset</span>
+          <span class="nudge-val" id="nudge-val-1">0 ms</span>
+        </div>
+        <div class="nudge-btns">
+          <button class="btn-nudge" data-delta="-50">-50ms</button>
+          <button class="btn-nudge" data-delta="-10">-10ms</button>
+          <button class="btn-nudge" data-delta="0">0</button>
+          <button class="btn-nudge" data-delta="10">+10ms</button>
+          <button class="btn-nudge" data-delta="50">+50ms</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel 3 -->
+    <div class="channel-strip" id="ch-3" data-index="2">
+      <div class="channel-header">
+        <div class="channel-num">Stem 3 · Exchange</div>
+        <div class="channel-name" id="ch-title-2">3. Silk and Soroban</div>
+        <div class="channel-role" id="ch-desc-2">Sparse Koto Ripples, Delicate Soroban Clacks</div>
+      </div>
+
+      <div class="fader-area">
+        <div class="meter-container">
+          <div class="meter-fill" id="meter-fill-2"></div>
+        </div>
+        <div class="fader-track-wrapper">
+          <div class="fader-readout">
+            <span>Level</span>
+            <span class="fader-pct" id="fader-val-2">0%</span>
+          </div>
+          <input type="range" class="fader-slider" id="fader-2" min="0" max="1" step="0.01" value="0.0">
+        </div>
+      </div>
+
+      <div class="channel-buttons">
+        <button class="btn-ch mute" id="mute-2">MUTE</button>
+        <button class="btn-ch solo" id="solo-2">SOLO</button>
+      </div>
+
+      <div class="nudge-controls">
+        <div class="nudge-label">
+          <span>Downbeat Sync Offset</span>
+          <span class="nudge-val" id="nudge-val-2">0 ms</span>
+        </div>
+        <div class="nudge-btns">
+          <button class="btn-nudge" data-delta="-50">-50ms</button>
+          <button class="btn-nudge" data-delta="-10">-10ms</button>
+          <button class="btn-nudge" data-delta="0">0</button>
+          <button class="btn-nudge" data-delta="10">+10ms</button>
+          <button class="btn-nudge" data-delta="50">+50ms</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel 4 -->
+    <div class="channel-strip" id="ch-4" data-index="3">
+      <div class="channel-header">
+        <div class="channel-num">Stem 4 · Crisis</div>
+        <div class="channel-name" id="ch-title-3">4. The Ledger on the Line</div>
+        <div class="channel-role" id="ch-desc-3">Muted Staccato Violins, Watch Ticking, Shamisen</div>
+      </div>
+
+      <div class="fader-area">
+        <div class="meter-container">
+          <div class="meter-fill" id="meter-fill-3"></div>
+        </div>
+        <div class="fader-track-wrapper">
+          <div class="fader-readout">
+            <span>Level</span>
+            <span class="fader-pct" id="fader-val-3">0%</span>
+          </div>
+          <input type="range" class="fader-slider" id="fader-3" min="0" max="1" step="0.01" value="0.0">
+        </div>
+      </div>
+
+      <div class="channel-buttons">
+        <button class="btn-ch mute" id="mute-3">MUTE</button>
+        <button class="btn-ch solo" id="solo-3">SOLO</button>
+      </div>
+
+      <div class="nudge-controls">
+        <div class="nudge-label">
+          <span>Downbeat Sync Offset</span>
+          <span class="nudge-val" id="nudge-val-3">0 ms</span>
+        </div>
+        <div class="nudge-btns">
+          <button class="btn-nudge" data-delta="-50">-50ms</button>
+          <button class="btn-nudge" data-delta="-10">-10ms</button>
+          <button class="btn-nudge" data-delta="0">0</button>
+          <button class="btn-nudge" data-delta="10">+10ms</button>
+          <button class="btn-nudge" data-delta="50">+50ms</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools & Diagnostics Drawer -->
+  <div class="tools-panel">
+    <!-- Loop Seam Audition Tool -->
+    <div class="tool-box">
+      <h3>🔁 Loop Seam Auditioner</h3>
+      <p>Test if the loops repeat cleanly without clicks, hiccups, or awkward cadences.</p>
+      
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <button class="btn" id="btn-jump-seam">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+          <span>Jump to Seam (-3.5s)</span>
+        </button>
+      </div>
+
+      <div class="loop-slider-group">
+        <div class="loop-inputs">
+          <div class="loop-input-item">
+            <span>Loop Start:</span>
+            <input type="number" id="inp-loop-start" value="0.0" step="0.5" min="0"> s
+          </div>
+          <div class="loop-input-item">
+            <span>Loop End:</span>
+            <input type="number" id="inp-loop-end" value="58.5" step="0.5" min="5"> s
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output Status & Diagnostics -->
+    <div class="tool-box">
+      <h3>📊 Output Status & Diagnostics</h3>
+      <p>Dynamic ducking active: Base Bed automatically clears room for active layers.</p>
+      <canvas class="master-scope" id="scope-canvas"></canvas>
+      <div style="font-size:11px; color:var(--text-muted); margin-top:8px;" id="txt-diagnostic">
+        Status: 4 new ambient stems loaded and synchronized with tuned ducking levels.
+      </div>
+    </div>
+  </div>
+
+  <!-- Stutter-Free Direct Audio Engine -->
+  <script>
+    const AUDIO_SETS = {
+      new: {
+        name: "New Ambient Set (Non-Intrusive Loops)",
+        stems: [
+          { file: "./music/1_Across_the_Shoji_Screens.mp3", title: "1. Across the Shoji Screens", desc: "Soft Felt Piano, Muffled Brush Snare, Warm Bass" },
+          { file: "./music/2_Through_the_Paper_Screen.mp3", title: "2. Through the Paper Screen", desc: "Muted Acoustic Guitar Chug, Distant Bells" },
+          { file: "./music/3_Silk_and_Soroban.mp3", title: "3. Silk and Soroban", desc: "Sparse Koto Ripples, Delicate Soroban Clacks" },
+          { file: "./music/4_The_Ledger_on_the_Line.mp3", title: "4. The Ledger on the Line", desc: "Muted Staccato Violins, Watch Ticking, Shamisen" }
+        ],
+        defaultLoopEnd: 58.5
+      },
+      old: {
+        name: "Original Set (Melodic Pieces)",
+        stems: [
+          { file: "./music/old_1_Ledger_of_the_Iron_Road.mp3", title: "1. Ledger of Iron Road", desc: "Upright Piano, Brush Snare, Upright Bass" },
+          { file: "./music/old_2_Iron_Wheels_Over_Ties.mp3", title: "2. Iron Wheels Over Ties", desc: "Acoustic Guitar Chug, Cello, Depot Bell" },
+          { file: "./music/old_3_Trains_and_Ledger_Lines.mp3", title: "3. Trains & Ledger Lines", desc: "Koto Arpeggios, Pizzicato Strings, Soroban" },
+          { file: "./music/old_4_Unresolved_Debt.mp3", title: "4. Unresolved Debt", desc: "Staccato Strings, Shamisen, Urgent Steam" }
+        ],
+        defaultLoopEnd: 60.5
+      }
+    };
+
+    let activeSetKey = "new";
+
+    const BPM = 84;
+    const SECONDS_PER_BEAT = 60 / BPM;
+
+    let isPlaying = false;
+    let isLooping = true;
+    let masterVolume = 0.85;
+    let soloActiveIndex = -1;
+
+    let loopStart = 0.0;
+    let loopEnd = 58.5;
+
+    // Tuned presets with deeper base bed ducking
+    const PRESETS = {
+      lounge: [1.0, 0.0, 0.0, 0.0],
+      auction: [0.30, 0.0, 0.85, 0.0],
+      stock: [0.22, 0.0, 0.95, 0.0],
+      operations: [0.28, 0.95, 0.0, 0.0],
+      crisis: [0.15, 0.20, 0.15, 1.0],
+      full: [0.35, 0.70, 0.70, 0.70]
+    };
+
+    let stems = [];
+
+    function initDirectAudioEngine(setKey) {
+      stems.forEach(s => s.audio.pause());
+      stems = [];
+
+      const currentSet = AUDIO_SETS[setKey];
+      activeSetKey = setKey;
+
+      currentSet.stems.forEach((item, idx) => {
+        const audio = new Audio();
+        audio.src = item.file;
+        audio.preload = "auto";
+        audio.loop = false;
+
+        document.getElementById(`ch-title-${idx}`).innerText = item.title;
+        document.getElementById(`ch-desc-${idx}`).innerText = item.desc;
+
+        const initialGain = parseFloat(document.getElementById(`fader-${idx}`).value);
+
+        const defaultOffset = (setKey === 'new' && idx === 1) ? -40 : 0;
+        document.getElementById(`nudge-val-${idx}`).innerText = `${defaultOffset !== 0 ? defaultOffset : 0} ms`;
+
+        const stemObj = {
+          index: idx,
+          audio: audio,
+          currentGain: initialGain,
+          targetGain: initialGain,
+          isFading: false,
+          fadeStartGain: initialGain,
+          fadeStartTime: 0,
+          fadeDuration: 0,
+          isMuted: false,
+          isSolo: false,
+          offsetMs: defaultOffset,
+          duration: 0
+        };
+
+        audio.volume = idx === 0 ? initialGain * masterVolume : 0;
+
+        audio.addEventListener("loadedmetadata", () => {
+          stemObj.duration = audio.duration;
+          updateDurationDisplay();
+        });
+
+        stems.push(stemObj);
+      });
+
+      document.getElementById("lbl-active-set").innerText = currentSet.name;
+      document.getElementById("txt-diagnostic").innerText = `Loaded bank: ${currentSet.name}. 4 tracks initialized.`;
+    }
+
+    function updateDurationDisplay() {
+      const validDurations = stems.map(s => s.duration).filter(d => d > 0);
+      if (validDurations.length > 0) {
+        loopEnd = Math.min(...validDurations);
+        document.getElementById("inp-loop-end").value = loopEnd.toFixed(1);
+        document.getElementById("txt-total-duration").innerText = formatTime(loopEnd);
+      }
+    }
+
+    function syncPlayheadsTo(targetTime) {
+      stems.forEach(stem => {
+        const adjustedTime = Math.max(0, targetTime + (stem.offsetMs / 1000));
+        stem.audio.currentTime = adjustedTime;
+      });
+    }
+
+    function playAll() {
+      const startTime = stems[0].audio.currentTime || 0;
+      syncPlayheadsTo(startTime);
+
+      stems.forEach((stem) => {
+        stem.audio.playbackRate = 1.0;
+        stem.audio.play().catch(e => {
+          console.warn("Playback error:", e);
+        });
+      });
+
+      isPlaying = true;
+      document.getElementById("btn-master-play").classList.add("btn-primary");
+      document.getElementById("btn-master-play").querySelector("span").innerText = "Pause";
+      document.getElementById("txt-diagnostic").innerText = "Playing all stems in synchronization.";
+    }
+
+    function pauseAll() {
+      stems.forEach(stem => stem.audio.pause());
+      isPlaying = false;
+      document.getElementById("btn-master-play").querySelector("span").innerText = "Resume";
+      document.getElementById("txt-diagnostic").innerText = "Paused.";
+    }
+
+    function stopAll() {
+      stems.forEach(stem => {
+        stem.audio.pause();
+      });
+      syncPlayheadsTo(loopStart);
+      isPlaying = false;
+      document.getElementById("btn-master-play").querySelector("span").innerText = "Play Ensemble";
+      updateTimelineProgress(loopStart);
+      document.getElementById("txt-diagnostic").innerText = "Stopped.";
+    }
+
+    function setStemGain(idx, targetVal, duration) {
+      const stem = stems[idx];
+      if (!stem) return;
+
+      if (duration <= 0.05) {
+        stem.currentGain = targetVal;
+        stem.targetGain = targetVal;
+        stem.isFading = false;
+      } else {
+        stem.fadeStartGain = stem.currentGain;
+        stem.targetGain = targetVal;
+        stem.fadeStartTime = performance.now();
+        stem.fadeDuration = duration;
+        stem.isFading = true;
+      }
+
+      document.getElementById(`fader-${idx}`).value = targetVal;
+      document.getElementById(`fader-val-${idx}`).innerText = `${Math.round(targetVal * 100)}%`;
+    }
+
+    function applyPreset(presetName) {
+      const targets = PRESETS[presetName];
+      if (!targets) return;
+
+      document.querySelectorAll(".preset-card").forEach(c => {
+        c.classList.toggle("active", c.getAttribute("data-preset") === presetName);
+      });
+
+      const speed = parseFloat(document.getElementById("sel-transition-speed").value);
+
+      targets.forEach((val, idx) => {
+        setStemGain(idx, val, speed);
+      });
+
+      const baseDuckPct = Math.round(targets[0] * 100);
+      document.getElementById("txt-diagnostic").innerText = `Switched to: ${presetName.toUpperCase()} (Base ducked to ${baseDuckPct}%, ${speed}s crossfade)`;
+    }
+
+    function mainAudioLoop() {
+      const now = performance.now();
+
+      stems.forEach(stem => {
+        if (stem.isFading) {
+          const elapsed = (now - stem.fadeStartTime) / 1000;
+          if (elapsed >= stem.fadeDuration) {
+            stem.currentGain = stem.targetGain;
+            stem.isFading = false;
+          } else {
+            const t = elapsed / stem.fadeDuration;
+            const ease = 0.5 - 0.5 * Math.cos(t * Math.PI);
+            stem.currentGain = stem.fadeStartGain + (stem.targetGain - stem.fadeStartGain) * ease;
+          }
+        }
+
+        let effectiveVol = stem.currentGain * masterVolume;
+        if (stem.isMuted) effectiveVol = 0;
+        if (soloActiveIndex !== -1 && soloActiveIndex !== stem.index) effectiveVol = 0;
+
+        const targetVol = Math.max(0, Math.min(1, effectiveVol));
+
+        if (Math.abs(stem.audio.volume - targetVol) > 0.005) {
+          stem.audio.volume = targetVol;
+        }
+
+        const fill = document.getElementById(`meter-fill-${stem.index}`);
+        if (fill) {
+          if (isPlaying && targetVol > 0.01) {
+            const pulse = 0.85 + 0.15 * Math.sin((stem.audio.currentTime || 0) * Math.PI * (BPM / 30));
+            fill.style.height = `${Math.min(100, targetVol * 95 * pulse)}%`;
+          } else {
+            fill.style.height = "0%";
+          }
+        }
+      });
+
+      if (isPlaying && stems.length > 0) {
+        const primary = stems[0].audio;
+        const curr = primary.currentTime;
+
+        if (isLooping && curr >= loopEnd) {
+          syncPlayheadsTo(loopStart);
+        }
+
+        stems.forEach((stem, idx) => {
+          if (idx > 0) {
+            const targetStemTime = curr + (stem.offsetMs / 1000);
+            const diff = targetStemTime - stem.audio.currentTime;
+
+            if (diff > 0.06) {
+              stem.audio.playbackRate = 1.015;
+            } else if (diff < -0.06) {
+              stem.audio.playbackRate = 0.985;
+            } else {
+              stem.audio.playbackRate = 1.0;
+            }
+          }
+        });
+
+        updateTimelineProgress(curr);
+        document.getElementById("txt-current-time").innerText = formatTime(curr);
+
+        const totalBeats = curr / SECONDS_PER_BEAT;
+        const currentMeasure = Math.floor(totalBeats / 4) + 1;
+        const currentBeat = Math.floor(totalBeats % 4) + 1;
+        document.getElementById("txt-bpm-beat").innerText = `Bar ${currentMeasure} · Beat ${currentBeat}`;
+      }
+
+      renderSimulatedScope();
+      requestAnimationFrame(mainAudioLoop);
+    }
+
+    function updateTimelineProgress(curr) {
+      const total = loopEnd || 60;
+      const pct = Math.max(0, Math.min(100, (curr / total) * 100));
+      document.getElementById("timeline-progress").style.width = `${pct}%`;
+    }
+
+    function formatTime(sec) {
+      if (isNaN(sec)) return "00:00.00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      const ms = Math.floor((sec % 1) * 100);
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(ms).padStart(2,'0')}`;
+    }
+
+    function renderSimulatedScope() {
+      const canvas = document.getElementById("scope-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#14110e";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = isPlaying ? "#d4a359" : "#443a2f";
+      ctx.beginPath();
+
+      const width = canvas.width;
+      const height = canvas.height;
+      const mid = height / 2;
+
+      let totalActiveGain = stems.reduce((sum, s) => sum + (s.audio.volume || 0), 0);
+      const amp = isPlaying ? Math.min(mid - 4, totalActiveGain * 8) : 0;
+      const t = performance.now() * 0.005;
+
+      for (let x = 0; x < width; x++) {
+        const freq1 = Math.sin((x * 0.05) + t);
+        const freq2 = Math.sin((x * 0.12) - (t * 1.5));
+        const y = mid + (freq1 * 0.7 + freq2 * 0.3) * amp;
+
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+
+      ctx.stroke();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initDirectAudioEngine("new");
+
+      document.querySelectorAll(".btn-set").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const setKey = e.currentTarget.getAttribute("data-set");
+          document.querySelectorAll(".btn-set").forEach(b => b.classList.remove("active"));
+          e.currentTarget.classList.add("active");
+          const wasPlaying = isPlaying;
+          initDirectAudioEngine(setKey);
+          if (wasPlaying) playAll();
+        });
+      });
+
+      document.getElementById("btn-master-play").addEventListener("click", () => {
+        if (!isPlaying) playAll();
+        else pauseAll();
+      });
+
+      document.getElementById("btn-master-stop").addEventListener("click", stopAll);
+
+      document.getElementById("btn-master-loop").addEventListener("click", (e) => {
+        isLooping = !isLooping;
+        e.currentTarget.classList.toggle("active", isLooping);
+        e.currentTarget.querySelector("span").innerText = `Loop: ${isLooping ? 'ON' : 'OFF'}`;
+      });
+
+      document.getElementById("master-vol").addEventListener("input", (e) => {
+        masterVolume = parseFloat(e.target.value);
+        document.getElementById("master-vol-readout").innerText = `${Math.round(masterVolume * 100)}%`;
+      });
+
+      document.getElementById("timeline-bar").addEventListener("click", (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const clickRatio = (e.clientX - rect.left) / rect.width;
+        const newTime = clickRatio * loopEnd;
+        syncPlayheadsTo(newTime);
+      });
+
+      document.getElementById("btn-jump-seam").addEventListener("click", () => {
+        const seamTime = Math.max(0, loopEnd - 3.5);
+        syncPlayheadsTo(seamTime);
+        if (!isPlaying) playAll();
+        document.getElementById("txt-diagnostic").innerText = "Auditioning loop seam (crossover in 3.5s)...";
+      });
+
+      document.getElementById("inp-loop-start").addEventListener("change", (e) => {
+        loopStart = Math.max(0, parseFloat(e.target.value) || 0);
+      });
+
+      document.getElementById("inp-loop-end").addEventListener("change", (e) => {
+        loopEnd = Math.max(loopStart + 2, parseFloat(e.target.value) || 58.5);
+      });
+
+      document.querySelectorAll(".preset-card").forEach(card => {
+        card.addEventListener("click", () => {
+          if (!isPlaying) playAll();
+          applyPreset(card.getAttribute("data-preset"));
+        });
+      });
+
+      for (let i = 0; i < 4; i++) {
+        const fader = document.getElementById(`fader-${i}`);
+        fader.addEventListener("input", (e) => {
+          setStemGain(i, parseFloat(e.target.value), 0.05);
+        });
+
+        document.getElementById(`mute-${i}`).addEventListener("click", (e) => {
+          const stem = stems[i];
+          stem.isMuted = !stem.isMuted;
+          e.currentTarget.classList.toggle("active", stem.isMuted);
+        });
+
+        document.getElementById(`solo-${i}`).addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          if (soloActiveIndex === i) {
+            soloActiveIndex = -1;
+            btn.classList.remove("active");
+          } else {
+            soloActiveIndex = i;
+            document.querySelectorAll(".btn-ch.solo").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+          }
+        });
+
+        document.querySelectorAll(`#ch-${i+1} .btn-nudge`).forEach(btn => {
+          btn.addEventListener("click", (e) => {
+            const delta = parseFloat(e.target.getAttribute("data-delta"));
+            const stem = stems[i];
+            if (delta === 0) stem.offsetMs = 0;
+            else stem.offsetMs += delta;
+
+            document.getElementById(`nudge-val-${i}`).innerText = `${stem.offsetMs > 0 ? '+' : ''}${stem.offsetMs} ms`;
+            
+            const masterTime = stems[0].audio.currentTime || 0;
+            stem.audio.currentTime = Math.max(0, masterTime + (stem.offsetMs / 1000));
+          });
+        });
+      }
+
+      requestAnimationFrame(mainAudioLoop);
+    });
+  </script>
+</body>
+</html>

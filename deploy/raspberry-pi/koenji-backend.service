@@ -1,0 +1,16 @@
+[Unit]
+Description=Koenji 1889 backend
+[Service]
+WorkingDirectory=/home/jawaad/koenji/app
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=DAEMON18XX_DATABASE=/home/jawaad/koenji/data/games.sqlite3
+Environment=KOENJI_BACKEND_HOST=127.0.0.1
+Environment=KOENJI_BACKEND_PORT=8789
+ExecStart=/usr/bin/python3 /home/jawaad/koenji/app/server_bridge.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+[Install]
+WantedBy=default.target

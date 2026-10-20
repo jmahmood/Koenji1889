@@ -1,0 +1,96 @@
+{
+  "title": "File:Hinominesan.JPG",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Hinominesan.JPG/1280px-Hinominesan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 664,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Hinominesan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Hinominesan.JPG/1280px-Hinominesan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 664,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Hinominesan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Hinominesan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Hinominesan.JPG",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=14496776",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2011-03-06 15:44:54",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Hinominesan",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Mountains of Tokushima prefecture|Taken with Canon EOS 300D|Hinomine-jinja (Komatsushima)|Schools in Tokushima, Tokushima|Geography of Tokushima, Tokushima|Self-published work|August 2009 in Tokushima prefecture|Japan photographs taken on 2009-08-16|Geography of Komatsushima, Tokushima",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Mount Hinomine (<i>Hinominesan</i>) viewed from Chiyo Elementary School in Komatsushima, Tokushima, Japan",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2009-08-20",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "Takonomakura",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "CC BY-SA 3.0",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Creative Commons Attribution-Share Alike 3.0",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "true",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "LicenseUrl": {
+      "value": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "commons-desc-page"
+    },
+    "Copyrighted": {
+      "value": "True",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "cc-by-sa-3.0",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/J9-reference.jpg"
+}

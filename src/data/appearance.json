@@ -1,0 +1,2185 @@
+{
+  "faces": [
+    {
+      "id": "face-01",
+      "name": "Member 1 \u00b7 Shaved Head & Burgundy Glasses",
+      "skin": "#cf8f5a",
+      "stroke": "#452815",
+      "hair": "#26211e",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "member-1"
+    },
+    {
+      "id": "face-02",
+      "name": "Member 5 \u00b7 Short Dark Bob & Warm Smile",
+      "skin": "#ebbd96",
+      "stroke": "#52331e",
+      "hair": "#211c1a",
+      "style": "bob",
+      "photorealId": "member-5"
+    },
+    {
+      "id": "face-03",
+      "name": "Member 2 \u00b7 Navy Glasses & Silver-Chin Beard",
+      "skin": "#d99e6c",
+      "stroke": "#4a2d18",
+      "hair": "#1f1b18",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "member-2"
+    },
+    {
+      "id": "face-04",
+      "name": "Member 4 \u00b7 Swept Black Hair & Goatee",
+      "skin": "#e4b389",
+      "stroke": "#4f311c",
+      "hair": "#181514",
+      "style": "swept",
+      "photorealId": "member-4"
+    },
+    {
+      "id": "face-05",
+      "name": "Member 5 \u00b7 Tied Dark Hair",
+      "skin": "#ebbd96",
+      "stroke": "#52331e",
+      "hair": "#241e1e",
+      "style": "tied",
+      "photorealId": "member-5"
+    },
+    {
+      "id": "face-06",
+      "name": "Member 3 \u00b7 Wavy Hair & Rimless Glasses",
+      "skin": "#ecc19c",
+      "stroke": "#593822",
+      "hair": "#3a281d",
+      "style": "wavy",
+      "glasses": true,
+      "photorealId": "member-3"
+    },
+    {
+      "id": "face-07",
+      "name": "Member 3 \u00b7 Wavy Brown Hair",
+      "skin": "#ecc19c",
+      "stroke": "#593822",
+      "hair": "#3a281d",
+      "style": "wavy",
+      "photorealId": "member-3"
+    },
+    {
+      "id": "face-08",
+      "name": "Member 4 \u00b7 Swept Hair",
+      "skin": "#e4b389",
+      "stroke": "#4f311c",
+      "hair": "#181514",
+      "style": "long",
+      "photorealId": "member-4"
+    },
+    {
+      "id": "member-1",
+      "name": "Member 1 \u00b7 Shaved Head & Burgundy Glasses",
+      "skin": "#cf8f5a",
+      "stroke": "#452815",
+      "hair": "#231c19",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "member-1"
+    },
+    {
+      "id": "member-2",
+      "name": "Member 2 \u00b7 Navy Glasses & Silver-Chin Beard",
+      "skin": "#d99e6c",
+      "stroke": "#4a2d18",
+      "hair": "#1f1b18",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "member-2"
+    },
+    {
+      "id": "member-3",
+      "name": "Member 3 \u00b7 Wavy Hair & Rimless Glasses",
+      "skin": "#ecc19c",
+      "stroke": "#593822",
+      "hair": "#3a281d",
+      "style": "wavy",
+      "glasses": true,
+      "photorealId": "member-3"
+    },
+    {
+      "id": "member-4",
+      "name": "Member 4 \u00b7 Swept Black Hair & Chin Goatee",
+      "skin": "#e4b389",
+      "stroke": "#4f311c",
+      "hair": "#181514",
+      "style": "swept",
+      "photorealId": "member-4"
+    },
+    {
+      "id": "member-5",
+      "name": "Member 5 \u00b7 Short Dark Bob & Warm Smile",
+      "skin": "#ebbd96",
+      "stroke": "#52331e",
+      "hair": "#211c1a",
+      "style": "bob",
+      "photorealId": "member-5"
+    },
+    {
+      "id": "reference-01",
+      "name": "Portrait 1 \u00b7 Swept black hair & chin goatee",
+      "skin": "#d6a17e",
+      "stroke": "#563921",
+      "hair": "#191819",
+      "style": "swept",
+      "glasses": false,
+      "photorealId": "reference-01",
+      "headAtlas": {
+        "file": "reference-01-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            70,
+            5,
+            296,
+            410
+          ],
+          "smile": [
+            483,
+            5,
+            300,
+            410
+          ],
+          "calculating": [
+            899,
+            4,
+            298,
+            411
+          ],
+          "declare": [
+            73,
+            422,
+            298,
+            411
+          ],
+          "shock": [
+            484,
+            421,
+            303,
+            413
+          ],
+          "concerned": [
+            902,
+            424,
+            300,
+            410
+          ],
+          "disappointed": [
+            71,
+            839,
+            300,
+            412
+          ],
+          "laugh": [
+            484,
+            839,
+            302,
+            412
+          ],
+          "blink": [
+            902,
+            838,
+            302,
+            413
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            221.25,
+            415
+          ],
+          "smile": [
+            637.25,
+            415
+          ],
+          "calculating": [
+            1053.0,
+            415
+          ],
+          "declare": [
+            221.5,
+            833
+          ],
+          "shock": [
+            635.5,
+            834
+          ],
+          "concerned": [
+            1053.25,
+            834
+          ],
+          "disappointed": [
+            223.25,
+            1251
+          ],
+          "laugh": [
+            637.25,
+            1251
+          ],
+          "blink": [
+            1057.0,
+            1251
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-02",
+      "name": "Portrait 2 \u00b7 Long dark hair & black glasses",
+      "skin": "#dbab89",
+      "stroke": "#593b29",
+      "hair": "#211e1c",
+      "style": "long",
+      "glasses": true,
+      "photorealId": "reference-02",
+      "headAtlas": {
+        "file": "reference-02-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            45,
+            17,
+            361,
+            401
+          ],
+          "smile": [
+            449,
+            16,
+            361,
+            402
+          ],
+          "calculating": [
+            854,
+            16,
+            361,
+            402
+          ],
+          "declare": [
+            42,
+            422,
+            369,
+            407
+          ],
+          "shock": [
+            447,
+            422,
+            365,
+            407
+          ],
+          "concerned": [
+            851,
+            423,
+            367,
+            406
+          ],
+          "disappointed": [
+            43,
+            829,
+            369,
+            407
+          ],
+          "laugh": [
+            443,
+            830,
+            378,
+            406
+          ],
+          "blink": [
+            851,
+            830,
+            370,
+            406
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            225.75,
+            418
+          ],
+          "smile": [
+            628.75,
+            418
+          ],
+          "calculating": [
+            1033.75,
+            418
+          ],
+          "declare": [
+            227.0,
+            829
+          ],
+          "shock": [
+            629.25,
+            829
+          ],
+          "concerned": [
+            1034.25,
+            829
+          ],
+          "disappointed": [
+            228.0,
+            1236
+          ],
+          "laugh": [
+            630.75,
+            1236
+          ],
+          "blink": [
+            1034.25,
+            1236
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-03",
+      "name": "Portrait 3 \u00b7 Straight dark bob & fringe",
+      "skin": "#e4b59c",
+      "stroke": "#654637",
+      "hair": "#29201c",
+      "style": "bob",
+      "glasses": false,
+      "photorealId": "reference-03",
+      "headAtlas": {
+        "file": "reference-03-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            73,
+            30,
+            329,
+            391
+          ],
+          "smile": [
+            473,
+            27,
+            336,
+            394
+          ],
+          "calculating": [
+            883,
+            27,
+            334,
+            394
+          ],
+          "declare": [
+            72,
+            429,
+            339,
+            399
+          ],
+          "shock": [
+            471,
+            427,
+            346,
+            401
+          ],
+          "concerned": [
+            884,
+            427,
+            339,
+            401
+          ],
+          "disappointed": [
+            73,
+            837,
+            340,
+            398
+          ],
+          "laugh": [
+            477,
+            834,
+            343,
+            400
+          ],
+          "blink": [
+            880,
+            837,
+            339,
+            396
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            234.75,
+            421
+          ],
+          "smile": [
+            647.5,
+            421
+          ],
+          "calculating": [
+            1058.75,
+            421
+          ],
+          "declare": [
+            242.5,
+            828
+          ],
+          "shock": [
+            650.75,
+            828
+          ],
+          "concerned": [
+            1059.5,
+            828
+          ],
+          "disappointed": [
+            241.0,
+            1235
+          ],
+          "laugh": [
+            641.25,
+            1234
+          ],
+          "blink": [
+            1052.25,
+            1233
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-04",
+      "name": "Portrait 4 \u00b7 Swept brown hair & full beard",
+      "skin": "#d6aa93",
+      "stroke": "#553a2f",
+      "hair": "#30241f",
+      "style": "swept",
+      "glasses": false,
+      "photorealId": "reference-04",
+      "headAtlas": {
+        "file": "reference-04-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            102,
+            8,
+            291,
+            412
+          ],
+          "smile": [
+            492,
+            8,
+            291,
+            412
+          ],
+          "calculating": [
+            877,
+            8,
+            294,
+            412
+          ],
+          "declare": [
+            102,
+            425,
+            295,
+            411
+          ],
+          "shock": [
+            492,
+            425,
+            293,
+            411
+          ],
+          "concerned": [
+            883,
+            425,
+            293,
+            411
+          ],
+          "disappointed": [
+            99,
+            837,
+            297,
+            413
+          ],
+          "laugh": [
+            488,
+            837,
+            298,
+            412
+          ],
+          "blink": [
+            881,
+            836,
+            296,
+            414
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            259.0,
+            420
+          ],
+          "smile": [
+            649.5,
+            420
+          ],
+          "calculating": [
+            1039.25,
+            420
+          ],
+          "declare": [
+            262.5,
+            836
+          ],
+          "shock": [
+            651.0,
+            836
+          ],
+          "concerned": [
+            1042.75,
+            836
+          ],
+          "disappointed": [
+            262.25,
+            1250
+          ],
+          "laugh": [
+            654.75,
+            1249
+          ],
+          "blink": [
+            1041.75,
+            1250
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-05",
+      "name": "Portrait 5 \u00b7 Light curls & reddish beard",
+      "skin": "#e6b49a",
+      "stroke": "#694636",
+      "hair": "#9b714c",
+      "style": "wavy",
+      "glasses": false,
+      "photorealId": "reference-05",
+      "headAtlas": {
+        "file": "reference-05-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            92,
+            24,
+            296,
+            392
+          ],
+          "smile": [
+            484,
+            23,
+            296,
+            393
+          ],
+          "calculating": [
+            875,
+            23,
+            297,
+            393
+          ],
+          "declare": [
+            91,
+            431,
+            297,
+            393
+          ],
+          "shock": [
+            483,
+            430,
+            296,
+            394
+          ],
+          "concerned": [
+            875,
+            432,
+            296,
+            392
+          ],
+          "disappointed": [
+            92,
+            839,
+            296,
+            395
+          ],
+          "laugh": [
+            483,
+            837,
+            297,
+            397
+          ],
+          "blink": [
+            875,
+            838,
+            296,
+            396
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            223.0,
+            416
+          ],
+          "smile": [
+            614.0,
+            416
+          ],
+          "calculating": [
+            1006.0,
+            416
+          ],
+          "declare": [
+            224.0,
+            824
+          ],
+          "shock": [
+            618.25,
+            824
+          ],
+          "concerned": [
+            1005.5,
+            824
+          ],
+          "disappointed": [
+            225.0,
+            1234
+          ],
+          "laugh": [
+            615.75,
+            1234
+          ],
+          "blink": [
+            1007.75,
+            1234
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-06",
+      "name": "Portrait 6 \u00b7 Tied brown hair & oval glasses",
+      "skin": "#e2ad86",
+      "stroke": "#63412c",
+      "hair": "#4a3022",
+      "style": "tied",
+      "glasses": true,
+      "photorealId": "reference-06",
+      "headAtlas": {
+        "file": "reference-06-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            61,
+            13,
+            329,
+            401
+          ],
+          "smile": [
+            465,
+            12,
+            327,
+            402
+          ],
+          "calculating": [
+            868,
+            12,
+            328,
+            402
+          ],
+          "declare": [
+            61,
+            421,
+            331,
+            404
+          ],
+          "shock": [
+            465,
+            424,
+            330,
+            401
+          ],
+          "concerned": [
+            869,
+            424,
+            327,
+            401
+          ],
+          "disappointed": [
+            60,
+            830,
+            331,
+            407
+          ],
+          "laugh": [
+            464,
+            830,
+            329,
+            407
+          ],
+          "blink": [
+            869,
+            830,
+            329,
+            407
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            235.75,
+            414
+          ],
+          "smile": [
+            636.75,
+            414
+          ],
+          "calculating": [
+            1042.5,
+            414
+          ],
+          "declare": [
+            237.75,
+            825
+          ],
+          "shock": [
+            636.75,
+            825
+          ],
+          "concerned": [
+            1042.75,
+            825
+          ],
+          "disappointed": [
+            238.25,
+            1237
+          ],
+          "laugh": [
+            637.25,
+            1237
+          ],
+          "blink": [
+            1043.0,
+            1237
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-07",
+      "name": "Portrait 7 \u00b7 Center-parted black hair",
+      "skin": "#d6a183",
+      "stroke": "#613d2c",
+      "hair": "#1f1e1d",
+      "style": "long",
+      "glasses": false,
+      "photorealId": "reference-07",
+      "headAtlas": {
+        "file": "reference-07-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            85,
+            6,
+            321,
+            407
+          ],
+          "smile": [
+            465,
+            5,
+            324,
+            408
+          ],
+          "calculating": [
+            875,
+            6,
+            328,
+            407
+          ],
+          "declare": [
+            76,
+            421,
+            332,
+            408
+          ],
+          "shock": [
+            464,
+            420,
+            330,
+            409
+          ],
+          "concerned": [
+            878,
+            420,
+            331,
+            409
+          ],
+          "disappointed": [
+            75,
+            834,
+            339,
+            412
+          ],
+          "laugh": [
+            465,
+            833,
+            335,
+            413
+          ],
+          "blink": [
+            876,
+            834,
+            332,
+            412
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            249.5,
+            413
+          ],
+          "smile": [
+            631.0,
+            413
+          ],
+          "calculating": [
+            1043.5,
+            413
+          ],
+          "declare": [
+            242.5,
+            829
+          ],
+          "shock": [
+            633.0,
+            829
+          ],
+          "concerned": [
+            1044.75,
+            829
+          ],
+          "disappointed": [
+            249.75,
+            1246
+          ],
+          "laugh": [
+            638.0,
+            1246
+          ],
+          "blink": [
+            1044.0,
+            1246
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-1"
+    },
+    {
+      "id": "reference-08",
+      "name": "Portrait 8 \u00b7 Navy glasses & silver-chin beard",
+      "skin": "#bc8a69",
+      "stroke": "#513421",
+      "hair": "#27231f",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "reference-08",
+      "headAtlas": {
+        "file": "reference-08-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            74,
+            26,
+            337,
+            398
+          ],
+          "smile": [
+            471,
+            26,
+            339,
+            398
+          ],
+          "calculating": [
+            869,
+            26,
+            338,
+            398
+          ],
+          "declare": [
+            71,
+            429,
+            341,
+            403
+          ],
+          "shock": [
+            470,
+            427,
+            342,
+            405
+          ],
+          "concerned": [
+            867,
+            427,
+            342,
+            405
+          ],
+          "disappointed": [
+            72,
+            834,
+            341,
+            403
+          ],
+          "laugh": [
+            468,
+            834,
+            344,
+            405
+          ],
+          "blink": [
+            863,
+            834,
+            345,
+            403
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            213.75,
+            424
+          ],
+          "smile": [
+            611.0,
+            424
+          ],
+          "calculating": [
+            1011.0,
+            424
+          ],
+          "declare": [
+            225.5,
+            832
+          ],
+          "shock": [
+            623.75,
+            832
+          ],
+          "concerned": [
+            1007.5,
+            832
+          ],
+          "disappointed": [
+            213.0,
+            1237
+          ],
+          "laugh": [
+            611.5,
+            1239
+          ],
+          "blink": [
+            1008.25,
+            1237
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-2"
+    },
+    {
+      "id": "reference-09",
+      "name": "Portrait 9 \u00b7 Wavy dark hair & thin oval spectacles",
+      "skin": "#d8ab94",
+      "stroke": "#644137",
+      "hair": "#30241f",
+      "style": "wavy",
+      "glasses": true,
+      "photorealId": "reference-09",
+      "headAtlas": {
+        "file": "reference-09-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            87,
+            16,
+            298,
+            400
+          ],
+          "smile": [
+            479,
+            16,
+            298,
+            400
+          ],
+          "calculating": [
+            879,
+            16,
+            297,
+            400
+          ],
+          "declare": [
+            88,
+            421,
+            297,
+            404
+          ],
+          "shock": [
+            485,
+            420,
+            297,
+            405
+          ],
+          "concerned": [
+            879,
+            421,
+            299,
+            404
+          ],
+          "disappointed": [
+            89,
+            832,
+            299,
+            399
+          ],
+          "laugh": [
+            473,
+            832,
+            301,
+            399
+          ],
+          "blink": [
+            879,
+            830,
+            301,
+            401
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            262.25,
+            416
+          ],
+          "smile": [
+            652.75,
+            416
+          ],
+          "calculating": [
+            1051.75,
+            416
+          ],
+          "declare": [
+            267.0,
+            825
+          ],
+          "shock": [
+            660.25,
+            825
+          ],
+          "concerned": [
+            1056.0,
+            825
+          ],
+          "disappointed": [
+            264.25,
+            1231
+          ],
+          "laugh": [
+            656.5,
+            1231
+          ],
+          "blink": [
+            1055.0,
+            1231
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-2"
+    },
+    {
+      "id": "reference-10",
+      "name": "Portrait 10 \u00b7 Shaved head, burgundy glasses & goatee",
+      "skin": "#c69370",
+      "stroke": "#533322",
+      "hair": "#251e1b",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "reference-10",
+      "headAtlas": {
+        "file": "reference-10-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            91,
+            17,
+            316,
+            399
+          ],
+          "smile": [
+            482,
+            18,
+            316,
+            398
+          ],
+          "calculating": [
+            874,
+            17,
+            314,
+            399
+          ],
+          "declare": [
+            89,
+            425,
+            318,
+            402
+          ],
+          "shock": [
+            483,
+            426,
+            315,
+            401
+          ],
+          "concerned": [
+            873,
+            426,
+            318,
+            401
+          ],
+          "disappointed": [
+            90,
+            839,
+            318,
+            398
+          ],
+          "laugh": [
+            481,
+            836,
+            325,
+            401
+          ],
+          "blink": [
+            875,
+            836,
+            321,
+            401
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            243.25,
+            416
+          ],
+          "smile": [
+            635.25,
+            416
+          ],
+          "calculating": [
+            1025.5,
+            416
+          ],
+          "declare": [
+            243.5,
+            827
+          ],
+          "shock": [
+            637.0,
+            827
+          ],
+          "concerned": [
+            1026.75,
+            827
+          ],
+          "disappointed": [
+            242.5,
+            1237
+          ],
+          "laugh": [
+            637.0,
+            1237
+          ],
+          "blink": [
+            1030.5,
+            1237
+          ]
+        }
+      },
+      "portraitBatch": "reference-set-2"
+    },
+    {
+      "id": "reference-11",
+      "name": "Portrait 11 \u00b7 Upright short black hair",
+      "skin": "#d6ab88",
+      "stroke": "#5c3c29",
+      "hair": "#211d1a",
+      "style": "short",
+      "glasses": false,
+      "photorealId": "reference-11",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-11-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            113,
+            109,
+            201,
+            265
+          ],
+          "smile": [
+            529,
+            108,
+            200,
+            266
+          ],
+          "calculating": [
+            947,
+            108,
+            199,
+            267
+          ],
+          "declare": [
+            114,
+            504,
+            204,
+            271
+          ],
+          "shock": [
+            530,
+            503,
+            203,
+            274
+          ],
+          "concerned": [
+            947,
+            505,
+            202,
+            271
+          ],
+          "disappointed": [
+            115,
+            897,
+            203,
+            270
+          ],
+          "laugh": [
+            531,
+            897,
+            203,
+            270
+          ],
+          "blink": [
+            947,
+            897,
+            205,
+            271
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            199.5,
+            374
+          ],
+          "smile": [
+            615.25,
+            374
+          ],
+          "calculating": [
+            1033.5,
+            375
+          ],
+          "declare": [
+            200.25,
+            775
+          ],
+          "shock": [
+            616.25,
+            777
+          ],
+          "concerned": [
+            1033.0,
+            776
+          ],
+          "disappointed": [
+            201.5,
+            1167
+          ],
+          "laugh": [
+            616.75,
+            1167
+          ],
+          "blink": [
+            1037.25,
+            1168
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-12",
+      "name": "Portrait 12 \u00b7 Low ponytail & wispy fringe",
+      "skin": "#e3b38d",
+      "stroke": "#62422c",
+      "hair": "#241c18",
+      "style": "tied",
+      "glasses": false,
+      "photorealId": "reference-12",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-12-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            80,
+            24,
+            310,
+            399
+          ],
+          "smile": [
+            477,
+            24,
+            314,
+            399
+          ],
+          "calculating": [
+            884,
+            23,
+            311,
+            400
+          ],
+          "declare": [
+            81,
+            433,
+            320,
+            402
+          ],
+          "shock": [
+            481,
+            433,
+            320,
+            402
+          ],
+          "concerned": [
+            883,
+            433,
+            323,
+            402
+          ],
+          "disappointed": [
+            80,
+            844,
+            323,
+            403
+          ],
+          "laugh": [
+            480,
+            844,
+            331,
+            403
+          ],
+          "blink": [
+            884,
+            844,
+            321,
+            403
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            213.5,
+            423
+          ],
+          "smile": [
+            614.25,
+            423
+          ],
+          "calculating": [
+            1019.5,
+            423
+          ],
+          "declare": [
+            218.5,
+            835
+          ],
+          "shock": [
+            621.25,
+            835
+          ],
+          "concerned": [
+            1024.5,
+            835
+          ],
+          "disappointed": [
+            224.5,
+            1247
+          ],
+          "laugh": [
+            623.75,
+            1247
+          ],
+          "blink": [
+            1025.0,
+            1247
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-13",
+      "name": "Portrait 13 \u00b7 Balding head & subtle stubble",
+      "skin": "#c18c71",
+      "stroke": "#59392c",
+      "hair": "#30241f",
+      "style": "short",
+      "glasses": false,
+      "photorealId": "reference-13",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-13-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            70,
+            20,
+            322,
+            403
+          ],
+          "smile": [
+            475,
+            17,
+            321,
+            406
+          ],
+          "calculating": [
+            887,
+            19,
+            322,
+            404
+          ],
+          "declare": [
+            71,
+            428,
+            323,
+            402
+          ],
+          "shock": [
+            477,
+            428,
+            321,
+            402
+          ],
+          "concerned": [
+            888,
+            426,
+            322,
+            404
+          ],
+          "disappointed": [
+            71,
+            839,
+            323,
+            404
+          ],
+          "laugh": [
+            479,
+            838,
+            326,
+            406
+          ],
+          "blink": [
+            886,
+            838,
+            325,
+            405
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            248.0,
+            423
+          ],
+          "smile": [
+            651.75,
+            423
+          ],
+          "calculating": [
+            1065.25,
+            423
+          ],
+          "declare": [
+            249.5,
+            830
+          ],
+          "shock": [
+            652.75,
+            830
+          ],
+          "concerned": [
+            1065.0,
+            830
+          ],
+          "disappointed": [
+            249.5,
+            1243
+          ],
+          "laugh": [
+            659.25,
+            1244
+          ],
+          "blink": [
+            1065.5,
+            1243
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-14",
+      "name": "Portrait 14 \u00b7 Swept black hair & browline glasses",
+      "skin": "#dfb695",
+      "stroke": "#604332",
+      "hair": "#231d18",
+      "style": "swept",
+      "glasses": true,
+      "photorealId": "reference-14",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-14-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            74,
+            21,
+            314,
+            404
+          ],
+          "smile": [
+            476,
+            20,
+            324,
+            405
+          ],
+          "calculating": [
+            899,
+            21,
+            317,
+            404
+          ],
+          "declare": [
+            73,
+            425,
+            318,
+            408
+          ],
+          "shock": [
+            478,
+            426,
+            318,
+            407
+          ],
+          "concerned": [
+            902,
+            427,
+            322,
+            406
+          ],
+          "disappointed": [
+            69,
+            839,
+            323,
+            404
+          ],
+          "laugh": [
+            468,
+            836,
+            328,
+            411
+          ],
+          "blink": [
+            897,
+            835,
+            327,
+            413
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            219.0,
+            425
+          ],
+          "smile": [
+            624.5,
+            425
+          ],
+          "calculating": [
+            1042.75,
+            425
+          ],
+          "declare": [
+            218.5,
+            833
+          ],
+          "shock": [
+            624.5,
+            833
+          ],
+          "concerned": [
+            1044.5,
+            833
+          ],
+          "disappointed": [
+            223.0,
+            1243
+          ],
+          "laugh": [
+            631.5,
+            1247
+          ],
+          "blink": [
+            1049.0,
+            1248
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-15",
+      "name": "Portrait 15 \u00b7 Shoulder-length hair & side fringe",
+      "skin": "#d5a783",
+      "stroke": "#5c3a26",
+      "hair": "#201a17",
+      "style": "long",
+      "glasses": false,
+      "photorealId": "reference-15",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-15-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            101,
+            14,
+            317,
+            407
+          ],
+          "smile": [
+            491,
+            15,
+            324,
+            406
+          ],
+          "calculating": [
+            872,
+            14,
+            320,
+            407
+          ],
+          "declare": [
+            101,
+            422,
+            317,
+            409
+          ],
+          "shock": [
+            491,
+            422,
+            326,
+            409
+          ],
+          "concerned": [
+            872,
+            424,
+            320,
+            407
+          ],
+          "disappointed": [
+            100,
+            834,
+            318,
+            405
+          ],
+          "laugh": [
+            487,
+            834,
+            330,
+            403
+          ],
+          "blink": [
+            872,
+            835,
+            326,
+            407
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            267.5,
+            421
+          ],
+          "smile": [
+            655.0,
+            421
+          ],
+          "calculating": [
+            1037.5,
+            421
+          ],
+          "declare": [
+            267.0,
+            831
+          ],
+          "shock": [
+            657.0,
+            831
+          ],
+          "concerned": [
+            1039.0,
+            831
+          ],
+          "disappointed": [
+            267.5,
+            1239
+          ],
+          "laugh": [
+            657.0,
+            1237
+          ],
+          "blink": [
+            1042.5,
+            1242
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-16",
+      "name": "Portrait 16 \u00b7 Short dark hair & rectangular glasses",
+      "skin": "#dfb28d",
+      "stroke": "#61422e",
+      "hair": "#28211b",
+      "style": "short",
+      "glasses": true,
+      "photorealId": "reference-16",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-16-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            63,
+            24,
+            324,
+            394
+          ],
+          "smile": [
+            455,
+            24,
+            324,
+            394
+          ],
+          "calculating": [
+            865,
+            22,
+            325,
+            396
+          ],
+          "declare": [
+            62,
+            430,
+            326,
+            397
+          ],
+          "shock": [
+            459,
+            429,
+            325,
+            398
+          ],
+          "concerned": [
+            868,
+            429,
+            329,
+            398
+          ],
+          "disappointed": [
+            61,
+            841,
+            328,
+            398
+          ],
+          "laugh": [
+            460,
+            838,
+            326,
+            400
+          ],
+          "blink": [
+            867,
+            839,
+            331,
+            399
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            255.0,
+            418
+          ],
+          "smile": [
+            647.25,
+            418
+          ],
+          "calculating": [
+            1058.25,
+            418
+          ],
+          "declare": [
+            255.5,
+            827
+          ],
+          "shock": [
+            648.25,
+            827
+          ],
+          "concerned": [
+            1059.0,
+            827
+          ],
+          "disappointed": [
+            251.5,
+            1239
+          ],
+          "laugh": [
+            649.25,
+            1238
+          ],
+          "blink": [
+            1059.5,
+            1238
+          ]
+        }
+      }
+    },
+    {
+      "id": "reference-17",
+      "name": "Portrait 17 \u00b7 Black cap, mustache & goatee",
+      "skin": "#ae7c53",
+      "stroke": "#493020",
+      "hair": "#241c16",
+      "style": "short",
+      "glasses": false,
+      "photorealId": "reference-17",
+      "portraitBatch": "reference-set-3",
+      "headAtlas": {
+        "file": "reference-17-expressions.png",
+        "width": 1254,
+        "height": 1254,
+        "placement": [
+          56,
+          8,
+          88,
+          110
+        ],
+        "frames": {
+          "neutral": [
+            82,
+            7,
+            320,
+            408
+          ],
+          "smile": [
+            489,
+            7,
+            328,
+            408
+          ],
+          "calculating": [
+            897,
+            7,
+            323,
+            408
+          ],
+          "declare": [
+            80,
+            423,
+            314,
+            405
+          ],
+          "shock": [
+            490,
+            422,
+            324,
+            406
+          ],
+          "concerned": [
+            902,
+            423,
+            311,
+            403
+          ],
+          "disappointed": [
+            81,
+            837,
+            317,
+            401
+          ],
+          "laugh": [
+            491,
+            834,
+            321,
+            405
+          ],
+          "blink": [
+            903,
+            833,
+            318,
+            406
+          ]
+        },
+        "neckAnchors": {
+          "neutral": [
+            217.75,
+            415
+          ],
+          "smile": [
+            627.25,
+            415
+          ],
+          "calculating": [
+            1041.25,
+            415
+          ],
+          "declare": [
+            221.0,
+            828
+          ],
+          "shock": [
+            640.75,
+            828
+          ],
+          "concerned": [
+            1043.0,
+            826
+          ],
+          "disappointed": [
+            220.25,
+            1238
+          ],
+          "laugh": [
+            628.0,
+            1239
+          ],
+          "blink": [
+            1039.5,
+            1239
+          ]
+        }
+      }
+    }
+  ],
+  "clothes": [
+    {
+      "id": "indigo-haori",
+      "name": "Indigo haori",
+      "color": "#263e57",
+      "inner": "#e8d8b5",
+      "kind": "haori"
+    },
+    {
+      "id": "plum-kimono",
+      "name": "Plum kimono",
+      "color": "#5e314a",
+      "inner": "#f0dec0",
+      "kind": "kimono"
+    },
+    {
+      "id": "moss-hakama",
+      "name": "Moss hakama",
+      "color": "#43543d",
+      "inner": "#e6d6b5",
+      "kind": "hakama"
+    },
+    {
+      "id": "charcoal-suit",
+      "name": "Charcoal suit",
+      "color": "#33383e",
+      "inner": "#f2e5c7",
+      "kind": "suit"
+    },
+    {
+      "id": "imperial-railway-uniform",
+      "name": "Imperial Railway uniform",
+      "color": "#1b2838",
+      "inner": "#d4a843",
+      "kind": "uniform"
+    },
+    {
+      "id": "crimson-furisode",
+      "name": "Crimson brocade kimono",
+      "color": "#7a2026",
+      "inner": "#f7ebd2",
+      "kind": "brocade"
+    },
+    {
+      "id": "inverness-cape",
+      "name": "Meiji Inverness cape-coat",
+      "color": "#6e5239",
+      "inner": "#f0e2c6",
+      "kind": "inverness"
+    },
+    {
+      "id": "merchant-hanten",
+      "name": "Shikoku merchant hanten",
+      "color": "#233447",
+      "inner": "#e6d4b3",
+      "kind": "merchant"
+    },
+    {
+      "id": "ivory-summer-suit",
+      "name": "Yokohama ivory linen suit",
+      "color": "#dfd3bc",
+      "inner": "#ffffff",
+      "kind": "summer-suit"
+    },
+    {
+      "id": "amber-jinbaori",
+      "name": "Amber crested jinbaori",
+      "color": "#8f5b22",
+      "inner": "#e8d7b4",
+      "kind": "jinbaori"
+    },
+    {
+      "id": "teal-frock-coat",
+      "name": "Velvet-lapel teal frock coat",
+      "color": "#1f4745",
+      "inner": "#f5ebd6",
+      "kind": "frock"
+    },
+    {
+      "id": "slate-montsuki",
+      "name": "Slate five-crest montsuki",
+      "color": "#3d434d",
+      "inner": "#f0ead8",
+      "kind": "montsuki"
+    }
+  ]
+}

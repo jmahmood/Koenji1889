@@ -1,0 +1,96 @@
+{
+  "title": "File:Kami Kochi Monobegawa Sinzaisyobasi 1.jpg",
+  "thumburl": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Kami_Kochi_Monobegawa_Sinzaisyobasi_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+  "thumbwidth": 1000,
+  "thumbheight": 666,
+  "thumbattribs": {
+    "src": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Kami_Kochi_Monobegawa_Sinzaisyobasi_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 666
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Kami_Kochi_Monobegawa_Sinzaisyobasi_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Kami_Kochi_Monobegawa_Sinzaisyobasi_1.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=121445192",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2015-10-27 09:47:46",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Kami Kochi Monobegawa Sinzaisyobasi 1",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Copyrighted free use|Monobe River|Files with coordinates missing SDC location of creation",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "GPSLatitude": {
+      "value": "33.656583",
+      "source": "commons-desc-page"
+    },
+    "GPSLongitude": {
+      "value": "133.800556",
+      "source": "commons-desc-page"
+    },
+    "GPSMapDatum": {
+      "value": "WGS-84",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "<a rel=\"mw:WikiLink/Interwiki\" href=\"https://ja.wikipedia.org/wiki/%E7%89%A9%E9%83%A8%E5%B7%9D\" title=\"ja:物部川\" class=\"extiw\">物部川</a>を新在所橋より望む。奥が下流側。（<a rel=\"mw:WikiLink/Interwiki\" href=\"https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C\" title=\"ja:高知県\" class=\"extiw\">高知県</a><a rel=\"mw:WikiLink/Interwiki\" href=\"https://ja.wikipedia.org/wiki/%E9%A6%99%E7%BE%8E%E5%B8%82\" title=\"ja:香美市\" class=\"extiw\">香美市</a>）",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2015-09",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "<a rel=\"mw:WikiLink\" href=\"https://commons.wikimedia.org/wiki/User:%E4%BA%AC%E6%B5%9C%E3%81%AB%E3%81%91\" title=\"User:京浜にけ\">京浜にけ</a>",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Copyrighted free use",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Copyrighted free use",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "True",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/H9-reference.jpg"
+}

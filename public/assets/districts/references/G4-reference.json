@@ -1,0 +1,92 @@
+{
+  "title": "File:Tonaru.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Tonaru.jpg/1280px-Tonaru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 750,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Tonaru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Tonaru.jpg/1280px-Tonaru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 750,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Tonaru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Tonaru.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Tonaru.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=8153318",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2009-10-21 03:14:57",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Tonaru",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Taken with Fujifilm FinePix Z200fd|Self-published work|PD-self|Tonaru Ore Storage|Tonaru Ropeway Base",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Tonaru Besshi copper mine",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2009-10-21",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "As6673",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/G4-reference.jpg"
+}

@@ -1,0 +1,109 @@
+{
+  "title": "File:Muroto-misaki Lighthouse (15118577283).jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Muroto-misaki_Lighthouse_%2815118577283%29.jpg/1280px-Muroto-misaki_Lighthouse_%2815118577283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 666,
+  "responsiveUrls": {
+    "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Muroto-misaki_Lighthouse_%2815118577283%29.jpg/3840px-Muroto-misaki_Lighthouse_%2815118577283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Muroto-misaki_Lighthouse_%2815118577283%29.jpg/1280px-Muroto-misaki_Lighthouse_%2815118577283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 666,
+    "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Muroto-misaki_Lighthouse_%2815118577283%29.jpg/3840px-Muroto-misaki_Lighthouse_%2815118577283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Muroto-misaki_Lighthouse_%2815118577283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Muroto-misaki_Lighthouse_(15118577283).jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=98151893",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2020-12-28 03:04:21",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Muroto-misaki Lighthouse (15118577283)",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Murotomisaki Lighthouse|Files with coordinates missing SDC location of creation|Flickr images reviewed by FlickreviewR 2",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "GPSLatitude": {
+      "value": "33.247363",
+      "source": "commons-desc-page"
+    },
+    "GPSLongitude": {
+      "value": "134.175752",
+      "source": "commons-desc-page"
+    },
+    "GPSMapDatum": {
+      "value": "WGS-84",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Muroto-misaki Lighthouse",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2014-11-02 15:31",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/hwat/15118577283/\">Muroto-misaki Lighthouse</a>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/66433743@N00\">hiroaki</a> from Tokyo, Japan",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "CC BY 2.0",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Creative Commons Attribution 2.0",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "true",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "LicenseUrl": {
+      "value": "https://creativecommons.org/licenses/by/2.0",
+      "source": "commons-desc-page"
+    },
+    "Copyrighted": {
+      "value": "True",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "cc-by-2.0",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/G14-reference.jpg"
+}

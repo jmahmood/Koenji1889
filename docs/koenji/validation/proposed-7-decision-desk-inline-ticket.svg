@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+
+  <defs>
+    <linearGradient id="bgWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22150e"/>
+      <stop offset="50%" stop-color="#160e09"/>
+      <stop offset="100%" stop-color="#0d0805"/>
+    </linearGradient>
+    <linearGradient id="mahoganyPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b2416"/>
+      <stop offset="100%" stop-color="#1e120b"/>
+    </linearGradient>
+    <linearGradient id="brassFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5d77f"/>
+      <stop offset="50%" stop-color="#b88728"/>
+      <stop offset="100%" stop-color="#785312"/>
+    </linearGradient>
+    <linearGradient id="parchment" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbf2dc"/>
+      <stop offset="100%" stop-color="#e5cfa4"/>
+    </linearGradient>
+    <linearGradient id="baizeGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f4e37"/>
+      <stop offset="100%" stop-color="#112e20"/>
+    </linearGradient>
+    <linearGradient id="crimsonVelvet" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5e1914"/>
+      <stop offset="100%" stop-color="#2e0b08"/>
+    </linearGradient>
+    <linearGradient id="steelSafe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#565e66"/>
+      <stop offset="50%" stop-color="#363c42"/>
+      <stop offset="100%" stop-color="#1f2326"/>
+    </linearGradient>
+    <linearGradient id="hankoRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d93829"/>
+      <stop offset="100%" stop-color="#8f1d14"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#3d6b78"/>
+      <stop offset="100%" stop-color="#1e3840"/>
+    </radialGradient>
+    <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe17d" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#ff9914" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#ff9914" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bgWood)"/>
+  <rect x="8" y="8" width="1264" height="704" rx="8" fill="none" stroke="url(#brassFrame)" stroke-width="2.5"/>
+
+  <!-- Top Header Bar -->
+  <rect x="12" y="12" width="1256" height="48" rx="6" fill="#2a1a11" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="28" y="29" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="1.4">KOENJI RAILWAY CLUB 1889 · DEFAULT STEP 5 WORKFLOW (PROPOSAL A — TACTILE RIGHT-HAND DESK)</text>
+  <text x="28" y="48" fill="#f7eed7" font-family="Georgia, serif" font-size="16" font-weight="bold">1. Normal Train Purchase: Docked Roundhouse, Vault Scale &amp; Locomotive Card Tray (Map Stays Uncovered)</text>
+  <text x="1248" y="34" text-anchor="end" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Operating Round 1.1 · Phase 2 · Step 5/5: Buy Trains</text>
+
+  <!-- Left 64%: Uncovered Shikoku Hex Map + Seated Player Strip -->
+  <rect x="20" y="68" width="796" height="632" rx="8" fill="url(#seaGrad)" stroke="url(#brassFrame)" stroke-width="2"/>
+
+  <!-- Top Seated Player Strip inside Map Area -->
+  <g transform="translate(32, 78)">
+    <rect x="0" y="0" width="184" height="46" rx="6" fill="#231710" stroke="#6b4e27"/>
+    <circle cx="24" cy="23" r="15" fill="#4a6b82" stroke="#d8a24a" stroke-width="1.5"/>
+    <text x="24" y="27" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="11" font-weight="bold">D</text>
+    <text x="48" y="19" fill="#f7eed7" font-family="Georgia, serif" font-size="12" font-weight="bold">Daisuke · ¥85</text>
+    <text x="48" y="35" fill="#cbb68e" font-family="monospace" font-size="10">5/14 certs · AR 30%★</text>
+
+    <rect x="194" y="0" width="202" height="46" rx="6" fill="#3d2714" stroke="#ffd46b" stroke-width="2"/>
+    <circle cx="218" cy="23" r="15" fill="#6b3fa0" stroke="#ffd46b" stroke-width="2"/>
+    <text x="218" y="27" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="11" font-weight="bold">H</text>
+    <text x="242" y="19" fill="#ffd46b" font-family="Georgia, serif" font-size="12" font-weight="bold">Haruka · ¥95 ★ ACTING</text>
+    <text x="242" y="35" fill="#f7eed7" font-family="monospace" font-size="10">PRES OF IR (30%★)</text>
+
+    <rect x="406" y="0" width="180" height="46" rx="6" fill="#231710" stroke="#6b4e27"/>
+    <circle cx="430" cy="23" r="15" fill="#2d6a4f" stroke="#d8a24a" stroke-width="1.5"/>
+    <text x="430" y="27" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="11" font-weight="bold">K</text>
+    <text x="454" y="19" fill="#f7eed7" font-family="Georgia, serif" font-size="12" font-weight="bold">Kenji · ¥230</text>
+    <text x="454" y="35" fill="#cbb68e" font-family="monospace" font-size="10">3/14 certs · IR 20%</text>
+
+    <rect x="596" y="0" width="176" height="46" rx="6" fill="#231710" stroke="#6b4e27"/>
+    <circle cx="620" cy="23" r="15" fill="#9c412d" stroke="#d8a24a" stroke-width="1.5"/>
+    <text x="620" y="27" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="11" font-weight="bold">A</text>
+    <text x="644" y="19" fill="#f7eed7" font-family="Georgia, serif" font-size="12" font-weight="bold">Alex · ¥120</text>
+    <text x="644" y="35" fill="#cbb68e" font-family="monospace" font-size="10">4/14 certs · UTF</text>
+  </g>
+
+  <!-- Uncovered Shikoku Hex Board -->
+  <g transform="translate(40, 100)">
+    <text x="16" y="54" fill="#f3d285" font-family="Georgia, serif" font-size="14" font-weight="bold">IYO SEA · 伊予灘</text>
+    <text x="480" y="54" fill="#f3d285" font-family="Georgia, serif" font-size="14" font-weight="bold">HARIMA SEA · 播磨灘</text>
+
+    <!-- Hexes -->
+    <polygon points="264,156 246,187 210,187 192,156 210,124 246,124" fill="#e6c84f" stroke="#3a2818" stroke-width="2"/>
+    <line x1="228" y1="156" x2="255" y2="140" stroke="#1e1712" stroke-width="7" stroke-linecap="round"/>
+    <line x1="228" y1="156" x2="255" y2="140" stroke="#ffcf56" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="228" cy="156" r="13" fill="#c85a32" stroke="#f7eed7" stroke-width="2"/>
+    <text x="228" y="160" text-anchor="middle" fill="#fff" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">IR</text>
+    <text x="184" y="148" text-anchor="end" fill="#f7eed7" font-family="Georgia, serif" font-size="12" font-weight="bold">E2 Matsuyama</text>
+
+    <polygon points="321,123 303,154 267,154 249,123 267,91 303,91" fill="#b5463a" stroke="#3a2818" stroke-width="2"/>
+    <circle cx="285" cy="123" r="12" fill="#231710" stroke="#f3d285" stroke-width="1.5"/>
+    <text x="285" y="127" text-anchor="middle" fill="#f3d285" font-family="monospace" font-size="9" font-weight="bold">¥30</text>
+    <text x="285" y="82" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="11" font-weight="bold">F1 Imabari Ferry</text>
+
+    <polygon points="321,189 303,220 267,220 249,189 267,157 303,157" fill="#d9cfac" stroke="#ffd46b" stroke-width="2.5"/>
+    <circle cx="285" cy="189" r="10" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+    <text x="285" y="213" text-anchor="middle" fill="#2c1d11" font-family="Georgia, serif" font-size="10.5" font-weight="bold">F3 Saijo</text>
+
+    <polygon points="378,222 360,253 324,253 306,222 324,190 360,190" fill="#d9cfac" stroke="#3a2818" stroke-width="2"/>
+    <circle cx="342" cy="222" r="10" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+    <text x="342" y="246" text-anchor="middle" fill="#2c1d11" font-family="Georgia, serif" font-size="10.5" font-weight="bold">G4 Niihama</text>
+
+    <polygon points="492,222 474,253 438,253 420,222 438,190 474,190" fill="#e6c84f" stroke="#3a2818" stroke-width="2"/>
+    <circle cx="456" cy="222" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+    <text x="456" y="182" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="11" font-weight="bold">I4 Kotohira (H)</text>
+
+    <polygon points="606,222 588,253 552,253 534,222 552,190 588,190" fill="#68a357" stroke="#3a2818" stroke-width="2"/>
+    <circle cx="570" cy="222" r="11" fill="#d49b27" stroke="#f7eed7" stroke-width="2"/>
+    <text x="570" y="226" text-anchor="middle" fill="#1d1209" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">KO</text>
+    <text x="570" y="182" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="11" font-weight="bold">K4 Takamatsu</text>
+
+    <polygon points="321,365 303,396 267,396 249,365 267,333 303,333" fill="#68a357" stroke="#3a2818" stroke-width="2"/>
+    <circle cx="285" cy="365" r="12" fill="#2ca568" stroke="#f7eed7" stroke-width="2"/>
+    <text x="285" y="369" text-anchor="middle" fill="#fff" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">TR</text>
+    <text x="285" y="325" text-anchor="middle" fill="#f7eed7" font-family="Georgia, serif" font-size="11.5" font-weight="bold">F9 Kōchi</text>
+  </g>
+
+  <!-- Callout Box on Map Bottom -->
+  <rect x="36" y="612" width="764" height="72" rx="8" fill="#1b120bed" stroke="url(#brassFrame)" stroke-width="2"/>
+  <text x="56" y="636" fill="#ffd46b" font-family="Georgia, serif" font-size="14" font-weight="bold">Default Case (Proposal A): Immediate Visual Metaphors Inside the Right-Hand Desk</text>
+  <text x="56" y="656" fill="#e6d3ad" font-family="Helvetica, sans-serif" font-size="11.5">1. Brick Roundhouse Bay shows train limit (1/4) · 2. Open Iron Safe vs. Haruka's Purse + Brass Dial shows financing ·</text>
+  <text x="56" y="673" fill="#e6d3ad" font-family="Helvetica, sans-serif" font-size="11.5">3. Woodblock Locomotive Card Tray groups identical 2-Trains · 4. Red Hanko Stamp confirms without popping a modal.</text>
+
+  <!-- Right 35%: Tactile 1990s Business-Sim Right-Hand Operating Desk -->
+  <rect x="826" y="68" width="434" height="632" rx="10" fill="url(#mahoganyPanel)" stroke="url(#brassFrame)" stroke-width="2.5"/>
+
+  <!-- Section 1: Brick Roundhouse Fleet Bay -->
+
+    <g transform="translate(840,80)">
+      <!-- Brick Roundhouse Facade -->
+      <rect x="0" y="0" width="406" height="108" rx="8" fill="#4f2419" stroke="url(#brassFrame)" stroke-width="2"/>
+      <!-- Pitched Slate Roof -->
+      <polygon points="0,20 203.0,2 406,20" fill="#28262b" stroke="#8c6836" stroke-width="1.2"/>
+      <rect x="117.0" y="4" width="172" height="18" rx="4" fill="#231710" stroke="#d8a24a" stroke-width="1.2"/>
+      <text x="203.0" y="16" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="10" font-weight="bold">ROUNDHOUSE FLEET (1/4 LIMIT)</text>
+
+        <g transform="translate(14.0, 26)">
+          <path d="M 0,74 L 0,18 Q 46.25,-4 92.5,18 L 92.5,74 Z" fill="#3b2816" stroke="#ffd46b" stroke-width="2.2"/>
+          <!-- Rails into bay -->
+          <line x1="25.900000000000002" y1="74" x2="35.15" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="66.6" y1="74" x2="57.35" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <circle cx="46.25" cy="34" r="24" fill="url(#lanternGlow)"/>
+
+            <!-- Front-on Golden Steam Engine inside Roundhouse Stall -->
+            <circle cx="46.25" cy="36" r="13" fill="#231c16" stroke="#ffd46b" stroke-width="2"/>
+            <circle cx="46.25" cy="36" r="5" fill="#ffd46b"/>
+            <rect x="43.25" y="14" width="6" height="10" fill="#ffd46b"/>
+            <polygon points="32.25,50 60.25,50 64.25,58 28.25,58" fill="#c85a32" stroke="#ffd46b" stroke-width="1"/>
+            <text x="46.25" y="70" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="9.5" font-weight="bold">2-TRAIN</text>
+
+        </g>
+
+        <g transform="translate(110.5, 26)">
+          <path d="M 0,74 L 0,18 Q 46.25,-4 92.5,18 L 92.5,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="25.900000000000002" y1="74" x2="35.15" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="66.6" y1="74" x2="57.35" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="46.25" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="46.25" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 2</text>
+
+        </g>
+
+        <g transform="translate(207.0, 26)">
+          <path d="M 0,74 L 0,18 Q 46.25,-4 92.5,18 L 92.5,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="25.900000000000002" y1="74" x2="35.15" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="66.6" y1="74" x2="57.35" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="46.25" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="46.25" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 3</text>
+
+        </g>
+
+        <g transform="translate(303.5, 26)">
+          <path d="M 0,74 L 0,18 Q 46.25,-4 92.5,18 L 92.5,74 Z" fill="#120c08" stroke="#5c4028" stroke-width="1.2"/>
+          <!-- Rails into bay -->
+          <line x1="25.900000000000002" y1="74" x2="35.15" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+          <line x1="66.6" y1="74" x2="57.35" y2="28" stroke="#6e5a44" stroke-width="1.5"/>
+
+
+            <text x="46.25" y="46" text-anchor="middle" fill="#6b543a" font-family="Georgia, serif" font-size="10">EMPTY</text>
+            <text x="46.25" y="60" text-anchor="middle" fill="#523e29" font-family="monospace" font-size="9">STALL 4</text>
+
+        </g>
+
+
+    </g>
+
+
+  <!-- Section 2: Counting House — Open Iron Safe vs. Brass Gauge vs. President Haruka's Purse -->
+  <rect x="840" y="196" width="406" height="128" rx="8" fill="#18100a" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="1043" y="213" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="11.5" font-weight="bold" letter-spacing="0.8">COUNTING HOUSE · CORPORATE VAULT vs. PRESIDENT WALLET</text>
+
+    <g transform="translate(848,216)">
+      <!-- Safe Body -->
+      <rect x="14" y="4" width="84" height="72" rx="5" fill="url(#steelSafe)" stroke="#8c969e" stroke-width="2"/>
+      <rect x="20" y="10" width="72" height="60" rx="2" fill="#16191c" stroke="#d8a24a" stroke-width="1.2"/>
+      <!-- Open Safe Door on Left -->
+      <polygon points="0,8 14,4 14,76 0,72" fill="#3a4046" stroke="#8c969e" stroke-width="1.5"/>
+      <circle cx="7" cy="40" r="4" fill="#d8a24a"/>
+      <!-- Stacked Yen Banknote Bundles inside Safe -->
+
+      <g transform="translate(26, 22)">
+        <rect x="0" y="24" width="26" height="14" rx="1.5" fill="#cbe0c5" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="6" y="24" width="14" height="14" fill="#c85a32" opacity="0.7"/>
+        <rect x="30" y="24" width="26" height="14" rx="1.5" fill="#cbe0c5" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="36" y="24" width="14" height="14" fill="#c85a32" opacity="0.7"/>
+        <rect x="4" y="12" width="26" height="14" rx="1.5" fill="#dcebd7" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="10" y="12" width="14" height="14" fill="#c85a32" opacity="0.7"/>
+        <rect x="32" y="12" width="26" height="14" rx="1.5" fill="#dcebd7" stroke="#2d5a3c" stroke-width="1"/>
+        <rect x="16" y="0" width="28" height="14" rx="1.5" fill="#eef7eb" stroke="#2d5a3c" stroke-width="1"/>
+        <text x="30" y="10" text-anchor="middle" fill="#1e3d28" font-family="Georgia, serif" font-size="8.5" font-weight="bold">¥100</text>
+      </g>
+
+      <!-- Brass Plaque under Safe -->
+      <rect x="10" y="70" width="92" height="22" rx="4" fill="#231710" stroke="url(#brassFrame)" stroke-width="1.5"/>
+      <text x="56" y="85" text-anchor="middle" fill="#6ee7b7" font-family="Georgia, serif" font-size="13" font-weight="bold">¥800 Safe</text>
+      <text x="56" y="103" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">IR Corporate Vault</text>
+    </g>
+
+
+    <g transform="translate(992,222)">
+      <!-- Brass Bezel -->
+      <path d="M 8,54 A 42,42 0 0,1 92,54 Z" fill="#1b130d" stroke="url(#brassFrame)" stroke-width="3"/>
+      <!-- Green Safe Zone vs Red Shortfall Zone -->
+      <path d="M 14,50 A 36,36 0 0,1 50,14 L 50,50 Z" fill="#2ca568" opacity="0.45"/>
+      <path d="M 50,14 A 36,36 0 0,1 86,50 L 50,50 Z" fill="#c83e32" opacity="0.45"/>
+      <!-- Gauge Needle -->
+      <g transform="translate(50,50) rotate(-38)">
+        <line x1="0" y1="0" x2="0" y2="-32" stroke="#ffd46b" stroke-width="2.5"/>
+        <polygon points="-3,-26 0,-35 3,-26" fill="#ffd46b"/>
+      </g>
+      <circle cx="50" cy="50" r="5" fill="#d8a24a" stroke="#231710" stroke-width="1.2"/>
+      <!-- Brass Readout Plate -->
+      <rect x="0" y="54" width="100" height="34" rx="5" fill="#193d29" stroke="#52b788" stroke-width="1.5"/>
+      <text x="50" y="68" text-anchor="middle" fill="#86efac" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">VAULT COVERS 100%</text>
+      <text x="50" y="82" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="11.5" font-weight="bold">Shortfall: ¥0</text>
+    </g>
+
+
+    <g transform="translate(1124,216)">
+      <!-- Framed Meiji Portrait -->
+      <rect x="6" y="4" width="56" height="66" rx="5" fill="#f2dfc1" stroke="url(#brassFrame)" stroke-width="2"/>
+      <!-- Stylized Meiji Character Bust -->
+      <path d="M 14,68 C 14,48 54,48 54,68 Z" fill="#6b3fa0" stroke="#231710" stroke-width="1.2"/>
+      <path d="M 26,48 L 34,60 L 42,48" fill="none" stroke="#f7eed7" stroke-width="2"/>
+      <circle cx="34" cy="26" r="14" fill="#241c18"/>
+      <circle cx="34" cy="31" r="10.5" fill="#f4d4b8" stroke="#3a2818" stroke-width="1"/>
+      <path d="M 23,27 Q 34,18 45,27" fill="#241c18"/>
+      <circle cx="30" cy="31" r="1.3" fill="#241c18"/>
+      <circle cx="38" cy="31" r="1.3" fill="#241c18"/>
+      <path d="M 31,36 Q 34,38 37,36" fill="none" stroke="#8f3b2c" stroke-width="1.2"/>
+      <!-- Leather Coin Purse with Brass Clasp -->
+      <path d="M 52,44 C 46,44 44,66 52,70 L 82,70 C 90,66 88,44 82,44 Z" fill="#7a4424" stroke="#2b170b" stroke-width="1.5"/>
+      <rect x="58" y="40" width="18" height="5" rx="2" fill="#d8a24a" stroke="#2b170b" stroke-width="1"/>
+      <circle cx="64" cy="38" r="2" fill="#ffd46b"/>
+      <circle cx="70" cy="38" r="2" fill="#ffd46b"/>
+      <!-- Cash Plaque -->
+      <rect x="4" y="70" width="88" height="22" rx="4" fill="#231710" stroke="url(#brassFrame)" stroke-width="1.5"/>
+      <text x="48" y="85" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">¥95 Purse</text>
+      <text x="48" y="103" text-anchor="middle" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="9.5" font-weight="bold">Untouched (¥0 Due)</text>
+    </g>
+
+
+  <!-- Section 3: Wooden Depot Tray with Illustrated Woodblock Locomotive Cards -->
+  <rect x="840" y="332" width="406" height="184" rx="8" fill="#23160d" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="856" y="352" fill="#ffd46b" font-family="Georgia, serif" font-size="12" font-weight="bold">LOCOMOTIVE WORKS · DEPOT TIER TRAY</text>
+  <text x="1232" y="352" text-anchor="end" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10.5">Click card to stage</text>
+
+  <!-- Stacked 2-Train Card (Left in Tray) -->
+  <g transform="translate(854, 362)">
+    <!-- Stack shadow cards behind to show 6 in depot -->
+    <rect x="6" y="-4" width="182" height="140" rx="6" fill="#d5bc8d" stroke="#5c4228" stroke-width="1"/>
+    <rect x="3" y="-2" width="182" height="140" rx="6" fill="#e5cfa4" stroke="#7a592e" stroke-width="1"/>
+    <!-- Top Active 2-Train Card -->
+    <rect x="0" y="0" width="182" height="140" rx="6" fill="url(#parchment)" stroke="#ffd46b" stroke-width="3"/>
+    <rect x="8" y="8" width="166" height="24" rx="4" fill="#2c1d11"/>
+    <text x="16" y="24" fill="#ffd46b" font-family="Georgia, serif" font-size="13" font-weight="bold">2-TRAIN</text>
+    <text x="166" y="24" text-anchor="end" fill="#ffffff" font-family="Georgia, serif" font-size="13.5" font-weight="bold">¥80</text>
+    <!-- Woodblock Sky & Track Scene -->
+    <rect x="10" y="36" width="162" height="54" rx="3" fill="#e6d2aa" stroke="#8c6836" stroke-width="1"/>
+    <path d="M10 78 L172 78 L172 90 L10 90 Z" fill="#8b7355"/>
+
+    <g transform="translate(46,44) scale(1.05)">
+      <path d="M58 6 C46 -6, 26 -6, 8 2 C22 -12, 48 -12, 62 2 Z" fill="#f7f0df" opacity="0.8"/>
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#1e2428" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#1e2428" stroke="#d8a24a" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#1e2428" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#d8a24a" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#d8a24a" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#1e2428" stroke="#d8a24a" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#d8a24a" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#d8a24a" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#d8a24a" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+    <!-- 6 Brass Tokens for Depot Supply -->
+    <text x="12" y="106" fill="#2c1d11" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Depot Stack: 6 Left</text>
+    <g transform="translate(114, 97)">
+      <circle cx="6" cy="5" r="4.5" fill="#d8a24a" stroke="#2c1d11"/><circle cx="17" cy="5" r="4.5" fill="#d8a24a" stroke="#2c1d11"/><circle cx="28" cy="5" r="4.5" fill="#d8a24a" stroke="#2c1d11"/>
+      <circle cx="39" cy="5" r="4.5" fill="#d8a24a" stroke="#2c1d11"/><circle cx="50" cy="5" r="4.5" fill="#d8a24a" stroke="#2c1d11"/><circle cx="61" cy="5" r="4.5" fill="#d8a24a" stroke="#2c1d11"/>
+    </g>
+    <rect x="8" y="114" width="166" height="20" rx="3" fill="#b82921"/>
+    <text x="91" y="128" text-anchor="middle" fill="#fff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">★ STAGED · RUSTS AT 4T</text>
+  </g>
+
+  <!-- Locked 3-Train Card (Right in Tray with Brass Chain & Padlock) -->
+  <g transform="translate(1050, 362)">
+    <rect x="0" y="0" width="182" height="140" rx="6" fill="#2a1f16" stroke="#5c4228" stroke-width="1.5"/>
+    <rect x="8" y="8" width="166" height="24" rx="4" fill="#18110b"/>
+    <text x="16" y="24" fill="#b8a17d" font-family="Georgia, serif" font-size="13" font-weight="bold">3-TRAIN</text>
+    <text x="166" y="24" text-anchor="end" fill="#b8a17d" font-family="Georgia, serif" font-size="13.5" font-weight="bold">¥180</text>
+    <rect x="10" y="36" width="162" height="54" rx="3" fill="#1f1710" stroke="#4d3922" stroke-width="1"/>
+
+    <g transform="translate(46,44) scale(1.05)">
+
+      <!-- Tender & Cab -->
+      <rect x="4" y="18" width="18" height="14" rx="1" fill="#383028" stroke="#101214" stroke-width="1.2"/>
+      <rect x="24" y="10" width="16" height="22" rx="1" fill="#383028" stroke="#7a6240" stroke-width="1.2"/>
+      <rect x="27" y="13" width="10" height="8" fill="#f3d285" opacity="0.85"/>
+      <!-- Boiler -->
+      <rect x="40" y="15" width="28" height="17" rx="2" fill="#383028" stroke="#101214" stroke-width="1.2"/>
+      <line x1="48" y1="15" x2="48" y2="32" stroke="#7a6240" stroke-width="1.8"/>
+      <line x1="58" y1="15" x2="58" y2="32" stroke="#7a6240" stroke-width="1.8"/>
+      <!-- Smokestack & Steam Dome -->
+      <polygon points="59,3 66,3 64,15 60,15" fill="#383028" stroke="#7a6240" stroke-width="1"/>
+      <path d="M49 15 C49 8, 56 8, 56 15 Z" fill="#7a6240" stroke="#2b1d10" stroke-width="1"/>
+      <!-- Cowcatcher & Headlamp -->
+      <polygon points="68,26 76,33 68,33" fill="#b82921"/>
+      <circle cx="70" cy="19" r="3" fill="#ffe17d" stroke="#7a6240" stroke-width="1"/>
+      <!-- Spoked Wheels & Side Rod -->
+      <circle cx="13" cy="34" r="5" fill="#1e1814" stroke="#7a6240" stroke-width="1.6"/>
+      <circle cx="32" cy="33" r="6.5" fill="#1e1814" stroke="#7a6240" stroke-width="1.8"/>
+      <circle cx="47" cy="33" r="6.5" fill="#1e1814" stroke="#7a6240" stroke-width="1.8"/>
+      <circle cx="61" cy="34" r="4.5" fill="#1e1814" stroke="#7a6240" stroke-width="1.5"/>
+      <line x1="30" y1="33" x2="49" y2="33" stroke="#e6cfa3" stroke-width="2.2"/>
+    </g>
+
+    <!-- Diagonal Brass Chain & Padlock -->
+    <line x1="10" y1="42" x2="172" y2="84" stroke="#8c6836" stroke-width="4" stroke-dasharray="6 3"/>
+    <line x1="10" y1="84" x2="172" y2="42" stroke="#8c6836" stroke-width="4" stroke-dasharray="6 3"/>
+    <rect x="77" y="52" width="28" height="24" rx="4" fill="url(#brassFrame)" stroke="#231710" stroke-width="1.5"/>
+    <path d="M 84,52 L 84,45 A 7,7 0 0,1 98,45 L 98,52" fill="none" stroke="#ffd46b" stroke-width="2.5"/>
+    <circle cx="91" cy="64" r="2.5" fill="#231710"/>
+    <text x="91" y="106" text-anchor="middle" fill="#9e8766" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">5 Queued Behind 2-Trains</text>
+    <text x="91" y="124" text-anchor="middle" fill="#68a357" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Unlocks Phase 3 (Green)</text>
+  </g>
+
+  <!-- Section 4: Parchment Dispatch Voucher & Red Hanko Stamp CTA -->
+  <g transform="translate(840, 524)">
+    <rect x="0" y="0" width="406" height="114" rx="8" fill="url(#parchment)" stroke="url(#brassFrame)" stroke-width="2"/>
+    <text x="16" y="22" fill="#5c3a18" font-family="Georgia, serif" font-size="11" font-weight="bold" letter-spacing="0.8">DISPATCH VOUCHER · REVISION 33</text>
+    <text x="16" y="42" fill="#231710" font-family="Georgia, serif" font-size="15" font-weight="bold">IR Safe: ¥800 → ¥720 (-¥80)  ·  Fleet: 0/4 → 1/4</text>
+
+    <rect x="16" y="54" width="92" height="46" rx="6" fill="#332215" stroke="#8c6836" stroke-width="1.5"/>
+    <text x="62" y="82" text-anchor="middle" fill="#e6d3ad" font-family="Georgia, serif" font-size="12.5" font-weight="bold">Cancel</text>
+
+
+    <g transform="translate(118,54)">
+      <rect x="0" y="0" width="272" height="46" rx="7" fill="url(#hankoRed)" stroke="#ffd46b" stroke-width="2"/>
+      <rect x="4" y="4" width="264" height="38" rx="4" fill="none" stroke="#f7eed7" stroke-width="0.9" stroke-dasharray="3 2"/>
+      <!-- Circular Traditional Red Hanko Seal Emblem -->
+      <circle cx="26" cy="23.0" r="14" fill="#f7eed7" stroke="#8f1d14" stroke-width="1.5"/>
+      <circle cx="26" cy="23.0" r="11.5" fill="none" stroke="#b82921" stroke-width="1.2"/>
+      <text x="26" y="27.0" text-anchor="middle" fill="#b82921" font-family="Georgia, serif" font-size="12" font-weight="bold">承認</text>
+      <text x="149.0" y="28.0" text-anchor="middle" fill="#ffffff" font-family="Georgia, serif" font-size="13.5" font-weight="bold">Stamp &amp; Buy 2-Train (¥80)</text>
+    </g>
+
+  </g>
+
+  <!-- Bottom Brass Escalation Bar for Complex Cases (Opens Screen 2/3) -->
+  <g transform="translate(840, 646)">
+    <rect x="0" y="0" width="406" height="42" rx="6" fill="#281a10" stroke="url(#brassFrame)" stroke-width="1.5"/>
+    <circle cx="24" cy="21" r="11" fill="url(#brassFrame)" stroke="#231710"/>
+    <text x="24" y="25" text-anchor="middle" fill="#231710" font-family="Georgia, serif" font-size="12" font-weight="bold">⇄</text>
+    <text x="44" y="19" fill="#ffd46b" font-family="Georgia, serif" font-size="11.5" font-weight="bold">Open Full Boardroom Deal &amp; Emergency Room…</text>
+    <text x="44" y="34" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">For inter-company train deals, private purchases, or emergency share sales</text>
+  </g>
+</svg>

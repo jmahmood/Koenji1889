@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <polygon points="18,32 130,32 144,60 130,88 18,88" fill="#23382e" stroke="#e0b054" stroke-width="3"/>
+      <circle cx="44" cy="60" r="14" fill="#e0b054"/>
+      <text x="44" y="65" text-anchor="middle" fill="#1b120c" font-family="monospace" font-size="11" font-weight="bold">OR</text>
+      <text x="94" y="57" text-anchor="middle" fill="#f7e6c4" font-family="Georgia, serif" font-size="11" font-weight="bold">OPERATING</text>
+      <text x="94" y="72" text-anchor="middle" fill="#7ce0ae" font-family="monospace" font-size="9">ACTIVE COMPANY</text>
+    </svg>

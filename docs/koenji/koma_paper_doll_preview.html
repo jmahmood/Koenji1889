@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Koenji 1889 · 5-Member Inverted Paper-Doll & コマ送り Prototype</title>
+  <style>
+    :root {
+      --bg: #120d0a;
+      --panel: #1e1610;
+      --border: #6e4e2a;
+      --gold: #e0b054;
+      --cream: #f2e3c2;
+      --muted: #b09b78;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px 24px;
+      background: radial-gradient(circle at 50% 15%, #332114, #0d0907 75%);
+      color: var(--cream);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+    header {
+      max-width: 1360px;
+      margin: 0 auto 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    h1 { margin: 4px 0 0; font-size: 23px; color: #f7e6c4; }
+    .kicker { font-family: monospace; font-size: 11px; letter-spacing: 1.8px; color: var(--gold); text-transform: uppercase; }
+    .layout {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 16px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+    }
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: var(--gold);
+      border-bottom: 1px solid #47321b;
+      padding-bottom: 6px;
+    }
+    .control-group { margin-bottom: 14px; }
+    .control-group label {
+      display: block;
+      font-family: monospace;
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    button {
+      background: #2b1e14;
+      color: var(--cream);
+      border: 1px solid #75532c;
+      padding: 7px 10px;
+      font-family: monospace;
+      font-size: 11.5px;
+      cursor: pointer;
+      text-align: left;
+    }
+    button:hover { border-color: var(--gold); background: #3b2819; }
+    button.active {
+      background: #8c5d23;
+      color: #fff4d6;
+      border-color: #f5ca70;
+      font-weight: bold;
+    }
+    .trigger-btn {
+      background: #23382e;
+      border-color: #559675;
+      color: #d6faea;
+      font-weight: bold;
+    }
+    .trigger-btn:hover { background: #2e4b3d; border-color: #7ce0ae; }
+
+    .stage-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1.15fr;
+      gap: 16px;
+    }
+    .table-viewport {
+      position: relative;
+      height: 390px;
+      background: linear-gradient(180deg, #2b190f 0%, #3d2415 62%, #1d3d30 62%, #132a21 100%);
+      border: 2px solid #8a6232;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .table-rim {
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      bottom: 32%;
+      height: 18px;
+      background: linear-gradient(90deg, #3b2011, #784525 50%, #3b2011);
+      border-top: 2px solid #b88444;
+      border-bottom: 2px solid #241209;
+      z-index: 3;
+    }
+    .stage-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(18, 13, 10, 0.92);
+      border: 1px solid var(--gold);
+      padding: 5px 9px;
+      font-family: monospace;
+      font-size: 11px;
+      z-index: 10;
+    }
+    .layer-breakdown-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(18, 13, 10, 0.92);
+      border: 1px solid #6e4e2a;
+      padding: 5px 9px;
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--muted);
+      z-index: 10;
+    }
+
+    .paper-doll-main {
+      width: 265px;
+      height: 305px;
+      position: relative;
+      z-index: 4;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.75));
+    }
+    .plaque {
+      position: absolute;
+      bottom: 10px;
+      background: #d4b26e;
+      color: #26160c;
+      border: 2px solid #69421f;
+      padding: 4px 14px;
+      font-weight: bold;
+      font-size: 13px;
+      z-index: 6;
+    }
+
+    /* 5-Member Mini Screen Strip (Stock & Map Header Simulation) */
+    .mini-strip-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .mini-card {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      align-items: center;
+      background: #231812;
+      border: 2px solid #5e4324;
+      height: 66px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .mini-card.is-selected {
+      border-color: #f5c767;
+      box-shadow: 0 0 12px rgba(245, 199, 103, 0.35);
+      background: linear-gradient(100deg, #3b2a17, #261a11);
+    }
+    .mini-card.is-shocked {
+      border-color: #d9534f;
+      background: linear-gradient(100deg, #421c19, #241311);
+    }
+    .mini-portrait-frame {
+      height: 100%;
+      background: #1a1410;
+      border-right: 2px solid #78542b;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mini-portrait-frame svg {
+      width: 92px;
+      height: 92px;
+      transform: translateY(10px) scale(1.18);
+    }
+    .mini-card-body {
+      padding: 4px 10px;
+      font-family: monospace;
+      min-width: 0;
+    }
+    .mini-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; }
+    .mini-sub { font-size: 10.5px; color: var(--gold); margin-top: 2px; }
+    .mini-outfit-tag {
+      font-family: monospace;
+      font-size: 10px;
+      color: var(--muted);
+      padding-right: 10px;
+    }
+
+    /* Exploded Layer Inspection Strip */
+    .exploded-layers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .layer-card {
+      background: #16100c;
+      border: 1px dashed #5e4324;
+      padding: 10px;
+      text-align: center;
+    }
+    .layer-card small {
+      display: block;
+      font-family: monospace;
+      color: var(--gold);
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+    .layer-card svg {
+      width: 118px;
+      height: 132px;
+      background: #1a1612;
+      border: 1px solid #382817;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="kicker">Koenji Railway Club · 1889 All 5 Reference Faces + 4 Meiji Outfits</div>
+      <h1>5-Member Inverted Paper-Doll & コマ送り (Koma-okuri) Tester</h1>
+    </div>
+    <div class="kicker">TIMING: steps(1, end) · ZERO TWEENING · CLICK ANY MEMBER TO CUSTOMIZE</div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel">
+      <h2>1. Select Club Member Face (`Layer 2`)</h2>
+      <div class="control-group">
+        <label>All 5 Reference Photos Mapped to Head Layers</label>
+        <div class="btn-stack" id="member-buttons">
+          <button data-member="m1" class="active">Face 1: Shaved Head · Burgundy Glasses & Goatee</button>
+          <button data-member="m2">Face 2: Receding Hair · Navy Glasses & Silver-Chin Beard</button>
+          <button data-member="m3">Face 3: Wavy Brown Hair · Rimless Oval Glasses</button>
+          <button data-member="m4">Face 4: Swept Black Hair · Chin-Patch Goatee</button>
+          <button data-member="m5">Face 5: Short Dark Bob · Warm Welcoming Smile</button>
+        </div>
+      </div>
+
+      <h2>2. Customize Outfit Layer (`Layer 1 & 3` · 12 Costumes)</h2>
+      <div class="control-group">
+        <label>Assign Any of the 12 Meiji Costumes to Selected Member</label>
+        <div class="btn-grid" id="clothes-buttons">
+          <button data-clothes="indigo-haori" class="active">1. Indigo Haori</button>
+          <button data-clothes="charcoal-suit">2. Charcoal Suit</button>
+          <button data-clothes="plum-kimono">3. Plum Kimono</button>
+          <button data-clothes="moss-hakama">4. Moss Hakama</button>
+          <button data-clothes="imperial-railway-uniform">5. Railway Uniform</button>
+          <button data-clothes="crimson-furisode">6. Crimson Brocade</button>
+          <button data-clothes="inverness-cape">7. Inverness Cape</button>
+          <button data-clothes="merchant-hanten">8. Merchant Hanten</button>
+          <button data-clothes="ivory-summer-suit">9. Ivory Linen Suit</button>
+          <button data-clothes="amber-jinbaori">10. Amber Jinbaori</button>
+          <button data-clothes="teal-frock-coat">11. Teal Frock Coat</button>
+          <button data-clothes="slate-montsuki">12. Slate Montsuki</button>
+        </div>
+      </div>
+
+      <h2>3. Trigger Multi-Stage コマ送り Sequences</h2>
+      <div class="control-group">
+        <label>Animates Active Member + Opponent Reactions in Mini Strip</label>
+        <div class="btn-stack">
+          <button class="trigger-btn" data-trigger="buy_stock">▶ Stage 1→2→3: Float IR & Buy 20% Share</button>
+          <button class="trigger-btn" data-trigger="lay_track">▶ Stage 1→2→3: Lay Green Tile on Kotohira</button>
+          <button class="trigger-btn" data-trigger="outbid_shock">▶ Stage 1→2→3: Aggressive Runoff Bid (Rivals Shocked!)</button>
+          <button class="trigger-btn" data-trigger="tea_note">▶ Social Trigger: All 5 Members Toast with Tea</button>
+        </div>
+      </div>
+
+      <h2>4. Manual Expression & Pose Step</h2>
+      <div class="control-group">
+        <label>Head Expression (`Layer 2`)</label>
+        <div class="btn-grid" id="face-buttons">
+          <button data-expr="neutral" class="active">E1: Neutral</button>
+          <button data-expr="smile">E2: Warm Smile</button>
+          <button data-expr="calculating">E3: Calculating</button>
+          <button data-expr="declare">E4: Declare</button>
+          <button data-expr="shock">E5: Shock Recoil</button>
+        </div>
+      </div>
+      <div class="control-group" style="margin-bottom:0">
+        <label>Outfit Body Pose (`Layer 1 + Layer 3`)</label>
+        <div class="btn-grid" id="pose-buttons">
+          <button data-pose="idle" class="active">P1: Seated Idle</button>
+          <button data-pose="tea">P2: Sipping Tea</button>
+          <button data-pose="thinking">P3: Chin Thinking</button>
+          <button data-pose="ledger">P4: Check Ledger</button>
+          <button data-pose="point">P5: Point Declare</button>
+          <button data-pose="certificate">P6: Share Cert</button>
+          <button data-pose="token">P7: Track & Token</button>
+          <button data-pose="shock">P8: Shock Hands</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="stage-column">
+      <div class="preview-grid">
+        <!-- Main Club Table View -->
+        <section class="panel">
+          <h2>Main Screen: Club Table (`ClubRoom.js` Waist-Up View)</h2>
+          <div class="table-viewport">
+            <div class="stage-badge" id="stage-status">STAGE: IDLE AT TABLE</div>
+            <div class="layer-breakdown-pill" id="combo-status">m1 + indigo-haori + neutral + idle</div>
+            <div class="paper-doll-main" id="main-table-sprite"></div>
+            <div class="table-rim"></div>
+            <div class="plaque" id="main-plaque">Member 1 · Indigo Haori</div>
+          </div>
+        </section>
+
+        <!-- 5-Member Mini Portrait Strip (Stock & Map Menus) -->
+        <section class="panel">
+          <h2>Mini Screens: All 5 Members in Stock / Map Strip</h2>
+          <p style="margin:0 0 10px;font-size:11.5px;color:var(--muted)">
+            Click any member below to inspect them on the Main Table, or trigger a sequence on the left to watch the acting member and rivals react simultaneously:
+          </p>
+          <div class="mini-strip-grid" id="mini-strip-container"></div>
+        </section>
+      </div>
+
+      <!-- Exploded 3-Layer Breakdown -->
+      <section class="panel">
+        <h2>Exploded 3-Layer Paper-Doll Stack for Currently Selected Member</h2>
+        <div class="exploded-layers">
+          <div class="layer-card">
+            <small>LAYER 1 (BACK): OUTFIT TORSO & COLLAR</small>
+            <div id="exploded-layer-1"></div>
+          </div>
+          <div class="layer-card">
+            <small>LAYER 2 (MID): PHOTO-BASED HEAD & EXPRESSION</small>
+            <div id="exploded-layer-2"></div>
+          </div>
+          <div class="layer-card">
+            <small>LAYER 3 (FRONT): FOREGROUND HANDS & PROPS</small>
+            <div id="exploded-layer-3"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const OUTFITS = {
+      'indigo-haori': { name: 'Indigo Haori', main: '#263e57', mid: '#314f6e', dark: '#172636', inner: '#e8d8b5', cord: '#c9a66b', kind: 'kimono' },
+      'charcoal-suit': { name: 'Charcoal Suit', main: '#33383e', mid: '#434952', dark: '#1e2126', inner: '#f2e5c7', vest: '#784e2d', cravat: '#7c242b', kind: 'suit' },
+      'plum-kimono': { name: 'Plum Kimono', main: '#5e314a', mid: '#753f5d', dark: '#3b1d2e', inner: '#f0dec0', cord: '#d6b065', kind: 'kimono' },
+      'moss-hakama': { name: 'Moss Hakama', main: '#43543d', mid: '#55694e', dark: '#293425', inner: '#e6d6b5', cord: '#9c8654', kind: 'kimono' },
+      'imperial-railway-uniform': { name: 'Imperial Railway Uniform', main: '#1b2838', mid: '#26384f', dark: '#0f1722', inner: '#f2e5c7', accent: '#d4a843', cuff: '#9e2a2b', kind: 'uniform' },
+      'crimson-furisode': { name: 'Crimson Brocade Kimono', main: '#7a2026', mid: '#962a31', dark: '#4a1115', inner: '#f7ebd2', accent: '#e0b458', cuff: '#e0b458', kind: 'brocade' },
+      'inverness-cape': { name: 'Meiji Inverness Cape-Coat', main: '#6e5239', mid: '#856447', dark: '#3d2c1e', inner: '#f0e2c6', vest: '#8c6d4e', cravat: '#255c45', cuff: '#3d2c1e', kind: 'inverness' },
+      'merchant-hanten': { name: 'Shikoku Merchant Hanten', main: '#233447', mid: '#2e445c', dark: '#131d29', inner: '#e6d4b3', accent: '#b85d2e', cuff: '#131d29', kind: 'merchant' },
+      'ivory-summer-suit': { name: 'Yokohama Ivory Linen Suit', main: '#dfd3bc', mid: '#ece2ce', dark: '#8c7d65', inner: '#ffffff', vest: '#4a607a', cravat: '#1e334d', cuff: '#ffffff', kind: 'summer-suit' },
+      'amber-jinbaori': { name: 'Amber Crested Jinbaori', main: '#8f5b22', mid: '#ab6f2c', dark: '#472c0e', sleeve: '#2c1d14', inner: '#e8d7b4', accent: '#e3b963', cuff: '#e3b963', kind: 'jinbaori' },
+      'teal-frock-coat': { name: 'Velvet-Lapel Teal Frock Coat', main: '#1f4745', mid: '#295c59', dark: '#102625', inner: '#f5ebd6', vest: '#5e2129', cravat: '#9aa3ad', cuff: '#152423', kind: 'frock' },
+      'slate-montsuki': { name: 'Slate Five-Crest Montsuki', main: '#3d434d', mid: '#4e5663', dark: '#22262c', inner: '#f0ead8', accent: '#f2ebd9', cuff: '#22262c', kind: 'montsuki' },
+    };
+
+    const MEMBERS = {
+      m1: { id: 'm1', name: 'Member 1 (Shaved Head · Burgundy Glasses)', skin: '#cf8f5a', neckStroke: '#452815', defaultClothes: 'indigo-haori' },
+      m2: { id: 'm2', name: 'Member 2 (Navy Glasses · Silver-Chin Beard)', skin: '#d99e6c', neckStroke: '#4a2d18', defaultClothes: 'moss-hakama' },
+      m3: { id: 'm3', name: 'Member 3 (Wavy Hair · Rimless Glasses)', skin: '#ecc19c', neckStroke: '#593822', defaultClothes: 'charcoal-suit' },
+      m4: { id: 'm4', name: 'Member 4 (Swept Black Hair · Chin Goatee)', skin: '#e4b389', neckStroke: '#4f311c', defaultClothes: 'imperial-railway-uniform' },
+      m5: { id: 'm5', name: 'Member 5 (Short Dark Bob · Warm Smile)', skin: '#ebbd96', neckStroke: '#52331e', defaultClothes: 'crimson-furisode' },
+    };
+
+    const state = {
+      selectedMember: 'm1',
+      stageLabel: 'STAGE: IDLE AT TABLE',
+      timer: null,
+      roster: {
+        m1: { clothes: 'indigo-haori', expr: 'neutral', pose: 'idle', status: 'Ready at Table' },
+        m2: { clothes: 'inverness-cape', expr: 'neutral', pose: 'idle', status: 'Ready at Table' },
+        m3: { clothes: 'teal-frock-coat', expr: 'neutral', pose: 'idle', status: 'Ready at Table' },
+        m4: { clothes: 'imperial-railway-uniform', expr: 'neutral', pose: 'idle', status: 'Ready at Table' },
+        m5: { clothes: 'crimson-furisode', expr: 'neutral', pose: 'idle', status: 'Ready at Table' },
+      },
+    };
+
+    function renderLayer1Torso(clothesKey, pose) {
+      const c = OUTFITS[clothesKey];
+      const lean = pose === 'point' ? 'transform="translate(0, 4)"' : pose === 'shock' ? 'transform="translate(0, -4)"' : '';
+      const chair = `<path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>`;
+      if (c.kind === 'suit') {
+        return `<g ${lean}>${chair}
+          <path d="M28 235 L38 132 Q54 108 78 104 L122 104 Q146 108 162 132 L172 235 Z" fill="${c.main}" stroke="#17191c" stroke-width="2.5"/>
+          <path d="M78 96 L100 138 L122 96 L116 88 L84 88 Z" fill="${c.inner}" stroke="#3b2c1e" stroke-width="1.8"/>
+          <polygon points="78,108 100,152 122,108 118,225 82,225" fill="${c.vest}" stroke="#29190e" stroke-width="1.8"/>
+          <path d="M92 108 L108 108 L112 142 L100 154 L88 142 Z" fill="${c.cravat}" stroke="#381014" stroke-width="1.5"/>
+          <path d="M76 104 L58 148 L84 176 L88 136 Z M124 104 L142 148 L116 176 L112 136 Z" fill="#272b30" stroke="#17191c" stroke-width="1.8"/>
+          <path d="M98 175 Q114 196 122 178" fill="none" stroke="#e0b458" stroke-width="2.2"/>
+        </g>`;
+      }
+      if (c.kind === 'uniform') {
+        return `<g ${lean}>${chair}
+          <path d="M26 235 L36 130 Q52 108 78 104 L122 104 Q148 108 164 130 L174 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <path d="M78 96 L100 132 L122 96 L116 88 L84 88 Z" fill="${c.inner}" stroke="#3b2c1e" stroke-width="1.8"/>
+          <path d="M76 98 L88 122 L112 122 L124 98 L118 92 L82 92 Z" fill="#131c29" stroke="${c.accent}" stroke-width="2.2"/>
+          <path d="M38 122 L68 106 L72 115 L42 131 Z M162 122 L132 106 L128 115 L158 131 Z" fill="${c.accent}" stroke="#5c4214" stroke-width="1.6"/>
+          <line x1="100" y1="122" x2="100" y2="232" stroke="${c.cuff}" stroke-width="3"/>
+          <g fill="#f0c862" stroke="#5c4214" stroke-width="1.2">
+            <circle cx="82" cy="138" r="3.8"/><circle cx="118" cy="138" r="3.8"/>
+            <circle cx="84" cy="160" r="3.8"/><circle cx="116" cy="160" r="3.8"/>
+            <circle cx="86" cy="182" r="3.8"/><circle cx="114" cy="182" r="3.8"/>
+          </g>
+        </g>`;
+      }
+      if (c.kind === 'brocade') {
+        return `<g ${lean}>${chair}
+          <path d="M20 235 L32 132 Q50 108 78 104 L122 104 Q150 108 168 132 L180 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <path d="M74 98 L100 164 L126 98 L116 90 L84 90 Z" fill="${c.inner}" stroke="#5c3d1e" stroke-width="2"/>
+          <path d="M78 100 L105 156 M122 100 L95 144" stroke="${c.accent}" stroke-width="3"/>
+          <g fill="none" stroke="${c.accent}" stroke-width="1.8"><circle cx="58" cy="142" r="8"/><circle cx="142" cy="142" r="8"/></g>
+          <rect x="56" y="172" width="88" height="30" rx="2" fill="#241a16" stroke="${c.accent}" stroke-width="2.2"/>
+          <line x1="56" y1="187" x2="144" y2="187" stroke="#d94e34" stroke-width="3.5"/>
+          <ellipse cx="100" cy="187" rx="7" ry="4.5" fill="${c.accent}" stroke="#4a1115" stroke-width="1.5"/>
+        </g>`;
+      }
+      if (c.kind === 'inverness') {
+        return `<g ${lean}>${chair}
+          <path d="M24 235 L34 130 Q52 108 78 104 L122 104 Q148 108 166 130 L176 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <path d="M78 96 L100 138 L122 96 L116 88 L84 88 Z" fill="${c.inner}" stroke="#3b2c1e" stroke-width="1.8"/>
+          <polygon points="78,108 100,152 122,108 118,225 82,225" fill="${c.vest}" stroke="#29190e" stroke-width="1.8"/>
+          <path d="M92 108 L108 108 L112 142 L100 154 L88 142 Z" fill="${c.cravat}" stroke="#122e22" stroke-width="1.5"/>
+          <circle cx="100" cy="128" r="3" fill="#f7f2e6"/>
+          <path d="M22 182 L34 126 Q54 106 78 104 L68 188 Z M178 182 L166 126 Q146 106 122 104 L132 188 Z" fill="${c.mid}" stroke="${c.dark}" stroke-width="2.2"/>
+          <path d="M76 104 L56 148 L84 176 L88 136 Z M124 104 L144 148 L116 176 L112 136 Z" fill="#2e1f14" stroke="#1a110b" stroke-width="1.8"/>
+        </g>`;
+      }
+      if (c.kind === 'merchant') {
+        return `<g ${lean}>${chair}
+          <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <g stroke="${c.accent}" stroke-width="2.4"><line x1="48" y1="120" x2="42" y2="232"/><line x1="62" y1="112" x2="58" y2="232"/><line x1="138" y1="112" x2="142" y2="232"/><line x1="152" y1="120" x2="158" y2="232"/></g>
+          <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="${c.inner}" stroke="#473623" stroke-width="2"/>
+          <path d="M74 102 L98 168 L86 174 L64 114 Z M126 102 L102 168 L114 174 L136 114 Z" fill="#131d29"/>
+          <rect x="56" y="176" width="88" height="22" fill="#162230" stroke="#c9a66b" stroke-width="1.8"/>
+          <rect x="90" y="180" width="20" height="14" rx="2" fill="#d4a843" stroke="#3b2814" stroke-width="1.5"/>
+        </g>`;
+      }
+      if (c.kind === 'summer-suit') {
+        return `<g ${lean}>${chair}
+          <path d="M28 235 L38 132 Q54 108 78 104 L122 104 Q146 108 162 132 L172 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <path d="M78 96 L100 138 L122 96 L116 88 L84 88 Z" fill="${c.inner}" stroke="#8c7d65" stroke-width="1.8"/>
+          <polygon points="78,110 100,154 122,110 118,225 82,225" fill="${c.vest}" stroke="#263342" stroke-width="1.8"/>
+          <polygon points="86,110 100,116 86,122" fill="${c.cravat}"/><polygon points="114,110 100,116 114,122" fill="${c.cravat}"/>
+          <path d="M76 104 L56 146 L84 176 L88 136 Z M124 104 L144 146 L116 176 L112 136 Z" fill="#c4b293" stroke="${c.dark}" stroke-width="1.8"/>
+          <circle cx="70" cy="142" r="5" fill="#b82921" stroke="#5e110d" stroke-width="1.2"/>
+        </g>`;
+      }
+      if (c.kind === 'jinbaori') {
+        return `<g ${lean}>${chair}
+          <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="${c.sleeve}" stroke="#170f0a" stroke-width="2.5"/>
+          <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="${c.inner}" stroke="#473623" stroke-width="2"/>
+          <path d="M48 235 L54 110 Q68 104 80 104 L94 235 Z M152 235 L146 110 Q132 104 120 104 L106 235 Z" fill="${c.main}" stroke="${c.accent}" stroke-width="2.2"/>
+          <path d="M78 104 L62 156 L88 178 L92 140 Z M122 104 L138 156 L112 178 L108 140 Z" fill="${c.mid}" stroke="${c.accent}" stroke-width="2"/>
+          <circle cx="68" cy="134" r="6" fill="none" stroke="#f5d77f" stroke-width="1.8"/><circle cx="132" cy="134" r="6" fill="none" stroke="#f5d77f" stroke-width="1.8"/>
+          <path d="M74 168 Q100 180 126 168" fill="none" stroke="${c.accent}" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="100" cy="173" r="5.5" fill="${c.accent}" stroke="#472c0e" stroke-width="1.5"/>
+        </g>`;
+      }
+      if (c.kind === 'frock') {
+        return `<g ${lean}>${chair}
+          <path d="M26 235 L36 132 Q54 108 78 104 L122 104 Q146 108 164 132 L174 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <path d="M78 96 L100 138 L122 96 L116 88 L84 88 Z" fill="${c.inner}" stroke="#3b2c1e" stroke-width="1.8"/>
+          <polygon points="78,108 100,154 122,108 118,225 82,225" fill="${c.vest}" stroke="#2e0d12" stroke-width="1.8"/>
+          <path d="M92 108 L108 108 L112 142 L100 154 L88 142 Z" fill="${c.cravat}" stroke="#495057" stroke-width="1.5"/>
+          <polygon points="100,122 104,127 100,132 96,127" fill="#ffffff"/>
+          <path d="M76 104 L56 148 L84 178 L88 136 Z M124 104 L144 148 L116 178 L112 136 Z" fill="#152423" stroke="#091211" stroke-width="2"/>
+          <path d="M84 180 Q92 196 100 182 Q108 196 116 180" fill="none" stroke="#e5be5c" stroke-width="2.2"/>
+        </g>`;
+      }
+      if (c.kind === 'montsuki') {
+        return `<g ${lean}>${chair}
+          <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+          <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="${c.inner}" stroke="#473623" stroke-width="2"/>
+          <g fill="none" stroke="${c.accent}" stroke-width="2">
+            <circle cx="62" cy="144" r="7.5"/><circle cx="62" cy="144" r="3" fill="${c.accent}"/>
+            <circle cx="138" cy="144" r="7.5"/><circle cx="138" cy="144" r="3" fill="${c.accent}"/>
+          </g>
+          <path d="M74 166 Q100 176 126 166" fill="none" stroke="${c.accent}" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="100" cy="170" r="5.5" fill="${c.accent}" stroke="#22262c" stroke-width="1.5"/>
+        </g>`;
+      }
+      return `<g ${lean}>${chair}
+        <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.5"/>
+        <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="${c.inner}" stroke="#473623" stroke-width="2"/>
+        <path d="M80 100 L106 154 M120 100 L94 142" stroke="#bfa87e" stroke-width="2"/>
+        <path d="M74 166 Q100 176 126 166" fill="none" stroke="${c.cord}" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="100" cy="170" r="5" fill="${c.cord}" stroke="#3b2814" stroke-width="1.5"/>
+      </g>`;
+    }
+
+    function renderLayer2Head(memberId, expr) {
+      const m = MEMBERS[memberId];
+      const tilt = expr === 'declare' ? 'transform="translate(0, 2)"' : expr === 'shock' ? 'transform="translate(0, -4) rotate(-2 100 70)"' : '';
+      let brows = `<path d="M73 53 Q86 48 96 53 M106 53 Q116 48 129 53" fill="none" stroke="#1c1512" stroke-width="3.8" stroke-linecap="round"/>`;
+      let eyes = `<circle cx="85" cy="62" r="3.3" fill="#1f140e"/><circle cx="116" cy="62" r="3.3" fill="#1f140e"/>`;
+      let mouth = `<path d="M90 88 Q101 93 112 88" fill="none" stroke="#3d1e16" stroke-width="2.2" stroke-linecap="round"/>`;
+
+      if (expr === 'smile') {
+        brows = `<path d="M73 51 Q86 45 96 51 M106 51 Q116 45 129 51" fill="none" stroke="#1c1512" stroke-width="3.6" stroke-linecap="round"/>`;
+        eyes = `<path d="M78 62 Q85 56 92 62 M109 62 Q116 56 123 62" fill="none" stroke="#1f140e" stroke-width="2.8" stroke-linecap="round"/>`;
+        mouth = `<path d="M88 86 Q101 98 114 86 Z" fill="#fff2dc" stroke="#3d1e16" stroke-width="2"/>`;
+      } else if (expr === 'calculating') {
+        brows = `<path d="M74 51 L97 56 M128 51 L105 56" fill="none" stroke="#1c1512" stroke-width="4.2" stroke-linecap="round"/>`;
+        eyes = `<circle cx="86" cy="64" r="3.1" fill="#1f140e"/><circle cx="117" cy="64" r="3.1" fill="#1f140e"/>`;
+        mouth = `<line x1="91" y1="89" x2="111" y2="88" stroke="#3d1e16" stroke-width="2.4" stroke-linecap="round"/>`;
+      } else if (expr === 'declare') {
+        brows = `<path d="M72 48 Q86 42 97 50 M105 50 Q116 42 130 48" fill="none" stroke="#1c1512" stroke-width="4.2" stroke-linecap="round"/>`;
+        mouth = `<ellipse cx="101" cy="89" rx="9.5" ry="6" fill="#6e221b" stroke="#2b120e" stroke-width="2"/><path d="M93 85 H109" stroke="#f5e6ce" stroke-width="2"/>`;
+      } else if (expr === 'shock') {
+        brows = `<path d="M71 43 Q85 36 96 44 M106 44 Q117 36 131 43" fill="none" stroke="#1c1512" stroke-width="4.2" stroke-linecap="round"/>`;
+        eyes = `<ellipse cx="85" cy="61" rx="6.2" ry="5.2" fill="#fffdf7"/><circle cx="86" cy="61" r="2.5" fill="#1f140e"/><ellipse cx="116" cy="61" rx="6.2" ry="5.2" fill="#fffdf7"/><circle cx="116" cy="61" r="2.5" fill="#1f140e"/>`;
+        mouth = `<ellipse cx="101" cy="90" rx="10.5" ry="7.5" fill="#5e1d17" stroke="#2b120e" stroke-width="2"/>`;
+      }
+
+      // Member-specific hair, beard, and glasses layers
+      let backHair = '';
+      let topHair = '';
+      let facialHair = '';
+      let glasses = '';
+
+      if (memberId === 'm1') {
+        topHair = `<ellipse cx="90" cy="34" rx="16" ry="9" fill="#e8b27e" opacity="0.5"/>`;
+        facialHair = `
+          <path d="M84 82 C85 69, 117 69, 118 82 C119 98, 112 109, 101 109 C90 109, 83 98, 84 82 Z" fill="#231c19" stroke="#140f0d" stroke-width="1.5"/>
+          <path d="M90 82 Q101 79 112 82 L110 92 L92 92 Z" fill="${m.skin}"/>
+          <path d="M95 99 L94 106 M99 100 L99 107 M104 100 L105 107 M108 98 L110 105" stroke="#b8b2a8" stroke-width="1.3" stroke-linecap="round"/>`;
+        glasses = `<g fill="rgba(255,255,255,0.12)" stroke="#5e191e" stroke-width="2.4">
+          <rect x="71" y="54" width="26" height="15" rx="2.5"/><rect x="104" y="54" width="26" height="15" rx="2.5"/>
+          <line x1="97" y1="60" x2="104" y2="60" stroke="#241a18" stroke-width="2.2"/>
+          <line x1="66" y1="59" x2="71" y2="59"/><line x1="130" y1="59" x2="134" y2="59"/>
+        </g>`;
+      } else if (memberId === 'm2') {
+        topHair = `
+          <path d="M67 60 C65 36, 74 24, 86 22 C74 32, 70 46, 70 60 Z M133 60 C135 36, 126 24, 114 22 C126 32, 130 46, 130 60 Z" fill="#1f1b18"/>
+          <path d="M92 22 Q96 30 94 37 M101 21 Q105 29 102 38 M109 23 Q112 30 108 36" fill="none" stroke="#1f1b18" stroke-width="1.8" stroke-linecap="round"/>`;
+        facialHair = `
+          <path d="M69 70 C70 96, 84 112, 101 112 C118 112, 131 96, 132 70 L127 68 C125 88, 116 98, 101 98 C86 98, 76 88, 74 68 Z" fill="#231e1b"/>
+          <path d="M86 81 Q101 75 116 81" fill="none" stroke="#231e1b" stroke-width="4.2" stroke-linecap="round"/>
+          <path d="M94 96 C95 104, 98 111, 102 111 C106 111, 109 104, 108 96 Z" fill="#dcd9d2"/>`;
+        glasses = `<g fill="rgba(255,255,255,0.12)" stroke="#1f3156" stroke-width="2.6">
+          <rect x="72" y="55" width="25" height="13" rx="6"/><rect x="104" y="55" width="25" height="13" rx="6"/>
+          <line x1="97" y1="60" x2="104" y2="60"/><line x1="66" y1="58" x2="72" y2="59"/><line x1="129" y1="59" x2="134" y2="58"/>
+        </g>`;
+      } else if (memberId === 'm3') {
+        topHair = `<path d="M66 56 C62 24, 78 12, 100 13 C122 12, 138 24, 134 56 C132 40, 124 27, 100 26 C76 27, 68 40, 66 56 Z" fill="#3a281d" stroke="#21150e" stroke-width="1.5"/>`;
+        glasses = `<g fill="rgba(255,255,255,0.08)" stroke="#6e685f" stroke-width="1.5">
+          <ellipse cx="85" cy="61" rx="12" ry="7"/><ellipse cx="116" cy="61" rx="12" ry="7"/>
+          <line x1="97" y1="61" x2="104" y2="61"/><line x1="66" y1="60" x2="73" y2="61"/><line x1="128" y1="61" x2="134" y2="60"/>
+        </g>`;
+      } else if (memberId === 'm4') {
+        backHair = `<path d="M64 62 L61 86 L72 82 Z M136 62 L139 86 L128 82 Z" fill="#181514"/>`;
+        topHair = `
+          <path d="M65 62 C61 24, 80 12, 102 13 C124 14, 139 26, 135 62 C131 38, 121 26, 100 26 C79 26, 69 38, 65 62 Z" fill="#181514"/>
+          <path d="M88 24 Q80 36 83 48 M108 24 Q117 36 113 49" fill="none" stroke="#181514" stroke-width="2.6" stroke-linecap="round"/>`;
+        facialHair = `<path d="M90 101 Q101 111 112 101 Q106 106 101 106 Q96 106 90 101 Z" fill="#211c19"/>`;
+      } else if (memberId === 'm5') {
+        backHair = `<path d="M62 56 C60 82, 65 96, 74 98 L126 98 C135 96, 140 82, 138 56 Z" fill="#1c1817"/>`;
+        topHair = `<path d="M63 62 C61 22, 82 14, 100 14 C118 14, 139 22, 137 62 C128 38, 114 27, 98 26 C83 27, 71 38, 63 62 Z" fill="#211c1a"/>`;
+      }
+
+      return `<g ${tilt}>
+        ${backHair}
+        <path d="M84 88 L84 114 Q100 124 116 114 L116 88 Z" fill="${m.skin}" stroke="${m.neckStroke}" stroke-width="2"/>
+        <ellipse cx="66" cy="66" rx="6" ry="11.5" fill="${m.skin}" stroke="${m.neckStroke}" stroke-width="2"/>
+        <ellipse cx="134" cy="66" rx="6" ry="11.5" fill="${m.skin}" stroke="${m.neckStroke}" stroke-width="2"/>
+        <path d="M68 58 C68 18, 132 18, 132 58 C132 92, 118 108, 100 108 C82 108, 68 92, 68 58 Z" fill="${m.skin}" stroke="${m.neckStroke}" stroke-width="2.2"/>
+        ${topHair}
+        ${facialHair}
+        <path d="M100 58 L96 73 L105 74" fill="none" stroke="${m.neckStroke}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        ${brows}
+        ${eyes}
+        ${glasses}
+        ${mouth}
+      </g>`;
+    }
+
+    function renderLayer3ForegroundArms(memberId, clothesKey, pose) {
+      const c = OUTFITS[clothesKey];
+      const skin = MEMBERS[memberId].skin;
+      const stroke = MEMBERS[memberId].neckStroke;
+      if (pose === 'idle') {
+        return `<g>
+          <path d="M36 170 L78 206 L72 224 L26 198 Z M164 170 L122 206 L128 224 L174 198 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <ellipse cx="84" cy="212" rx="14" ry="9" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+          <ellipse cx="116" cy="212" rx="14" ry="9" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+        </g>`;
+      }
+      if (pose === 'tea') {
+        return `<g>
+          <path d="M40 165 L86 142 L94 166 L46 196 Z M160 165 L114 142 L106 166 L154 196 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <rect x="86" y="122" width="28" height="34" rx="4" fill="#e6d7b8" stroke="#473320" stroke-width="2"/>
+          <path d="M86 130 H114 M86 148 H114" stroke="#3b5e4c" stroke-width="2"/>
+          <ellipse cx="85" cy="142" rx="10" ry="7" fill="${skin}" stroke="${stroke}" stroke-width="1.6"/>
+          <ellipse cx="115" cy="142" rx="10" ry="7" fill="${skin}" stroke="${stroke}" stroke-width="1.6"/>
+        </g>`;
+      }
+      if (pose === 'thinking') {
+        return `<g>
+          <path d="M44 176 L118 172 L118 194 L42 198 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <path d="M148 182 L114 118 L98 124 L122 190 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <path d="M92 108 Q106 102 114 112 L112 126 L96 124 Z" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+        </g>`;
+      }
+      if (pose === 'ledger') {
+        return `<g>
+          <path d="M38 168 L78 142 L88 164 L46 194 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <rect x="64" y="118" width="54" height="40" rx="3" fill="#5e3219" stroke="#2b1508" stroke-width="2"/>
+          <rect x="68" y="122" width="46" height="32" fill="#f2e4c4"/>
+          <line x1="91" y1="122" x2="91" y2="154" stroke="#8c6d46" stroke-width="1.5"/>
+          <ellipse cx="114" cy="138" rx="11" ry="7" fill="${skin}" stroke="${stroke}" stroke-width="1.6"/>
+        </g>`;
+      }
+      if (pose === 'point') {
+        return `<g>
+          <path d="M36 146 L86 126 L94 156 L42 182 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2.2"/>
+          <circle cx="88" cy="134" r="15" fill="${skin}" stroke="${stroke}" stroke-width="2"/>
+          <rect x="86" y="122" width="26" height="9" rx="4" fill="${skin}" stroke="${stroke}" stroke-width="2"/>
+        </g>`;
+      }
+      if (pose === 'certificate') {
+        return `<g>
+          <path d="M158 166 L142 106 L122 114 L134 176 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <g transform="translate(116, 46) rotate(8)">
+            <rect x="0" y="0" width="66" height="46" rx="2" fill="#f5e6c4" stroke="#b88636" stroke-width="2.5"/>
+            <rect x="4" y="4" width="58" height="38" fill="none" stroke="#d4822a" stroke-width="1.2"/>
+            <text x="33" y="18" text-anchor="middle" fill="#2b190d" font-size="9" font-weight="bold">1889 · IR</text>
+            <text x="33" y="29" text-anchor="middle" fill="#8a3324" font-size="7" font-family="monospace">20% PRES</text>
+            <circle cx="52" cy="34" r="4.5" fill="#b82921"/>
+          </g>
+          <ellipse cx="136" cy="96" rx="11" ry="8" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+        </g>`;
+      }
+      if (pose === 'token') {
+        return `<g>
+          <path d="M156 168 L138 112 L118 118 L132 176 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+          <polygon points="138,64 156,74 156,94 138,104 120,94 120,74" fill="#5da667" stroke="#26190f" stroke-width="2"/>
+          <path d="M120 84 L156 84 M138 64 L138 104" stroke="#1e1712" stroke-width="3.5"/>
+          <circle cx="138" cy="84" r="6.5" fill="#f0c456" stroke="#26190f" stroke-width="1.5"/>
+          <ellipse cx="134" cy="106" rx="11" ry="8" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+        </g>`;
+      }
+      return `<g>
+        <path d="M32 168 L52 108 L68 114 L52 176 Z M168 168 L148 108 L132 114 L148 176 Z" fill="${c.main}" stroke="${c.dark}" stroke-width="2"/>
+        <ellipse cx="56" cy="96" rx="9" ry="15" transform="rotate(-15 56 96)" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+        <ellipse cx="144" cy="96" rx="9" ry="15" transform="rotate(15 144 96)" fill="${skin}" stroke="${stroke}" stroke-width="1.8"/>
+      </g>`;
+    }
+
+    function renderCharacterSVG(memberId, viewBox = '0 0 200 240') {
+      const r = state.roster[memberId];
+      return `<svg viewBox="${viewBox}" role="img">${renderLayer1Torso(r.clothes, r.pose)}${renderLayer2Head(memberId, r.expr)}${renderLayer3ForegroundArms(memberId, r.clothes, r.pose)}</svg>`;
+    }
+
+    function render() {
+      const mid = state.selectedMember;
+      const cur = state.roster[mid];
+
+      document.getElementById('main-table-sprite').innerHTML = renderCharacterSVG(mid, '0 0 200 240');
+      document.getElementById('main-plaque').textContent = `${MEMBERS[mid].name.split(' (')[0]} · ${OUTFITS[cur.clothes].name}`;
+      document.getElementById('stage-status').textContent = state.stageLabel;
+      document.getElementById('combo-status').textContent = `${mid} + ${cur.clothes} + ${cur.expr} + ${cur.pose}`;
+
+      document.getElementById('exploded-layer-1').innerHTML = `<svg viewBox="0 0 200 240">${renderLayer1Torso(cur.clothes, cur.pose)}</svg>`;
+      document.getElementById('exploded-layer-2').innerHTML = `<svg viewBox="0 0 200 240">${renderLayer2Head(mid, cur.expr)}</svg>`;
+      document.getElementById('exploded-layer-3').innerHTML = `<svg viewBox="0 0 200 240">${renderLayer3ForegroundArms(mid, cur.clothes, cur.pose)}</svg>`;
+
+      // Render 5-member mini strip
+      const stripHtml = Object.keys(MEMBERS).map(id => {
+        const r = state.roster[id];
+        const isSel = id === mid;
+        const isShock = r.pose === 'shock';
+        return `<div class="mini-card ${isSel ? 'is-selected' : ''} ${isShock ? 'is-shocked' : ''}" data-select-mini="${id}">
+          <div class="mini-portrait-frame">${renderCharacterSVG(id, '24 8 152 145')}</div>
+          <div class="mini-card-body">
+            <div class="mini-top"><span>${MEMBERS[id].name}</span></div>
+            <div class="mini-sub">${r.status} · [${r.expr} / ${r.pose}]</div>
+          </div>
+          <div class="mini-outfit-tag">${OUTFITS[r.clothes].name}</div>
+        </div>`;
+      }).join('');
+      document.getElementById('mini-strip-container').innerHTML = stripHtml;
+
+      document.querySelectorAll('[data-select-mini]').forEach(el => {
+        el.addEventListener('click', () => {
+          state.selectedMember = el.dataset.selectMini;
+          render();
+        });
+      });
+
+      document.querySelectorAll('[data-member]').forEach(b => b.classList.toggle('active', b.dataset.member === mid));
+      document.querySelectorAll('[data-clothes]').forEach(b => b.classList.toggle('active', b.dataset.clothes === cur.clothes));
+      document.querySelectorAll('[data-expr]').forEach(b => b.classList.toggle('active', b.dataset.expr === cur.expr));
+      document.querySelectorAll('[data-pose]').forEach(b => b.classList.toggle('active', b.dataset.pose === cur.pose));
+    }
+
+    function runMultiMemberSequence(kind) {
+      if (state.timer) clearTimeout(state.timer);
+      const actor = state.selectedMember;
+      const others = Object.keys(MEMBERS).filter(k => k !== actor);
+
+      const setAll = (actorState, otherState, label) => {
+        state.stageLabel = label;
+        Object.assign(state.roster[actor], actorState);
+        others.forEach(oid => Object.assign(state.roster[oid], otherState));
+        render();
+      };
+
+      const steps = {
+        buy_stock: [
+          { ms: 650, fn: () => setAll({ expr: 'calculating', pose: 'thinking', status: 'Stage 1 · Evaluating Par ¥80' }, { expr: 'neutral', pose: 'idle', status: 'Watching turn' }, 'STAGE 1: CONTEMPLATING PAR PRICE') },
+          { ms: 650, fn: () => setAll({ expr: 'calculating', pose: 'ledger', status: 'Stage 1 · Checking Cash Ledger' }, { expr: 'calculating', pose: 'thinking', status: 'Watching closely' }, 'STAGE 1: VERIFYING CASH LEDGER') },
+          { ms: 550, fn: () => setAll({ expr: 'declare', pose: 'point', status: 'Stage 2 · "Setting IR Par ¥80!"' }, { expr: 'neutral', pose: 'idle', status: 'Listening' }, 'STAGE 2 (CUT A): POINT & DECLARE!') },
+          { ms: 900, fn: () => setAll({ expr: 'declare', pose: 'certificate', status: 'Stage 2 · Bought 20% IR President ★' }, { expr: 'smile', pose: 'idle', status: 'Approving nod' }, 'STAGE 2 (CUT B): PRESENT 20% CERTIFICATE!') },
+          { ms: 1100, fn: () => setAll({ expr: 'smile', pose: 'tea', status: 'Stage 3 · President of IR ★' }, { expr: 'smile', pose: 'tea', status: 'Toast to new railway' }, 'STAGE 3: SATISFIED PRESIDENTIAL TOAST') },
+          { ms: 0, fn: () => setAll({ expr: 'neutral', pose: 'idle', status: 'Ready at Table' }, { expr: 'neutral', pose: 'idle', status: 'Ready at Table' }, 'STAGE: IDLE AT TABLE') },
+        ],
+        lay_track: [
+          { ms: 650, fn: () => setAll({ expr: 'calculating', pose: 'thinking', status: 'Stage 1 · Inspecting Kotohira (I4)' }, { expr: 'neutral', pose: 'idle', status: 'Observing map' }, 'STAGE 1: INSPECTING KOTOHIRA (I4)') },
+          { ms: 550, fn: () => setAll({ expr: 'declare', pose: 'point', status: 'Stage 2 · "Upgrading Kotohira!"' }, { expr: 'calculating', pose: 'thinking', status: 'Checking routes' }, 'STAGE 2 (CUT A): CALLING TILE UPGRADE!') },
+          { ms: 950, fn: () => setAll({ expr: 'declare', pose: 'token', status: 'Stage 2 · Laid Green #439 (¥60)' }, { expr: 'shock', pose: 'shock', status: '⚡ Blocked on I4!' }, 'STAGE 2 (CUT B): PLACING GREEN TILE #439!') },
+          { ms: 0, fn: () => setAll({ expr: 'smile', pose: 'idle', status: 'Stage 3 · Kotohira Upgraded ✓' }, { expr: 'neutral', pose: 'idle', status: 'Ready at Table' }, 'STAGE 3: ROUTE READY (¥60 HUB)') },
+        ],
+        outbid_shock: [
+          { ms: 650, fn: () => setAll({ expr: 'calculating', pose: 'ledger', status: 'Stage 1 · Preparing Runoff Bid' }, { expr: 'calculating', pose: 'ledger', status: 'Holding ¥45 Bid' }, 'STAGE 1: RUNOFF CONTENTION') },
+          { ms: 550, fn: () => setAll({ expr: 'declare', pose: 'point', status: 'Stage 2 · "Raising Bid to ¥70!"' }, { expr: 'shock', pose: 'shock', status: '⚡ Outbid — Eh?!' }, 'STAGE 2: AGGRESSIVE RUNOFF RAISE!') },
+          { ms: 1150, fn: () => setAll({ expr: 'declare', pose: 'certificate', status: 'Stage 3 · Won Private Concession!' }, { expr: 'shock', pose: 'shock', status: '⚡ Stunned Recoil!' }, 'STAGE 3: RIVALS IN COMEDIC SHOCK!') },
+          { ms: 0, fn: () => setAll({ expr: 'smile', pose: 'idle', status: 'Won Auction' }, { expr: 'calculating', pose: 'thinking', status: 'Recalculating cash' }, 'STAGE: IDLE AT TABLE') },
+        ],
+        tea_note: [
+          { ms: 1300, fn: () => setAll({ expr: 'smile', pose: 'tea', status: 'Sipping warm tea' }, { expr: 'smile', pose: 'tea', status: 'Sipping warm tea' }, 'SOCIAL TRIGGER: ALL 5 MEMBERS TOAST WITH TEA') },
+          { ms: 0, fn: () => setAll({ expr: 'neutral', pose: 'idle', status: 'Ready at Table' }, { expr: 'neutral', pose: 'idle', status: 'Ready at Table' }, 'STAGE: IDLE AT TABLE') },
+        ],
+      }[kind];
+
+      let i = 0;
+      const next = () => {
+        if (i >= steps.length) return;
+        steps[i].fn();
+        const wait = steps[i].ms;
+        i += 1;
+        if (i < steps.length && wait > 0) {
+          state.timer = setTimeout(next, wait);
+        }
+      };
+      next();
+    }
+
+    document.querySelectorAll('[data-member]').forEach(btn => {
+      btn.addEventListener('click', () => { state.selectedMember = btn.dataset.member; render(); });
+    });
+    document.querySelectorAll('[data-clothes]').forEach(btn => {
+      btn.addEventListener('click', () => { state.roster[state.selectedMember].clothes = btn.dataset.clothes; render(); });
+    });
+    document.querySelectorAll('[data-expr]').forEach(btn => {
+      btn.addEventListener('click', () => { state.roster[state.selectedMember].expr = btn.dataset.expr; state.stageLabel = 'MANUAL EXPRESSION PREVIEW'; render(); });
+    });
+    document.querySelectorAll('[data-pose]').forEach(btn => {
+      btn.addEventListener('click', () => { state.roster[state.selectedMember].pose = btn.dataset.pose; state.stageLabel = 'MANUAL POSE PREVIEW'; render(); });
+    });
+    document.querySelectorAll('[data-trigger]').forEach(btn => {
+      btn.addEventListener('click', () => runMultiMemberSequence(btn.dataset.trigger));
+    });
+
+    render();
+  </script>
+</body>
+</html>

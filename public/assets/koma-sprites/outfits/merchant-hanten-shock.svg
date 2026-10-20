@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="600" height="720">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#221a14"/>
+        <stop offset="100%" stop-color="#140f0c"/>
+      </linearGradient>
+      <radialGradient id="key-light" cx="0.25" cy="0.2" r="0.75">
+        <stop offset="0%" stop-color="#ffcf78" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+    <rect width="100%" height="100%" fill="url(#key-light)"/>
+    <g id="layer1-torso" transform="translate(0, -4)">
+          <path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>
+          <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="#233447" stroke="#131d29" stroke-width="2.5"/>
+          <g stroke="#b85d2e" stroke-width="2.4" opacity="0.85">
+            <line x1="48" y1="120" x2="42" y2="232"/><line x1="62" y1="112" x2="58" y2="232"/>
+            <line x1="138" y1="112" x2="142" y2="232"/><line x1="152" y1="120" x2="158" y2="232"/>
+          </g>
+          <ellipse cx="100" cy="95" rx="20" ry="7" fill="#16100c" stroke="#3b2818" stroke-width="1.5"/>
+          <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="#e6d4b3" stroke="#473623" stroke-width="2"/>
+          <path d="M74 102 L98 168 L86 174 L64 114 Z M126 102 L102 168 L114 174 L136 114 Z" fill="#131d29" stroke="#0a1017" stroke-width="1.8"/>
+          <rect x="73" y="132" width="7" height="7" transform="rotate(20 76 135)" fill="none" stroke="#f2e6ce" stroke-width="1.6"/>
+          <rect x="120" y="132" width="7" height="7" transform="rotate(-20 123 135)" fill="none" stroke="#f2e6ce" stroke-width="1.6"/>
+          <rect x="56" y="176" width="88" height="22" fill="#162230" stroke="#c9a66b" stroke-width="1.8"/>
+          <rect x="90" y="180" width="20" height="14" rx="2" fill="#d4a843" stroke="#3b2814" stroke-width="1.5"/>
+        </g><g id="layer3-arms">
+      <path d="M32 168 L52 108 L68 114 L52 176 Z M168 168 L148 108 L132 114 L148 176 Z" fill="#233447" stroke="#131d29" stroke-width="2.2"/>
+      <ellipse cx="56" cy="96" rx="9" ry="15" transform="rotate(-15 56 96)" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+      <ellipse cx="144" cy="96" rx="9" ry="15" transform="rotate(15 144 96)" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+    </g>
+</svg>

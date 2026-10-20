@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <rect x="24" y="34" width="112" height="54" rx="4" fill="#4f2914" stroke="#241107" stroke-width="3"/>
+      <rect x="30" y="78" width="102" height="6" fill="#f0e2c4"/>
+      <rect x="58" y="46" width="44" height="20" rx="2" fill="#d4a843" stroke="#3b2610" stroke-width="1.5"/>
+      <text x="80" y="60" text-anchor="middle" fill="#2b190d" font-family="Georgia, serif" font-size="9" font-weight="bold">會計帳簿</text>
+    </svg>

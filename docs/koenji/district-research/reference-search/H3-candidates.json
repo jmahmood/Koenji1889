@@ -1,0 +1,89 @@
+[
+  {
+    "title": "File:Kotohiki park ariakehama.jpg",
+    "thumburl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Kotohiki_park_ariakehama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "thumbwidth": 1000,
+    "thumbheight": 750,
+    "thumbattribs": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Kotohiki_park_ariakehama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "decoding": "async",
+      "loading": "lazy",
+      "width": 1000,
+      "height": 750
+    },
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Kotohiki_park_ariakehama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "descriptionurl": "https://commons.wikimedia.org/wiki/File:Kotohiki_park_ariakehama.jpg",
+    "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=11213862",
+    "extmetadata": {
+      "DateTime": {
+        "value": "2010-08-18 12:12:07",
+        "source": "mediawiki-metadata",
+        "hidden": ""
+      },
+      "ObjectName": {
+        "value": "Kotohiki park ariakehama",
+        "source": "mediawiki-metadata"
+      },
+      "CommonsMetadataExtension": {
+        "value": 1.2,
+        "source": "extension",
+        "hidden": ""
+      },
+      "Categories": {
+        "value": "Taken with KDDI Sanyo W43SA|Self-published work|PD-self|Ariakehama",
+        "source": "commons-categories",
+        "hidden": ""
+      },
+      "Assessments": {
+        "value": "",
+        "source": "commons-categories",
+        "hidden": ""
+      },
+      "ImageDescription": {
+        "value": "Ariake Beach, Kotohiki Park, Kan'onji, Kagawa, Japan",
+        "source": "commons-desc-page"
+      },
+      "DateTimeOriginal": {
+        "value": "2010-08-18",
+        "source": "commons-desc-page"
+      },
+      "Credit": {
+        "value": "taken by <a href=\"//commons.wikimedia.org/wiki/User:Kwakkun\" title=\"User:Kwakkun\">kwakkun</a> (<a href=\"//commons.wikimedia.org/wiki/User_talk:Kwakkun\" title=\"User talk:Kwakkun\"><span class=\"signature-talk\">talk</span></a>)",
+        "source": "commons-desc-page"
+      },
+      "Artist": {
+        "value": "<a href=\"//commons.wikimedia.org/wiki/User:Kwakkun\" title=\"User:Kwakkun\">kwakkun</a> (<a href=\"//commons.wikimedia.org/wiki/User_talk:Kwakkun\" title=\"User talk:Kwakkun\"><span class=\"signature-talk\">talk</span></a>)",
+        "source": "commons-desc-page"
+      },
+      "LicenseShortName": {
+        "value": "Public domain",
+        "source": "commons-desc-page",
+        "hidden": ""
+      },
+      "UsageTerms": {
+        "value": "Public domain",
+        "source": "commons-desc-page"
+      },
+      "AttributionRequired": {
+        "value": "false",
+        "source": "commons-desc-page",
+        "hidden": ""
+      },
+      "Copyrighted": {
+        "value": "False",
+        "source": "commons-desc-page",
+        "hidden": ""
+      },
+      "Restrictions": {
+        "value": "",
+        "source": "commons-desc-page",
+        "hidden": ""
+      },
+      "License": {
+        "value": "pd",
+        "source": "commons-templates",
+        "hidden": ""
+      }
+    }
+  }
+]

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <circle cx="54" cy="60" r="26" fill="#c94a38" stroke="#f7ebd2" stroke-width="3"/>
+      <circle cx="54" cy="60" r="21" fill="none" stroke="#26140c" stroke-width="1.5"/>
+      <text x="54" y="65" text-anchor="middle" fill="#fff4d8" font-family="Georgia, serif" font-size="13" font-weight="bold">IR</text>
+      <circle cx="110" cy="60" r="26" fill="#2b5b84" stroke="#e0b054" stroke-width="3"/>
+      <text x="110" y="61" text-anchor="middle" fill="#fff4d8" font-family="monospace" font-size="8.5" font-weight="bold">HOME</text>
+      <text x="110" y="72" text-anchor="middle" fill="#f5ca70" font-family="monospace" font-size="7">FREE ★</text>
+    </svg>

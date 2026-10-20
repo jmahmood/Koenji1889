@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="600" height="720">
+    <defs>
+      <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#221a14"/>
+        <stop offset="100%" stop-color="#140f0c"/>
+      </linearGradient>
+      <radialGradient id="key-light" cx="0.25" cy="0.2" r="0.75">
+        <stop offset="0%" stop-color="#ffcf78" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+    <rect width="100%" height="100%" fill="url(#key-light)"/>
+    <g id="layer1-torso" transform="translate(0, 4)"><path d="M26 118 Q100 98 174 118 L182 235 L18 235 Z" fill="#382012" stroke="#6e4423" stroke-width="2.5"/>
+      <path d="M22 235 L34 132 Q52 108 78 104 L122 104 Q148 108 166 132 L178 235 Z" fill="#5e314a" stroke="#3b1d2e" stroke-width="2.5"/>
+      <ellipse cx="100" cy="95" rx="20" ry="7" fill="#16100c" stroke="#3b2818" stroke-width="1.5"/>
+      <path d="M76 98 L100 162 L124 98 L115 90 L85 90 Z" fill="#f0dec0" stroke="#473623" stroke-width="2"/>
+      <path d="M80 100 L106 154 M120 100 L94 142" stroke="#bfa87e" stroke-width="2"/>
+      <path d="M74 166 Q100 176 126 166" fill="none" stroke="#d6b065" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="100" cy="170" r="5" fill="#d6b065" stroke="#3b2814" stroke-width="1.5"/>
+    </g><g id="layer3-arms">
+          <path d="M36 172 L76 206 L70 222 L28 198 Z" fill="#5e314a" stroke="#3b1d2e" stroke-width="2.2"/>
+          <ellipse cx="78" cy="212" rx="12" ry="8" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+          <path d="M160 156 L114 188 L102 172 L144 138 Z" fill="#5e314a" stroke="#3b1d2e" stroke-width="2.2"/>
+          <g id="replaceable-prop-slot" transform="translate(88, 186)">
+            <polygon points="16,0 32,8 32,24 16,32 0,24 0,8" fill="#5da667" stroke="#26190f" stroke-width="1.8"/>
+            <line x1="0" y1="16" x2="32" y2="16" stroke="#1e1712" stroke-width="3"/>
+          </g>
+          <ellipse cx="108" cy="184" rx="13" ry="8.5" transform="rotate(22 108 184)" fill="#cf8f5a" stroke="#452815" stroke-width="1.8"/>
+        </g>
+</svg>

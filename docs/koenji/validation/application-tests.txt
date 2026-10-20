@@ -1,0 +1,71 @@
+
+> koenji-1889-club-app@3.0.0 test
+> node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p 'test_*.py' -v && python3 -m unittest discover -s daemon18xx/app/unittests -t daemon18xx -p 'test_Engine1889.py' -q
+
+✔ discard decisions are usable by the affected president, never waiting players, spectators or history (8.463834ms)
+✔ ER can decline or confirm a tile while the interrupted corporation is at train purchase (3.306166ms)
+✔ emergency blocks and out-of-turn DR have explicit reviewed controls (0.284708ms)
+✔ routes expose a non-mutating plan, custom segment builder, quotation and separate commitment (0.128958ms)
+✔ stock sales use a selectable block and actual market exemptions permit legal purchases (3.687375ms)
+✔ empty authoritative tile results never fall back to geometric candidates (0.314208ms)
+✔ negotiations use named assets, matching consent and actual price inputs; results rank by score (0.361208ms)
+✔ ordinary invitations store only one seat locally and strip credentials from the address (0.585333ms)
+✔ feedback uses a reserved status area, escapes messages, and prioritizes errors (0.525125ms)
+✔ only the actor in the loaded live state can submit, including replay at the live endpoint (0.139042ms)
+✔ financial workspace starts usefully and preserves intentionally closed windows across historical rounds (0.410333ms)
+✔ Escape closes only one context and preserves historical revision and room (0.087542ms)
+✔ shortcut descriptions preserve optional-step advancement and clearing preview is presentation-only (0.062ms)
+✔ timestamps require an actual instant rather than a fictional or timezone-free clock (8.302708ms)
+✔ observer ticket names its perspective and hides purchase/sell controls when not active player (2.437625ms)
+✔ president purchase is one certificate and hides action controls while replaying or waiting for another player (0.429709ms)
+✔ auction history keeps selection separate from bidding permission (0.084167ms)
+✔ journal selection and inspecting a resulting position are separate controls (0.258041ms)
+✔ real operating fixture preserves shortcuts while historical map only inspects (160.519167ms)
+✔ waiting players and observers see observation, not president instructions, at every operating step (163.372917ms)
+✔ private-company permission does not grant normal operating authority (149.24925ms)
+✔ map financial-round callout opens its financial room without leaving the viewed revision (154.424125ms)
+✔ stock-screen operating-round callout opens the map for presidents, waiting players, and observers (153.04275ms)
+✔ cross-screen consistency: Journal renders unified player strip, Auction anchors viewer cash, and Map port button binds inspected hex (148.661041ms)
+✔ live stock workspace hands off to the map with the new operating context (0.755167ms)
+✔ social table and unrelated inspection rooms announce without being relocated (0.186625ms)
+✔ rewind, playback, and pending snapshot loads never start a live handoff (0.059417ms)
+✔ open dialogs and explicit Journal inspection suppress automatic navigation (0.059625ms)
+✔ auction completion, operating-set completion, and match end have destinations (0.072042ms)
+✔ operating rounds use set and round numbers, never the corporation turn index (0.048334ms)
+✔ initial connection, duplicate polls, and ordinary moves do not announce rounds (0.040042ms)
+✔ announcements escape names, offer explicit destinations, and are dismissible (0.062791ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 983.222292
+test_all_phases_game_journal_restore_and_scoreboard_projection (test_complete_client_game.CompleteClientGameTests) ... ok
+test_authoritative_empty_tile_set_and_laid_flag (test_decision_coverage.DecisionCoverageTests) ... ok
+test_diesel_trade_in_and_block_stock_zone_choices (test_decision_coverage.DecisionCoverageTests) ... ok
+test_emergency_blocks_and_bankruptcy_choices_are_validated (test_decision_coverage.DecisionCoverageTests) ... ok
+test_er_offer_purchase_lay_or_decline_at_every_operating_step (test_decision_coverage.DecisionCoverageTests) ... ok
+test_multi_discard_choices_block_normal_moves_and_resume (test_decision_coverage.DecisionCoverageTests) ... ok
+test_or_out_of_turn_dr_exchange_and_train_consent (test_decision_coverage.DecisionCoverageTests) ... ok
+test_route_quote_is_read_only_and_bad_routes_never_commit (test_decision_coverage.DecisionCoverageTests) ... ok
+test_presence_distinguishes_polling_from_seated_away_and_bad_timestamps (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_public_claim_is_single_use_and_never_leaks_other_seat_tokens (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_waiting_view_claim_stamp_seating_start_and_reload (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_catalog_and_health (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_create_start_and_reload_initial_state (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_current_gathering_updates_remain_distinct_from_historical_game_state (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_history_projects_real_initial_bank_and_timestamp_without_rewriting_game (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_operating_round_fixture_track_routes_and_dividend (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_private_company_auction_start_runoff_cascade_and_completion (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_vertical_slice_stock_purchase_idempotency_rejection_and_rewind (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 115.183s
+
+OK
+----------------------------------------------------------------------
+Ran 20 tests in 5.119s
+
+OK

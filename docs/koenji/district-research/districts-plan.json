@@ -1,0 +1,1240 @@
+{
+  "F1": {
+    "coord": "F1",
+    "locality": "Imabari and the Geiyo Islands",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Imabari harbor islands",
+    "sceneYear": 1895,
+    "scene": "small wooden coastal sailing vessels off Imabari, the island-studded Seto Inland Sea beyond; no modern bridges or container port",
+    "historyKey": "imabari",
+    "history": {
+      "title": "1894 — towel weaving begins",
+      "summary": "Imabari records that Abe Heisuke began towel production in 1894. The illustration uses the Shikoku harbor and Geiyo island setting; the offboard stands for a sea connection, not a surveyed ferry route or timetable.",
+      "url": "https://www.city.imabari.ehime.jp/sangyou/jibasan/",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "F1"
+    ],
+    "referenceUse": "Modern photograph of the Kurushima Strait supplies real islands and water geography only. The entire modern suspension bridge and its piers are removed; the period shipping is interpretive.",
+    "mapSearch": "Imabari Ehime Japan"
+  },
+  "J1": {
+    "coord": "J1",
+    "locality": "Sakaide and the Bisan Strait",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Sakaide salt fields",
+    "sceneYear": 1890,
+    "scene": "salt workers raking coastal salt pans, low Sanuki hills and wooden coastal boats beyond; no Seto Ohashi bridge",
+    "historyKey": "telegraph",
+    "history": {
+      "title": "1877 — telegraph reaches Marugame and Takamatsu",
+      "summary": "A contemporary diplomatic report records public telegraph service opening at Takamatsu and Marugame on 5 October during the 1877 construction campaign. This is neighboring regional context; it is not proof of an office in this particular Sakaide coastal scene.",
+      "url": "https://history.state.gov/historicaldocuments/frus1879/d339",
+      "scope": "regional-context"
+    },
+    "referenceCoords": [
+      "J1"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Sakaide Kagawa Japan"
+  },
+  "L7": {
+    "coord": "L7",
+    "locality": "Naruto Strait and the Osaka sea connection",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Naruto whirlpools",
+    "sceneYear": 1890,
+    "scene": "wooden coastal vessel in the tidal Naruto Strait, recognizable whirlpools and low green headlands; no modern suspension bridge",
+    "historyKey": "indigo",
+    "history": {
+      "title": "Late nineteenth century — the Awa indigo economy",
+      "summary": "Tokushima’s official history associates its early-Meiji prosperity with indigo and records that the city ranked tenth in population in 1889. A museum-held 1892 indigo-production ledger supplies contemporary evidence of the trade.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Tokushima Museum: 1892 indigo ledger",
+          "url": "https://museum.bunmori.tokushima.jp/museum_documents/museumnews/mnews105/105_5_collection.html"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "L7"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Naruto Strait Japan"
+  },
+  "E2": {
+    "coord": "E2",
+    "locality": "Matsuyama — Dogo Onsen",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Dogo Onsen 1894",
+    "sceneYear": 1895,
+    "scene": "the 1894 Dogo bathhouse with tiled roof, timber facade and period bathers outside; preserve the reference architecture; no modern additions",
+    "historyKey": "dogo",
+    "history": {
+      "title": "1894 — Dogo bathhouse rebuilt",
+      "summary": "The 1894 photograph records the new Dogo Onsen building. This contemporary image guides the roofline and timber facade; the painted scene is interpretive.",
+      "url": "https://www.city.matsuyama.ehime.jp/kanko/kankoguide/kankomeisho/dogoonsen/rekishi/rekishi.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "E2"
+    ],
+    "referenceUse": "Historical photograph titled Dogo Onsen 1894, used for the contemporary bathhouse architecture. Painted color, background and people remain interpretive.",
+    "mapSearch": "Dogo Onsen Matsuyama Japan",
+    "artVersion": 2
+  },
+  "I2": {
+    "coord": "I2",
+    "locality": "Marugame castle town",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Marugame Castle keep",
+    "sceneYear": 1889,
+    "scene": "surviving small original Marugame keep high on massive stone terraces above a modest castle town; do not invent demolished palace or turrets",
+    "historyKey": "marugame",
+    "history": {
+      "title": "1874–1877 — castle converted to army use",
+      "summary": "Army barracks were completed in 1874. In 1876–77 many turrets and corridors were removed; the original keep survived. The artwork therefore avoids a complete feudal palace complex.",
+      "url": "https://www.city.marugame.lg.jp/site/castle/2930.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "I2"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Marugame Castle Japan"
+  },
+  "B3": {
+    "coord": "B3",
+    "locality": "Yawatahama and Kawanoishi",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Yawatahama Kawanoishi",
+    "sceneYear": 1890,
+    "scene": "coastal spinning-town warehouses, stone harbor edge and small wooden sailing craft at dusk, a few warm newly electric factory windows",
+    "historyKey": "yawatahama",
+    "history": {
+      "title": "1889 — electric light at Uwa Spinning",
+      "summary": "On 18 December 1889, Uwa Spinning at Kawanoishi lit 120 Edison lamps. Yawatahama identifies this as the first electric lighting in Shikoku. The image suggests the industrial port at that transition, without claiming an exact factory reconstruction.",
+      "url": "https://www.city.yawatahama.ehime.jp/intro/sangyou/",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "B3"
+    ],
+    "referenceUse": "Modern Yawatahama harbor photograph supplies bay and hill forms. All modern port buildings and boats are replaced; the 1889 Kawanoishi spinning scene is a regional interpretation rather than an exact factory reconstruction.",
+    "mapSearch": "Kawanoishi Yawatahama Japan"
+  },
+  "F3": {
+    "coord": "F3",
+    "locality": "Saijo and the Dōzen Plain",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Saijo uchinuki",
+    "sceneYear": 1890,
+    "scene": "Saijo artesian spring basin beside traditional town houses with Ishizuchi foothills in the distance",
+    "historyKey": "saijo",
+    "history": {
+      "title": "Meiji period — regional administrative center",
+      "summary": "Saijo’s city plan describes the concentration of government offices in the area after the Restoration. No single dated 1870–1900 event at the illustrated spring has been verified; its spring landscape is used for identity.",
+      "url": "https://www.city.saijo.ehime.jp/uploaded/attachment/7385.pdf",
+      "scope": "period-development"
+    },
+    "referenceCoords": [
+      "F3"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position. Saijo lies in the Dōzen Plain, distinct from the Dōgo Plain around Matsuyama. The generation brief originally misstated that plain name; the actual Saijo spring reference and Ishizuchi setting guide the picture.",
+    "mapSearch": "Saijo Ehime Japan",
+    "geographySource": {
+      "title": "Saijo municipal profile: Dōzen Plain and Ishizuchi",
+      "url": "https://www.city.saijo.ehime.jp/uploaded/attachment/25753.pdf"
+    }
+  },
+  "C4": {
+    "coord": "C4",
+    "locality": "Ozu on the Hijikawa",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Ozu Hijikawa river",
+    "sceneYear": 1895,
+    "scene": "wooden river cargo boats and timber rafts below Ozu hills, warehouses and surviving low castle turrets; NO central keep, demolished in1888; NO Garyu Sanso",
+    "historyKey": "ozu",
+    "history": {
+      "title": "1888–1895 — a changing river town",
+      "summary": "Ozu Castle’s keep was demolished in 1888. The city’s Garyu preservation chronology identifies 1895 as a peak of Hijikawa riverboat shipping. The scene emphasizes river commerce and excludes the modern reconstructed keep and the later Garyu buildings.",
+      "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/40704.pdf",
+      "scope": "local-event",
+      "additionalSources": [
+        {
+          "title": "Ozu Castle conservation history",
+          "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/43061.pdf"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "C4"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Ozu Hijikawa Ehime Japan"
+  },
+  "G4": {
+    "coord": "G4",
+    "locality": "Niihama and Besshi copper works",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Besshi copper mine Tonaru",
+    "sceneYear": 1895,
+    "scene": "mountain copper works with stone terraces, timber and brick industrial buildings and small ore wagons; no huge modern concrete factory",
+    "historyKey": "besshi",
+    "history": {
+      "title": "1888–1899 — copper industry transformed",
+      "summary": "The Sobiraki smelter was operating fully in 1888; Besshi railways opened in 1893. The August 1899 flood devastated mountain facilities. Modern Tonaru ruins serve only as terrain references: they do not establish that later brick buildings existed in 1895.",
+      "url": "https://www.city.niihama.lg.jp/soshiki/dozan/dozanjike.html",
+      "scope": "local-event",
+      "additionalSources": [
+        {
+          "title": "Besshi mine chronology",
+          "url": "https://www.city.niihama.lg.jp/uploaded/attachment/64883.pdf"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "G4",
+      "F5"
+    ],
+    "referenceUse": "Modern Tonaru photograph for mountainous terrain only; historical Besshi photograph for industrial forms. Later Tonaru brick remains must not be treated as 1895 buildings.",
+    "mapSearch": "Besshi Niihama Japan"
+  },
+  "I4": {
+    "coord": "I4",
+    "locality": "Kotohira and Mount Zozu",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Kotohira shrine steps",
+    "sceneYear": 1889,
+    "scene": "pilgrims in straw hats on stone steps between lanterns and timber shrine-town shops, forested Zozu slope rising above",
+    "historyKey": "rail",
+    "history": {
+      "title": "1888–1897 — the first Shikoku railways",
+      "summary": "Iyo Railway opened Matsuyama–Mitsuhama in October 1888. Sanuki Railway opened Marugame–Tadotsu–Kotohira in 1889 and extended to Takamatsu in 1897. This is regional context, not evidence of track in every hex.",
+      "url": "https://www.kotohirakankou.jp/en/blog/staff/entry-514.html",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Japan Railway & Transport Review: Shikoku",
+          "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html"
+        },
+        {
+          "title": "Takamatsu keep demolished in 1884",
+          "url": "https://www.city.takamatsu.kagawa.jp/kurashi/kurashi/shisetsu/park/tamamo/tenshu.html"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "I4"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Kotohira Kagawa Japan"
+  },
+  "K4": {
+    "coord": "K4",
+    "locality": "Takamatsu — Tamamo waterfront",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Takamatsu castle Ushitora turret",
+    "sceneYear": 1897,
+    "scene": "surviving white Ushitora turret beside seawater moat, wooden harbor craft and low merchant roofs; no main keep, removed1884; no modern ferries",
+    "historyKey": "rail",
+    "history": {
+      "title": "1888–1897 — the first Shikoku railways",
+      "summary": "Iyo Railway opened Matsuyama–Mitsuhama in October 1888. Sanuki Railway opened Marugame–Tadotsu–Kotohira in 1889 and extended to Takamatsu in 1897. This is regional context, not evidence of track in every hex.",
+      "url": "https://www.kotohirakankou.jp/en/blog/staff/entry-514.html",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Japan Railway & Transport Review: Shikoku",
+          "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html"
+        },
+        {
+          "title": "Takamatsu keep demolished in 1884",
+          "url": "https://www.city.takamatsu.kagawa.jp/kurashi/kurashi/shisetsu/park/tamamo/tenshu.html"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "K4"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Takamatsu Kagawa Japan"
+  },
+  "J5": {
+    "coord": "J5",
+    "locality": "Ritsurin Garden",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Ritsurin garden south pond",
+    "sceneYear": 1875,
+    "scene": "pine-covered islands and graceful traditional garden pavilion reflected in South Pond, quiet Meiji visitors; no modern north-garden attractions",
+    "historyKey": "ritsurin",
+    "history": {
+      "title": "1875 — garden opens to the public",
+      "summary": "Ritsurin opened to the public on 16 March 1875. The illustration concentrates on the older South Garden, rather than later northern attractions.",
+      "url": "https://www.city.takamatsu.kagawa.jp/smph/kurashi/kosodate/bunka/bunkazai/shiteibunkazai/meisho/ritsurin.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "J5"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Ritsurin Garden Japan"
+  },
+  "B7": {
+    "coord": "B7",
+    "locality": "Uwajima castle town",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Uwajima Castle keep",
+    "sceneYear": 1889,
+    "scene": "the small surviving three-storey Uwajima keep on its wooded hill above tiled town roofs, warm morning light",
+    "historyKey": "uwajima",
+    "history": {
+      "title": "1889 — the centenarian lord at Tenshaen",
+      "summary": "Date Munenori died in 1889, aged 100 by the traditional count, at Tenshaen. The garden dated from 1866. The portrait shows Uwajima’s surviving castle as a district identifier, rather than dramatizing his death.",
+      "url": "https://www.city.uwajima.ehime.jp/site/sizen-bunka/141tennshaenn.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "B7"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Uwajima Ehime Japan"
+  },
+  "H7": {
+    "coord": "H7",
+    "locality": "Ikeda on the Yoshino River",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Ikeda Tokushima old street",
+    "sceneYear": 1895,
+    "scene": "tobacco merchants outside timber machiya storehouses on Ikeda street, bundles of leaf tobacco and green valley beyond; no railway",
+    "historyKey": "ikeda",
+    "history": {
+      "title": "Bakumatsu–Meiji — Awa cut tobacco",
+      "summary": "The municipal tobacco museum describes Ikeda’s prosperity from the Awa-kizami tobacco industry across the late Edo and Meiji periods. This is a period industry, not a newly dated event in 1895.",
+      "url": "https://www.miyoshi.i-tokushima.jp/education/docs/2015081000014.html",
+      "scope": "period-industry"
+    },
+    "referenceCoords": [
+      "H7"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Ikeda Miyoshi Tokushima Japan"
+  },
+  "K8": {
+    "coord": "K8",
+    "locality": "Tokushima and the Shinmachi River",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Tokushima Shinmachi river Mount Bizan",
+    "sceneYear": 1889,
+    "scene": "indigo merchants loading cloth bales into wooden river boats, timber riverfront buildings with Mount Bizan behind; no modern bridges",
+    "historyKey": "indigo",
+    "history": {
+      "title": "Late nineteenth century — the Awa indigo economy",
+      "summary": "Tokushima’s official history associates its early-Meiji prosperity with indigo and records that the city ranked tenth in population in 1889. A museum-held 1892 indigo-production ledger supplies contemporary evidence of the trade.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Tokushima Museum: 1892 indigo ledger",
+          "url": "https://museum.bunmori.tokushima.jp/museum_documents/museumnews/mnews105/105_5_collection.html"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "K8"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Tokushima Japan"
+  },
+  "F9": {
+    "coord": "F9",
+    "locality": "Kochi castle town",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Kochi Castle keep",
+    "sceneYear": 1874,
+    "scene": "Kochi's original castle and Otemon gate beyond busy timber town street, small groups of Meiji townspeople; no trams",
+    "historyKey": "risshi",
+    "history": {
+      "title": "1874 — Risshisha founded",
+      "summary": "Risshisha held its inaugural meeting in Kochi on 10 April 1874. Its schools, debates and political organizing helped develop the Freedom and People’s Rights movement. The city portrait provides the setting, not a reconstruction of the inaugural meeting.",
+      "url": "https://www.city.kochi.kochi.jp/site/kanko/risshisha.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "F9"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Kochi Japan"
+  },
+  "J9": {
+    "coord": "J9",
+    "locality": "Komatsushima harbor",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Komatsushima harbor",
+    "sceneYear": 1890,
+    "scene": "wooden harbor jetty, coastal sailing vessels and a modest coal-fired steamer offshore, low hills; no concrete ferry terminal",
+    "historyKey": "komatsushima",
+    "history": {
+      "title": "Meiji port setting — exact local event unverified",
+      "summary": "The municipality identifies Komatsushima as a natural harbor. The famous British visit was in 1867, before the requested period; it is excluded as an 1870–1900 event. No separately dated event in this period is established here.",
+      "url": "https://www.city.komatsushima.lg.jp/komatsushima-navi/first/adout.html",
+      "scope": "no-verified-local-event"
+    },
+    "referenceCoords": [
+      "J9"
+    ],
+    "referenceUse": "Hinomine hill photographed in Komatsushima supplies the local hill profile only. Schoolyard structures are removed; the foreground harbor is an interpretive reconstruction based on the municipal description of the natural port.",
+    "mapSearch": "Komatsushima Tokushima Japan"
+  },
+  "A10": {
+    "coord": "A10",
+    "locality": "Sukumo and the Matsuda River",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Sukumo Matsuda river",
+    "sceneYear": 1899,
+    "scene": "Matsuda river estuary opening onto Sukumo Bay, low merchant houses and wooden boats, period town scene",
+    "historyKey": "sukumo",
+    "history": {
+      "title": "1872–1899 — post, school and town",
+      "summary": "Sukumo’s municipal chronology records a post office in April 1872 and the Nisshin school in July 1873. Village organization followed in 1889, and town status on 20 December 1899.",
+      "url": "https://www.city.sukumo.kochi.jp/sisi/092401.html",
+      "scope": "local-event",
+      "additionalSources": [
+        {
+          "title": "Sukumo municipal chronology",
+          "url": "https://www.city.sukumo.kochi.jp/sisi/134501.html"
+        }
+      ]
+    },
+    "referenceCoords": [
+      "A10"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Sukumo Kochi Japan"
+  },
+  "C10": {
+    "coord": "C10",
+    "locality": "Nakamura and the Shimanto River",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Shimanto river Nakamura",
+    "sceneYear": 1890,
+    "scene": "broad Shimanto River near Nakamura, wooden riverboats and low floodplain settlement with willow banks; no modern submerged concrete bridges",
+    "historyKey": "shimanto",
+    "history": {
+      "title": "1886 — flood in the Nakamura chronology",
+      "summary": "The city’s central-area survey includes 1886 in its table of Nakamura floods. The artwork uses the river and floodplain as geographic identity; it does not reconstruct the flood or assign an unsupported water level.",
+      "url": "https://www.city.shimanto.lg.jp/uploaded/attachment/4051.pdf",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "C10"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Nakamura Shimanto Kochi Japan"
+  },
+  "G10": {
+    "coord": "G10",
+    "locality": "Susaki inlet",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Susaki bay",
+    "sceneYear": 1890,
+    "scene": "sheltered Susaki inlet, wooden coastal traders unloading crates at low storehouses, wooded peninsula and calm bay",
+    "historyKey": "susaki",
+    "history": {
+      "title": "1882 — Christian mission begins",
+      "summary": "Susaki’s historic-site guide dates the start of local Christian evangelism to 1882; the church building followed in 1906, outside this project’s period. The portrait therefore shows the port landscape without that later building.",
+      "url": "https://www.city.susaki.lg.jp/download/?fid=2658&id=180&t=LD",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "G10"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Susaki Kochi Japan"
+  },
+  "B11": {
+    "coord": "B11",
+    "locality": "Shimizu and the Ashizuri coast",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Tosashimizu Nakahama coast",
+    "sceneYear": 1890,
+    "scene": "small wooden fishing boats in Shimizu coast cove, nets drying beside timber houses and Pacific headland; no Ashizuri lighthouse built1914",
+    "historyKey": "manjiro",
+    "history": {
+      "title": "1870–1898 — Manjiro’s later life",
+      "summary": "Nakahama-born John Manjiro traveled to Europe in 1870. The city’s chronology records later visits home to his mother, who died in 1879, and his death in Tokyo in 1898. These are a local person’s wider connections; the fishing-cove portrait does not relocate the European journey to Shimizu.",
+      "url": "https://www.city.tosashimizu.kochi.jp/kanko/g01_jyonman03.html",
+      "scope": "biographical-context"
+    },
+    "referenceCoords": [
+      "B11"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Tosashimizu Japan"
+  },
+  "J11": {
+    "coord": "J11",
+    "locality": "Anan — Tomioka and the Naka plain",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Anan Naka river",
+    "sceneYear": 1889,
+    "scene": "Naka river crossing and Tomioka plain, wooden ferry with farmers and low merchant houses; no twentieth-century steel bridge or railway",
+    "historyKey": "anan",
+    "history": {
+      "title": "1889 — villages in the Anan area reorganized",
+      "summary": "Anan’s anniversary history records modern municipal organization in 1889, including Tomioka village. Anan city itself was created in 1958: the image is of the earlier river plain.",
+      "url": "https://www.city.anan.tokushima.jp/docs/2018051500019/file_contents/Part1-17.pdf",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "J11"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Tomioka Anan Tokushima Japan"
+  },
+  "G12": {
+    "coord": "G12",
+    "locality": "Nankoku and the Kochi Plain",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Nankoku rice fields",
+    "sceneYear": 1878,
+    "scene": "Kokubunji temple grounds in Nankoku with traditional timber architecture, mature trees, pilgrims and glimpses of the irrigated Kochi plain; no airport, cars or modern signage",
+    "historyKey": "nankoku",
+    "history": {
+      "title": "1874–1878 — village elementary schools",
+      "summary": "The municipal school chronology records Maehama schools opening in 1874 and 1875, then merging into a new schoolhouse in 1878. The painted school is a representative period building, not a documented reconstruction of the original facade.",
+      "url": "https://www.city.nankoku.lg.jp/ominato-e/pg676.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "G12"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Nankoku Kochi Japan"
+  },
+  "I12": {
+    "coord": "I12",
+    "locality": "Mugi fishing coast",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Mugi Tokushima harbor",
+    "sceneYear": 1890,
+    "scene": "Mugi's sheltered fishing cove and wooded islands, small wooden fishing boats and nets on a low timber quay; no modern sea wall",
+    "historyKey": "mugi",
+    "history": {
+      "title": "1889 — Mugi village formed",
+      "summary": "The Tokushima Prefectural Library’s historical study records the merger of eight villages and coastal communities into Mugi village in 1889. Town status came later, in 1915.",
+      "url": "https://library.bunmori.tokushima.jp/digital/webkiyou/23/2318.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "I12"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Mugi Tokushima Japan"
+  },
+  "G14": {
+    "coord": "G14",
+    "locality": "Muroto Cape",
+    "mappingStatus": "named-board-location",
+    "mappingBasis": "Board location label; the art selects a representative landmark or landscape within that district.",
+    "photoQuery": "Muroto lighthouse",
+    "sceneYear": 1899,
+    "scene": "new low white iron Muroto lighthouse high above the Pacific, coastal rock forms and subtropical vegetation; no later statues, radar or modern railings",
+    "historyKey": "muroto",
+    "history": {
+      "title": "1899 — Muroto lighthouse completed",
+      "summary": "Muroto dates completion of the iron lighthouse to 1 April 1899. It initially used oil lighting and was electrified only in 1917. The illustration omits later statues and communications equipment.",
+      "url": "https://www.city.muroto.kochi.jp/kyoiku/kyoi/pages/pages093.html",
+      "scope": "local-event"
+    },
+    "referenceCoords": [
+      "G14"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Cape Muroto Japan",
+    "artVersion": 2
+  },
+  "D3": {
+    "coord": "D3",
+    "locality": "Iyo coastal plain west of Matsuyama",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Mitsuhama port",
+    "sceneYear": 1888,
+    "scene": "Mitsuhama coastal settlement, wooden cargo boats and low warehouses beside fields; no twentieth-century waterfront",
+    "historyKey": "rail",
+    "history": {
+      "title": "1888–1897 — the first Shikoku railways",
+      "summary": "Iyo Railway opened Matsuyama–Mitsuhama in October 1888. Sanuki Railway opened Marugame–Tadotsu–Kotohira in 1889 and extended to Takamatsu in 1897. This is regional context, not evidence of track in every hex.",
+      "url": "https://www.kotohirakankou.jp/en/blog/staff/entry-514.html",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Japan Railway & Transport Review: Shikoku",
+          "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html"
+        },
+        {
+          "title": "Takamatsu keep demolished in 1884",
+          "url": "https://www.city.takamatsu.kagawa.jp/kurashi/kurashi/shisetsu/park/tamamo/tenshu.html"
+        }
+      ]
+    },
+    "shortName": "Iyo coast",
+    "referenceCoords": [
+      "D3"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Mitsuhama Matsuyama Japan"
+  },
+  "H3": {
+    "coord": "H3",
+    "locality": "Shikokuchuo–Kan-onji coastal corridor",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Kan onji Ariake beach",
+    "sceneYear": 1890,
+    "scene": "Ariake coastal pines, pale sandy shoreline and low Sanuki coastal farms, wooden sailboat offshore",
+    "historyKey": "rail",
+    "history": {
+      "title": "1888–1897 — the first Shikoku railways",
+      "summary": "Iyo Railway opened Matsuyama–Mitsuhama in October 1888. Sanuki Railway opened Marugame–Tadotsu–Kotohira in 1889 and extended to Takamatsu in 1897. This is regional context, not evidence of track in every hex.",
+      "url": "https://www.kotohirakankou.jp/en/blog/staff/entry-514.html",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Japan Railway & Transport Review: Shikoku",
+          "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html"
+        },
+        {
+          "title": "Takamatsu keep demolished in 1884",
+          "url": "https://www.city.takamatsu.kagawa.jp/kurashi/kurashi/shisetsu/park/tamamo/tenshu.html"
+        }
+      ]
+    },
+    "shortName": "Kan-onji coast",
+    "referenceCoords": [
+      "H3"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Ariake Beach Kanonji Kagawa Japan"
+  },
+  "J3": {
+    "coord": "J3",
+    "locality": "Central Sanuki plain around Ayagawa",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Ayagawa rice fields",
+    "sceneYear": 1897,
+    "scene": "Sanuki patchwork rice fields with low rounded volcanic hills and thatched farmhouses, farm workers and a distant wooden storehouse",
+    "historyKey": "rail",
+    "history": {
+      "title": "1888–1897 — the first Shikoku railways",
+      "summary": "Iyo Railway opened Matsuyama–Mitsuhama in October 1888. Sanuki Railway opened Marugame–Tadotsu–Kotohira in 1889 and extended to Takamatsu in 1897. This is regional context, not evidence of track in every hex.",
+      "url": "https://www.kotohirakankou.jp/en/blog/staff/entry-514.html",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Japan Railway & Transport Review: Shikoku",
+          "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html"
+        },
+        {
+          "title": "Takamatsu keep demolished in 1884",
+          "url": "https://www.city.takamatsu.kagawa.jp/kurashi/kurashi/shisetsu/park/tamamo/tenshu.html"
+        }
+      ]
+    },
+    "shortName": "Sanuki plain",
+    "referenceCoords": [
+      "J3"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Ayagawa Kagawa Japan"
+  },
+  "B5": {
+    "coord": "B5",
+    "locality": "Seiyo — Unomachi basin",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Kaimei School Seiyo",
+    "sceneYear": 1882,
+    "scene": "new Kaimei schoolhouse, arched windows and pale timber plaster facade, children in simple Meiji clothing on dirt forecourt; preserve reference architecture",
+    "historyKey": "kaimei",
+    "history": {
+      "title": "1882 — Kaimei schoolhouse built",
+      "summary": "Unomachi residents funded the Kaimei schoolhouse in 1882. The locally built structure used Western-style arched windows and imported German glass. Its surviving form anchors the painting.",
+      "url": "https://www.city.seiyo.ehime.jp/miryoku/uwachonomachinami/kaimei/",
+      "scope": "local-event"
+    },
+    "shortName": "Unomachi",
+    "referenceCoords": [
+      "B5"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Unomachi Seiyo Japan"
+  },
+  "C8": {
+    "coord": "C8",
+    "locality": "Kihoku and the Hiromi basin",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Kihoku Ehime rice fields",
+    "sceneYear": 1890,
+    "scene": "Hiromi river valley rice paddies and thatched farmhouses, farmers and layered forested hills",
+    "historyKey": "ozuregional",
+    "history": {
+      "title": "1889 — Hiromi basin villages organized",
+      "summary": "Kihoku’s municipal plan records the organization of Asahi, Yoshifuji, Aiji, Mishima and Izumi villages in 1889 in the area later called Hiromi. The modern town names are geographic guides, not claims that today’s municipality existed then.",
+      "url": "https://www.town.kihoku.ehime.jp/uploaded/attachment/10282.pdf",
+      "scope": "local-event"
+    },
+    "shortName": "Hiromi basin",
+    "referenceCoords": [
+      "C8"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Hiromi Kihoku Ehime Japan"
+  },
+  "E8": {
+    "coord": "E8",
+    "locality": "Ino and the lower Niyodo River",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Niyodo river Ino",
+    "sceneYear": 1894,
+    "scene": "hand papermakers drying white washi sheets on boards beside a timber workshop and clear Niyodo River, low wooded hills",
+    "historyKey": "paper",
+    "history": {
+      "title": "1894 — recognition for papermaking innovation",
+      "summary": "Ino’s account of Yoshii Genta describes Meiji innovations in Tosa paper production and records his Green Ribbon award in 1894. The illustration shows the craft and river setting rather than an award ceremony.",
+      "url": "https://www.town.ino.kochi.jp/bunkazai/bunka_town_01/",
+      "scope": "local-event"
+    },
+    "shortName": "Ino / Niyodo",
+    "referenceCoords": [
+      "E8"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Ino Kochi Japan"
+  },
+  "I8": {
+    "coord": "I8",
+    "locality": "Eastern Iya–Tsurugi foothills",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Tsurugi Tokushima village",
+    "sceneYear": 1890,
+    "scene": "steep upland village with small terraced fields, thatched houses and cloud-soft Tsurugi ridges; no cable cars or modern roads",
+    "historyKey": "regionalawa",
+    "history": {
+      "title": "Late Meiji — wider Awa context",
+      "summary": "Indigo commerce shaped the wider Tokushima region in the late nineteenth century. No specific 1870–1900 event has been verified at this inferred mountain or coastal location. Its artwork conveys landscape and ordinary period life.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context"
+    },
+    "shortName": "Iya / Tsurugi",
+    "referenceCoords": [
+      "I8"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Higashi Iya Tokushima Japan"
+  },
+  "D9": {
+    "coord": "D9",
+    "locality": "Middle Shimanto basin around Kubokawa",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Shimanto river Kubokawa",
+    "sceneYear": 1890,
+    "scene": "broad green river bend with wooden ferry, mixed rice fields and low rural houses beneath wooded ridges; no concrete bridge",
+    "historyKey": "shimantoregional",
+    "history": {
+      "title": "1886 — flood in the Nakamura chronology",
+      "summary": "Nearby regional context: The city’s central-area survey includes 1886 in its table of Nakamura floods. The artwork uses the river and floodplain as geographic identity; it does not reconstruct the flood or assign an unsupported water level. No separate dated event at this inferred hex location has been verified.",
+      "url": "https://www.city.shimanto.lg.jp/uploaded/attachment/4051.pdf",
+      "scope": "regional-context"
+    },
+    "shortName": "Middle Shimanto",
+    "referenceCoords": [
+      "D9"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Kubokawa Shimanto town Kochi Japan"
+  },
+  "I10": {
+    "coord": "I10",
+    "locality": "Upper Naka River valley",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Naka river Tokushima",
+    "sceneYear": 1890,
+    "scene": "wooded Naka valley, bright stony river and small wooden boats beside hillside farmhouses; no dams or steel bridges",
+    "historyKey": "regionalawa",
+    "history": {
+      "title": "Late Meiji — wider Awa context",
+      "summary": "Indigo commerce shaped the wider Tokushima region in the late nineteenth century. No specific 1870–1900 event has been verified at this inferred mountain or coastal location. Its artwork conveys landscape and ordinary period life.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context"
+    },
+    "shortName": "Upper Naka",
+    "referenceCoords": [
+      "I10"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Naka Tokushima Japan"
+  },
+  "K6": {
+    "coord": "K6",
+    "locality": "Yoshino River lower plain crossing",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Yoshino river Tokushima",
+    "sceneYear": 1899,
+    "scene": "wide braided Yoshino River, sandbanks and a wooden ferry carrying travelers, indigo fields and low hills beyond; no modern bridge",
+    "historyKey": "tokushimarail",
+    "history": {
+      "title": "1899 — Tokushima Railway opens",
+      "summary": "The Shikoku railway history dates Tokushima Railway’s first line to 1899, running west into the Yoshino valley. The river portrait does not invent a railway crossing at the photographed location.",
+      "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html",
+      "scope": "regional-context"
+    },
+    "shortName": "Lower Yoshino",
+    "referenceCoords": [
+      "K6",
+      "I6"
+    ],
+    "referenceUse": "Real aerial photograph of the Yoshino plain establishes the broad river corridor; a Mima river photograph supplies riverside terrain. The scene is a generalized lower-valley crossing.",
+    "mapSearch": "Yoshino River Tokushima Japan"
+  },
+  "H5": {
+    "coord": "H5",
+    "locality": "Upper Yoshino valley west of Ikeda",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Yoshino river Ikeda",
+    "sceneYear": 1890,
+    "scene": "deep Yoshino river valley with small wooden ferry below forested slopes and scattered hillside farms; no modern bridge, railway or reservoir",
+    "historyKey": "regionalawa",
+    "history": {
+      "title": "Late Meiji — wider Awa context",
+      "summary": "Indigo commerce shaped the wider Tokushima region in the late nineteenth century. No specific 1870–1900 event has been verified at this inferred mountain or coastal location. Its artwork conveys landscape and ordinary period life.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context"
+    },
+    "shortName": "Upper Yoshino",
+    "referenceCoords": [
+      "I6"
+    ],
+    "referenceUse": "Nearby Yoshino River at Mima supplies regional river-and-ridge reference. It is not a photograph of an exact upper-valley hex boundary. The modern bridge and town are removed.",
+    "mapSearch": "Ikeda Yoshino River Tokushima Japan"
+  },
+  "I6": {
+    "coord": "I6",
+    "locality": "Yoshino River narrows near Awa",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Yoshino river Mima",
+    "sceneYear": 1890,
+    "scene": "Yoshino River narrowing between foothills with a timber riverboat and indigo farm beside gravel banks; no modern levees",
+    "historyKey": "indigo",
+    "history": {
+      "title": "Late nineteenth century — the Awa indigo economy",
+      "summary": "Tokushima’s official history associates its early-Meiji prosperity with indigo and records that the city ranked tenth in population in 1889. A museum-held 1892 indigo-production ledger supplies contemporary evidence of the trade.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Tokushima Museum: 1892 indigo ledger",
+          "url": "https://museum.bunmori.tokushima.jp/museum_documents/museumnews/mnews105/105_5_collection.html"
+        }
+      ]
+    },
+    "shortName": "Awa / Yoshino",
+    "referenceCoords": [
+      "I6"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Mima Yoshino River Tokushima Japan"
+  },
+  "E4": {
+    "coord": "E4",
+    "locality": "Ishizuchi western foothills",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Mount Ishizuchi",
+    "sceneYear": 1890,
+    "scene": "Ishizuchi massif rising above wooded foothills, narrow dirt pack trail and a small thatched mountain shelter; no railways or cableways",
+    "historyKey": "besshiregional",
+    "history": {
+      "title": "1888–1899 — copper industry transformed",
+      "summary": "Nearby regional context: The Sobiraki smelter was operating fully in 1888; Besshi railways opened in 1893. The August 1899 flood devastated mountain facilities. Modern Tonaru ruins serve only as terrain references: they do not establish that later brick buildings existed in 1895. No separate dated event at this inferred hex location has been verified.",
+      "url": "https://www.city.niihama.lg.jp/soshiki/dozan/dozanjike.html",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Besshi mine chronology",
+          "url": "https://www.city.niihama.lg.jp/uploaded/attachment/64883.pdf"
+        }
+      ]
+    },
+    "shortName": "Ishizuchi",
+    "referenceCoords": [
+      "E4"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Mount Ishizuchi Japan"
+  },
+  "D5": {
+    "coord": "D5",
+    "locality": "Kuma highlands",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Kumakogen terraced fields",
+    "sceneYear": 1890,
+    "scene": "tall old cedars lining the earthen approach at Daihoji in the Kuma highlands, two straw-hatted pilgrims and a packhorse on a mountain path; preserve the cedar grove, do not invent a grand temple facade",
+    "historyKey": "ozuregional",
+    "history": {
+      "title": "1871 — the Kumayama disturbances",
+      "summary": "The municipal Kuma chronicle explicitly documents the Kumayama disturbances of Meiji 4 (1871). This establishes a dated event in the highland region; this project does not assert a precise scene or cause from the catalog alone. The painting instead shows the Daihoji cedar approach and ordinary travelers.",
+      "url": "https://www.kumakogen.jp/site/archive/14559.html",
+      "scope": "local-event",
+      "additionalSources": [
+        {
+          "title": "Kumakogen landscape plan: Daihoji and its cedar groves",
+          "url": "https://www.kumakogen.jp/uploaded/attachment/8539.pdf"
+        }
+      ]
+    },
+    "shortName": "Kuma highlands",
+    "referenceCoords": [
+      "D5"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Daihoji Kumakogen Ehime Japan"
+  },
+  "F5": {
+    "coord": "F5",
+    "locality": "Besshi mountain approaches",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Besshi copper mine",
+    "sceneYear": 1893,
+    "scene": "steep copper-mine mountain path, packhorse and stone retaining terraces, small timber work shelter; no modern concrete ruins",
+    "historyKey": "besshi",
+    "history": {
+      "title": "1888–1899 — copper industry transformed",
+      "summary": "The Sobiraki smelter was operating fully in 1888; Besshi railways opened in 1893. The August 1899 flood devastated mountain facilities. Modern Tonaru ruins serve only as terrain references: they do not establish that later brick buildings existed in 1895.",
+      "url": "https://www.city.niihama.lg.jp/soshiki/dozan/dozanjike.html",
+      "scope": "local-event",
+      "additionalSources": [
+        {
+          "title": "Besshi mine chronology",
+          "url": "https://www.city.niihama.lg.jp/uploaded/attachment/64883.pdf"
+        }
+      ]
+    },
+    "shortName": "Besshi approaches",
+    "referenceCoords": [
+      "F5"
+    ],
+    "referenceUse": "Historical photograph of Besshi workings, used for period industrial forms. Its precise photographic year is not established by this project.",
+    "mapSearch": "Besshi Niihama Japan"
+  },
+  "C6": {
+    "coord": "C6",
+    "locality": "Uchiko and the Oda valley",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Uchiko Kamihaga residence",
+    "sceneYear": 1894,
+    "scene": "Kamihaga wax merchant residence and its plaster storehouses, shallow wax trays and merchant workers, period unpaved street",
+    "historyKey": "wax",
+    "history": {
+      "title": "1894 — Kamihaga wax merchant house",
+      "summary": "Uchiko dates the main Kamihaga residence to 1894, during the town’s wax-industry peak. The associated storehouses and production facilities inform the scene.",
+      "url": "https://cms2021.town.uchiko.ehime.jp/site/hozonsenta/kamihaga.html",
+      "scope": "local-event"
+    },
+    "shortName": "Uchiko",
+    "referenceCoords": [
+      "C6"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Uchiko Ehime Japan"
+  },
+  "E6": {
+    "coord": "E6",
+    "locality": "Omogo gorge and Ishizuchi interior",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Omogo gorge",
+    "sceneYear": 1890,
+    "scene": "pale granite boulders and clear pools in forested Omogo gorge, small pack trail and two period travelers; no modern bridges",
+    "historyKey": "regionaliyo",
+    "history": {
+      "title": "1888 — modernization beyond the mountains",
+      "summary": "Iyo Railway opened near Matsuyama in 1888. No specific 1870–1900 event has been verified for this inferred interior district, and no railway is implied in its gorge landscape.",
+      "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html",
+      "scope": "regional-context"
+    },
+    "shortName": "Omogo gorge",
+    "referenceCoords": [
+      "E6"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Omogo Gorge Ehime Japan"
+  },
+  "G6": {
+    "coord": "G6",
+    "locality": "Motoyama and the upper Yoshino basin",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Motoyama Kochi rice terraces",
+    "sceneYear": 1890,
+    "scene": "small terraced paddies above upper Yoshino valley, thatched houses and straw-clad farmers, blue forest ridges",
+    "historyKey": "regionaltosa",
+    "history": {
+      "title": "1900 — a youth book collection begins",
+      "summary": "Motoyama’s municipal newsletter traces its library to a donated youth book collection established in 1900 at Kataoka-kan. This falls at the end of the requested period; the landscape illustration is set earlier, around 1890, and does not depict a later library building.",
+      "url": "https://www.town.motoyama.kochi.jp/material/files/group/2/kouhou10.pdf",
+      "scope": "local-event"
+    },
+    "shortName": "Motoyama",
+    "referenceCoords": [
+      "G6"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Motoyama Kochi Japan"
+  },
+  "D7": {
+    "coord": "D7",
+    "locality": "Oda–Niyodo mountain border",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Oda Ehime mountain village",
+    "sceneYear": 1890,
+    "scene": "wooded mountain pass with timber bundles and a packhorse, isolated thatched farmstead on terraced hillside",
+    "historyKey": "ozuregional",
+    "history": {
+      "title": "1888–1895 — a changing river town",
+      "summary": "Nearby regional context: Ozu Castle’s keep was demolished in 1888. The city’s Garyu preservation chronology identifies 1895 as a peak of Hijikawa riverboat shipping. The scene emphasizes river commerce and excludes the modern reconstructed keep and the later Garyu buildings. No separate dated event at this inferred hex location has been verified.",
+      "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/40704.pdf",
+      "scope": "regional-context",
+      "additionalSources": [
+        {
+          "title": "Ozu Castle conservation history",
+          "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/43061.pdf"
+        }
+      ]
+    },
+    "shortName": "Oda highlands",
+    "referenceCoords": [
+      "D5"
+    ],
+    "referenceUse": "Daihoji in the neighboring Kuma highlands supplies regional cedar-forest and path reference. This is a regional visual analogy for the unnamed Oda–Niyodo mountain hex, not a photographed exact locality.",
+    "mapSearch": "Oda Uchiko Ehime Japan"
+  },
+  "F7": {
+    "coord": "F7",
+    "locality": "Tosa Reihoku mountain villages",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Reihoku Kochi mountains",
+    "sceneYear": 1890,
+    "scene": "upper Yoshino mountain basin, steep cedar woods, thatched village roofs and wooden logging hand tools near path; no dams",
+    "historyKey": "regionaltosa",
+    "history": {
+      "title": "1874–1880s — wider Tosa political change",
+      "summary": "Risshisha was founded in Kochi in 1874; public political meetings spread through Tosa in the later 1870s. No specific 1870–1900 event has been verified for this inferred mountain district. The image is a period landscape, not a scene of an undocumented local meeting.",
+      "url": "https://www.city.kochi.kochi.jp/akarui/mangekyo/man1512.htm",
+      "scope": "regional-context"
+    },
+    "shortName": "Tosa Reihoku",
+    "referenceCoords": [
+      "G6"
+    ],
+    "referenceUse": "Motoyama in Reihoku supplies an adjacent regional basin reference, not an exact location within the unnamed hex.",
+    "mapSearch": "Reihoku Kochi Japan"
+  },
+  "A8": {
+    "coord": "A8",
+    "locality": "Ainan–Uwajima coastal hills",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Ainan Sotodomari",
+    "sceneYear": 1890,
+    "scene": "stone-walled coastal hillside village above the Uwa Sea, traditional roofs and tiny wooden fishing boats; no modern wires",
+    "historyKey": "uwajimaregional",
+    "history": {
+      "title": "1889 — the centenarian lord at Tenshaen",
+      "summary": "Nearby regional context: Date Munenori died in 1889, aged 100 by the traditional count, at Tenshaen. The garden dated from 1866. The portrait shows Uwajima’s surviving castle as a district identifier, rather than dramatizing his death. No separate dated event at this inferred hex location has been verified.",
+      "url": "https://www.city.uwajima.ehime.jp/site/sizen-bunka/141tennshaenn.html",
+      "scope": "regional-context"
+    },
+    "shortName": "Ainan coast",
+    "referenceCoords": [
+      "A8"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Sotodomari Ainan Ehime Japan",
+    "artVersion": 2
+  },
+  "G8": {
+    "coord": "G8",
+    "locality": "Oboke and the western Iya approaches",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Oboke gorge",
+    "sceneYear": 1890,
+    "scene": "dramatic Oboke schist gorge and emerald Yoshino River with traditional small wooden boat, forested slopes; no railway or modern bridges",
+    "historyKey": "regionalawa",
+    "history": {
+      "title": "Late Meiji — wider Awa context",
+      "summary": "Indigo commerce shaped the wider Tokushima region in the late nineteenth century. No specific 1870–1900 event has been verified at this inferred mountain or coastal location. Its artwork conveys landscape and ordinary period life.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context"
+    },
+    "shortName": "Oboke",
+    "referenceCoords": [
+      "G8"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Oboke Tokushima Japan"
+  },
+  "B9": {
+    "coord": "B9",
+    "locality": "Matsuno and the lower Hiromi valley",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Nametoko gorge",
+    "sceneYear": 1890,
+    "scene": "smooth granite stream of Nametoko gorge in deep forest, small wooden footpath and straw-hatted walker; no concrete structures",
+    "historyKey": "uwajimaregional",
+    "history": {
+      "title": "1889 — the centenarian lord at Tenshaen",
+      "summary": "Nearby regional context: Date Munenori died in 1889, aged 100 by the traditional count, at Tenshaen. The garden dated from 1866. The portrait shows Uwajima’s surviving castle as a district identifier, rather than dramatizing his death. No separate dated event at this inferred hex location has been verified.",
+      "url": "https://www.city.uwajima.ehime.jp/site/sizen-bunka/141tennshaenn.html",
+      "scope": "regional-context"
+    },
+    "shortName": "Matsuno",
+    "referenceCoords": [
+      "B9"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Nametoko Gorge Matsuno Japan"
+  },
+  "H9": {
+    "coord": "H9",
+    "locality": "Kami — Monobe River headwaters",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Monobe river valley",
+    "sceneYear": 1890,
+    "scene": "Monobe river headwater valley, forested ridges and small hillside farming hamlet beside river; no modern dam",
+    "historyKey": "regionaltosa",
+    "history": {
+      "title": "1874–1880s — wider Tosa political change",
+      "summary": "Risshisha was founded in Kochi in 1874; public political meetings spread through Tosa in the later 1870s. No specific 1870–1900 event has been verified for this inferred mountain district. The image is a period landscape, not a scene of an undocumented local meeting.",
+      "url": "https://www.city.kochi.kochi.jp/akarui/mangekyo/man1512.htm",
+      "scope": "regional-context"
+    },
+    "shortName": "Monobe valley",
+    "referenceCoords": [
+      "H9"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Monobe Kochi Japan"
+  },
+  "H11": {
+    "coord": "H11",
+    "locality": "Aki and the eastern Tosa foothills",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Aki Kochi old street",
+    "sceneYear": 1889,
+    "scene": "Aki Nora-dokei field clock above traditional tiled farmhouse roofs, hand-worked paddies and farmers under eastern Tosa foothills; retain the distinctive reference clock tower, remove modern road and wires",
+    "historyKey": "aki",
+    "history": {
+      "title": "c.1887 — the Nora-dokei field clock",
+      "summary": "Aki dates Hatanaka Genma’s handmade field clock to about 1887. The surviving clock and farmhouse form the reference for this portrait; nearby farming activity is interpretive.",
+      "url": "https://www.city.aki.kochi.jp/life/dtl.php?hdnKey=42",
+      "scope": "local-event"
+    },
+    "shortName": "Aki foothills",
+    "referenceCoords": [
+      "H11"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Nora Dokei Aki Kochi Japan"
+  },
+  "H13": {
+    "coord": "H13",
+    "locality": "Kiragawa and the Muroto peninsula hills",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Kiragawa historic district",
+    "sceneYear": 1890,
+    "scene": "Kiragawa's plaster merchant houses with storm-resistant tile roofs and rounded stone walls below wooded Muroto peninsula hills",
+    "historyKey": "murotoregional",
+    "history": {
+      "title": "Meiji period — Kiragawa charcoal commerce",
+      "summary": "Muroto describes Kiragawa as a charcoal distribution center that prospered from the Meiji period into early Showa. The illustration uses its plaster walls and storm-resistant roofs without claiming every present building existed by 1890. No single dated event is established for this inferred hex.",
+      "url": "https://www.city.muroto.kochi.jp/kyoiku/kyoi/pages/pages102.html",
+      "scope": "period-industry"
+    },
+    "shortName": "Kiragawa",
+    "referenceCoords": [
+      "H13"
+    ],
+    "referenceUse": "Contemporary or later photograph used for surviving architecture or regional landforms. Period activity and removed modern features are an interpretive reconstruction, not a verified view from this exact camera position.",
+    "mapSearch": "Kiragawa Muroto Japan"
+  },
+  "J7": {
+    "coord": "J7",
+    "locality": "Mima–Kamiyama eastern mountain corridor",
+    "mappingStatus": "inferred-region",
+    "mappingBasis": "Approximate regional interpretation from surrounding named board hexes and terrain. The stylized board has no exact real-world hex boundaries.",
+    "photoQuery": "Kamiyama Tokushima terraced fields",
+    "sceneYear": 1890,
+    "scene": "Amagoi waterfall in a steep mossy Kamiyama gorge, forested rock ledges and two tiny straw-hatted Meiji travelers on an earthen path; use the real waterfall photograph as the subject",
+    "historyKey": "regionalawa",
+    "history": {
+      "title": "Late Meiji — wider Awa context",
+      "summary": "Indigo commerce shaped the wider Tokushima region in the late nineteenth century. No specific 1870–1900 event has been verified at this inferred mountain or coastal location. Its artwork conveys landscape and ordinary period life.",
+      "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+      "scope": "regional-context"
+    },
+    "shortName": "Kamiyama",
+    "referenceCoords": [
+      "J7"
+    ],
+    "referenceUse": "Actual Amagoi Waterfalls photograph by Reggaeman, linked from the Kamiyama montage and retrieved separately with its own provenance. Natural waterfall and forest guide the painting; period travelers are interpretive.",
+    "mapSearch": "Amagoi Waterfalls Kamiyama Tokushima Japan"
+  }
+}

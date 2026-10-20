@@ -1,0 +1,92 @@
+{
+  "title": "File:Omogokeikoku.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Omogokeikoku.jpg/1280px-Omogokeikoku.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 1333,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Omogokeikoku.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Omogokeikoku.jpg/1280px-Omogokeikoku.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 1333,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Omogokeikoku.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Omogokeikoku.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Omogokeikoku.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=8292037",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2009-10-29 09:52:26",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Omogokeikoku",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Taken with Fujifilm FinePix A210|Omogokei|Self-published work|PD-self|Autumn in Ehime prefecture",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Omogokeikoku",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2009-10-29",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "As6673",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/E6-reference.jpg"
+}

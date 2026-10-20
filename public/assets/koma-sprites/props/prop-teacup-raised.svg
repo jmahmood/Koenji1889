@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="480" height="360">
+      <path d="M72 16 Q66 26 74 34 M88 12 Q82 24 90 34" fill="none" stroke="#f5ebd6" stroke-width="2" opacity="0.65" stroke-linecap="round"/>
+      <rect x="54" y="40" width="52" height="62" rx="6" fill="#e6d7b8" stroke="#473320" stroke-width="2.5"/>
+      <path d="M54 54 H106 M54 86 H106" stroke="#3b5e4c" stroke-width="3.5"/>
+      <text x="80" y="75" text-anchor="middle" fill="#2b1d12" font-family="serif" font-size="14" font-weight="bold">茶</text>
+    </svg>

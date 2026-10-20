@@ -1,0 +1,92 @@
+{
+  "title": "File:Sanuki Mountains Yoshino River Tokushima Plain.jpg",
+  "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg/1280px-Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "thumbwidth": 1000,
+  "thumbheight": 333,
+  "responsiveUrls": {
+    "2": "https://upload.wikimedia.org/wikipedia/commons/3/38/Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "thumbattribs": {
+    "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg/1280px-Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "decoding": "async",
+    "loading": "lazy",
+    "width": 1000,
+    "height": 333,
+    "srcset": "https://upload.wikimedia.org/wikipedia/commons/3/38/Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+  },
+  "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "descriptionurl": "https://commons.wikimedia.org/wiki/File:Sanuki_Mountains_Yoshino_River_Tokushima_Plain.jpg",
+  "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=61342308",
+  "extmetadata": {
+    "DateTime": {
+      "value": "2017-07-28 05:23:19",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Sanuki Mountains Yoshino River Tokushima Plain",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "Yoshino River|PD NASA|Tokushima Plain|Sanuki Mountains",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "The northeastern part of Shikoku (Sanuki Mountains, Yoshino River, Tokushima Plain, Mitoyo Plain, Marugame Plain, Shonai Peninsula and the northeastern part of Shikoku Mountains) taken from the International Space Station at 23:30:17 GMT on Nov. 22, 2013.",
+      "source": "commons-desc-page"
+    },
+    "DateTimeOriginal": {
+      "value": "2013-11-22",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<p>This is a cropped and resized image from ISS038-E-7453.</p>\n<a rel=\"mw:ExtLink nofollow\" href=\"https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS038&amp;roll=E&amp;frame=7453\" class=\"external free\">https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS038&amp;roll=E&amp;frame=7453</a>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "NASA",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  },
+  "localFile": "/assets/districts/references/K6-reference.jpg"
+}

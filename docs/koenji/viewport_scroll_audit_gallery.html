@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Koenji 1889 — Before &amp; After Chrome Compaction &amp; Single-Page Fit Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px 32px;
+      background: #14100d;
+      color: #f2e2c4;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.45;
+    }
+    h1, h2 { font-family: Georgia, serif; color: #f7d788; margin-top: 0; }
+    .intro { max-width: 1080px; color: #d5c29d; margin-bottom: 20px; }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+      background: #211913;
+      border: 1px solid #6e522e;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .pair h2 { grid-column: 1 / -1; margin-bottom: 4px; font-size: 18px; }
+    .col h3 { margin: 0 0 6px; font-size: 13px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .badge.fail { background: #5a1d18; color: #ffb3ab; border: 1px solid #e05246; }
+    .badge.pass { background: #1c472b; color: #a7f0be; border: 1px solid #5eb977; }
+    img { width: 100%; height: auto; border: 1px solid #523b22; border-radius: 6px; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Koenji 1889 — Before vs. After Chrome Compaction (1366×768)</h1>
+  <p class="intro">
+    Side-by-side WebKit screenshots comparing the original layout (where 73%–78% of vertical height was consumed by chrome) against the compacted single-page layout (where the main workspace consumes 71%–84% of the window with 0px scroll overflow).
+  </p>
+
+  <section class="pair">
+    <h2>1. Stock Exchange (<code>StockExchange.js</code>)</h2>
+    <div class="col">
+      <h3><span class="badge fail">BEFORE · 25% Workspace / +818px Overflow</span></h3>
+      <img src="validation/audit-fail-6-stock-exchange.png" alt="Before Stock Exchange" />
+    </div>
+    <div class="col">
+      <h3><span class="badge pass">AFTER · 74% Workspace / 0px Overflow</span></h3>
+      <img src="validation/fixed-6-stock-exchange.png" alt="After Stock Exchange" />
+    </div>
+  </section>
+
+  <section class="pair">
+    <h2>2. Private Company Auction (<code>StockExchange.js</code>)</h2>
+    <div class="col">
+      <h3><span class="badge fail">BEFORE · 24% Workspace / +543px Overflow</span></h3>
+      <img src="validation/audit-fail-5-private-auction.png" alt="Before Private Auction" />
+    </div>
+    <div class="col">
+      <h3><span class="badge pass">AFTER · 74% Workspace / 0px Overflow (All 7 Cards Visible)</span></h3>
+      <img src="validation/fixed-5-private-auction.png" alt="After Private Auction" />
+    </div>
+  </section>
+
+  <section class="pair">
+    <h2>3. Map &amp; Operations — Step 1: Lay Track (<code>HexMap1889.js</code>)</h2>
+    <div class="col">
+      <h3><span class="badge fail">BEFORE · 170px Map / +250px Ticket Overflow</span></h3>
+      <img src="validation/audit-fail-7-operating-map-track.png" alt="Before Map Track" />
+    </div>
+    <div class="col">
+      <h3><span class="badge pass">AFTER · 570px Map / 0px Ticket Overflow</span></h3>
+      <img src="validation/fixed-7-operating-map-track.png" alt="After Map Track" />
+    </div>
+  </section>
+
+  <section class="pair">
+    <h2>4. Map &amp; Operations — Step 4: Dividend (<code>HexMap1889.js</code>)</h2>
+    <div class="col">
+      <h3><span class="badge fail">BEFORE · Dividend Buttons Clipped (+98px)</span></h3>
+      <img src="validation/audit-fail-8-operating-map-dividend.png" alt="Before Map Dividend" />
+    </div>
+    <div class="col">
+      <h3><span class="badge pass">AFTER · Payout vs. Withhold Cards Visible (0px Overflow)</span></h3>
+      <img src="validation/fixed-8-operating-map-dividend.png" alt="After Map Dividend" />
+    </div>
+  </section>
+
+  <section class="pair">
+    <h2>5. Gathering Lobby / Waiting Table (<code>GatheringLobby.js</code>)</h2>
+    <div class="col">
+      <h3><span class="badge fail">BEFORE · +1,769px Overflow (Start Match Hidden)</span></h3>
+      <img src="validation/audit-fail-3-waiting-lobby.png" alt="Before Waiting Lobby" />
+    </div>
+    <div class="col">
+      <h3><span class="badge pass">AFTER · Single-Row Chairs + 2-Col Deck (0px Overflow)</span></h3>
+      <img src="validation/fixed-3-waiting-lobby.png" alt="After Waiting Lobby" />
+    </div>
+  </section>
+
+  <section class="pair">
+    <h2>6. Character Setup (<code>CharacterSetup.js</code>)</h2>
+    <div class="col">
+      <h3><span class="badge fail">BEFORE · +133px Swatch Column Overflow</span></h3>
+      <img src="validation/audit-fail-1-character-setup.png" alt="Before Character Setup" />
+    </div>
+    <div class="col">
+      <h3><span class="badge pass">AFTER · All 17 Faces &amp; 12 Outfits Visible (0px Overflow)</span></h3>
+      <img src="validation/fixed-1-character-setup.png" alt="After Character Setup" />
+    </div>
+  </section>
+</body>
+</html>

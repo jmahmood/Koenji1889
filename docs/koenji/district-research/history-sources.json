@@ -1,0 +1,264 @@
+{
+  "imabari": {
+    "title": "1894 — towel weaving begins",
+    "summary": "Imabari records that Abe Heisuke began towel production in 1894. The illustration uses the Shikoku harbor and Geiyo island setting; the offboard stands for a sea connection, not a surveyed ferry route or timetable.",
+    "url": "https://www.city.imabari.ehime.jp/sangyou/jibasan/",
+    "scope": "local-event"
+  },
+  "dogo": {
+    "title": "1894 — Dogo bathhouse rebuilt",
+    "summary": "The 1894 photograph records the new Dogo Onsen building. This contemporary image guides the roofline and timber facade; the painted scene is interpretive.",
+    "url": "https://commons.wikimedia.org/wiki/File:Dogo_Onsen_1894.jpg",
+    "scope": "local-event"
+  },
+  "rail": {
+    "title": "1888–1897 — the first Shikoku railways",
+    "summary": "Iyo Railway opened Matsuyama–Mitsuhama in October 1888. Sanuki Railway opened Marugame–Tadotsu–Kotohira in 1889 and extended to Takamatsu in 1897. This is regional context, not evidence of track in every hex.",
+    "url": "https://www.kotohirakankou.jp/en/blog/staff/entry-514.html",
+    "scope": "regional-context",
+    "additionalSources": [
+      {
+        "title": "Japan Railway & Transport Review: Shikoku",
+        "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html"
+      },
+      {
+        "title": "Takamatsu keep demolished in 1884",
+        "url": "https://www.city.takamatsu.kagawa.jp/kurashi/kurashi/shisetsu/park/tamamo/tenshu.html"
+      }
+    ]
+  },
+  "marugame": {
+    "title": "1874–1877 — castle converted to army use",
+    "summary": "Army barracks were completed in 1874. In 1876–77 many turrets and corridors were removed; the original keep survived. The artwork therefore avoids a complete feudal palace complex.",
+    "url": "https://www.city.marugame.lg.jp/site/castle/2930.html",
+    "scope": "local-event"
+  },
+  "yawatahama": {
+    "title": "1889 — electric light at Uwa Spinning",
+    "summary": "On 18 December 1889, Uwa Spinning at Kawanoishi lit 120 Edison lamps. Yawatahama identifies this as the first electric lighting in Shikoku. The image suggests the industrial port at that transition, without claiming an exact factory reconstruction.",
+    "url": "https://www.city.yawatahama.ehime.jp/intro/sangyou/",
+    "scope": "local-event"
+  },
+  "ozu": {
+    "title": "1888–1895 — a changing river town",
+    "summary": "Ozu Castle’s keep was demolished in 1888. The city’s Garyu preservation chronology identifies 1895 as a peak of Hijikawa riverboat shipping. The scene emphasizes river commerce and excludes the modern reconstructed keep and the later Garyu buildings.",
+    "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/40704.pdf",
+    "scope": "local-event",
+    "additionalSources": [
+      {
+        "title": "Ozu Castle conservation history",
+        "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/43061.pdf"
+      }
+    ]
+  },
+  "besshi": {
+    "title": "1888–1899 — copper industry transformed",
+    "summary": "The Sobiraki smelter was operating fully in 1888; Besshi railways opened in 1893. The August 1899 flood devastated mountain facilities. Modern Tonaru ruins serve only as terrain references: they do not establish that later brick buildings existed in 1895.",
+    "url": "https://www.city.niihama.lg.jp/soshiki/dozan/dozanjike.html",
+    "scope": "local-event",
+    "additionalSources": [
+      {
+        "title": "Besshi mine chronology",
+        "url": "https://www.city.niihama.lg.jp/uploaded/attachment/64883.pdf"
+      }
+    ]
+  },
+  "ritsurin": {
+    "title": "1875 — garden opens to the public",
+    "summary": "Ritsurin opened to the public on 16 March 1875. The illustration concentrates on the older South Garden, rather than later northern attractions.",
+    "url": "https://www.city.takamatsu.kagawa.jp/smph/kurashi/kosodate/bunka/bunkazai/shiteibunkazai/meisho/ritsurin.html",
+    "scope": "local-event"
+  },
+  "uwajima": {
+    "title": "1889 — the centenarian lord at Tenshaen",
+    "summary": "Date Munenori died in 1889, aged 100 by the traditional count, at Tenshaen. The garden dated from 1866. The portrait shows Uwajima’s surviving castle as a district identifier, rather than dramatizing his death.",
+    "url": "https://www.city.uwajima.ehime.jp/site/sizen-bunka/141tennshaenn.html",
+    "scope": "local-event"
+  },
+  "indigo": {
+    "title": "Late nineteenth century — the Awa indigo economy",
+    "summary": "Tokushima’s official history associates its early-Meiji prosperity with indigo and records that the city ranked tenth in population in 1889. A museum-held 1892 indigo-production ledger supplies contemporary evidence of the trade.",
+    "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+    "scope": "regional-context",
+    "additionalSources": [
+      {
+        "title": "Tokushima Museum: 1892 indigo ledger",
+        "url": "https://museum.bunmori.tokushima.jp/museum_documents/museumnews/mnews105/105_5_collection.html"
+      }
+    ]
+  },
+  "ikeda": {
+    "title": "Bakumatsu–Meiji — Awa cut tobacco",
+    "summary": "The municipal tobacco museum describes Ikeda’s prosperity from the Awa-kizami tobacco industry across the late Edo and Meiji periods. This is a period industry, not a newly dated event in 1895.",
+    "url": "https://www.miyoshi.i-tokushima.jp/education/docs/2015081000014.html",
+    "scope": "period-industry"
+  },
+  "risshi": {
+    "title": "1874 — Risshisha founded",
+    "summary": "Risshisha held its inaugural meeting in Kochi on 10 April 1874. Its schools, debates and political organizing helped develop the Freedom and People’s Rights movement. The city portrait provides the setting, not a reconstruction of the inaugural meeting.",
+    "url": "https://www.city.kochi.kochi.jp/site/kanko/risshisha.html",
+    "scope": "local-event"
+  },
+  "sukumo": {
+    "title": "1872–1899 — post, school and town",
+    "summary": "Sukumo’s municipal chronology records a post office in April 1872 and the Nisshin school in July 1873. Village organization followed in 1889, and town status on 20 December 1899.",
+    "url": "https://www.city.sukumo.kochi.jp/sisi/092401.html",
+    "scope": "local-event",
+    "additionalSources": [
+      {
+        "title": "Sukumo municipal chronology",
+        "url": "https://www.city.sukumo.kochi.jp/sisi/134501.html"
+      }
+    ]
+  },
+  "shimanto": {
+    "title": "1886 — flood in the Nakamura chronology",
+    "summary": "The city’s central-area survey includes 1886 in its table of Nakamura floods. The artwork uses the river and floodplain as geographic identity; it does not reconstruct the flood or assign an unsupported water level.",
+    "url": "https://www.city.shimanto.lg.jp/uploaded/attachment/4051.pdf",
+    "scope": "local-event"
+  },
+  "susaki": {
+    "title": "1882 — Christian mission begins",
+    "summary": "Susaki’s historic-site guide dates the start of local Christian evangelism to 1882; the church building followed in 1906, outside this project’s period. The portrait therefore shows the port landscape without that later building.",
+    "url": "https://www.city.susaki.lg.jp/download/?fid=2658&id=180&t=LD",
+    "scope": "local-event"
+  },
+  "manjiro": {
+    "title": "1870–1898 — Manjiro’s later life",
+    "summary": "Nakahama-born John Manjiro traveled to Europe in 1870. The city’s chronology records later visits home to his mother, who died in 1879, and his death in Tokyo in 1898. These are a local person’s wider connections; the fishing-cove portrait does not relocate the European journey to Shimizu.",
+    "url": "https://www.city.tosashimizu.kochi.jp/kanko/g01_jyonman03.html",
+    "scope": "biographical-context"
+  },
+  "anan": {
+    "title": "1889 — villages in the Anan area reorganized",
+    "summary": "Anan’s anniversary history records modern municipal organization in 1889, including Tomioka village. Anan city itself was created in 1958: the image is of the earlier river plain.",
+    "url": "https://www.city.anan.tokushima.jp/docs/2018051500019/file_contents/Part1-17.pdf",
+    "scope": "local-event"
+  },
+  "nankoku": {
+    "title": "1874–1878 — village elementary schools",
+    "summary": "The municipal school chronology records Maehama schools opening in 1874 and 1875, then merging into a new schoolhouse in 1878. The painted school is a representative period building, not a documented reconstruction of the original facade.",
+    "url": "https://www.city.nankoku.lg.jp/ominato-e/pg676.html",
+    "scope": "local-event"
+  },
+  "mugi": {
+    "title": "1889 — Mugi village formed",
+    "summary": "The Tokushima Prefectural Library’s historical study records the merger of eight villages and coastal communities into Mugi village in 1889. Town status came later, in 1915.",
+    "url": "https://library.bunmori.tokushima.jp/digital/webkiyou/23/2318.html",
+    "scope": "local-event"
+  },
+  "muroto": {
+    "title": "1899 — Muroto lighthouse completed",
+    "summary": "Muroto dates completion of the iron lighthouse to 1 April 1899. It initially used oil lighting and was electrified only in 1917. The illustration omits later statues and communications equipment.",
+    "url": "https://www.city.muroto.kochi.jp/kyoiku/kyoi/pages/pages093.html",
+    "scope": "local-event"
+  },
+  "kaimei": {
+    "title": "1882 — Kaimei schoolhouse built",
+    "summary": "Unomachi residents funded the Kaimei schoolhouse in 1882. The locally built structure used Western-style arched windows and imported German glass. Its surviving form anchors the painting.",
+    "url": "https://www.city.seiyo.ehime.jp/miryoku/uwachonomachinami/kaimei/",
+    "scope": "local-event"
+  },
+  "paper": {
+    "title": "1894 — recognition for papermaking innovation",
+    "summary": "Ino’s account of Yoshii Genta describes Meiji innovations in Tosa paper production and records his Green Ribbon award in 1894. The illustration shows the craft and river setting rather than an award ceremony.",
+    "url": "https://www.town.ino.kochi.jp/bunkazai/bunka_town_01/",
+    "scope": "local-event"
+  },
+  "wax": {
+    "title": "1894 — Kamihaga wax merchant house",
+    "summary": "Uchiko dates the main Kamihaga residence to 1894, during the town’s wax-industry peak. The associated storehouses and production facilities inform the scene.",
+    "url": "https://cms2021.town.uchiko.ehime.jp/site/hozonsenta/kamihaga.html",
+    "scope": "local-event"
+  },
+  "telegraph": {
+    "title": "1877 — telegraph reaches Marugame and Takamatsu",
+    "summary": "A contemporary diplomatic report records public telegraph service opening at Takamatsu and Marugame on 5 October during the 1877 construction campaign. This is neighboring regional context; it is not proof of an office in this particular Sakaide coastal scene.",
+    "url": "https://history.state.gov/historicaldocuments/frus1879/d339",
+    "scope": "regional-context"
+  },
+  "tokushimarail": {
+    "title": "1899 — Tokushima Railway opens",
+    "summary": "The Shikoku railway history dates Tokushima Railway’s first line to 1899, running west into the Yoshino valley. The river portrait does not invent a railway crossing at the photographed location.",
+    "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html",
+    "scope": "regional-context"
+  },
+  "saijo": {
+    "title": "Meiji period — regional administrative center",
+    "summary": "Saijo’s city plan describes the concentration of government offices in the area after the Restoration. No single dated 1870–1900 event at the illustrated spring has been verified; its spring landscape is used for identity.",
+    "url": "https://www.city.saijo.ehime.jp/uploaded/attachment/7385.pdf",
+    "scope": "period-development"
+  },
+  "aki": {
+    "title": "1873 — Aki-born Iwasaki and Mitsubishi",
+    "summary": "Aki’s biography records Iwasaki Yataro’s establishment of Mitsubishi Shokai in 1873. His business activity occurred outside this farming district; this is a biographical connection, not a factory-opening claim for the hex.",
+    "url": "https://www.city.aki.kochi.jp/life/dtl.php?hdnKey=7972",
+    "scope": "biographical-context"
+  },
+  "komatsushima": {
+    "title": "Meiji port setting — exact local event unverified",
+    "summary": "The municipality identifies Komatsushima as a natural harbor. The famous British visit was in 1867, before the requested period; it is excluded as an 1870–1900 event. No separately dated event in this period is established here.",
+    "url": "https://www.city.komatsushima.lg.jp/komatsushima-navi/first/adout.html",
+    "scope": "no-verified-local-event"
+  },
+  "regionaltosa": {
+    "title": "1874–1880s — wider Tosa political change",
+    "summary": "Risshisha was founded in Kochi in 1874; public political meetings spread through Tosa in the later 1870s. No specific 1870–1900 event has been verified for this inferred mountain district. The image is a period landscape, not a scene of an undocumented local meeting.",
+    "url": "https://www.city.kochi.kochi.jp/akarui/mangekyo/man1512.htm",
+    "scope": "regional-context"
+  },
+  "regionaliyo": {
+    "title": "1888 — modernization beyond the mountains",
+    "summary": "Iyo Railway opened near Matsuyama in 1888. No specific 1870–1900 event has been verified for this inferred interior district, and no railway is implied in its gorge landscape.",
+    "url": "https://www.ejrcf.or.jp/jrtr/jrtr39/s43_kis.html",
+    "scope": "regional-context"
+  },
+  "regionalawa": {
+    "title": "Late Meiji — wider Awa context",
+    "summary": "Indigo commerce shaped the wider Tokushima region in the late nineteenth century. No specific 1870–1900 event has been verified at this inferred mountain or coastal location. Its artwork conveys landscape and ordinary period life.",
+    "url": "https://www.pref.tokushima.lg.jp/kenseijoho/tokushimakennitsuite/rekishi",
+    "scope": "regional-context"
+  },
+  "ozuregional": {
+    "title": "1888–1895 — a changing river town",
+    "summary": "Nearby regional context: Ozu Castle’s keep was demolished in 1888. The city’s Garyu preservation chronology identifies 1895 as a peak of Hijikawa riverboat shipping. The scene emphasizes river commerce and excludes the modern reconstructed keep and the later Garyu buildings. No separate dated event at this inferred hex location has been verified.",
+    "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/40704.pdf",
+    "scope": "regional-context",
+    "additionalSources": [
+      {
+        "title": "Ozu Castle conservation history",
+        "url": "https://www.city.ozu.ehime.jp/uploaded/attachment/43061.pdf"
+      }
+    ]
+  },
+  "uwajimaregional": {
+    "title": "1889 — the centenarian lord at Tenshaen",
+    "summary": "Nearby regional context: Date Munenori died in 1889, aged 100 by the traditional count, at Tenshaen. The garden dated from 1866. The portrait shows Uwajima’s surviving castle as a district identifier, rather than dramatizing his death. No separate dated event at this inferred hex location has been verified.",
+    "url": "https://www.city.uwajima.ehime.jp/site/sizen-bunka/141tennshaenn.html",
+    "scope": "regional-context"
+  },
+  "besshiregional": {
+    "title": "1888–1899 — copper industry transformed",
+    "summary": "Nearby regional context: The Sobiraki smelter was operating fully in 1888; Besshi railways opened in 1893. The August 1899 flood devastated mountain facilities. Modern Tonaru ruins serve only as terrain references: they do not establish that later brick buildings existed in 1895. No separate dated event at this inferred hex location has been verified.",
+    "url": "https://www.city.niihama.lg.jp/soshiki/dozan/dozanjike.html",
+    "scope": "regional-context",
+    "additionalSources": [
+      {
+        "title": "Besshi mine chronology",
+        "url": "https://www.city.niihama.lg.jp/uploaded/attachment/64883.pdf"
+      }
+    ]
+  },
+  "murotoregional": {
+    "title": "1899 — Muroto lighthouse completed",
+    "summary": "Nearby regional context: Muroto dates completion of the iron lighthouse to 1 April 1899. It initially used oil lighting and was electrified only in 1917. The illustration omits later statues and communications equipment. No separate dated event at this inferred hex location has been verified.",
+    "url": "https://www.city.muroto.kochi.jp/kyoiku/kyoi/pages/pages093.html",
+    "scope": "regional-context"
+  },
+  "shimantoregional": {
+    "title": "1886 — flood in the Nakamura chronology",
+    "summary": "Nearby regional context: The city’s central-area survey includes 1886 in its table of Nakamura floods. The artwork uses the river and floodplain as geographic identity; it does not reconstruct the flood or assign an unsupported water level. No separate dated event at this inferred hex location has been verified.",
+    "url": "https://www.city.shimanto.lg.jp/uploaded/attachment/4051.pdf",
+    "scope": "regional-context"
+  }
+}

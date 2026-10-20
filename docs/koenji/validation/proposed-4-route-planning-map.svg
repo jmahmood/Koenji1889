@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bgWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#231710"/>
+      <stop offset="100%" stop-color="#140d09"/>
+    </linearGradient>
+    <linearGradient id="parchment" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7eed7"/>
+      <stop offset="100%" stop-color="#e8d7b4"/>
+    </linearGradient>
+    <linearGradient id="darkCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e2016"/>
+      <stop offset="100%" stop-color="#21160f"/>
+    </linearGradient>
+    <linearGradient id="goldBtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e6bd60"/>
+      <stop offset="100%" stop-color="#b88928"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#477682"/>
+      <stop offset="100%" stop-color="#294852"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bgWood)"/>
+  <rect x="10" y="10" width="1260" height="700" rx="8" fill="none" stroke="#8c6836" stroke-width="2"/>
+  <rect x="10" y="10" width="1260" height="52" rx="6" fill="#2c1d13" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="28" y="28" fill="#d8b467" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="1.4">KOENJI RAILWAY CLUB 1889 · PROPOSED UI STATE MOCKUP</text>
+  <text x="28" y="49" fill="#f7eed7" font-family="Georgia, serif" font-size="16" font-weight="bold">4. DecisionDesk.js — Multi-Train Colored Map Routes &amp; Stop Chip Builder</text>
+  <text x="1250" y="29" text-anchor="end" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Replaces modal text rows with per-train colored paths on the map</text>
+  
+  <rect x="26" y="76" width="750" height="616" rx="8" fill="url(#seaGrad)" stroke="#9e7840" stroke-width="2"/>
+  <text x="48" y="102" fill="#f3d285" font-family="Georgia, serif" font-size="13" font-weight="bold">CLICK HEXES OR EDGES TO APPEND / UNDO STOPS FOR SELECTED TRAIN</text>
+  <g transform="translate(20, 26)">
+    
+      <g>
+        <polygon points="374.5,125.8 356.3,157.4 319.8,157.4 301.5,125.8 319.8,94.2 356.3,94.2" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="338" cy="125.81793068761733" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="338" y="105.81793068761733" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">E2</text>
+        <text x="338" y="95.81793068761733" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Matsuyama</text>
+      </g>
+    
+      <g>
+        <polygon points="431.5,92.9 413.3,124.5 376.8,124.5 358.5,92.9 376.8,61.3 413.3,61.3" fill="#b5463a" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="395" cy="92.90896534380866" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="395" y="72.90896534380866" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">F1</text>
+        <text x="395" y="62.90896534380866" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Imabari Ferry</text>
+      </g>
+    
+      <g>
+        <polygon points="431.5,158.7 413.3,190.3 376.8,190.3 358.5,158.7 376.8,127.1 413.3,127.1" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="395" cy="158.726896031426" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="395" y="138.726896031426" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">F3</text>
+        <text x="395" y="128.726896031426" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Saijo</text>
+      </g>
+    
+      <g>
+        <polygon points="488.5,191.6 470.3,223.2 433.8,223.2 415.5,191.6 433.8,160.0 470.3,160.0" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="452" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="452" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">G4</text>
+        <text x="452" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Niihama</text>
+      </g>
+    
+      <g>
+        <polygon points="545.5,158.7 527.3,190.3 490.8,190.3 472.5,158.7 490.8,127.1 527.3,127.1" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        
+        
+        <text x="509" y="138.726896031426" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">H3</text>
+        
+      </g>
+    
+      <g>
+        <polygon points="602.5,125.8 584.3,157.4 547.8,157.4 529.5,125.8 547.8,94.2 584.3,94.2" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="566" cy="125.81793068761733" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="566" y="105.81793068761733" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">I2</text>
+        <text x="566" y="95.81793068761733" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Marugame</text>
+      </g>
+    
+      <g>
+        <polygon points="602.5,191.6 584.3,223.2 547.8,223.2 529.5,191.6 547.8,160.0 584.3,160.0" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="566" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="566" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">I4</text>
+        <text x="566" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Kotohira (H)</text>
+      </g>
+    
+      <g>
+        <polygon points="659.5,92.9 641.3,124.5 604.8,124.5 586.5,92.9 604.8,61.3 641.3,61.3" fill="#b5463a" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="623" cy="92.90896534380866" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="623" y="72.90896534380866" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">J1</text>
+        <text x="623" y="62.90896534380866" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Sakaide Ferry</text>
+      </g>
+    
+      <g>
+        <polygon points="716.5,191.6 698.3,223.2 661.8,223.2 643.5,191.6 661.8,160.0 698.3,160.0" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="680" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="680" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">K4</text>
+        <text x="680" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Takamatsu (T)</text>
+      </g>
+    
+      <g>
+        <polygon points="659.5,224.5 641.3,256.2 604.8,256.2 586.5,224.5 604.8,192.9 641.3,192.9" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="623" cy="224.54482671904333" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="623" y="204.54482671904333" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">J5</text>
+        <text x="623" y="194.54482671904333" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Ritsurin</text>
+      </g>
+    
+      <g>
+        <polygon points="545.5,290.4 527.3,322.0 490.8,322.0 472.5,290.4 490.8,258.8 527.3,258.8" fill="#dfd5a7" stroke="#4a3822" stroke-width="1.6"/>
+        
+        
+        <text x="509" y="270.36275740666065" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">H7</text>
+        <text x="509" y="260.36275740666065" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Ikeda</text>
+      </g>
+    
+      <g>
+        <polygon points="431.5,356.2 413.3,387.8 376.8,387.8 358.5,356.2 376.8,324.6 413.3,324.6" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="395" cy="356.180688094278" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="395" y="336.180688094278" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">F9</text>
+        <text x="395" y="326.180688094278" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Kochi (K)</text>
+      </g>
+    
+      <g>
+        <polygon points="203.5,290.4 185.3,322.0 148.8,322.0 130.5,290.4 148.7,258.8 185.2,258.8" fill="#8d9499" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="167" cy="290.36275740666065" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="167" y="270.36275740666065" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">B7</text>
+        <text x="167" y="260.36275740666065" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Uwajima</text>
+      </g>
+    
+      <g>
+        <polygon points="260.5,191.6 242.3,223.2 205.8,223.2 187.5,191.6 205.7,160.0 242.2,160.0" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="224" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="224" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">C4</text>
+        <text x="224" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Ozu</text>
+      </g>
+    
+    <polyline points="338,125.81793068761733 395,92.90896534380866" fill="none" stroke="#1e130a" stroke-width="11" stroke-linecap="round"/>
+    <polyline points="338,125.81793068761733 395,92.90896534380866" fill="none" stroke="#e0533c" stroke-width="6.5" stroke-linecap="round"/>
+    <polyline points="338,130.81793068761732 395,163.726896031426 452,196.63586137523467 566,196.63586137523467 680,196.63586137523467" fill="none" stroke="#1e130a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="338,130.81793068761732 395,163.726896031426 452,196.63586137523467 566,196.63586137523467 680,196.63586137523467" fill="none" stroke="#3b7dd8" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <g transform="translate(395, 74.90896534380866)">
+      <rect x="-36" y="-14" width="72" height="18" rx="9" fill="#e0533c" stroke="#ffffff" stroke-width="1.5"/>
+      <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">T1 · +¥20</text>
+    </g>
+    <g transform="translate(338, 107.81793068761733)">
+      <rect x="-44" y="-14" width="88" height="18" rx="9" fill="#2c1d13" stroke="#ffd46b" stroke-width="1.5"/>
+      <text x="0" y="-2" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">E2 Home · +¥20</text>
+    </g>
+    <g transform="translate(452, 173.63586137523467)">
+      <rect x="-36" y="-14" width="72" height="18" rx="9" fill="#3b7dd8" stroke="#ffffff" stroke-width="1.5"/>
+      <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">T2 · +¥30</text>
+    </g>
+    <g transform="translate(566, 173.63586137523467)">
+      <rect x="-36" y="-14" width="72" height="18" rx="9" fill="#3b7dd8" stroke="#ffffff" stroke-width="1.5"/>
+      <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">T2 · +¥60</text>
+    </g>
+    <g transform="translate(680, 173.63586137523467)">
+      <rect x="-36" y="-14" width="72" height="18" rx="9" fill="#3b7dd8" stroke="#ffffff" stroke-width="1.5"/>
+      <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">T2 · +¥40</text>
+    </g>
+  </g>
+
+  <rect x="792" y="76" width="462" height="616" rx="8" fill="url(#darkCard)" stroke="#c79c4c" stroke-width="2.5"/>
+  <text x="814" y="108" fill="#ffd46b" font-family="Georgia, serif" font-size="18" font-weight="bold">Route Planner · IR (Iyo Railway)</text>
+  <text x="814" y="128" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Docked beside map so routes &amp; stop revenues stay visible while editing</text>
+
+  <rect x="814" y="142" width="418" height="66" rx="8" fill="#1a110b" stroke="#e6bd60" stroke-width="2"/>
+  <text x="834" y="168" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="12" font-weight="bold">TOTAL VALIDATED RUN REVENUE (2 TRAINS)</text>
+  <text x="834" y="192" fill="#7be89e" font-family="Helvetica, sans-serif" font-size="11">✓ Server validated at Rev 22 · Zero track overlap</text>
+  <text x="1212" y="188" text-anchor="end" fill="#ffd46b" font-family="Georgia, serif" font-size="32" font-weight="bold">¥200</text>
+
+  <rect x="814" y="224" width="418" height="132" rx="8" fill="#2d1916" stroke="#e0533c" stroke-width="2.5"/>
+  <circle cx="836" cy="248" r="10" fill="#e0533c"/>
+  <text x="854" y="253" fill="#ffffff" font-family="Georgia, serif" font-size="15" font-weight="bold">Train 1: 2-Train (2 Stops Max)</text>
+  <text x="1212" y="253" text-anchor="end" fill="#ffd46b" font-family="Georgia, serif" font-size="18" font-weight="bold">¥40</text>
+  <rect x="830" y="268" width="130" height="32" rx="16" fill="#4a2520" stroke="#e0533c" stroke-width="1.5"/>
+  <text x="895" y="288" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">E2 Matsuyama (¥20)</text>
+  <text x="974" y="288" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="14">→</text>
+  <rect x="990" y="268" width="140" height="32" rx="16" fill="#4a2520" stroke="#e0533c" stroke-width="1.5"/>
+  <text x="1060" y="288" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">F1 Imabari Ferry (¥20)</text>
+  <rect x="830" y="312" width="110" height="28" rx="4" fill="#3a231e" stroke="#a86458" stroke-width="1"/>
+  <text x="885" y="330" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="10">Undo Last Stop</text>
+  <rect x="950" y="312" width="110" height="28" rx="4" fill="#3a231e" stroke="#a86458" stroke-width="1"/>
+  <text x="1005" y="330" text-anchor="middle" fill="#f0dec0" font-family="Helvetica, sans-serif" font-size="10">Clear Train 1</text>
+
+  <rect x="814" y="372" width="418" height="162" rx="8" fill="#172436" stroke="#3b7dd8" stroke-width="2.5"/>
+  <circle cx="836" cy="396" r="10" fill="#3b7dd8"/>
+  <text x="854" y="401" fill="#ffffff" font-family="Georgia, serif" font-size="15" font-weight="bold">Train 2: 5-Train (5 Stops · Editing on Map)</text>
+  <text x="1212" y="401" text-anchor="end" fill="#ffd46b" font-family="Georgia, serif" font-size="18" font-weight="bold">¥160</text>
+  <rect x="830" y="416" width="112" height="30" rx="15" fill="#213854" stroke="#3b7dd8" stroke-width="1.5"/>
+  <text x="886" y="435" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">E2 Matsuyama ¥20</text>
+  <text x="952" y="435" text-anchor="middle" fill="#8ad6e6" font-family="Helvetica, sans-serif" font-size="12">→</text>
+  <rect x="962" y="416" width="96" height="30" rx="15" fill="#213854" stroke="#3b7dd8" stroke-width="1.5"/>
+  <text x="1010" y="435" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">F3 Saijo ¥10</text>
+  <text x="1068" y="435" text-anchor="middle" fill="#8ad6e6" font-family="Helvetica, sans-serif" font-size="12">→</text>
+  <rect x="1078" y="416" width="112" height="30" rx="15" fill="#213854" stroke="#3b7dd8" stroke-width="1.5"/>
+  <text x="1134" y="435" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">G4 Niihama ¥30</text>
+  <text x="840" y="472" text-anchor="middle" fill="#8ad6e6" font-family="Helvetica, sans-serif" font-size="12">→</text>
+  <rect x="854" y="454" width="122" height="30" rx="15" fill="#213854" stroke="#3b7dd8" stroke-width="1.5"/>
+  <text x="915" y="473" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">I4 Kotohira ¥60</text>
+  <text x="988" y="472" text-anchor="middle" fill="#8ad6e6" font-family="Helvetica, sans-serif" font-size="12">→</text>
+  <rect x="1000" y="454" width="128" height="30" rx="15" fill="#213854" stroke="#3b7dd8" stroke-width="1.5"/>
+  <text x="1064" y="473" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">K4 Takamatsu ¥40</text>
+
+  <rect x="830" y="494" width="170" height="28" rx="4" fill="#213854" stroke="#6aa3f0" stroke-width="1"/>
+  <text x="915" y="512" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10">Load Best Suggested Plan</text>
+
+  <rect x="814" y="552" width="418" height="52" rx="8" fill="url(#goldBtn)" stroke="#5c3d14" stroke-width="2"/>
+  <text x="1023" y="584" text-anchor="middle" fill="#1e130a" font-family="Georgia, serif" font-size="16" font-weight="bold">✓ Review &amp; Commit Routes (¥200)</text>
+  <text x="1023" y="628" text-anchor="middle" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Rule Note: Cities may be visited once per train; segments cannot overlap.</text>
+  
+</svg>

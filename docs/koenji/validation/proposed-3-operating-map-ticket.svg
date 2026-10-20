@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bgWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#231710"/>
+      <stop offset="100%" stop-color="#140d09"/>
+    </linearGradient>
+    <linearGradient id="parchment" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7eed7"/>
+      <stop offset="100%" stop-color="#e8d7b4"/>
+    </linearGradient>
+    <linearGradient id="darkCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e2016"/>
+      <stop offset="100%" stop-color="#21160f"/>
+    </linearGradient>
+    <linearGradient id="goldBtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e6bd60"/>
+      <stop offset="100%" stop-color="#b88928"/>
+    </linearGradient>
+    <radialGradient id="seaGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#477682"/>
+      <stop offset="100%" stop-color="#294852"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bgWood)"/>
+  <rect x="10" y="10" width="1260" height="700" rx="8" fill="none" stroke="#8c6836" stroke-width="2"/>
+  <rect x="10" y="10" width="1260" height="52" rx="6" fill="#2c1d13" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="28" y="28" fill="#d8b467" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="1.4">KOENJI RAILWAY CLUB 1889 · PROPOSED UI STATE MOCKUP</text>
+  <text x="28" y="49" fill="#f7eed7" font-family="Georgia, serif" font-size="16" font-weight="bold">3. HexMap1889.js — Board Token Rings, Route Ribbons &amp; Dividend Split</text>
+  <text x="1250" y="29" text-anchor="end" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Synchronizes Step 2 Token Targets, Step 3 Routes &amp; Step 4 Payout/Withhold</text>
+  
+  <rect x="26" y="76" width="770" height="616" rx="8" fill="url(#seaGrad)" stroke="#9e7840" stroke-width="2"/>
+  <text x="48" y="102" fill="#f3d285" font-family="Georgia, serif" font-size="13" font-weight="bold">SHIKOKU OPERATING MAP · VISUAL STEP FEEDBACK OVERLAYS</text>
+  <g transform="translate(20, 26)">
+    
+      <g>
+        <polygon points="374.5,125.8 356.3,157.4 319.8,157.4 301.5,125.8 319.8,94.2 356.3,94.2" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="338" cy="125.81793068761733" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="338" y="105.81793068761733" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">E2</text>
+        <text x="338" y="95.81793068761733" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Matsuyama</text>
+      </g>
+    
+      <g>
+        <polygon points="431.5,92.9 413.3,124.5 376.8,124.5 358.5,92.9 376.8,61.3 413.3,61.3" fill="#b5463a" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="395" cy="92.90896534380866" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="395" y="72.90896534380866" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">F1</text>
+        <text x="395" y="62.90896534380866" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Imabari Ferry</text>
+      </g>
+    
+      <g>
+        <polygon points="431.5,158.7 413.3,190.3 376.8,190.3 358.5,158.7 376.8,127.1 413.3,127.1" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="395" cy="158.726896031426" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="395" y="138.726896031426" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">F3</text>
+        <text x="395" y="128.726896031426" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Saijo</text>
+      </g>
+    
+      <g>
+        <polygon points="488.5,191.6 470.3,223.2 433.8,223.2 415.5,191.6 433.8,160.0 470.3,160.0" fill="#62ac6c" stroke="#ffd46b" stroke-width="3.5"/>
+        <circle cx="452" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+          <circle cx="452" cy="191.63586137523467" r="18" fill="none" stroke="#00e5ff" stroke-width="3" stroke-dasharray="5 3"/>
+          <circle cx="452" cy="191.63586137523467" r="23" fill="none" stroke="#ffd46b" stroke-width="2" stroke-dasharray="3 3"/>
+          <rect x="418" y="207.63586137523467" width="68" height="16" rx="4" fill="#12353b" stroke="#00e5ff" stroke-width="1.2"/>
+          <text x="452" y="218.63586137523467" text-anchor="middle" fill="#8ff7ff" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">+TOKEN (¥40)</text>
+        
+        <text x="452" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">G4</text>
+        <text x="452" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Niihama</text>
+      </g>
+    
+      <g>
+        <polygon points="545.5,158.7 527.3,190.3 490.8,190.3 472.5,158.7 490.8,127.1 527.3,127.1" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        
+        
+        <text x="509" y="138.726896031426" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">H3</text>
+        
+      </g>
+    
+      <g>
+        <polygon points="602.5,125.8 584.3,157.4 547.8,157.4 529.5,125.8 547.8,94.2 584.3,94.2" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="566" cy="125.81793068761733" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="566" y="105.81793068761733" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">I2</text>
+        <text x="566" y="95.81793068761733" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Marugame</text>
+      </g>
+    
+      <g>
+        <polygon points="602.5,191.6 584.3,223.2 547.8,223.2 529.5,191.6 547.8,160.0 584.3,160.0" fill="#62ac6c" stroke="#ffd46b" stroke-width="3.5"/>
+        <circle cx="566" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+          <circle cx="566" cy="191.63586137523467" r="18" fill="none" stroke="#00e5ff" stroke-width="3" stroke-dasharray="5 3"/>
+          <circle cx="566" cy="191.63586137523467" r="23" fill="none" stroke="#ffd46b" stroke-width="2" stroke-dasharray="3 3"/>
+          <rect x="532" y="207.63586137523467" width="68" height="16" rx="4" fill="#12353b" stroke="#00e5ff" stroke-width="1.2"/>
+          <text x="566" y="218.63586137523467" text-anchor="middle" fill="#8ff7ff" font-family="Helvetica, sans-serif" font-size="9" font-weight="bold">+TOKEN (¥40)</text>
+        
+        <text x="566" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">I4</text>
+        <text x="566" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Kotohira (H)</text>
+      </g>
+    
+      <g>
+        <polygon points="659.5,92.9 641.3,124.5 604.8,124.5 586.5,92.9 604.8,61.3 641.3,61.3" fill="#b5463a" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="623" cy="92.90896534380866" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="623" y="72.90896534380866" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">J1</text>
+        <text x="623" y="62.90896534380866" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Sakaide Ferry</text>
+      </g>
+    
+      <g>
+        <polygon points="716.5,191.6 698.3,223.2 661.8,223.2 643.5,191.6 661.8,160.0 698.3,160.0" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="680" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="680" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">K4</text>
+        <text x="680" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Takamatsu (T)</text>
+      </g>
+    
+      <g>
+        <polygon points="659.5,224.5 641.3,256.2 604.8,256.2 586.5,224.5 604.8,192.9 641.3,192.9" fill="#e6c84f" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="623" cy="224.54482671904333" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="623" y="204.54482671904333" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">J5</text>
+        <text x="623" y="194.54482671904333" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Ritsurin</text>
+      </g>
+    
+      <g>
+        <polygon points="545.5,290.4 527.3,322.0 490.8,322.0 472.5,290.4 490.8,258.8 527.3,258.8" fill="#dfd5a7" stroke="#4a3822" stroke-width="1.6"/>
+        
+        
+        <text x="509" y="270.36275740666065" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">H7</text>
+        <text x="509" y="260.36275740666065" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Ikeda</text>
+      </g>
+    
+      <g>
+        <polygon points="431.5,356.2 413.3,387.8 376.8,387.8 358.5,356.2 376.8,324.6 413.3,324.6" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="395" cy="356.180688094278" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="395" y="336.180688094278" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">F9</text>
+        <text x="395" y="326.180688094278" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Kochi (K)</text>
+      </g>
+    
+      <g>
+        <polygon points="203.5,290.4 185.3,322.0 148.8,322.0 130.5,290.4 148.7,258.8 185.2,258.8" fill="#8d9499" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="167" cy="290.36275740666065" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="167" y="270.36275740666065" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">B7</text>
+        <text x="167" y="260.36275740666065" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Uwajima</text>
+      </g>
+    
+      <g>
+        <polygon points="260.5,191.6 242.3,223.2 205.8,223.2 187.5,191.6 205.7,160.0 242.2,160.0" fill="#62ac6c" stroke="#4a3822" stroke-width="1.6"/>
+        <circle cx="224" cy="191.63586137523467" r="11" fill="#ffffff" stroke="#2c1d11" stroke-width="2"/>
+        
+        <text x="224" y="171.63586137523467" text-anchor="middle" fill="#2c1d11" font-family="monospace" font-size="9" font-weight="bold">C4</text>
+        <text x="224" y="161.63586137523467" text-anchor="middle" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Ozu</text>
+      </g>
+    
+    <polyline points="338,125.81793068761733 395,158.726896031426 452,191.63586137523467 566,191.63586137523467 680,191.63586137523467" fill="none" stroke="#1e130a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="338,125.81793068761733 395,158.726896031426 452,191.63586137523467 566,191.63586137523467 680,191.63586137523467" fill="none" stroke="#ff6b35" stroke-width="5.5" stroke-dasharray="10 5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+      <g transform="translate(338, 109.81793068761733)">
+        <rect x="-32" y="-14" width="64" height="18" rx="9" fill="#c83e2b" stroke="#ffd46b" stroke-width="1.5"/>
+        <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">E2 · +¥20</text>
+      </g>
+    
+      <g transform="translate(452, 175.63586137523467)">
+        <rect x="-32" y="-14" width="64" height="18" rx="9" fill="#c83e2b" stroke="#ffd46b" stroke-width="1.5"/>
+        <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">G4 · +¥30</text>
+      </g>
+    
+      <g transform="translate(566, 175.63586137523467)">
+        <rect x="-32" y="-14" width="64" height="18" rx="9" fill="#c83e2b" stroke="#ffd46b" stroke-width="1.5"/>
+        <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">I4 · +¥60</text>
+      </g>
+    
+      <g transform="translate(680, 175.63586137523467)">
+        <rect x="-32" y="-14" width="64" height="18" rx="9" fill="#c83e2b" stroke="#ffd46b" stroke-width="1.5"/>
+        <text x="0" y="-2" text-anchor="middle" fill="#ffffff" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">K4 · +¥40</text>
+      </g>
+    
+  </g>
+
+  <rect x="46" y="618" width="730" height="56" rx="8" fill="#231710" stroke="#00e5ff" stroke-width="2"/>
+  <text x="66" y="642" fill="#8ff7ff" font-family="Georgia, serif" font-size="13" font-weight="bold">Step 2 (Token) Staged on I4 Kotohira · Open Slot 2 of 2 · Reachable from E2 Home</text>
+  <text x="66" y="660" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="11">Ghost IR token previewed on board · Costs ¥40 from IR Treasury (¥260 → ¥220)</text>
+  <rect x="570" y="628" width="190" height="36" rx="6" fill="url(#goldBtn)" stroke="#5c3d14" stroke-width="1.5"/>
+  <text x="665" y="651" text-anchor="middle" fill="#1e130a" font-family="Helvetica, sans-serif" font-size="12" font-weight="bold">✓ Place IR Token (¥40)</text>
+
+  <rect x="812" y="76" width="442" height="616" rx="8" fill="url(#parchment)" stroke="#c79c4c" stroke-width="2.5"/>
+  <rect x="828" y="92" width="410" height="58" rx="6" fill="#c84b31"/>
+  <text x="846" y="116" fill="#f7eed7" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">ACTING AS CORPORATION · CORPORATE TREASURY</text>
+  <text x="846" y="138" fill="#ffffff" font-family="Georgia, serif" font-size="18" font-weight="bold">IR · Iyo Railway (Treasury: ¥260)</text>
+
+  
+    <rect x="828" y="160" width="78" height="28" rx="5" fill="#4a6b4e" stroke="#5c4228" stroke-width="1.2"/>
+    <text x="867" y="178" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">1. Track ✓</text>
+  
+    <rect x="911" y="160" width="78" height="28" rx="5" fill="#4a6b4e" stroke="#5c4228" stroke-width="1.2"/>
+    <text x="950" y="178" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">2. Token ●</text>
+  
+    <rect x="994" y="160" width="78" height="28" rx="5" fill="#4a6b4e" stroke="#5c4228" stroke-width="1.2"/>
+    <text x="1033" y="178" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">3. Routes ●</text>
+  
+    <rect x="1077" y="160" width="78" height="28" rx="5" fill="#2c1d13" stroke="#5c4228" stroke-width="1.2"/>
+    <text x="1116" y="178" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">4. Dividend ●</text>
+  
+    <rect x="1160" y="160" width="78" height="28" rx="5" fill="#d5c096" stroke="#5c4228" stroke-width="1.2"/>
+    <text x="1199" y="178" text-anchor="middle" fill="#4a321d" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">5. Train</text>
+  
+
+  <rect x="828" y="200" width="410" height="310" rx="8" fill="#261a11" stroke="#8c6836" stroke-width="1.8"/>
+  <text x="846" y="226" fill="#ffd46b" font-family="Georgia, serif" font-size="14" font-weight="bold">STEP 4: DIVIDEND CONSEQUENCE PREVIEW (RUN: ¥150)</text>
+  <text x="846" y="244" fill="#bfa882" font-family="Helvetica, sans-serif" font-size="11">Visualizes cash flow &amp; stock price movement before you commit:</text>
+
+  <rect x="842" y="258" width="186" height="236" rx="6" fill="#1b3324" stroke="#4ca66b" stroke-width="2"/>
+  <text x="935" y="282" text-anchor="middle" fill="#7be89e" font-family="Georgia, serif" font-size="14" font-weight="bold">PAY DIVIDEND (¥150)</text>
+  <rect x="854" y="294" width="162" height="28" rx="4" fill="#122419"/>
+  <text x="935" y="312" text-anchor="middle" fill="#ffd46b" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Stock: ¥80 → ¥90 (+1 Step →)</text>
+  <text x="856" y="340" fill="#d9ebd8" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Shareholder Cash Payouts:</text>
+  <text x="856" y="362" fill="#ffffff" font-family="monospace" font-size="11">• Daisuke (50%): +¥75</text>
+  <text x="856" y="382" fill="#ffffff" font-family="monospace" font-size="11">• Yumiko  (20%): +¥30</text>
+  <text x="856" y="402" fill="#ffffff" font-family="monospace" font-size="11">• Kenji   (10%): +¥15</text>
+  <text x="856" y="424" fill="#a5c9b1" font-family="monospace" font-size="10">• IR Treasury: +¥0 (¥260)</text>
+  <rect x="854" y="444" width="162" height="36" rx="5" fill="url(#goldBtn)"/>
+  <text x="935" y="467" text-anchor="middle" fill="#1e130a" font-family="Helvetica, sans-serif" font-size="12" font-weight="bold">✓ Pay Dividend (¥150)</text>
+
+  <rect x="1038" y="258" width="186" height="236" rx="6" fill="#362417" stroke="#d49b27" stroke-width="2"/>
+  <text x="1131" y="282" text-anchor="middle" fill="#ffd46b" font-family="Georgia, serif" font-size="14" font-weight="bold">WITHHOLD (¥150)</text>
+  <rect x="1050" y="294" width="162" height="28" rx="4" fill="#24170e"/>
+  <text x="1131" y="312" text-anchor="middle" fill="#ff9e7d" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Stock: ¥80 → ¥75 (← -1 Step)</text>
+  <text x="1052" y="340" fill="#e8d7b4" font-family="Helvetica, sans-serif" font-size="11" font-weight="bold">Corporate Treasury Flow:</text>
+  <text x="1052" y="366" fill="#7be89e" font-family="monospace" font-size="12" font-weight="bold">Treasury: ¥260 → ¥410</text>
+  <text x="1052" y="390" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">Funds 4-Train (¥300) in Step 5</text>
+  <text x="1052" y="424" fill="#bfa882" font-family="monospace" font-size="10">• Shareholders: +¥0</text>
+  <rect x="1050" y="444" width="162" height="36" rx="5" fill="#d5c096" stroke="#8c6836" stroke-width="1.2"/>
+  <text x="1131" y="467" text-anchor="middle" fill="#231710" font-family="Helvetica, sans-serif" font-size="12" font-weight="bold">Withhold to Treasury</text>
+
+  <rect x="828" y="524" width="410" height="152" rx="8" fill="#2c1d13" stroke="#8c6836" stroke-width="1.5"/>
+  <text x="846" y="548" fill="#f3d285" font-family="Georgia, serif" font-size="13" font-weight="bold">STEP 5: DEPOT TRAIN CARDS &amp; TREASURY THERMOMETER</text>
+  <rect x="844" y="560" width="184" height="98" rx="6" fill="#3a2819" stroke="#ffd46b" stroke-width="1.5"/>
+  <text x="858" y="582" fill="#ffd46b" font-family="Georgia, serif" font-size="14" font-weight="bold">3-Train · ¥180</text>
+  <text x="858" y="600" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">Unlocks Phase 3 · Rusts Phase 6</text>
+  <text x="858" y="618" fill="#7be89e" font-family="monospace" font-size="11">Treasury: ¥260 → ¥80</text>
+  <rect x="858" y="628" width="156" height="22" rx="4" fill="url(#goldBtn)"/>
+  <text x="936" y="643" text-anchor="middle" fill="#1e130a" font-family="Helvetica, sans-serif" font-size="10" font-weight="bold">Buy 3-Train (¥180)</text>
+
+  <rect x="1038" y="560" width="184" height="98" rx="6" fill="#24180f" stroke="#7a5835" stroke-width="1.2"/>
+  <text x="1052" y="582" fill="#e8d7b4" font-family="Georgia, serif" font-size="14" font-weight="bold">4-Train · ¥300</text>
+  <text x="1052" y="600" fill="#cbb68e" font-family="Helvetica, sans-serif" font-size="10">Needs +¥40 (Withhold or Pres.)</text>
+  <text x="1052" y="618" fill="#ff9e7d" font-family="monospace" font-size="10.5">Shortfall: ¥40 without Withhold</text>
+  
+</svg>
