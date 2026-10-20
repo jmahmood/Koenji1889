@@ -4,6 +4,16 @@ An illustrated, browser-based railway board-game club set in Meiji-era Tokyo. Pl
 
 The JavaScript frontend uses Vite. A Python bridge validates actions through the Daemon18xx rules engine, saves games in SQLite, and synchronizes players through HTTP polling.
 
+## Origins and influences
+
+The project began as a way to revisit the creator’s former Koenji Boardgame Club in Tokyo: familiar friends around a recognizable wooden table, with tea, snacks, late arrivals, and stamped membership cards. That memory shapes the gathering, characters, and rooms. The aim is to make an online match feel like returning to a place where friends play together.
+
+**1889: History of Shikoku Railways** supplies the game at the table. Its railway investment, stock dealing, and operating decisions sit inside an imagined Meiji-era club, with period-inspired clothing, paper ledgers, and railway imagery.
+
+**Ultimate Soccer Manager 2000** is a reference for the tactile room navigation: moving between illustrated spaces and interacting with objects to reach different activities. **Railroad Tycoon II** and illustrated management games of that era also informed the district-art direction, with painted landscapes and a sense of place around the financial decisions.
+
+The character animation takes its cue from **コマ送り (koma-okuri)**: held poses and abrupt, exaggerated frame changes. The specific reference in the design notes is the staccato photographic-pose style of Japanese train advertisements from the 2010s. This gives arrivals and game reactions a playful, deliberately choppy rhythm.
+
 ## Features
 
 - Gatherings with individual player invitations, observers, and saved character appearances.
