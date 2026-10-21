@@ -1,3 +1,4 @@
+import {endpointCoord,trackSegment,routeGeometry} from '../ui/trackGeometry.js';
 import { renderGazettePopin } from './GazettePopin.js';
 import {currentRouteEditor,displayedRoutes,routeQuote,stopName,syncRoutePlan} from '../ui/routePlanning.js';
 import {renderCharacter} from '../scene/Character.js';
@@ -867,21 +868,6 @@ export function getCityValuationProfile(coord, hexObj, state, catalog) {
   };
 }
 
-function endpointCoord(cx, cy, ep, nodesCount, radius) {
-  if (ep.startsWith('e')) {
-    const edgeIdx = parseInt(ep.slice(1), 10);
-    return hexEdgePoint(cx, cy, edgeIdx, radius);
-  }
-  if (ep.startsWith('n')) {
-    const nIdx = parseInt(ep.slice(1), 10);
-    if (nodesCount <= 1 || nIdx === 0) {
-      return { x: cx, y: cy };
-    }
-    return { x: cx + (nIdx === 1 ? 10 : -10), y: cy + (nIdx === 1 ? -8 : 8) };
-  }
-  return { x: cx, y: cy };
-}
-
 function renderHexTrackAndNodes(
   coord,
   hexObj,
@@ -905,14 +891,7 @@ function renderHexTrackAndNodes(
     const isRoute =
       highlightedSegments.has(segKey1) || highlightedSegments.has(segKey2);
 
-    let d = '';
-    if (a.startsWith('e') && b.startsWith('e')) {
-      const qx = cx;
-      const qy = cy;
-      d = `M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q ${qx.toFixed(1)} ${qy.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
-    } else {
-      d = `M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} L ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
-    }
+    const {d}=trackSegment(cx,cy,a,b,nodes.length,radius);
     parts.push(
       `<path d="${d}" fill="none" stroke="#1e1712" stroke-width="${compact ? 4.2 : 6.2}" stroke-linecap="round" />`
     );
@@ -1465,7 +1444,7 @@ function renderMapPlayerAndTurnStrip(
                 <div class="stock-player-data">
                   <div class="sp-top-row">
                     <strong>${player.name}</strong>
-                    <b>${money(player.cash)}</b>
+                    <b data-account="purse:${pid}">${money(player.cash)}</b>
                   </div>
                   <div class="sp-meta-row">
                     <small>${certCounts[pid] || 0}/${certLimit} certs${privCount ? ` · ${privCount} priv` : ''}${isPriority ? ' · PD' : ''}</small>
@@ -1864,62 +1843,12 @@ export function renderDetailedMapView(appState, viewData, catalog) {
   }
 
   const routeOverlayElements = [];
-  activeRoutes.forEach((rt, rIdx) => {
+  activeRoutes.forEach((rt,rIdx)=>{
+    const geometry=routeGeometry(board,rt.vertices,{radius,originX,originY});
+    if(!geometry)return;
     const colorIndex=Math.max(0,activeCorp?.trains.indexOf(rt.train) ?? rIdx);
-    const trainColor = TRAIN_ROUTE_COLORS[colorIndex % TRAIN_ROUTE_COLORS.length];
-    const offset = (rIdx - (activeRoutes.length - 1) / 2) * 3.5;
-    const stopCoords = [];
-    if (rt.vertices?.length) {
-      for (const v of rt.vertices) {
-        const [cKey, part] = String(v).split(':');
-        if (board[cKey] && (stopCoords.at(-1)?.coord !== cKey)) {
-          let rev = 0;
-          if (part?.startsWith('n')) {
-            const nIdx = parseInt(part.slice(1), 10) || 0;
-            const node = board[cKey]?.nodes?.[nIdx];
-            if (node) {
-              if (Array.isArray(node.revenue)) {
-                const pIdx = state.phase === 'D' ? 2 : ['5', '6'].includes(String(state.phase)) ? 1 : 0;
-                rev = node.revenue[pIdx] ?? node.revenue[0] ?? 0;
-              } else {
-                rev = node.revenue || 0;
-              }
-            }
-          }
-          stopCoords.push({ coord: cKey, rev, isNode: Boolean(part?.startsWith('n')) });
-        }
-      }
-    } else if (rt.paths?.length) {
-      for (const [cKey] of rt.paths) {
-        if (board[cKey] && stopCoords.at(-1)?.coord !== cKey) {
-          stopCoords.push({ coord: cKey, rev: 0, isNode: true });
-        }
-      }
-    }
-    if (stopCoords.length >= 2) {
-      const pts = stopCoords.map((sc) => {
-        const { cx, cy } = hexCenter(sc.coord, radius, originX, originY);
-        return `${(cx + offset).toFixed(1)},${(cy + offset).toFixed(1)}`;
-      }).join(' ');
-      routeOverlayElements.push(
-        `<g class="map-train-route-ribbon" data-train-route="${rt.train || rIdx}">
-          <polyline points="${pts}" fill="none" stroke="#1a110b" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
-          <polyline points="${pts}" fill="none" stroke="${trainColor}" stroke-width="3.6" stroke-dasharray="7 3" stroke-linecap="round" stroke-linejoin="round"/>
-        </g>`
-      );
-      stopCoords.forEach((sc) => {
-        if (!sc.rev) return;
-        const { cx, cy } = hexCenter(sc.coord, radius, originX, originY);
-        const bx = cx + offset;
-        const by = cy - radius * 0.42 + rIdx * 10;
-        routeOverlayElements.push(
-          `<g class="map-route-stop-pill" transform="translate(${bx.toFixed(1)}, ${by.toFixed(1)})">
-            <rect x="-18" y="-6.5" width="36" height="12" rx="6" fill="${trainColor}" stroke="#fff6d6" stroke-width="0.9"/>
-            <text x="0" y="2.2" text-anchor="middle" fill="#ffffff" font-size="6.8" font-weight="bold" font-family="DM Mono">+¥${sc.rev}</text>
-          </g>`
-        );
-      });
-    }
+    const color=TRAIN_ROUTE_COLORS[colorIndex%TRAIN_ROUTE_COLORS.length];
+    routeOverlayElements.push(`<g class="map-train-route-ribbon" data-train-route="${rt.train || rIdx}"><path d="${geometry.d}" fill="none" stroke="#1a110b" stroke-width="6.2" stroke-linecap="round" opacity=".85"/><path d="${geometry.d}" fill="none" stroke="${color}" stroke-width="3.6" stroke-dasharray="7 3" stroke-linecap="round"/></g>`);
   });
 
   const routeStopTargets=[];
@@ -2158,8 +2087,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
       ${renderMapPlayerAndTurnStrip(appState, viewData, certCounts, certLimit, isActiveActor)}
 
       <div class="stock-dashboard map-dashboard">
-        <main class="stock-window-desktop map-window-desktop open-count-${renderGazettePopin(appState, viewData)}
-          ${openMapWindows.length}" aria-label="Interactive Shikoku map background with floating inspection windows">
+        <main class="stock-window-desktop map-window-desktop open-count-${openMapWindows.length}" aria-label="Interactive Shikoku map background with floating inspection windows">
           <div class="map-background-stage">
             <div class="map-toolbar">
               <button type="button" data-map-zoom="0.18" aria-label="Zoom in" title="Zoom in">+</button>
@@ -2185,6 +2113,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                 ${hexPolygons.join("")}
                 <g class="map-route-overlay-layer" aria-hidden="true">${routeOverlayElements.join("")}</g>
                 <g class="map-city-label-layer" aria-hidden="true">${cityLabels.join("")}</g>
+                <g class="route-playback-overlay" data-route-playback-overlay aria-hidden="true" pointer-events="none"></g>
                 <g class="map-route-stop-targets">${routeStopTargets.join("")}</g>
               </svg>
             </div>
@@ -2238,6 +2167,8 @@ export function renderDetailedMapView(appState, viewData, catalog) {
 
         <aside class="order-ticket stock-action-panel map-action-panel is-step-${currentStep} ${currentStep === 'train' ? 'is-train-step' : ''} ${state.round === 'operating' && activeCorp && (isActiveActor || authority.canResolveSpecial) ? 'is-active-operating' : ''}" aria-label="Corporate Operating Order Ticket and turn guidance">
           <div class="ticket-cut"></div>
+          <div class="map-ticket-scroll">
+          <div data-route-payoff-slot></div>
           <div class="map-ticket-reference">
           <div class="ticket-corp-banner" style="--corp:${displayMeta.color}">
             <span class="ticket-corp-badge">${displayCorpId}</span>
@@ -2317,7 +2248,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                 ? `
                   <div>
                     <span>${activeCorpId} Treasury</span>
-                    <b>${money(activeCorp.cash)}</b>
+                    <b data-account="treasury:${activeCorpId}">${money(activeCorp.cash)}</b>
                   </div>
                   <div>
                     <span>${activeCorpId} Trains & Tokens</span>
@@ -2570,18 +2501,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                   }
                   ${state.round === 'operating' && currentStep === 'train' && activeCorp && !state.pending_special && !state.pending_discards?.length ? renderInlineTrainDesk(appState,viewData) : ''}
                   ${isActiveActor && mandatoryTrain ? `<p class="mandatory-train-guard" role="status" data-testid="mandatory-train-guard">⚠️ <b>Mandatory train purchase:</b> ${activeCorpId} has a connected route and owns no train. Acquire a train above to unlock End ${activeCorpId} Turn.</p>` : ''}
-                  <div class="op-step-row ${currentStep === 'dividend' ? 'is-dividend-step-row' : ''}">
-                    <button type="button" class="secondary-btn" data-testid="op-btn-skip" data-op-action="${authority.canResolveSpecial ? 'pass' : 'skip'}" ${canSkipStep ? "" : "disabled"}>
-                      ${authority.canResolveSpecial ? 'Decline ER special lay' : `Skip ${currentStep.charAt(0).toUpperCase() + currentStep.slice(1)}`}
-                    </button>
-                    <button type="button" class="confirm-button finish-turn-highlight" data-testid="op-btn-end-turn" data-op-action="end_turn" ${canEndTurn ? "" : "disabled"} title="${mandatoryTrain ? `Disabled: ${activeCorpId} has a route and must buy a train before ending its turn` : `Finish ${activeCorpId} operating turn`}">
-                      End ${activeCorpId} Turn
-                    </button>
-                  </div>
-                  <div class="ticket-compact-footer">
-                    <span>Fleet: <b>${activeCorp.trains?.length ? activeCorp.trains.join(", ") : "0 trains"}</b> · Tok: <b>${activeCorp.token_supply}</b></span>
-                    <span>Hex: <b>${selectedHex} ${HEX_NAMES[selectedHex] || ""}</b></span>
-                  </div>
+
                 </div>
               `
               : `
@@ -2598,6 +2518,23 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                 </div>
               `
           }
+          </div>
+          ${state.round === "operating" && activeCorp && (isActiveActor || authority.canResolveSpecial) ? `
+            <footer class="operating-turn-controls" aria-label="Operating turn controls">
+                  <div class="op-step-row ${currentStep === 'dividend' ? 'is-dividend-step-row' : ''}">
+                    <button type="button" class="secondary-btn" data-testid="op-btn-skip" data-op-action="${authority.canResolveSpecial ? 'pass' : 'skip'}" ${canSkipStep ? "" : "disabled"}>
+                      ${authority.canResolveSpecial ? 'Decline ER special lay' : `Skip ${currentStep.charAt(0).toUpperCase() + currentStep.slice(1)}`}
+                    </button>
+                    <button type="button" class="confirm-button finish-turn-highlight" data-testid="op-btn-end-turn" data-op-action="end_turn" ${canEndTurn ? "" : "disabled"} title="${mandatoryTrain ? `Disabled: ${activeCorpId} has a route and must buy a train before ending its turn` : `Finish ${activeCorpId} operating turn`}">
+                      End ${activeCorpId} Turn
+                    </button>
+                  </div>
+                  <div class="ticket-compact-footer">
+                    <span>Fleet: <b>${activeCorp.trains?.length ? activeCorp.trains.join(", ") : "0 trains"}</b> · Tok: <b>${activeCorp.token_supply}</b></span>
+                    <span>Hex: <b>${selectedHex} ${HEX_NAMES[selectedHex] || ""}</b></span>
+                  </div>
+            </footer>
+          ` : ''}
         </aside>
       </div>
     </section>

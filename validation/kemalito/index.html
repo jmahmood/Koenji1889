@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kemalito · Setbacks</title>
+<link rel="stylesheet" href="/src/style.css"><link rel="stylesheet" href="/src/appearance.css"><link rel="stylesheet" href="/src/playtest.css"><link rel="stylesheet" href="/src/kemalito.css">
+<style>body{display:block;overflow:auto;margin:0;padding:16px;background:#241b13;color:#efdcba}header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 16px}header button,header select{font:inherit;padding:8px}.stage-holder{width:min(1100px,100%);height:510px}.stage-holder .clubroom-stage{height:100%}.validation-note{font:13px system-ui;margin:12px 0}#notice{min-height:24px}</style></head><body>
+<header><b>Kemalito · A little bad luck</b><button id="play">Preview setback</button><button id="skip">Skip</button><label>Setback <select id="kind"><option value="rust">Train rusts</option><option value="outbid">Outbid</option><option value="presidency">Presidency changes</option><option value="bankrupt">Bankruptcy</option><option value="emergency">Emergency sale</option></select></label><label>Players <select id="seats"><option>2</option><option selected>4</option><option>6</option></select></label><label><input id="motion" type="checkbox" checked> Motion</label><label><input id="sound" type="checkbox" checked> Giggle sound</label></header>
+<div class="stage-holder" id="stage"></div><p class="validation-note">Isolated visual fixture · illustrative setbacks only; no games or balances are changed.</p><p class="validation-note" id="notice" role="status"></p>
+<script type="module">
+import {renderClubRoomScene} from '/src/scene/ClubRoom.js';
+import {renderKemalito,KemalitoGiggle} from '/src/ui/kemalito.js';
+import {CharacterPlayback} from '/src/ui/characterController.js';
+import {buildEventSequence} from '/src/ui/characterEvents.js';
+import {setCharacterPresentationResolver,refreshCharacterSlots} from '/src/scene/Character.js';
+import {GameEffects} from '/src/ui/gameAudio.js';
+const host=document.querySelector('#stage');let view,serial=0;
+const effects=new GameEffects(),giggle=new KemalitoGiggle(effects);
+const playback=new CharacterPlayback({onChange:patch});
+function patch(){refreshCharacterSlots(document);const slot=document.querySelector('[data-kemalito-stage]');if(slot)slot.innerHTML=renderKemalito(view,playback,{atTable:true});giggle.sync(playback,{room:'kemalito-preview',hidden:document.hidden||!document.querySelector('#sound').checked});const job=playback.lanes.get('game')?.active;const sample=job&&playback.sample(job);document.querySelector('#notice').textContent=sample?.frame?.kemalito?`Kemalito · ${sample.frame.kemalito.reasons.join(' · ')}`:sample?.frame?.setback?sample.frame.setback.reasons.join(' · '):job?'The setback is confirmed…':'Ready';}
+setCharacterPresentationResolver(id=>playback.poseFor(id));
+function reset(){playback.clear();const n=Number(document.querySelector('#seats').value),order=Array.from({length:n},(_,i)=>'p'+(i+1));
+const names=['Daisuke','Haruka','Kenji','Alex','Yumiko','Guest'];
+view={state:{player_order:order,players:Object.fromEntries(order.map((p,i)=>[p,{id:p,name:names[i],cash:420}])),corporations:{},privates:{},board:{},auction:{},round:'stock',phase:'2',revision:1,current_player:'p1'},members:Object.fromEntries(order.map((p,i)=>[p,{member_id:'person:'+p,appearance:{face:'reference-'+String(i+1).padStart(2,'0'),clothes:['indigo-haori','plum-kimono','charcoal-suit','moss-hakama'][i%4]}}])),viewer:{player_id:'p1'},club:{stamps:{},notes:[]}};
+const shell=document.createElement('div');shell.innerHTML=renderClubRoomScene({viewRevision:1,liveRevision:1},view);host.replaceChildren(shell.querySelector('.clubroom-stage'));const stage=document.createElement('div');stage.className='kemalito-stage is-at-table';stage.dataset.kemalitoStage='';host.querySelector('.clubroom-stage').append(stage);patch();}
+document.querySelector('#play').onclick=()=>{
+ effects.enabled=document.querySelector('#sound').checked;effects.unlock();playback.clear();
+ const target=view.state.player_order.at(-1);
+ const event=({
+ rust:{type:'buy_train',actor_id:'p1',train_type:'4',label:'A train rusts',rusted_trains:[{corporation:'IR',type:'2',president:target}]},
+ outbid:{type:'bid',actor_id:'p1',company:'ER',price:80,label:'Outbid at auction',outbid_players:[target]},
+ presidency:{type:'sell_shares',actor_id:target,corporation:'IR',percent:20,label:'A presidency changes',presidency_changes:[{corporation:'IR',from:target,to:'p1'}]},
+ bankrupt:{type:'bankrupt',actor_id:target,label:'Bankruptcy'},
+ emergency:{type:'emergency_sell',actor_id:target,corporation:'IR',percent:10,proceeds:65,label:'Emergency share sale'},
+ })[document.querySelector('#kind').value];
+ playback.enqueue(buildEventSequence(event,view),{id:'preview:'+ ++serial});
+};
+document.querySelector('#skip').onclick=()=>playback.clear();document.querySelector('#seats').onchange=reset;document.querySelector('#motion').onchange=e=>playback.setMotionEnabled(e.target.checked);document.querySelector('#sound').onchange=()=>{effects.stopAll();patch();};document.addEventListener('visibilitychange',()=>{if(document.hidden)playback.clear();});reset();
+</script></body></html>

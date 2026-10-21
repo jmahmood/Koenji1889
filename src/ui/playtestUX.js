@@ -1,5 +1,5 @@
 import {escapeHtml as esc, actionBlockReason, roundName} from './presentation.js';
-import {renderCharacter} from '../scene/Character.js';
+import {renderKemonitoDelivery} from './kemonito.js';
 const money=value=>`¥${Number(value || 0).toLocaleString()}`;
 export const CONFIRMED_ACTIONS=new Set(['buy_shares','sell_shares','buy_private','buy_train','end_turn','pass','skip','dividend','exchange_private','bankrupt','emergency_sell','discard_train','offer','accept_offer','accept_train_offer','accept_private_offer']);
 export function turnIdentity(app,view){
@@ -31,7 +31,7 @@ export function renderTurnStatus(app,view){
   return `<section class="shared-turn-status ${mine?'is-your-turn':''} ${app.turnReminderVisible&&mine?'is-reminding':''}" aria-label="Current turn">
     <div class="turn-person"><span class="turn-lantern" aria-hidden="true">${mine?'◆':'◇'}</span><div><small>${historical?'Historical turn':s.finished?'Match complete':mine?'Your turn':'Current turn'}</small><strong data-no-translate>${esc(s.finished?'—':s.players?.[actor]?.name || actor || '—')}</strong></div></div>
     <div class="turn-phase"><span>${esc(roundName(s))}</span><b>${corp?`${esc(corp.id)} · `:''}${esc(s.operating_turn?.step && s.round==='operating'?({train:'Train purchase',token:'Station token',track:'Track lay',routes:'Train routes',dividend:'Dividend'})[s.operating_turn.step] || s.operating_turn.step:s.round==='auction'?'Choose a private company':s.round==='stock'?'Buy, sell or pass':'')}</b><span class="turn-bank">Bank ${money(s.bank)} · Phase ${esc(s.phase)}</span></div>
-    ${corp&&s.round==='operating'?`<div class="prominent-treasury"><small>${esc(corp.id)} · Company treasury</small><strong>${money(corp.cash)}</strong></div>`:''}
+    ${corp&&s.round==='operating'?`<div class="prominent-treasury"><small>${esc(corp.id)} · Company treasury</small><strong data-account="treasury:${esc(corp.id)}">${money(corp.cash)}</strong></div>`:''}
     ${mine?`<button class="turn-go" data-view="${s.round==='operating'?'map':'market'}">${app.turnReminderVisible?'It is your turn — open your desk':'Open your desk'} →</button>`:''}
   </section>`;
 }
@@ -77,13 +77,6 @@ export function renderFlotation(app){
   const event=app.flotationQueue?.[0];if(!event || app.activeModal || app.viewRevision!==app.liveRevision || app.isPlayingReplay)return '';
   return `<div class="flotation-backdrop"><section class="flotation-notice" role="dialog" aria-modal="true" aria-labelledby="flotation-title"><div class="charter-emblem" aria-hidden="true">✦ 🚂 ✦</div><small>KOENJI RAILWAY GAZETTE · EXTRA</small><h2 id="flotation-title">${esc(event.corporation)} is ready to run!</h2><p data-no-translate>${esc(event.name)}</p><div class="flotation-capital"><small>Company treasury funded</small><strong>${money(event.funding)}</strong></div><p>50% sold · The bank provides 10× par capital.</p><p>This railway joins the next operating round.</p><button type="button" class="confirm-button" data-dismiss-flotation>Continue</button></section></div>`;
 }
-export function renderCashDelivery(view,playback){
-  const job=playback.lanes.get('game')?.active;
-  const frame=job&&playback.sample(job)?.frame;
-  const receipts=frame?.receipts || (frame?.receipt?[frame.receipt]:[]);
-  if(!receipts.length)return '';
-  const receipt=receipts[0],pid=receipt.destination==='purse'?receipt.recipient:view?.state?.corporations?.[receipt.recipient]?.president;
-  const member=view?.members?.[pid];
-  return `<div class="cash-delivery-content" role="status"><div class="cash-helper">${renderCharacter({face:'reference-04',clothes:'merchant-hanten'},{memberId:'club-helper',name:'Club helper',surface:'portrait',pose:'offer'})}<small>Club helper</small></div><div class="cash-delivery-envelope"><span aria-hidden="true">✉</span>${receipts.map(r=>`<strong>+${money(r.amount)}</strong><small><span data-no-translate>${esc(r.name || r.recipient)}</span> · ${r.destination==='treasury'?'Company treasury':'Personal purse'}</small>`).join('')}</div><div class="cash-recipient">${renderCharacter(member?.appearance,{memberId:memberKeyFor(view,pid),name:receipt.name || receipt.recipient,surface:'portrait',pose:'receive'})}</div></div>`;
+export function renderCashDelivery(view,playback,options){
+  return renderKemonitoDelivery(view,playback,options);
 }
-const memberKeyFor=(view,pid)=>view?.members?.[pid]?.member_id || pid;

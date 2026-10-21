@@ -1,0 +1,71 @@
+{
+  "provenance": "Original deterministic procedural synthesis in src/ui/effectSounds.js; no third-party audio.",
+  "sampleRate": 22050,
+  "cues": {
+    "paper": {
+      "duration": 0.075,
+      "gain": 0.4
+    },
+    "track": {
+      "duration": 0.22,
+      "gain": 0.75
+    },
+    "station": {
+      "duration": 0.14,
+      "gain": 0.65
+    },
+    "ledger": {
+      "duration": 0.16,
+      "gain": 0.5
+    },
+    "cash": {
+      "duration": 0.4,
+      "gain": 0.65
+    },
+    "safe": {
+      "duration": 0.28,
+      "gain": 0.7
+    },
+    "departure": {
+      "duration": 0.72,
+      "gain": 0.55,
+      "duck": true
+    },
+    "wheels": {
+      "duration": 0.6,
+      "gain": 0.2,
+      "loop": true
+    },
+    "train": {
+      "duration": 0.45,
+      "gain": 0.65,
+      "duck": true
+    },
+    "delivery": {
+      "duration": 0.3,
+      "gain": 0.6
+    },
+    "warning": {
+      "duration": 0.45,
+      "gain": 0.55,
+      "duck": true
+    },
+    "float": {
+      "duration": 0.55,
+      "gain": 0.55,
+      "duck": true
+    },
+    "turn": {
+      "duration": 0.25,
+      "gain": 0.45
+    },
+    "action": {
+      "duration": 0.075,
+      "gain": 0.25
+    },
+    "giggle": {
+      "duration": 0.78,
+      "gain": 0.38
+    }
+  }
+}

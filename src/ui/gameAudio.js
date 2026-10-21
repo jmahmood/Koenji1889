@@ -1,3 +1,4 @@
+import {EFFECT_CUES,effectSamples} from './effectSounds.js';
 // Buffered stems share the Web Audio clock: loops and fades keep working when
 // animation frames are throttled. Saved preference is separate from playback.
 const STEM_FILES = [
@@ -32,7 +33,7 @@ export class GameAudioManager {
     this.enabled=preference('koenji_1889_bgm_enabled','false')==='true';
     this.masterVolume=.2;this.currentPresetKey='lounge';this.isPlaying=false;
     this.initialized=false;this.sources=[];this.gains=[];this.buffers=null;this.pending=null;
-    this.generation=0;this.status='idle';this.startRequested=false;
+    this.generation=0;this.status='idle';this.startRequested=false;this.ducks=new Set();
   }
   get status(){return this._status;}
   set status(value){this._status=value;this.onChange?.();}
@@ -78,7 +79,7 @@ export class GameAudioManager {
           source.buffer=buffer;source.loop=true;source.loopStart=.12;source.loopEnd=loopEnd;
           source.connect(gain);gain.connect(context.destination);
           gain.gain.setValueAtTime(0,context.currentTime);
-          gain.gain.setTargetAtTime(targets[index]*this.masterVolume,start,.25);
+          gain.gain.setTargetAtTime(targets[index]*this.masterVolume*(this.ducks.size ? .63 : 1),start,.25);
           source.onended=()=>{source.disconnect?.();gain.disconnect?.();};
           source.start(start);this.sources.push(source);this.gains.push(gain);
         });
@@ -108,7 +109,15 @@ export class GameAudioManager {
     if(!this.context)return;
     this.gains.forEach((gain,index)=>{
       gain.gain.cancelScheduledValues(this.context.currentTime);
-      gain.gain.setTargetAtTime(PRESETS[key][index]*this.masterVolume,this.context.currentTime,Math.max(.02,duration/4));
+      gain.gain.setTargetAtTime(PRESETS[key][index]*this.masterVolume*(this.ducks.size ? .63 : 1),this.context.currentTime,Math.max(.02,duration/4));
+    });
+  }
+  duck(id,active=true){
+    if(active)this.ducks.add(id);else this.ducks.delete(id);
+    if(!this.context)return;
+    this.gains.forEach((gain,index)=>{
+      gain.gain.cancelScheduledValues(this.context.currentTime);
+      gain.gain.setTargetAtTime(PRESETS[this.currentPresetKey][index]*this.masterVolume*(this.ducks.size ? .63 : 1),this.context.currentTime,active ? .035 : .18);
     });
   }
   updateContext(app,view){
@@ -126,30 +135,53 @@ export class GameAudioManager {
   }
 }
 export class GameEffects {
-  constructor({contextFactory=()=>new (globalThis.AudioContext || globalThis.webkitAudioContext)()}={}) {
-    this.contextFactory=contextFactory;this.enabled=preference('koenji_1889_sfx_enabled','true')==='true';
-    this.volume=Number(preference('koenji_1889_sfx_volume','.15'));this.seen=new Set();
+  constructor({contextFactory=()=>new (globalThis.AudioContext || globalThis.webkitAudioContext)(),onDuck=()=>{}}={}) {
+    this.contextFactory=contextFactory;this.onDuck=onDuck;this.enabled=preference('koenji_1889_sfx_enabled','true')==='true';
+    this.volume=Math.max(0,Math.min(1,Number(preference('koenji_1889_sfx_volume','.15'))||0));this.seen=new Set();this.voices=new Map();this.buffers=new Map();this.lastLedger=-Infinity;
   }
-  toggle(){this.enabled=!this.enabled;save('koenji_1889_sfx_enabled',this.enabled);return this.enabled;}
-  setVolume(value){this.volume=Math.max(0,Math.min(1,Number(value)||0));save('koenji_1889_sfx_volume',this.volume);}
+  toggle(){this.enabled=!this.enabled;save('koenji_1889_sfx_enabled',this.enabled);if(!this.enabled)this.stopAll();return this.enabled;}
+  setVolume(value){
+    this.volume=Math.max(0,Math.min(1,Number(value)||0));save('koenji_1889_sfx_volume',this.volume);
+    for(const voice of this.voices.values())voice.gain.gain.setTargetAtTime(this.volume*voice.level,this.context.currentTime,.015);
+  }
   unlock(){
     if(!this.enabled)return;
     try{this.context ||= this.contextFactory();this.context.resume()?.catch(()=>{});}catch{}
   }
+  stopAll(){for(const voice of [...this.voices.values()])voice.stop();}
   play(kind,id){
     if(this.seen.has(id))return;this.seen.add(id);
     if(this.seen.size>600)this.seen.delete(this.seen.values().next().value);
     if(!this.enabled || globalThis.document?.hidden)return;
     this.unlock();const c=this.context;if(!c || c.state!=='running')return;
-    const tones=({turn:[523,659],float:[392,494,587],train:[220,330],action:[440]})[kind] || [440];
-    tones.forEach((frequency,index)=>{
-      const osc=c.createOscillator(),gain=c.createGain(),start=c.currentTime+index*.11;
-      osc.type='sine';osc.frequency.value=frequency;
-      gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(this.volume*.25,start+.012);
-      gain.gain.exponentialRampToValueAtTime(.0001,start+.15);
-      osc.connect(gain);gain.connect(c.destination);osc.start(start);osc.stop(start+.16);
-    });
+    if(kind==='ledger'&&c.currentTime-this.lastLedger<.16)return;
+    if(kind==='ledger')this.lastLedger=c.currentTime;
+    const spec=EFFECT_CUES[kind]||EFFECT_CUES.paper;
+    try {
+      // Generated PCM is also exported as the auditable public/sfx WAV pack.
+      // No asynchronous decode means a missed cue can never sound much later.
+      if(!this.buffers.has(kind)) {
+        const pcm=effectSamples(kind),buffer=c.createBuffer(1,pcm.length,22050);
+        buffer.getChannelData(0).set(pcm);this.buffers.set(kind,buffer);
+      }
+      if(spec.loop)for(const voice of [...this.voices.values()])if(voice.loop)voice.stop();
+      while(this.voices.size>=5)this.voices.values().next().value.stop();
+      const source=c.createBufferSource(),gain=c.createGain();
+      source.buffer=this.buffers.get(kind);source.loop=Boolean(spec.loop);source.connect(gain);gain.connect(c.destination);
+      gain.gain.setValueAtTime(this.volume*spec.gain,c.currentTime);
+      let ended=false,released=false;
+      const release=()=>{if(released)return;released=true;this.voices.delete(id);if(spec.duck)this.onDuck(id,false);};
+      const finish=()=>{if(ended)return;ended=true;release();source.disconnect?.();gain.disconnect?.();};
+      const voice={gain,level:spec.gain,loop:Boolean(spec.loop),stop:()=>{
+        if(ended||released)return;
+        gain.gain.cancelScheduledValues(c.currentTime);gain.gain.setTargetAtTime(0,c.currentTime,.008);
+        try{source.stop(c.currentTime+.04);}catch{finish();}release();
+      }};
+      source.onended=finish;this.voices.set(id,voice);if(spec.duck)this.onDuck(id,true);
+      source.start(c.currentTime);if(!spec.loop)source.stop(c.currentTime+spec.duration+.01);
+      return voice;
+    } catch {return;}
   }
 }
 export const gameAudio=new GameAudioManager();
-export const gameEffects=new GameEffects();
+export const gameEffects=new GameEffects({onDuck:(id,active)=>gameAudio.duck(id,active)});

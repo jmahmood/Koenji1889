@@ -12,6 +12,8 @@ export class CharacterDirector {
     this.room=room; this.playback.setRoom(room); this.clubReady=false; this.socialSeen.clear();
   }
   accepted(event,revision,view) {
+    // A duplicate response/poll must not clear a celebration already in progress.
+    if(event?.finished&&!this.playback.seen.has(`${this.room}:revision:${revision}`))this.playback.clear('game');
     return this.playback.enqueue(buildEventSequence(event,view),{id:`revision:${revision}`});
   }
   history(event,revision,view,{animate=false,speed=1,durationMs=null}={}) {

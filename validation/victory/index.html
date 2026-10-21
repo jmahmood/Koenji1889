@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kemonito &amp; Kemalito · Victory</title>
+<link rel="stylesheet" href="/src/style.css"><link rel="stylesheet" href="/src/appearance.css"><link rel="stylesheet" href="/src/playtest.css"><link rel="stylesheet" href="/src/victory.css">
+<style>body{display:block;overflow:auto;margin:0;padding:16px;background:#241b13;color:#efdcba}header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 16px}header button,header select{font:inherit;padding:8px}.stage-holder{width:min(1100px,100%);height:510px}.stage-holder .clubroom-stage{height:100%}.validation-note{font:13px system-ui;margin:12px 0}#notice{min-height:24px}</style></head><body>
+<header><b>Kemonito &amp; Kemalito · Victory</b><button id="play">Celebrate win</button><button id="skip">Skip</button><label>Winner <select id="winner"><option value="you">You · Daisuke</option><option value="friend">Haruka</option><option value="tie">Shared win</option></select></label><label><input id="motion" type="checkbox" checked> Motion</label></header>
+<div class="stage-holder" id="stage"></div><p class="validation-note">Isolated visual fixture · illustrative results; no games or balances are changed.</p><p class="validation-note" id="notice" role="status"></p>
+<script type="module">
+import {renderClubRoomScene} from '/src/scene/ClubRoom.js';
+import {renderVictoryCelebration} from '/src/ui/victoryCelebration.js';
+import {CharacterDirector} from '/src/ui/characterDirector.js';
+import {setCharacterPresentationResolver,refreshCharacterSlots} from '/src/scene/Character.js';
+let serial=0;const order=['p1','p2','p3','p4'],names=['Daisuke','Haruka','Kenji','Alex'];
+const view={state:{player_order:order,players:Object.fromEntries(order.map((p,i)=>[p,{id:p,name:names[i],cash:420}])),corporations:{},privates:{},board:{},auction:{},round:'finished',finished:true,phase:'D',revision:1,current_player:null},members:Object.fromEntries(order.map((p,i)=>[p,{member_id:'person:'+p,appearance:{face:'reference-'+String(i+1).padStart(2,'0'),clothes:['indigo-haori','plum-kimono','charcoal-suit','moss-hakama'][i]}}])),viewer:{player_id:'p1'},club:{stamps:{},notes:[]}};
+const director=new CharacterDirector({onChange:patch});director.setRoom('victory-preview');
+setCharacterPresentationResolver(id=>director.playback.poseFor(id));
+function patch(){refreshCharacterSlots(document);const slot=document.querySelector('[data-victory-stage]');if(slot)slot.innerHTML=renderVictoryCelebration(view,director.playback,{atTable:true});const job=director.playback.lanes.get('game')?.active;document.querySelector('#notice').textContent=job?'Kemonito and Kemalito celebrate the confirmed winners':'Ready';}
+const host=document.querySelector('#stage'),shell=document.createElement('div');shell.innerHTML=renderClubRoomScene({viewRevision:1,liveRevision:1},view);host.replaceChildren(shell.querySelector('.clubroom-stage'));const stage=document.createElement('div');stage.className='mascot-victory-stage is-at-table';stage.dataset.victoryStage='';host.querySelector('.clubroom-stage').append(stage);patch();
+document.querySelector('#play').onclick=()=>{const winners={you:['p1'],friend:['p2'],tie:['p1','p2']}[document.querySelector('#winner').value];director.accepted({finished:true,winners,label:'Final results confirmed'},++serial,view);};
+document.querySelector('#skip').onclick=()=>director.playback.clear('game');document.querySelector('#motion').onchange=e=>director.playback.setMotionEnabled(e.target.checked);document.addEventListener('visibilitychange',()=>{if(document.hidden)director.playback.clear('game');});
+</script></body></html>

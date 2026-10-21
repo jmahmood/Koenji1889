@@ -1,0 +1,35 @@
+.route-playback-overlay{pointer-events:none}
+.route-playback-overlay path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.route-playback-overlay .journey-rail-shadow{stroke:#172623;stroke-width:7;opacity:.35}
+.route-playback-overlay [data-journey-trace]{stroke:var(--journey-color);stroke-width:4.2}
+.route-playback-overlay [data-journey-stop]{fill:none;stroke:var(--journey-color);stroke-width:2;opacity:0}
+.route-playback-overlay [data-journey-stop].is-visited{opacity:.8}
+.journey-engine-label{font:700 8px 'DM Mono',monospace;fill:#fff4d0;stroke:#203530;stroke-width:3;paint-order:stroke}
+.route-payoff-result{margin:10px 0;border:1px solid #b89b64;border-left:4px solid #41695d;background:#f0e5c7;color:#302a20;padding:10px 12px;box-shadow:0 2px 0 #8e754b35;font:12px/1.45 system-ui}
+.route-dispatch-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font:700 10px/1.3 'DM Mono',monospace;letter-spacing:1px;color:#526455}
+.route-dispatch-heading>b{letter-spacing:0;font-size:16px;color:#314e43}
+.route-payoff-trains{display:flex;gap:5px;flex-wrap:wrap;margin:9px 0}
+.route-payoff-trains>span{display:flex;align-items:center;gap:5px;border:1px solid #ac9970;border-left:3px solid var(--journey-color,#9b8c70);background:#fff8e6;padding:3px 6px;font:11px/1.4 monospace}
+.route-payoff-trains i{color:#537362;font-style:normal}.route-payoff-trains strong{margin-left:3px}.route-payoff-trains .is-idle{opacity:.65}
+.route-payoff-total{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #bca77f;padding-top:6px}
+.route-payoff-total strong{font:700 25px/1.2 'DM Mono',monospace;color:#355e4b}
+.route-payoff-result p{font-size:11px;margin:4px 0 8px;color:#655a42}
+.route-payoff-result button{border:1px solid #8a7959;background:#fffaeb;color:#3d4f44;padding:4px 10px;font:600 11px system-ui;cursor:pointer;box-shadow:0 2px 0 #ad9670}
+.route-payoff-result button:active{transform:translateY(1px);box-shadow:none}
+.accepted-action-receipt{margin:8px 0;padding:9px 11px;border:1px solid #b5a17b;background:#faf2dd;color:#3b3427;font:11px/1.5 system-ui}
+.accepted-action-receipt .dismiss-payoff-receipt{float:right;border:0;background:transparent;color:#685b40;min-height:24px!important;min-width:24px;padding:0;font-size:18px;cursor:pointer}
+.settled-route-receipt{margin:6px 0;color:#4e5c47;font:12px/1.5 system-ui;border-bottom:1px solid #a78e5b;padding:5px 0;flex:none}
+.settled-route-receipt summary{cursor:pointer}.settled-route-receipt summary b{float:right}
+[data-route-payoff-slot]{flex:none;min-width:0}
+.map-action-panel:has(.route-payoff-result) .is-dividend-banner{display:none}
+.route-payoff-total.is-new-result{animation:material-settle .28s ease-out both}
+.accepted-action-receipt>b{font-size:12px;color:#375f50}.accepted-action-receipt>div{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding-top:5px}.accepted-action-receipt small{grid-column:1/-1;color:#6b5c44}.accepted-action-receipt p{font-size:11px;line-height:1.5;margin:6px 0 0}.accepted-action-receipt .is-credit{color:#386344}.accepted-action-receipt .is-debit{color:#974c35}
+.payoff-offmap{position:fixed;bottom:52px;left:12px;z-index:80;width:min(290px,calc(100vw - 24px));max-height:35vh;overflow:auto;box-shadow:0 4px 18px #0003}.payoff-offmap:empty{display:none}
+.accepted-material-emphasis{animation:material-settle .26s ease-out both}
+.accepted-balance-emphasis{animation:balance-ink .9s ease-out both}
+.accepted-market-origin{outline:2px dashed #946a36;outline-offset:-3px}
+.accepted-market-destination{outline:2px solid #386955;outline-offset:-2px}
+@keyframes material-settle{0%{filter:brightness(1.35)}45%{filter:brightness(1.12)}100%{filter:none}}
+@keyframes balance-ink{0%,30%{background:#f5d77e;box-shadow:0 0 0 3px #f5d77e}100%{background:transparent;box-shadow:0 0 0 0 transparent}}
+@media(prefers-reduced-motion:reduce){.accepted-material-emphasis,.accepted-balance-emphasis,.route-payoff-total.is-new-result{animation:none!important}}
+.motion-off .accepted-material-emphasis,.motion-off .accepted-balance-emphasis,.motion-off .route-payoff-total.is-new-result{animation:none!important}

@@ -1,5 +1,8 @@
 import {SEQUENCE_RECIPES} from './characterPlayback.js';
 import {CORP_META} from '../constants1889.js';
+import {moneyCeremony} from './kemonito.js';
+import {setbackCameo} from './kemalito.js';
+import {victoryCelebration} from './victoryCelebration.js';
 
 export const memberKey=(view,pid)=>view?.members?.[pid]?.member_id || pid;
 const cash=n=>Number.isFinite(n)?`¥${n.toLocaleString('en-US')}`:'';
@@ -20,6 +23,10 @@ export function bindCharacterRecipe(key,memberId,{label='',detail='',props={},pr
 
 export function buildEventSequence(ev,view) {
   if(!ev) return null;
+  // The final result gets its own ceremony immediately. No last-move teasing or
+  // cash backlog should precede the shared celebration; money is already settled.
+  const victory=victoryCelebration(ev,view);
+  if(victory)return victory;
   const actor=memberKey(view,ev.actor_id);
   const color=CORP_META[ev.corporation]?.color;
   const company=ev.corporation || '';
@@ -122,15 +129,11 @@ export function buildEventSequence(ev,view) {
     // Keep a burst responsive even when a single transition has many effects.
     if(sequence.frames.length>12) sequence.frames=sequence.frames.slice(0,5).concat(sequence.frames.slice(-7));
   }
-  const receipts=ev.cash_receipts || [];
-  for(const receipt of receipts) {
-    const pid=receipt.destination==='purse'?receipt.recipient:view?.state?.corporations?.[receipt.recipient]?.president;
-    const recipient=memberKey(view,pid);
-    const envelope=prop('cash_envelope',cash(receipt.amount),receipt.destination==='treasury'?`${receipt.recipient} TREASURY`:'PERSONAL PURSE');
-    const actors={'club-helper':{pose:'offer',expression:'smile',props:envelope}};
-    if(recipient)actors[recipient]={pose:'receive',expression:'smile',props:envelope};
-    append({label:ev.label,detail:ev.detail,frames:[{ms:550,receipt,actors},{ms:650,receipt,actors:{...actors,...(recipient?{[recipient]:{pose:'count',expression:'smile',props:envelope}}:{})}}],staticFallback:{receipt,actors}});
+  const setback=setbackCameo(ev,view);
+  if(setback)append({label:ev.label,detail:ev.detail,...setback});
+  const ceremony=moneyCeremony(ev.cash_receipts,view);
+  if(ceremony) {
+    append({label:ev.label,detail:ev.detail,frames:ceremony.frames,staticFallback:{actors:{},receipts:ceremony.receipts}});
   }
-  if(sequence && receipts.length)sequence.staticFallback={...sequence.staticFallback,receipts};
   return sequence;
 }

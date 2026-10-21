@@ -115,8 +115,9 @@ test('helper handoffs use exact receipts, and held history retains every recipie
  const before=structuredClone(view.state),sequence=buildEventSequence(event,view);
  assert.deepEqual(sequence.staticFallback.receipts,receipts);
  const deliveries=sequence.frames.filter(frame=>frame.receipt);
- assert.equal(deliveries.length,4);assert.equal(deliveries[0].actors['club-helper'].pose,'offer');
- assert.equal(deliveries[0].actors.p1.props.label,'¥50');assert.equal(deliveries[2].actors.p1.props.label,'¥20');
+ assert.equal(deliveries.length,13);assert.equal(deliveries[0].kemonito.pose,0);
+ const handoffs=deliveries.filter(frame=>frame.kemonito.pose===4);
+ assert.equal(handoffs[0].actors.p1.props.label,'¥50');assert.equal(handoffs[1].actors.p1.props.label,'¥20');
  assert.deepEqual(view.state,before);
 });
 

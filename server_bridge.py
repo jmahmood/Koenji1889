@@ -311,6 +311,19 @@ def summarize_transition(
                 "detail": "Awaiting dividend payout or withhold decision.",
             }
         )
+        quote = route_plan_quote(after, cid, routes)
+        event["route_run"] = {
+            "version": 1, "corporation": cid, "revenue": rev,
+            "track": {coord: {"nodes": [{} for _ in after["board"][coord]["nodes"]],
+                              "paths": deepcopy(after["board"][coord]["paths"])}
+                      for coord in sorted({v.split(":")[0] for route in routes for v in route["vertices"]})},
+            "routes": [dict(deepcopy(route), revenue=quote["route_revenues"][route["train"]],
+                            train_type=after["trains"][route["train"]]["type"],
+                            scored_stops=quote["stops"][index]["stops"])
+                       for index, route in enumerate(routes)],
+            "idle_trains": [tid for tid in after["corporations"][cid]["trains"]
+                            if tid not in {route["train"] for route in routes}],
+        }
     elif kind == "dividend":
         cid = before.get("current_corporation")
         rev = (after.get("operating_turn") or {}).get("revenue", 0)
@@ -503,10 +516,34 @@ def summarize_transition(
                                  "amount": amount, "name": account.get("name", recipient)})
     if receipts:
         event["cash_receipts"] = receipts
+    deltas = []
+    for collection, destination in (("players", "purse"), ("corporations", "treasury")):
+        for recipient, account in after.get(collection, {}).items():
+            previous = before.get(collection, {}).get(recipient, {}).get("cash", 0)
+            current = account.get("cash", 0)
+            if current != previous:
+                deltas.append(dict(recipient=recipient, destination=destination,
+                                   name=account.get("name", recipient), before=previous,
+                                   after=current, amount=current-previous))
+    if deltas:
+        event["account_deltas"] = deltas
+    movements = []
+    for cid, corp in after.get("corporations", {}).items():
+        old = before.get("corporations", {}).get(cid, {})
+        if corp.get("position") is not None and (old.get("position") != corp.get("position") or
+                (kind == "dividend" and cid == before.get("current_corporation"))):
+            movements.append(dict(corporation=cid, before=deepcopy(old.get("position")),
+                                  after=deepcopy(corp.get("position")),
+                                  price_before=_price(old), price_after=_price(corp)))
+    if movements:
+        event["market_movements"] = movements
     if kind == "dividend":
         corp = before["corporations"][before["current_corporation"]]
         revenue = (after.get("operating_turn") or {}).get("revenue", 0)
         event["revenue"] = revenue
+        claimed = (before.get("operating_turn") or {}).get("revenue", 0)
+        if claimed != revenue:
+            event["revenue_revision"] = {"before": claimed, "after": revenue}
         event["dividend_allocation"] = {
             "players": {pid: revenue * percent // 100 for pid, percent in corp["holdings"].items() if percent > 0} if event["payout"] else {},
             "treasury": revenue * corp["pool"] // 100 if event["payout"] else revenue,

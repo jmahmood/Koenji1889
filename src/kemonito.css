@@ -1,0 +1,12 @@
+/* The mascot stands in the illustrated room, with the actual recipient behind
+   her. The transparent layer never intercepts board or player interactions. */
+.cash-receipt-stage.is-at-table{position:absolute;inset:0;max-width:none;transform:none;z-index:18;pointer-events:none}
+.kemonito-ceremony.at-table{position:absolute;bottom:0;left:var(--kemonito-left);width:clamp(100px,24%,190px);pointer-events:none}
+.kemonito-sprite{width:100%;aspect-ratio:3/4;background-image:url('/assets/kemonito/purse-poses.webp');background-size:400% 200%;background-repeat:no-repeat;filter:drop-shadow(0 4px 3px #0007)}
+.kemonito-caption{padding:5px 9px;border:1px solid #b8914e;border-radius:5px;background:#f5e8c5f5;color:#302214;text-align:center;font:12px/1.35 system-ui;box-shadow:0 3px 10px #0006;overflow-wrap:anywhere}
+.kemonito-caption small{display:block;font-size:10px;color:#65502d}.kemonito-caption strong{color:#285732;white-space:nowrap}
+.kemonito-ceremony.off-table{display:flex;align-items:flex-end;gap:5px;width:280px;max-width:calc(100vw - 24px)}
+.kemonito-ceremony.off-table .kemonito-sprite{width:96px;flex:none}.kemonito-ceremony.off-table .kemonito-caption{flex:1}
+.kemonito-ceremony.is-summary .kemonito-caption{max-height:130px;overflow:auto}
+.kemonito-ceremony.at-table.is-summary{left:auto;right:8px;bottom:8px;width:auto;max-width:65%}
+@media(prefers-reduced-motion:reduce){.kemonito-sprite{filter:none}}

@@ -4,6 +4,35 @@ let locale=globalThis.localStorage?.getItem('koenji_locale')==='ja'?'ja':'en';
 export const getLocale=()=>locale;
 export function setLocale(value){locale=value==='ja'?'ja':'en';globalThis.localStorage?.setItem('koenji_locale',locale);}
 const pairs=`
+Route playback|ルート再生
+Normal|通常
+Quick|速い
+Instant|即時
+Test sound|効果音を試す
+Route result|運行結果
+RAILWAY DISPATCH|運行報告
+OPERATING RECEIPT|運行収入記録
+Route revenue|運行収入
+Awaiting dividend decision|配当方法の決定待ち
+Dividend decision recorded|配当方法を記録済み
+Skip animation|アニメーションをスキップ
+Watch again|もう一度見る
+Idle|運休
+Accepted action|確定した操作
+Track laid|線路を敷設
+Station established|駅を設置
+Train delivered|列車を受領
+Dividend paid|配当を支払い
+Revenue withheld|収入を会社に留保
+Certificate purchased|株券を購入
+Certificate sold|株券を売却
+Bid recorded|入札を記録
+Private company acquired|プライベート会社を取得
+Revenue revised|運行収入を修正
+Position unchanged|株価位置は変更なし
+Share price|株価
+Dismiss receipt|受領記録を閉じる
+
 Your preferences|表示・音の設定
 Language|言語
 Sound & reminders|音と手番通知

@@ -2,6 +2,15 @@ import './style.css';
 import './booking.css';
 import './appearance.css';
 import './playtest.css';
+import './payoff.css';
+import './kemonito.css';
+import './kemalito.css';
+import './victory.css';
+import {renderVictoryCelebration} from './ui/victoryCelebration.js';
+import {renderKemalito,KemalitoGiggle} from './ui/kemalito.js';
+import {ActionPresentation} from './ui/actionPresentation.js';
+import {patchRouteOverlay,renderRouteResult,renderAcceptedFeedback} from './components/RoutePlaybackOverlay.js';
+import {getLocale} from './ui/i18n.js';
 import { gameAudio, gameEffects } from './ui/gameAudio.js';
 import {installPreferences, localizePage} from './ui/preferences.js';
 import {CONFIRMED_ACTIONS, TurnReminder, renderTurnStatus, renderConfirmation, renderFlotation, renderCashDelivery} from './ui/playtestUX.js';
@@ -279,19 +288,63 @@ function showToast(msg, isError = false) {
   }, 3800);
 }
 
-const seenPresentationEvents=new Set();
-function presentEventAnimation(ev, revision) {
-  if(!ev || appState.viewRevision!==appState.liveRevision) return;
-  const eventId=`${appState.roomCode}:${revision}`;
-  if(!seenPresentationEvents.has(eventId)) {
-    seenPresentationEvents.add(eventId);
-    if(seenPresentationEvents.size>600)seenPresentationEvents.delete(seenPresentationEvents.values().next().value);
-    gameEffects.play(ev.flotations?.length || ev.floated?'float':ev.type==='buy_train'?'train':'action',eventId);
-    if(ev.flotations?.length) {
-      appState.flotationQueue ||= [];
-      appState.flotationQueue.push(...ev.flotations);
+function presentationOptions(view=appState.displayedViewData) {
+  return {room:appState.roomCode,view,live:appState.viewRevision===appState.liveRevision,
+    mapVisible:appState.view==='map'&&!document.hidden,motion:motionEnabled(),
+    speed:localStorage.getItem('koenji_route_speed') || 'normal'};
+}
+function patchActionPresentation() {
+  const view=appState.displayedViewData;if(!view?.state)return;
+  const job=actionPresentation.job,sample=actionPresentation.sample();
+  patchRouteOverlay(document.querySelector('[data-route-playback-overlay]'),job,sample);
+  const feedback=actionPresentation.feedback;
+  const key=JSON.stringify([job?.identity,sample?.done,sample?.routes.map(r=>r.done),feedback?.identity,getLocale(),motionEnabled(),actionPresentation.speed,view.state.operating_turn?.dividend]);
+  for(const slot of document.querySelectorAll('[data-route-payoff-slot],[data-offmap-payoff]')) {
+    if(slot.dataset.payoffKey===key)continue;
+    const focused=slot.contains(document.activeElement)?document.activeElement:null;
+    const focusSelector=focused?.matches('[data-skip-journey]')?'[data-skip-journey]':focused?.matches('[data-replay-journey]')?'[data-replay-journey]':null;
+    const detailsOpen=slot.querySelector('.settled-route-receipt')?.open;
+    slot.dataset.payoffKey=key;
+    slot.innerHTML=(job?renderRouteResult(job,sample,view,{motion:motionEnabled()&&appState.view==='map',speed:actionPresentation.speed}):'')+renderAcceptedFeedback(feedback);
+    if(detailsOpen&&slot.querySelector('.settled-route-receipt'))slot.querySelector('.settled-route-receipt').open=true;
+    if(focusSelector)(slot.querySelector(focusSelector)||slot.querySelector('[data-replay-journey]'))?.focus({preventScroll:true});
+    slot.querySelector('[data-dismiss-payoff-receipt]')?.addEventListener('click',()=>{actionPresentation.feedback=null;actionPresentation.onChange();});
+    slot.querySelector('[data-skip-journey]')?.addEventListener('click',()=>actionPresentation.settle());
+    slot.querySelector('[data-replay-journey]')?.addEventListener('click',()=>actionPresentation.replay({silent:appState.viewRevision!==appState.liveRevision}));
+  }
+  // DOM replacements receive only the remaining portion of an emphasis, rather
+  // than replaying its beginning on every poll. No full renders on frame ticks.
+  const age=feedback?performance.now()-feedback.startedAt:Infinity;
+  if(feedback?.animated&&motionEnabled()&&age<900) {
+    const mark=(el,kind)=>{
+      if(!el||el.dataset.acceptedEvent===feedback.identity)return;
+      el.dataset.acceptedEvent=feedback.identity;el.classList.add(kind);el.style.animationDelay=`-${age}ms`;
+    };
+    const e=feedback.event;
+    if(e.hex)mark(document.querySelector(`[data-testid="hex-cell-${CSS.escape(e.hex)}"]`),'accepted-material-emphasis');
+    for(const delta of e.account_deltas || [])document.querySelectorAll(`[data-account="${CSS.escape(`${delta.destination}:${delta.recipient}`)}"]`).forEach(el=>mark(el,'accepted-balance-emphasis'));
+    if(e.train)document.querySelectorAll('[data-owned-train]').forEach(el=>{if(el.dataset.ownedTrain===e.train)mark(el,'accepted-material-emphasis');});
+    for(const move of e.market_movements || []) {
+      const origin=move.before?.join(','),destination=move.after?.join(',');
+      if(origin)mark(document.querySelector(`[data-market-position="${origin}"]`),'accepted-market-origin');
+      if(destination)mark(document.querySelector(`[data-market-position="${destination}"]`),'accepted-market-destination');
     }
   }
+}
+function presentEventAnimation(ev, revision, {animate=true}={}) {
+  if(!ev || appState.viewRevision!==appState.liveRevision || appState.isPlayingReplay)return;
+  // Older missed revisions use their text notices only; their routes must never
+  // borrow the newest board/phase or produce a queue of old whistles.
+  const matching=revision===appState.liveViewData?.state?.revision;
+  actionPresentation.setRoom(appState.roomCode);
+  const options=presentationOptions(appState.liveViewData);
+  actionPresentation.motion=options.motion;actionPresentation.mapVisible=options.mapVisible;actionPresentation.speed=options.speed;
+  if(!actionPresentation.receive(ev,revision,appState.liveViewData,{animate:animate&&matching&&!document.hidden}))return;
+  if(ev.flotations?.length) {
+    appState.flotationQueue ||= [];
+    appState.flotationQueue.push(...ev.flotations);
+  }
+  if(['run_routes','run_best_routes','dividend'].includes(ev.type))characters.playback.clear('game');
   characters.accepted(ev,revision,appState.liveViewData);
 }
 
@@ -302,7 +355,27 @@ function renderCharacterNotice() {
 function patchCharacterPresentation() {
   refreshCharacterSlots(document);
   const delivery=document.querySelector('[data-cash-receipt-stage]');
-  if(delivery)delivery.innerHTML=renderCashDelivery(appState.displayedViewData,characters.playback);
+  if(delivery){
+    const table=document.querySelector('.clubroom-stage');
+    if(table&&delivery.parentElement!==table)table.append(delivery);
+    delivery.classList.toggle('is-at-table',Boolean(table));
+    delivery.innerHTML=renderCashDelivery(appState.displayedViewData,characters.playback,{atTable:Boolean(table)});
+  }
+  const cameo=document.querySelector('[data-kemalito-stage]');
+  if(cameo){
+    const table=document.querySelector('.clubroom-stage');
+    if(table&&cameo.parentElement!==table)table.append(cameo);
+    cameo.classList.toggle('is-at-table',Boolean(table));
+    cameo.innerHTML=renderKemalito(appState.displayedViewData,characters.playback,{atTable:Boolean(table)});
+  }
+  kemalitoGiggle.sync(characters.playback,{room:appState.roomCode,hidden:document.hidden});
+  const victory=document.querySelector('[data-victory-stage]');
+  if(victory){
+    const table=document.querySelector('.clubroom-stage');
+    if(table&&victory.parentElement!==table)table.append(victory);
+    victory.classList.toggle('is-at-table',Boolean(table));
+    victory.innerHTML=renderVictoryCelebration(appState.displayedViewData,characters.playback,{atTable:Boolean(table)});
+  }
   const slot=document.querySelector('[data-character-notice]');
   const notice=characters.playback.notice();
   // Announce an accepted event once, never every pose cut.
@@ -311,7 +384,9 @@ function patchCharacterPresentation() {
   }
   localizePage();
 }
+const kemalitoGiggle=new KemalitoGiggle(gameEffects);
 const characters=new CharacterDirector({onChange:patchCharacterPresentation});
+const actionPresentation=new ActionPresentation({effects:gameEffects,onChange:patchActionPresentation});
 setCharacterPresentationResolver(id=>characters.playback.poseFor(id));
 const turnReminder=new TurnReminder({
   notify(){appState.turnReminderVisible=true;gameEffects.play('turn',`reminder:${appState.roomCode}:${turnReminder.key}`);render();},
@@ -327,20 +402,24 @@ setInterval(()=>turnReminder.tick(Number(localStorage.getItem('koenji_turn_remin
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 reducedMotion.addEventListener('change',()=>{
   characters.playback.setMotionEnabled(motionEnabled());
+  actionPresentation.sync(presentationOptions());actionPresentation.onChange();
   document.body.classList.toggle('motion-off',!motionEnabled());
   if(!motionEnabled()) dismissRoomWipe();
 });
 document.addEventListener('click',event=>{
+  if(event.isTrusted&&event.target.closest('[data-route-stop],[data-route-connection]'))gameEffects.play('paper',`selection:${performance.now()}`);
   if(event.target.closest('[data-dismiss-character]')) {
     characters.playback.clear('game');characters.playback.clear('social');
   }
 });
 document.addEventListener('visibilitychange',()=>{
-  if(document.hidden) {characters.playback.clear('game');characters.playback.clear('social');}
+  if(document.hidden) {characters.playback.clear('game');characters.playback.clear('social');actionPresentation.hidden();}
   gameAudio.visibilityChanged();
 });
 function presentHistoryCharacters(revision,animate) {
+  actionPresentation.sync(presentationOptions());
   const event=appState.liveViewData?.history_events?.find(e=>e.revision===revision)?.event;
+  actionPresentation.history(event,revision,appState.displayedViewData,{animate:animate&&appState.replaySpeedIdx!==2,durationMs:[1300,550,160][appState.replaySpeedIdx],historical:appState.viewRevision!==appState.liveRevision});
   characters.history(event,revision,{...appState.displayedViewData,members:appState.liveViewData?.members},
     {animate:animate && appState.replaySpeedIdx!==2,durationMs:[1300,550,160][appState.replaySpeedIdx]});
 }
@@ -604,7 +683,7 @@ function applyFreshLiveView(viewData, forceFollowLive = false) {
     if (revAdvanced) {
       const missed=(viewData.history_events || []).filter(e=>e.revision>oldLiveRev && e.revision<=newRev);
       // Reconnect catch-up is bounded; initial load never replays the journal.
-      if(missed.length) missed.slice(-3).forEach(e=>presentEventAnimation(e.event,e.revision));
+      if(missed.length) {const latest=missed.at(-1);presentEventAnimation(latest.event,latest.revision,{animate:newRev===oldLiveRev+1});}
       else presentEventAnimation(viewData.last_event,newRev);
     }
   } else {
@@ -666,6 +745,7 @@ async function scrubToRevision(targetRev, triggerReplayAnim = false) {
   const rev = Math.max(0, Math.min(appState.liveRevision, Number(targetRev)));
   if (!Number.isInteger(rev)) return;
   characters.playback.clear('game');
+  actionPresentation.clear();
   const request = ++appState.revisionRequest;
   appState.roundHandoff = null;
   pendingRoundWipe = null;
@@ -1154,7 +1234,7 @@ function renderPlayerRoster(viewData) {
                   ${isPriority ? ' · Priority Deal' : ''}
                 </small>
                 <p class="cash-certs-line">
-                  <strong>${money(p.cash)}</strong>
+                  <strong data-account="purse:${pid}">${money(p.cash)}</strong>
                   <span>·</span>
                   ${certs[pid] || 0}/${certLimit} certs
                 </p>
@@ -1270,7 +1350,10 @@ let disposeMapNavigation = () => {};
 function render() {
   // Polls and other updates stay behind the card until the covered scene cut.
   if (roomTransition.pending) return;
+  const payoffFocus=document.activeElement?.matches('[data-skip-journey]')?'[data-skip-journey]':document.activeElement?.matches('[data-replay-journey]')?'[data-replay-journey]':null;
+  const routeReceiptOpen=document.querySelector('.settled-route-receipt')?.open;
   disposeMapNavigation();
+  actionPresentation.sync(presentationOptions());
   if (appState.displayedViewData?.state) {
     syncEmergencyDesk(appState,appState.displayedViewData);
     if (appState.displayedViewData.state.operating_turn?.step === 'routes') syncRoutePlan(appState, appState.displayedViewData);
@@ -1411,7 +1494,10 @@ function render() {
       ${renderArrivalDock(appState.arrivalCurrent,{motion:motionEnabled(),pending:appState.arrivalQueue.length,elapsed:(Date.now()-(appState.arrivalStartedAt || Date.now()))/1000})}
       ${renderDecisionDesk(appState, viewData)}
       ${renderGathering(appState, api)}
+      ${appState.view!=='map'?'<aside class="payoff-offmap" data-offmap-payoff></aside>':''}
       <div class="cash-receipt-stage" data-cash-receipt-stage>${renderCashDelivery(viewData,characters.playback)}</div>
+      <div class="kemalito-stage" data-kemalito-stage>${renderKemalito(viewData,characters.playback)}</div>
+      <div class="mascot-victory-stage" data-victory-stage>${renderVictoryCelebration(viewData,characters.playback)}</div>
       ${renderConfirmation(appState,viewData)}
       ${renderFlotation(appState)}
       ${
@@ -1437,6 +1523,10 @@ function render() {
     </div>
   `;
   localizePage(viewData);
+  patchCharacterPresentation();
+  patchActionPresentation();
+  if(routeReceiptOpen&&document.querySelector('.settled-route-receipt'))document.querySelector('.settled-route-receipt').open=true;
+  if(payoffFocus)(document.querySelector(payoffFocus)||document.querySelector('[data-replay-journey]'))?.focus({preventScroll:true});
   bindEvents();bindSocialControls();bindTestControls();
   if(appState.roomBundle?.preset==='gathering') document.querySelectorAll('[data-switch-seat], .open-second-browser-btn').forEach(el=>{el.style.display='none';});
   bindDesk();

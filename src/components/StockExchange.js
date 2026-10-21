@@ -203,13 +203,13 @@ function render2DStockMarketGrid(state, catalog) {
                           ? 'zone-orange'
                           : 'zone-white';
                     return `
-                      <div class="stock-cell ${zoneClass} ${cell.par ? 'par-slot' : ''}" title="Row ${rIdx + 1}, Col ${cIdx + 1} · ¥${cell.price}${cell.par ? ' (Par slot)' : ''}">
+                      <div data-market-position="${rIdx},${cIdx}" class="stock-cell ${zoneClass} ${cell.par ? 'par-slot' : ''}" title="Row ${rIdx + 1}, Col ${cIdx + 1} · ¥${cell.price}${cell.par ? ' (Par slot)' : ''}">
                         <span class="cell-price">${cell.price}${cell.par ? 'P' : ''}</span>
                         <div class="cell-tokens">
                           ${tokens
                             .map(
                               (cid) =>
-                                `<b class="cell-token" style="background:${CORP_META[cid]?.color || '#c9a236'};color:${CORP_META[cid]?.text || '#fff'}">${cid}</b>`
+                                `<b data-market-corporation="${cid}" class="cell-token" style="background:${CORP_META[cid]?.color || '#c9a236'};color:${CORP_META[cid]?.text || '#fff'}">${cid}</b>`
                             )
                             .join('')}
                         </div>

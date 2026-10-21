@@ -1,0 +1,8 @@
+.mascot-victory-stage{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);z-index:750;pointer-events:none;max-width:calc(100vw - 24px)}
+.mascot-victory-stage:empty{display:none}.mascot-victory-stage.is-at-table{position:absolute;inset:0;max-width:none;transform:none;z-index:19}
+.mascot-victory.at-table{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:clamp(180px,45%,370px);max-width:90%}
+.mascot-victory-sprites{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 5px 4px #0008)}
+.mascot-victory-caption{padding:7px 12px;border:2px solid #d1aa57;border-radius:6px;background:#f7ebd0f7;color:#302214;text-align:center;font:12px/1.35 system-ui;box-shadow:0 3px 14px #0007;overflow-wrap:anywhere}
+.mascot-victory-caption small,.mascot-victory-caption strong,.mascot-victory-caption span{display:block}.mascot-victory-caption small{color:#7b4426;font-size:10px;letter-spacing:.06em}.mascot-victory-caption strong{color:#335e34;font:700 23px/1.2 Georgia,serif;margin:2px 0}
+.mascot-victory.off-table{width:280px;max-width:calc(100vw - 24px)}
+@media(prefers-reduced-motion:reduce){.mascot-victory-sprites{filter:none}}

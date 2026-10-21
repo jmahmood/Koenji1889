@@ -20,6 +20,9 @@ The character animation takes its cue from **コマ送り (koma-okuri)**: held p
 - Stock exchange, private-company auctions, track and station placement, route planning, dividends, and train purchases.
 - Persistent games, an action journal, and read-only inspection of earlier positions.
 - Illustrated club rooms, character animations, music, and reduced-motion controls.
+- Kemonito, the club mascot, distributes confirmed money payments from her purse at the table.
+- Kemalito appears with a brief giggle for confirmed setbacks such as rusted trains or being outbid.
+- Kemonito and Kemalito celebrate confirmed game winners together with clapping, cheers, and a high-five.
 - Development scenarios for stock rounds, operating rounds, and multi-train route planning.
 
 ## Requirements
