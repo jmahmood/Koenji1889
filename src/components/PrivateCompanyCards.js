@@ -746,7 +746,9 @@ export function renderVintagePrivateCard(priv, options = {}) {
       ? `type="button" data-private-details="${escapeHtml(priv.id)}" aria-haspopup="dialog" aria-label="View details for ${escapeHtml(priv.name || meta.name || priv.id)}" title="View company details in larger text"`
       : '';
 
+  const zoomable = interactive || inspectable;
   return `
+    ${zoomable ? '<div class="private-card-shell">' : ''}
     <${tag}
       class="private-card vintage-private-card ${isSelected ? 'selected' : ''} ${stateClass} ${compact ? 'is-compact-preview' : ''}"
       style="--priv-color:${cardColor};--priv-border:${cardBorder};--priv-accent:${cardAccent}"
@@ -788,5 +790,6 @@ export function renderVintagePrivateCard(priv, options = {}) {
         ${ribbonHtml}
       </div>
     </${tag}>
+    ${zoomable ? `<button type="button" class="private-card-zoom" data-private-zoom="${escapeHtml(priv.id)}" aria-label="Enlarge ${escapeHtml(priv.name || priv.id)}" aria-haspopup="dialog" title="Enlarge card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6M7 10h6m-3-3v6"/></svg></button></div>` : ''}
   `;
 }

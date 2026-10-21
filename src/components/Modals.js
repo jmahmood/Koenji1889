@@ -5,8 +5,16 @@
  */
 
 import { CLUB_MEMBERS, HEX_NAMES, PRIVATE_META } from '../constants1889.js';
-import { renderPrivateIllustrationSVG } from './PrivateCompanyCards.js';
+import { renderPrivateIllustrationSVG, renderVintagePrivateCard } from './PrivateCompanyCards.js';
 import { escapeHtml, formatTime, mapActionAuthority } from '../ui/presentation.js';
+
+export function renderPrivateZoomModal(appState, viewData) {
+  const priv=viewData.state.privates?.[appState.privateDetailsId];
+  if(!priv)return '';
+  const offered=viewData.state.auction?.active || Object.values(viewData.state.privates).find(p=>!p.owner)?.id;
+  const owner=priv.owner && (viewData.state.players?.[priv.owner]?.name || viewData.state.corporations?.[priv.owner]?.name || priv.owner);
+  return `<div class="modal-backdrop" data-close-modal="true"><section class="modal-card private-zoom-modal" role="dialog" aria-modal="true" aria-labelledby="zoom-title"><header class="modal-header"><h2 id="zoom-title">Enlarged certificate · ${escapeHtml(priv.id)}</h2><button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Close enlarged card">×</button></header>${renderVintagePrivateCard(priv,{interactive:false,inspectable:false,ownerName:owner,inAuction:viewData.state.round==='auction',isSelected:appState.selectedPrivateId===priv.id,isOffered:offered===priv.id,isRunoff:Boolean(viewData.state.auction?.active),offerPrice:priv.value-(priv.id==='TR'?(viewData.state.auction?.discount || 0):0)})}</section></div>`;
+}
 
 export function renderPrivateDetailsModal(appState, viewData) {
   const state = viewData.state;
@@ -182,7 +190,7 @@ export function renderMemberStampModal(appState, viewData) {
                   (n) => `
                   <div class="club-note-item">
                     <b>${escapeHtml(n.author)}</b> <time>${formatTime(n.recorded_at)}</time>
-                    <p>${escapeHtml(n.text)}</p>
+                    <p data-no-translate>${escapeHtml(n.text)}</p>
                   </div>`
                 )
                 .join('')}

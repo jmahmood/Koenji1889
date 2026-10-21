@@ -46,7 +46,7 @@ test('stock sales use a selectable block and actual market exemptions permit leg
  v.market_zones.IR='b';v.state.stock_turn.bought=true;v.state.stock_turn.brown_company='IR';
  v.action_options.push({type:'buy_shares',corporation:'IR',source:'ipo',percent:20});
  const html=renderStockExchangeView(s,v,catalog);
- assert.match(html,/Confirm Purchase · 20% IR/);assert.match(html,/data-action="buy_shares" >/);
+ assert.match(html,/Buy 20% IR/);assert.match(html,/data-action="buy_shares" >/);
 });
 test('empty authoritative tile results never fall back to geometric candidates',()=>{
  const v=views.routes;

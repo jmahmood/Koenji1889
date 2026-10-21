@@ -202,7 +202,7 @@ export const renderGathering=renderGatheringSetup;
 export function bindDecisionDesk({app, api, render, execute, toast, enterRoom}) {
   const on = (selector, event, fn) => document.querySelectorAll(selector).forEach(el=>el.addEventListener(event,fn));
   bindGatheringSetup({app,render});
-  const review = action => { app.reviewAction=action; app.reviewRevision=app.viewRevision; app.activeModal='decisions'; app.focusReview=true; render(); document.querySelector('.action-review')?.scrollIntoView?.({block:'nearest'}); document.querySelector('[data-confirm-reviewed]')?.focus?.({preventScroll:true}); };
+  const review = action => { app.reviewAction=null; execute(action,{review:true}); };
   on('[data-open-desk]','click',()=>{if(app.displayedViewData.state.operating_turn?.step==='routes') app.view='map';app.activeModal='decisions';app.reviewAction=null;render();});
   on('[data-next-gathering]','click',()=>{app.nextNames=Object.values(app.displayedViewData.state.players).map(p=>p.name).join('\n');app.gatheringTab='host';app.activeModal='gathering';render();});
   on('[data-open-gathering]','click',()=>{app.gatheringTab='host';app.activeModal='gathering';render();});

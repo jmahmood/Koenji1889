@@ -28,3 +28,6 @@ validation/evidence/
 validation/second-run-evidence/
 validation/ui003-fix-evidence/
 docs/koenji/references/
+
+# Generated frontend/backend compatibility manifest
+public/build-info.json

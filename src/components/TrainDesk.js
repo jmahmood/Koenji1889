@@ -61,9 +61,8 @@ export function renderRoundhouse(view, action) {
   const s = view.state, corp = s.corporations[s.current_corporation];
   if (!corp) return '<p>No operating fleet.</p>';
   const owned = corp.trains || [];
-  const incoming = action?.type === 'buy_train' && !owned.includes(action.train);
   const {trains:fleet,limit}=projectedFleet(view,action);
-  return `<section class="roundhouse ${!owned.length ? 'fleet-empty' : ''}" aria-label="Roundhouse fleet"><div class="roundhouse-plaque">ROUNDHOUSE FLEET · ${owned.length}/${view.train_limit || limit} LIMIT${incoming ? ` → ${fleet.length}/${limit} STAGED` : ''}</div>${!owned.length ? '<span class="roundhouse-lantern" title="Fleet empty" aria-label="Empty fleet warning"></span>' : ''}<div class="roundhouse-stalls" style="--stall-count:${Math.max(limit, fleet.length)}">${Array.from({length:Math.max(limit,fleet.length)},(_,i)=>`<div class="roundhouse-stall ${fleet[i] ? 'occupied' : ''} ${incoming && i===fleet.length-1 ? 'staged' : ''}">${fleet[i] ? `${locomotiveArt(s.trains[fleet[i]]?.type)}<small>${esc(fleet[i])}${incoming && i===fleet.length-1 ? ' · STAGED' : ''}</small>` : `<span class="stall-rails"></span><small>EMPTY<br>STALL ${i+1}</small>`}</div>`).join('')}</div></section>`;
+  return `<section class="roundhouse ${!owned.length ? 'fleet-empty' : ''}" aria-label="Roundhouse fleet"><div class="roundhouse-plaque"><small>ROUNDHOUSE FLEET</small> · Owned now: ${owned.length} · Train limit: ${view.train_limit || limit}</div><div class="owned-fleet">${owned.length ? owned.map(id=>`<div class="owned-engine">${locomotiveArt(s.trains[id]?.type)}<strong>${esc(id)}</strong></div>`).join('') : '<p>No trains owned</p>'}</div>${action?.type==='buy_train' ? `<div class="fleet-after-purchase"><b>After purchase: ${fleet.length} / ${limit}</b><span>${fleet.map(id=>esc(id)).join(' · ') || 'No trains'}${action.trade_in ? ` · Trade in ${esc(action.trade_in)}` : ''}</span><small>Preview only · Purchase not yet confirmed</small></div>` : ''}</section>`;
 }
 
 export function renderDepotTray(app, view, {inline = false, compact = inline, action = null, enabled = true} = {}) {

@@ -122,5 +122,15 @@ export function buildEventSequence(ev,view) {
     // Keep a burst responsive even when a single transition has many effects.
     if(sequence.frames.length>12) sequence.frames=sequence.frames.slice(0,5).concat(sequence.frames.slice(-7));
   }
+  const receipts=ev.cash_receipts || [];
+  for(const receipt of receipts) {
+    const pid=receipt.destination==='purse'?receipt.recipient:view?.state?.corporations?.[receipt.recipient]?.president;
+    const recipient=memberKey(view,pid);
+    const envelope=prop('cash_envelope',cash(receipt.amount),receipt.destination==='treasury'?`${receipt.recipient} TREASURY`:'PERSONAL PURSE');
+    const actors={'club-helper':{pose:'offer',expression:'smile',props:envelope}};
+    if(recipient)actors[recipient]={pose:'receive',expression:'smile',props:envelope};
+    append({label:ev.label,detail:ev.detail,frames:[{ms:550,receipt,actors},{ms:650,receipt,actors:{...actors,...(recipient?{[recipient]:{pose:'count',expression:'smile',props:envelope}}:{})}}],staticFallback:{receipt,actors}});
+  }
+  if(sequence && receipts.length)sequence.staticFallback={...sequence.staticFallback,receipts};
   return sequence;
 }

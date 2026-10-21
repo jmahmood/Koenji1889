@@ -1,3 +1,4 @@
+import {getLocale} from './i18n.js';
 export const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[c]));
@@ -18,7 +19,7 @@ export function formatTime(instant) {
   if (!instant || !/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(instant)) return 'Time unavailable';
   const date = new Date(instant);
   if (Number.isNaN(date.getTime())) return 'Time unavailable';
-  return new Intl.DateTimeFormat(undefined, {
+  return new Intl.DateTimeFormat(getLocale()==='ja'?'ja-JP':'en-CA', {
     month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short',
   }).format(date);
 }

@@ -1121,12 +1121,14 @@ export function renderCorporationMapPreview(state, corporationId) {
   const hexElements = [];
   const cityLabels = [];
   const tokenOverlays = [];
+  const homeOverlays = [];
 
   for (const [coord, hexObj] of Object.entries(board)) {
     const { cx, cy } = hexCenter(coord, radius, originX, originY);
     const poly = flatHexPolygon(cx, cy, radius - 0.7);
     const fill = TILE_FILL[hexObj.color] || '#dfd5a7';
     const isHome = coord === home;
+    if(isHome) homeOverlays.push(`<g class="company-home-beacon" role="img" aria-label="${corporationId} home ${home}"><path d="M${cx} ${cy-10}v-17" stroke="#fff2b2" stroke-width="2"/><rect x="${cx-39}" y="${cy-39}" width="78" height="13" rx="3" fill="${CORP_META[corporationId]?.color || '#663322'}" stroke="#fff2b2"/><text x="${cx}" y="${cy-30}" text-anchor="middle" fill="white" font-family="sans-serif" font-weight="bold" font-size="8">HOME · ${corporationId} · ${home}</text></g>`);
     const hasSelectedToken = stationHexes.includes(coord);
     const relevant = isHome || hasSelectedToken;
     hexElements.push(
@@ -1171,6 +1173,7 @@ export function renderCorporationMapPreview(state, corporationId) {
     ${hexElements.join('')}
     ${cityLabels.join('')}
     ${tokenOverlays.join('')}
+    ${homeOverlays.join('')}
   </svg>`;
 }
 
@@ -2509,9 +2512,8 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                       ? (() => {
                           const rev = opTurn?.revenue || 0;
                           const curPrice = viewData.prices?.[activeCorpId] || activeCorp?.par || 0;
-                          const heldPct = (state.player_order || []).reduce((sum, pid) => sum + (activeCorp?.holdings?.[pid] || 0), 0);
-                          const unheldPct = Math.max(0, 100 - heldPct);
-                          const bankShare = Math.floor((rev * unheldPct) / 100);
+                          const bankShare = Math.floor((rev * (activeCorp?.ipo || 0)) / 100);
+                          const poolShare = Math.floor((rev * (activeCorp?.pool || 0)) / 100);
                           const payouts = (state.player_order || [])
                             .filter((pid) => (activeCorp?.holdings?.[pid] || 0) > 0)
                             .map((pid) => {
@@ -2532,17 +2534,18 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                             <div class="stock-step-track" aria-label="Stock price movement preview">
                               <div class="track-cell is-left"><span>← -1 Step</span><small>If Withheld</small></div>
                               <div class="track-cell is-center"><span>${activeCorpId} ● ${money(curPrice)}</span><small>Current Market</small></div>
-                              <div class="track-cell is-right"><span>${rev > 0 ? '+1 Step →' : 'No Move'}</span><small>${rev > 0 ? 'If Paid Out' : '¥0 Revenue'}</small></div>
+                              <div class="track-cell is-right"><span>${rev > 0 ? '+1 Step →' : '← -1 Step'}</span><small>${rev > 0 ? 'If Paid Out' : '¥0 Revenue'}</small></div>
                             </div>
                           `}<div class="dividend-split visual-dividend-split">
                             <div class="dividend-option-card is-payout-card">
                               <div class="div-card-head">
                                 <strong>Pay Dividend</strong>
-                                <span class="div-stock-step is-up">${rev > 0 ? `Mkt ${money(curPrice)} · +1 Step →` : 'No move (¥0)'}</span>
+                                <span class="div-stock-step is-up">${rev > 0 ? `Mkt ${money(curPrice)} · +1 Step →` : '← -1 Step (¥0)'}</span>
                               </div>
                               <div class="div-card-flow">
                                 ${payouts || '<small>No player shares held</small>'}
-                                ${unheldPct > 0 && rev > 0 ? `<span class="div-shareholder-chip is-unclaimed"><small>IPO / Pool (${unheldPct}%): ${money(bankShare)} to Bank</small></span>` : ''}
+                                ${activeCorp?.pool > 0 ? `<span class="div-shareholder-chip"><small>Market pool (${activeCorp.pool}%): <b>${money(poolShare)} to Company treasury</b></small></span>` : ''}
+                                ${activeCorp?.ipo > 0 ? `<span class="div-shareholder-chip is-unclaimed"><small>IPO (${activeCorp.ipo}%): ${money(bankShare)} retained by Bank</small></span>` : ''}
                               </div>
                               <button type="button" class="confirm-button" data-op-action="dividend_payout">
                                 Pay Dividend (${money(rev)})

@@ -1,223 +1,155 @@
-// Koenji Railway Club 1889 — Adaptive Background Music & Vertical Stem Layering
-// Gentle, non-intrusive parlor ambience with room-specific stem crossfades.
-
+// Buffered stems share the Web Audio clock: loops and fades keep working when
+// animation frames are throttled. Saved preference is separate from playback.
 const STEM_FILES = [
-  './music/1_Across_the_Shoji_Screens.mp3', // Stem 1: Base Bed (Hearth & Ledger)
-  './music/2_Through_the_Paper_Screen.mp3', // Stem 2: Operations (Locomotive & Rails)
-  './music/3_Silk_and_Soroban.mp3',        // Stem 3: Exchange & Auction (Market)
-  './music/4_The_Ledger_on_the_Line.mp3'   // Stem 4: Crisis (Rust & Tension)
+  './music/1_Across_the_Shoji_Screens.mp3', './music/2_Through_the_Paper_Screen.mp3',
+  './music/3_Silk_and_Soroban.mp3', './music/4_The_Ledger_on_the_Line.mp3',
 ];
-
 const PRESETS = {
-  lounge: [1.0, 0.0, 0.0, 0.0],
-  auction: [0.30, 0.0, 0.85, 0.0],
-  stock: [0.22, 0.0, 0.95, 0.0],
-  operations: [0.28, 0.95, 0.0, 0.0],
-  crisis: [0.15, 0.20, 0.15, 1.0],
-  finished: [0.35, 0.50, 0.70, 0.0]
+  lounge:[1,0,0,0], auction:[.3,0,.85,0], stock:[.22,0,.95,0],
+  operations:[.28,.95,0,0], crisis:[.15,.2,.15,1], finished:[.35,.5,.7,0],
 };
-
-const LOOP_END = 58.5; // Calibrated to shortest track duration (1_Across_the_Shoji_Screens = 58.67s)
-const STEM_2_OFFSET_MS = -40; // 40ms phase lock compensation between Stem 1 and Stem 2
-
-class GameAudioManager {
-  constructor() {
-    this.stems = [];
-    this.enabled = localStorage.getItem('koenji_1889_bgm_enabled') === 'true';
-    this.masterVolume = 0.20; // Default gentle, low-level background volume (20%)
-    this.currentPresetKey = 'lounge';
-    this.isPlaying = false;
-    this.initialized = false;
-    this.loopBound = false;
-  }
-
-  init() {
-    if (this.initialized) return;
-
-    STEM_FILES.forEach((src, idx) => {
-      const audio = new Audio();
-      audio.src = src;
-      audio.preload = 'auto';
-      audio.loop = false;
-      audio.volume = 0;
-
-      const initialTarget = PRESETS.lounge[idx];
-
-      const stemObj = {
-        index: idx,
-        audio,
-        currentGain: initialTarget,
-        targetGain: initialTarget,
-        isFading: false,
-        fadeStartGain: initialTarget,
-        fadeStartTime: 0,
-        fadeDuration: 0,
-        offsetMs: idx === 1 ? STEM_2_OFFSET_MS : 0
-      };
-
-      this.stems.push(stemObj);
-    });
-
-    this.initialized = true;
-
-    if (!this.loopBound) {
-      this.loopBound = true;
-      requestAnimationFrame(this.audioTick.bind(this));
+const preference = (key, fallback) => globalThis.localStorage?.getItem(key) ?? fallback;
+const save = (key, value) => globalThis.localStorage?.setItem(key, String(value));
+// Crossfade the tail into the loop's head, then continue after the head. This
+// removes a waveform discontinuity without relying on a foreground JS timer.
+export function makeSeamlessLoop(buffer, end=Math.min(58.5,buffer.duration), fade=.12){
+  if(!buffer.getChannelData || !buffer.sampleRate)return buffer;
+  const endFrame=Math.min(buffer.length,Math.floor(end*buffer.sampleRate));
+  const frames=Math.min(Math.floor(fade*buffer.sampleRate),Math.floor(endFrame/4));
+  for(let channel=0;channel<buffer.numberOfChannels;channel++){
+    const samples=buffer.getChannelData(channel);
+    for(let i=0;i<frames;i++){
+      const weight=.5-.5*Math.cos(Math.PI*i/Math.max(1,frames-1));
+      const tail=endFrame-frames+i;
+      samples[tail]=samples[tail]*(1-weight)+samples[i]*weight;
     }
   }
-
-  isEnabled() {
+  return buffer;
+}
+export class GameAudioManager {
+  constructor({contextFactory=()=>new (globalThis.AudioContext || globalThis.webkitAudioContext)(),fetchAudio=url=>fetch(url)}={}) {
+    this.contextFactory=contextFactory;this.fetchAudio=fetchAudio;
+    this.enabled=preference('koenji_1889_bgm_enabled','false')==='true';
+    this.masterVolume=.2;this.currentPresetKey='lounge';this.isPlaying=false;
+    this.initialized=false;this.sources=[];this.gains=[];this.buffers=null;this.pending=null;
+    this.generation=0;this.status='idle';this.startRequested=false;
+  }
+  get status(){return this._status;}
+  set status(value){this._status=value;this.onChange?.();}
+  isEnabled(){return this.enabled;}
+  toggle(){
+    this.enabled=!this.enabled;save('koenji_1889_bgm_enabled',this.enabled);
+    if(this.enabled) void this.playAll();else this.pauseAll();
     return this.enabled;
   }
-
-  toggle() {
-    this.init();
-    this.enabled = !this.enabled;
-    localStorage.setItem('koenji_1889_bgm_enabled', this.enabled ? 'true' : 'false');
-
-    if (this.enabled) {
-      this.playAll();
-    } else {
-      this.pauseAll();
+  init(){
+    if(!this.context){
+      this.context=this.contextFactory();
+      this.context.onstatechange=()=>{this.isPlaying=Boolean(this.enabled && this.sources.length && this.context.state==='running');this.status=this.isPlaying?'playing':this.enabled?'waiting':'idle';};
     }
-    return this.enabled;
+    this.initialized=true;return this.context;
   }
-
-  playAll() {
-    if (!this.initialized) this.init();
-
-    const startTime = this.stems[0]?.audio.currentTime || 0;
-    this.syncPlayheads(startTime);
-
-    this.stems.forEach(stem => {
-      stem.audio.playbackRate = 1.0;
-      stem.audio.play().catch(() => {});
-    });
-
-    this.isPlaying = true;
-  }
-
-  pauseAll() {
-    this.stems.forEach(stem => {
-      stem.audio.pause();
-      stem.audio.volume = 0;
-    });
-    this.isPlaying = false;
-  }
-
-  syncPlayheads(targetTime) {
-    this.stems.forEach(stem => {
-      const adjusted = Math.max(0, targetTime + (stem.offsetMs / 1000));
-      stem.audio.currentTime = adjusted;
-    });
-  }
-
-  setPreset(presetKey, duration = 1.5) {
-    if (this.currentPresetKey === presetKey) return;
-    this.currentPresetKey = presetKey;
-
-    const targets = PRESETS[presetKey] || PRESETS.lounge;
-    const now = performance.now();
-
-    targets.forEach((targetVal, idx) => {
-      const stem = this.stems[idx];
-      if (!stem) return;
-
-      if (duration <= 0.05) {
-        stem.currentGain = targetVal;
-        stem.targetGain = targetVal;
-        stem.isFading = false;
-      } else {
-        stem.fadeStartGain = stem.currentGain;
-        stem.targetGain = targetVal;
-        stem.fadeStartTime = now;
-        stem.fadeDuration = duration;
-        stem.isFading = true;
+  async playAll(){
+    if(!this.enabled || globalThis.document?.hidden) return;
+    let context;
+    try {
+      context=this.init();
+      // Call resume directly in the gesture, even if decoding is already pending.
+      const resume=context.resume();
+      resume?.catch(()=>{this.status='waiting';});
+    } catch {this.status='unavailable';return;}
+    if(this.pending) return this.pending;
+    if(this.sources.length){this.isPlaying=context.state==='running';this.status=this.isPlaying?'playing':'waiting';return;}
+    const generation=this.generation;
+    this.status='loading';
+    this.pending=(async()=>{
+      try {
+        this.buffers ||= await Promise.all(STEM_FILES.map(async url=>{
+          const response=await this.fetchAudio(url);
+          if(!response.ok) throw new Error('Audio unavailable');
+          return makeSeamlessLoop(await context.decodeAudioData(await response.arrayBuffer()));
+        }));
+        if(generation!==this.generation || !this.enabled || globalThis.document?.hidden)return;
+        const start=context.currentTime+.06;
+        const loopEnd=Math.min(58.5,...this.buffers.map(buffer=>buffer.duration));
+        const targets=PRESETS[this.currentPresetKey];
+        this.buffers.forEach((buffer,index)=>{
+          const source=context.createBufferSource(),gain=context.createGain();
+          source.buffer=buffer;source.loop=true;source.loopStart=.12;source.loopEnd=loopEnd;
+          source.connect(gain);gain.connect(context.destination);
+          gain.gain.setValueAtTime(0,context.currentTime);
+          gain.gain.setTargetAtTime(targets[index]*this.masterVolume,start,.25);
+          source.onended=()=>{source.disconnect?.();gain.disconnect?.();};
+          source.start(start);this.sources.push(source);this.gains.push(gain);
+        });
+        this.isPlaying=context.state==='running';this.status=this.isPlaying?'playing':'waiting';
+      } catch {this.status='waiting';this.isPlaying=false;}
+      finally {
+        this.pending=null;
+        if(generation!==this.generation && this.enabled && !globalThis.document?.hidden)queueMicrotask(()=>this.playAll());
       }
+    })();
+    return this.pending;
+  }
+  pauseAll(){
+    this.generation++;this.isPlaying=false;this.status='idle';
+    const context=this.context;
+    this.gains.forEach(gain=>{
+      gain.gain.cancelScheduledValues(context.currentTime);
+      gain.gain.setTargetAtTime(0,context.currentTime,.025);
+    });
+    // Audio-clock stop avoids a timer-driven hard cut, including background tabs.
+    this.sources.forEach(source=>{try{source.stop(context.currentTime+.15);}catch{}});
+    this.sources=[];this.gains=[];
+  }
+  setPreset(key,duration=1.5){
+    key=PRESETS[key]?key:'lounge';if(this.currentPresetKey===key)return;
+    this.currentPresetKey=key;
+    if(!this.context)return;
+    this.gains.forEach((gain,index)=>{
+      gain.gain.cancelScheduledValues(this.context.currentTime);
+      gain.gain.setTargetAtTime(PRESETS[key][index]*this.masterVolume,this.context.currentTime,Math.max(.02,duration/4));
     });
   }
-
-  updateContext(appState, viewData) {
-    if (!this.initialized && this.enabled) {
-      this.init();
-      this.playAll();
+  updateContext(app,view){
+    const state=view?.state || app?.displayedViewData?.state || app?.liveViewData?.state;
+    if(state){
+      const crisis=Object.keys(state.pending_discards || {}).length || view?.legal_actions?.types?.some(t=>['emergency_sell','bankrupt'].includes(t));
+      this.setPreset(state.finished?'finished':crisis?'crisis':state.round==='auction'?'auction':app?.view==='map'||state.round==='operating'?'operations':app?.view==='market'||state.round==='stock'?'stock':'lounge');
     }
-
-    if (!this.enabled || !appState) return;
-
-    const state = viewData?.state || appState.displayedViewData?.state || appState.liveViewData?.state;
-    if (!state) return;
-
-    // Check crisis conditions (train rusting, pending discards, emergency financing)
-    const hasPendingDiscards = (state.pending_discards && state.pending_discards.length > 0);
-    const hasEmergencySell = Boolean(viewData?.legal_actions?.types?.includes('emergency_sell') || viewData?.legal_actions?.types?.includes('bankrupt'));
-
-    if (state.finished) {
-      this.setPreset('finished', 2.0);
-    } else if (hasPendingDiscards || hasEmergencySell) {
-      this.setPreset('crisis', 1.0);
-    } else if (appState.view === 'map' || state.round === 'operating') {
-      this.setPreset('operations', 1.8);
-    } else if (appState.view === 'market' || state.round === 'stock') {
-      this.setPreset('stock', 1.8);
-    } else if (state.round === 'auction') {
-      this.setPreset('auction', 1.8);
-    } else {
-      this.setPreset('lounge', 2.0);
-    }
+    if(this.enabled&&!this.startRequested){this.startRequested=true;void this.playAll();}
   }
-
-  audioTick() {
-    const now = performance.now();
-
-    if (this.enabled && this.isPlaying && this.stems.length > 0) {
-      // 1. Smooth Volume Lerp
-      this.stems.forEach(stem => {
-        if (stem.isFading) {
-          const elapsed = (now - stem.fadeStartTime) / 1000;
-          if (elapsed >= stem.fadeDuration) {
-            stem.currentGain = stem.targetGain;
-            stem.isFading = false;
-          } else {
-            const t = elapsed / stem.fadeDuration;
-            const ease = 0.5 - 0.5 * Math.cos(t * Math.PI);
-            stem.currentGain = stem.fadeStartGain + (stem.targetGain - stem.fadeStartGain) * ease;
-          }
-        }
-
-        const effectiveVol = Math.max(0, Math.min(1, stem.currentGain * this.masterVolume));
-        if (Math.abs(stem.audio.volume - effectiveVol) > 0.005) {
-          stem.audio.volume = effectiveVol;
-        }
-      });
-
-      // 2. Playhead looping (only seek at the boundary to prevent stutter)
-      const primary = this.stems[0].audio;
-      const curr = primary.currentTime;
-
-      if (curr >= LOOP_END) {
-        this.syncPlayheads(0);
-      }
-
-      // 3. Smooth tape-speed drift correction
-      this.stems.forEach((stem, idx) => {
-        if (idx > 0) {
-          const targetTime = curr + (stem.offsetMs / 1000);
-          const diff = targetTime - stem.audio.currentTime;
-
-          if (diff > 0.06) {
-            stem.audio.playbackRate = 1.015;
-          } else if (diff < -0.06) {
-            stem.audio.playbackRate = 0.985;
-          } else {
-            stem.audio.playbackRate = 1.0;
-          }
-        }
-      });
-    }
-
-    requestAnimationFrame(this.audioTick.bind(this));
+  unlock(){if(this.enabled)void this.playAll();}
+  visibilityChanged(){
+    // Deliberate policy: music pauses while hidden and fades in on return.
+    if(globalThis.document?.hidden)this.pauseAll();else this.unlock();
   }
 }
-
-export const gameAudio = new GameAudioManager();
+export class GameEffects {
+  constructor({contextFactory=()=>new (globalThis.AudioContext || globalThis.webkitAudioContext)()}={}) {
+    this.contextFactory=contextFactory;this.enabled=preference('koenji_1889_sfx_enabled','true')==='true';
+    this.volume=Number(preference('koenji_1889_sfx_volume','.15'));this.seen=new Set();
+  }
+  toggle(){this.enabled=!this.enabled;save('koenji_1889_sfx_enabled',this.enabled);return this.enabled;}
+  setVolume(value){this.volume=Math.max(0,Math.min(1,Number(value)||0));save('koenji_1889_sfx_volume',this.volume);}
+  unlock(){
+    if(!this.enabled)return;
+    try{this.context ||= this.contextFactory();this.context.resume()?.catch(()=>{});}catch{}
+  }
+  play(kind,id){
+    if(this.seen.has(id))return;this.seen.add(id);
+    if(this.seen.size>600)this.seen.delete(this.seen.values().next().value);
+    if(!this.enabled || globalThis.document?.hidden)return;
+    this.unlock();const c=this.context;if(!c || c.state!=='running')return;
+    const tones=({turn:[523,659],float:[392,494,587],train:[220,330],action:[440]})[kind] || [440];
+    tones.forEach((frequency,index)=>{
+      const osc=c.createOscillator(),gain=c.createGain(),start=c.currentTime+index*.11;
+      osc.type='sine';osc.frequency.value=frequency;
+      gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(this.volume*.25,start+.012);
+      gain.gain.exponentialRampToValueAtTime(.0001,start+.15);
+      osc.connect(gain);gain.connect(c.destination);osc.start(start);osc.stop(start+.16);
+    });
+  }
+}
+export const gameAudio=new GameAudioManager();
+export const gameEffects=new GameEffects();

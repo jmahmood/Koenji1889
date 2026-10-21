@@ -1413,7 +1413,7 @@ export function renderStockExchangeView(appState, viewData, catalog) {
               ${
                 isUnparred
                   ? `Set Par ${money(selectedPar)} & Buy 20% ${selectedCid} (${money(totalCost)})`
-                  : `Confirm Purchase · ${sharePercent}% ${selectedCid} (${money(totalCost)})`
+                  : `Buy ${sharePercent}% ${selectedCid} (${money(totalCost)})`
               }
             </button>`
                 : ''

@@ -1,7 +1,10 @@
 import './style.css';
 import './booking.css';
 import './appearance.css';
-import { gameAudio } from './ui/gameAudio.js';
+import './playtest.css';
+import { gameAudio, gameEffects } from './ui/gameAudio.js';
+import {installPreferences, localizePage} from './ui/preferences.js';
+import {CONFIRMED_ACTIONS, TurnReminder, renderTurnStatus, renderConfirmation, renderFlotation, renderCashDelivery} from './ui/playtestUX.js';
 import {bindDistrictSurvey} from './components/DistrictSurvey.js';
 import {syncEmergencyDesk} from './components/TrainDesk.js';
 import {renderCharacterSetup,bindAppearanceControls} from './components/CharacterSetup.js';
@@ -36,6 +39,7 @@ import {
   renderSeatsAndDemoModal,
   renderPlayerDetailsModal,
   renderPrivateDetailsModal,
+  renderPrivateZoomModal,
 } from './components/Modals.js';
 
 const api = new KoenjiApiClient('');
@@ -275,8 +279,19 @@ function showToast(msg, isError = false) {
   }, 3800);
 }
 
+const seenPresentationEvents=new Set();
 function presentEventAnimation(ev, revision) {
   if(!ev || appState.viewRevision!==appState.liveRevision) return;
+  const eventId=`${appState.roomCode}:${revision}`;
+  if(!seenPresentationEvents.has(eventId)) {
+    seenPresentationEvents.add(eventId);
+    if(seenPresentationEvents.size>600)seenPresentationEvents.delete(seenPresentationEvents.values().next().value);
+    gameEffects.play(ev.flotations?.length || ev.floated?'float':ev.type==='buy_train'?'train':'action',eventId);
+    if(ev.flotations?.length) {
+      appState.flotationQueue ||= [];
+      appState.flotationQueue.push(...ev.flotations);
+    }
+  }
   characters.accepted(ev,revision,appState.liveViewData);
 }
 
@@ -286,15 +301,29 @@ function renderCharacterNotice() {
 }
 function patchCharacterPresentation() {
   refreshCharacterSlots(document);
+  const delivery=document.querySelector('[data-cash-receipt-stage]');
+  if(delivery)delivery.innerHTML=renderCashDelivery(appState.displayedViewData,characters.playback);
   const slot=document.querySelector('[data-character-notice]');
   const notice=characters.playback.notice();
   // Announce an accepted event once, never every pose cut.
   if(slot && slot.dataset.noticeId!==(notice?.id || '')) {
     slot.innerHTML=renderCharacterNotice(); slot.dataset.noticeId=notice?.id || '';
   }
+  localizePage();
 }
 const characters=new CharacterDirector({onChange:patchCharacterPresentation});
 setCharacterPresentationResolver(id=>characters.playback.poseFor(id));
+const turnReminder=new TurnReminder({
+  notify(){appState.turnReminderVisible=true;gameEffects.play('turn',`reminder:${appState.roomCode}:${turnReminder.key}`);render();},
+  onTurn(key){appState.turnReminderVisible=false;gameEffects.play('turn',`turn:${key}:${appState.liveRevision}`);},
+});
+installPreferences({app:appState,render});
+for(const kind of ['pointerdown','keydown'])document.addEventListener(kind,event=>{
+  if(!event.isTrusted)return;
+  turnReminder.activity();gameAudio.unlock();gameEffects.unlock();
+},{capture:true});
+setInterval(()=>turnReminder.tick(Number(localStorage.getItem('koenji_turn_reminder') ?? 20),document.hidden || Boolean(appState.activeModal) || appState.isSubmitting),1000);
+
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 reducedMotion.addEventListener('change',()=>{
   characters.playback.setMotionEnabled(motionEnabled());
@@ -308,6 +337,7 @@ document.addEventListener('click',event=>{
 });
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden) {characters.playback.clear('game');characters.playback.clear('social');}
+  gameAudio.visibilityChanged();
 });
 function presentHistoryCharacters(revision,animate) {
   const event=appState.liveViewData?.history_events?.find(e=>e.revision===revision)?.event;
@@ -777,11 +807,19 @@ async function switchSeatInTab(newSeatKey) {
   );
 }
 
-async function executeGameAction(actionPayload) {
+async function executeGameAction(actionPayload, confirmed = false, forceReview = false) {
   const blocked = actionBlockReason(appState, appState.displayedViewData);
   if (blocked) {
     showToast(blocked, true);
     return;
+  }
+  if(!confirmed && (forceReview || CONFIRMED_ACTIONS.has(actionPayload.type))) {
+    const source=document.activeElement;
+    const focusAttr=['data-action','data-op-action','data-auction-action','data-buy-train'].find(attr=>source?.hasAttribute?.(attr));
+    const returnSelector=focusAttr?`[${focusAttr}="${CSS.escape(source.getAttribute(focusAttr))}"]`: '.turn-go';
+    appState.pendingDecision={action:structuredClone(actionPayload),revision:appState.liveRevision,room:appState.roomCode,token:appState.token,returnModal:appState.activeModal,returnSelector};
+    appState.activeModal='confirm';
+    render();document.querySelector('[data-cancel-decision]')?.focus({preventScroll:true});return;
   }
   appState.isSubmitting = true;
   render();
@@ -834,7 +872,7 @@ async function enterRoom(roomCode, seatKey, token) {
   appState.revisionRequest += 1;
   api.setTabSession(roomCode, seatKey, token);
   api.saveOwnRoom(roomCode, seatKey, token, {isHost:isViewerHost, memberId:viewerMember?.member_id || null});
-  Object.assign(appState, {roomCode, seatKey, token, roomBundle:api.getRoomDirectory()[roomCode], needsGathering:false,
+  Object.assign(appState, {pendingDecision:null,flotationQueue:[],turnReminderVisible:false,roomCode, seatKey, token, roomBundle:api.getRoomDirectory()[roomCode], needsGathering:false,
     activeModal:null, publicLobby:null, lastSyncedRound:null, financialLayouts:{}, view:'table', reviewAction:null, routeDraftKey:null,
     isPlayingReplay:false, liveRevision:0, viewRevision:0, displayedViewData:null, liveViewData:null, lobbyTab:'invitations', inviteFallback:null});
   if (replayTimer) clearInterval(replayTimer);
@@ -848,13 +886,19 @@ async function enterRoom(roomCode, seatKey, token) {
 }
 
 function bindDesk() {
-  bindDecisionDesk({app:appState,api,render,execute:executeGameAction,toast:showToast,enterRoom});
+  bindDecisionDesk({app:appState,api,render,execute:(action,options)=>executeGameAction(action,false,Boolean(options?.review)),toast:showToast,enterRoom});
 }
 
 function closeModal() {
-  appState.activeModal = null;appState.routeEditor=null;
+  let returnSelector=appState.modalReturnSelector || '[data-modal="stamp"]';
+  if(appState.activeModal==='confirm') {
+    returnSelector=appState.pendingDecision?.returnSelector || '.turn-go';
+    const previous=appState.pendingDecision?.returnModal;
+    appState.pendingDecision=null;appState.activeModal=previous || null;
+  } else appState.activeModal = null;
+  appState.routeEditor=null;
   render();
-  document.querySelector(appState.modalReturnSelector || '[data-modal="stamp"]')?.focus({ preventScroll: true });
+  document.querySelector(returnSelector)?.focus({ preventScroll: true });
 }
 
 function renderRoomContext(viewData) {
@@ -927,9 +971,6 @@ function renderTopbar(viewData) {
 
   if (appState.view === 'table') {
     const summary = computeTableActionSummary(state);
-    const activePid = state.finished ? null : viewData.legal_actions?.active_player || state.current_player;
-    const activePlayer = state.players?.[activePid];
-    const activeIdx = Math.max(0, (state.player_order || []).indexOf(activePid));
 
     return `
       <header class="topbar club-social-topbar">
@@ -956,16 +997,6 @@ function renderTopbar(viewData) {
             <div class="css-bank-row">
               <span class="coin-stack-icon" aria-hidden="true">🪙</span>
               <strong>${money(state.bank)}</strong>
-            </div>
-          </div>
-          <div class="css-cell css-active-player">
-            <span class="css-kicker">Active Player</span>
-            <div class="css-player-row">
-              <span class="club-avatar-circle custom-portrait">${renderCharacter(viewData.members?.[activePid]?.appearance,{memberId:viewData.members?.[activePid]?.member_id || activePid,name:activePlayer?.name || "Member",surface:"portrait"})}</span>
-              <div>
-                <strong>${activePid ? '👑 ' : ''}${escapeHtml(activePlayer?.name || 'Complete')}</strong>
-                <small>${state.finished ? 'MATCH COMPLETE' : appState.viewRevision !== appState.liveRevision ? 'AT THIS REVISION' : viewer.player_id === activePid ? 'YOUR TURN · 行動中' : '行動中'}</small>
-              </div>
             </div>
           </div>
           <button type="button" class="css-cell css-current-action is-active-phase" data-view="${summary.targetView}" title="Click to open ${summary.actionTitle}">
@@ -1245,6 +1276,7 @@ function render() {
     if (appState.displayedViewData.state.operating_turn?.step === 'routes') syncRoutePlan(appState, appState.displayedViewData);
   }
   gameAudio.updateContext(appState, appState.displayedViewData);
+  turnReminder.update(appState, appState.displayedViewData);
   characters.setRoom(appState.roomCode);
   characters.playback.setMotionEnabled(motionEnabled());
   if(appState.liveViewData) characters.club(appState.liveViewData);
@@ -1253,6 +1285,7 @@ function render() {
     const baseLook=appState.appearanceDraft || api.getAppearance();
     const appearanceScroll=document.querySelector('[data-appearance-scroll="page"]')?.scrollTop || 0;
     $app.innerHTML=renderCharacterSetup(baseLook,Boolean(api.getAppearance()),{tab:appState.appearanceTab || 'appearance',dirty:Boolean(appState.appearanceDraft && JSON.stringify({face:baseLook?.face,clothes:baseLook?.clothes})!==JSON.stringify(api.getAppearance()))});
+    localizePage();
     bindAppearanceControls({app:appState,api,render});
     document.querySelector('[data-appearance-scroll="page"]').scrollTop=appearanceScroll;
     document.querySelector('[data-cancel-look]')?.addEventListener('click',()=>{appState.needsAppearance=false;appState.appearanceDraft=null;render();});
@@ -1266,6 +1299,7 @@ function render() {
     });
     return;
   }
+  const decisionFocus=document.activeElement?.matches?.('[data-commit-decision]')?'[data-commit-decision]':document.activeElement?.matches?.('[data-cancel-decision]')?'[data-cancel-decision]':null;
   const mapWindowScrolls = [...document.querySelectorAll('[data-map-window-shell]')].map(shell => ({
     id: shell.dataset.mapWindowShell,
     top: shell.querySelector('.stock-window-body').scrollTop,
@@ -1315,6 +1349,7 @@ function render() {
   };
   if(viewData?.status==='waiting') {
     $app.innerHTML=renderWaitingTable({...appState,characterNotice:renderCharacterNotice(),characterNoticeId:characters.playback.notice()?.id || ''},viewData,api)+renderArrivalDock(appState.arrivalCurrent,{motion:motionEnabled(),pending:appState.arrivalQueue.length,elapsed:(Date.now()-(appState.arrivalStartedAt || Date.now()))/1000})+renderGathering(appState,api);
+    localizePage();
     bindSocialControls();
     bindDesk();bindWaitingTable({app:appState,api,render,refresh:pollLiveState,enterRoom,toast:showToast});
     restoreDeskDrafts();restoreDeskLayout();
@@ -1334,6 +1369,7 @@ function render() {
         ${renderGathering(appState, api)}
       </div>
     `;
+    localizePage();
     bindDesk();bindSocialControls();bindTestControls();
     restoreDeskDrafts();
     restoreDeskLayout();
@@ -1357,6 +1393,7 @@ function render() {
     <div class="app-shell shell-view-${appState.view} ${isHistoricalShell ? 'is-historical-mode' : ''}">
       ${renderTopbar(viewData)}
       <div class="room-status-band">
+        ${renderTurnStatus(appState,viewData)}
         ${isHistoricalShell ? `<div class="historical-snapshot-ribbon" role="status"><span>📌 HISTORICAL SNAPSHOT · REV ${appState.viewRevision} OF ${appState.liveRevision} (READ-ONLY)</span><button type="button" class="ribbon-live-btn" data-action="live">● Return to Live Match (Rev ${appState.liveRevision}) →</button></div>` : ''}
         ${isTestPage ? renderTestControls(activeTestScenario,appState.liveViewData,testLoading) : ''}
         ${renderRoomContext(viewData)}
@@ -1374,6 +1411,9 @@ function render() {
       ${renderArrivalDock(appState.arrivalCurrent,{motion:motionEnabled(),pending:appState.arrivalQueue.length,elapsed:(Date.now()-(appState.arrivalStartedAt || Date.now()))/1000})}
       ${renderDecisionDesk(appState, viewData)}
       ${renderGathering(appState, api)}
+      <div class="cash-receipt-stage" data-cash-receipt-stage>${renderCashDelivery(viewData,characters.playback)}</div>
+      ${renderConfirmation(appState,viewData)}
+      ${renderFlotation(appState)}
       ${
         appState.activeModal === 'stamp'
           ? renderMemberStampModal(appState, viewData)
@@ -1381,6 +1421,8 @@ function render() {
             ? renderSeatsAndDemoModal(appState, appState.liveViewData || viewData, appState.roomBundle)
             : appState.activeModal === 'player'
               ? renderPlayerDetailsModal(appState, viewData)
+            : appState.activeModal === 'privatezoom'
+              ? renderPrivateZoomModal(appState, viewData)
             : appState.activeModal === 'private'
               ? renderPrivateDetailsModal(appState, viewData)
             : appState.activeModal === 'shortcut'
@@ -1394,6 +1436,7 @@ function render() {
       }
     </div>
   `;
+  localizePage(viewData);
   bindEvents();bindSocialControls();bindTestControls();
   if(appState.roomBundle?.preset==='gathering') document.querySelectorAll('[data-switch-seat], .open-second-browser-btn').forEach(el=>{el.style.display='none';});
   bindDesk();
@@ -1404,6 +1447,9 @@ function render() {
     const body = document.querySelector(`[data-map-window-shell="${scroll.id}"] .stock-window-body`);
     if (body) { body.scrollTop = scroll.top; body.scrollLeft = scroll.left; }
   }
+  if(decisionFocus)document.querySelector(decisionFocus)?.focus({preventScroll:true});
+  const flotation=document.querySelector('.flotation-notice');
+  if(flotation && !flotation.contains(document.activeElement))flotation.querySelector('button')?.focus({preventScroll:true});
   renderedRoom = appState.view;
   pendingRoundWipe = null;
   if (draftValue) {
@@ -1416,6 +1462,13 @@ function render() {
 }
 
 function handleGlobalEscape(event) {
+  if(document.querySelector('dialog[open]')?.open)return;
+  if(event.key==='Escape' && appState.activeModal==='confirm') {event.preventDefault();event.stopPropagation();closeModal();return;}
+  if(!appState.activeModal && appState.flotationQueue?.length && appState.viewRevision===appState.liveRevision && !appState.isPlayingReplay) {
+    if(event.key==='Escape'){event.preventDefault();appState.flotationQueue.shift();render();return;}
+    if(event.key==='Tab'){event.preventDefault();document.querySelector('[data-dismiss-flotation]')?.focus();return;}
+  }
+
   // Holding Escape must not close a window and then leave the workspace.
   if (event.key === 'Escape' && event.repeat) {
     event.preventDefault(); event.stopPropagation(); return;
@@ -2157,6 +2210,20 @@ function bindMapWindowDesktop() {
 }
 
 function bindEvents() {
+  document.querySelector('[data-cancel-decision]')?.addEventListener('click',closeModal);
+  document.querySelector('[data-commit-decision]')?.addEventListener('click',()=>{
+    const pending=appState.pendingDecision;
+    if(!pending || pending.revision!==appState.liveRevision || pending.room!==appState.roomCode || pending.token!==appState.token){closeModal();showToast('Position changed. Review the decision again.',true);return;}
+    appState.pendingDecision=null;appState.activeModal=null;
+    executeGameAction(pending.action,true);
+  });
+  document.querySelector('[data-dismiss-flotation]')?.addEventListener('click',()=>{appState.flotationQueue.shift();render();document.querySelector('.turn-go')?.focus();});
+  document.querySelectorAll('[data-private-zoom]').forEach(el=>el.addEventListener('click',event=>{
+    event.stopPropagation();appState.privateDetailsId=el.dataset.privateZoom;
+    appState.modalReturnSelector=`[data-private-zoom="${el.dataset.privateZoom}"]`;
+    appState.activeModal='privatezoom';render();document.querySelector('.private-zoom-modal .close-modal-btn')?.focus();
+  }));
+
   const viewData = appState.displayedViewData || appState.liveViewData;
   const state = viewData?.state;
 

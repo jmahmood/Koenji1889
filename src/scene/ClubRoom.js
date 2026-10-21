@@ -648,7 +648,7 @@ function renderSocialAndLogSidebar(appState, viewData) {
                         <time>${item.time}</time>
                       </div>
                       <small class="feed-kind">${item.isNote ? 'Current gathering · Note' : `Game move · Rev ${item.revision}`}</small>
-                      <p>${escapeHtml(item.text)}</p>
+                      <p ${item.isNote?'data-no-translate':''}>${escapeHtml(item.text)}</p>
                       ${item.revision !== null ? `<button class="feed-inspect" data-inspect-revision="${item.revision}">Inspect position →</button>` : ''}
                     </div>
                   </article>
@@ -945,7 +945,7 @@ export function renderClubRoomScene(appState, viewData) {
                       <span class="club-avatar-circle custom-portrait" aria-hidden="true">${renderCharacter(viewData.members?.[pid]?.appearance,{memberId:viewData.members?.[pid]?.member_id || pid,name:player.name,surface:"portrait"})}</span>
                       <div class="speech-copy">
                         <b>${escapeHtml(player.name)} ${isTurn ? '👑' : ''}</b>
-                        <p>${escapeHtml(speech.text)}</p>
+                        <p ${speech.isNote?'data-no-translate':''}>${escapeHtml(speech.text)}</p>
                       </div>
                     </div>
                   `
@@ -988,6 +988,7 @@ export function renderClubRoomScene(appState, viewData) {
             aria-label="${state.round === 'auction' ? 'Open Private Company Auction Desk' : 'Open Stock Exchange'}"
             title="${state.round === 'auction' ? 'Current Phase: Open Private Railway Auction' : state.round === 'stock' ? 'Current Phase: Open Stock Exchange' : 'Open Stock Exchange'}"
           >
+            <strong class="tt-exchange-label"><svg viewBox="0 0 32 24" aria-hidden="true"><rect x="2" y="2" width="28" height="20" rx="2"/><path d="M7 7h18M7 11h12M7 15h9"/><circle cx="25" cy="17" r="3"/></svg>${state.round==='auction'?'Private Auction':'Stock Exchange'}</strong>
             ${
               state.round === 'auction'
                 ? privatesList

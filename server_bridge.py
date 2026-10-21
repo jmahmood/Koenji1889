@@ -15,6 +15,7 @@ with SQLite persistence (`games`, `players`, `game_states`, `game_actions`,
 """
 
 import json
+import hashlib
 import os
 import secrets
 import sqlite3
@@ -29,6 +30,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import parse_qs, unquote, urlparse
 
 ROOT_DIR = Path(__file__).resolve().parent
+BRIDGE_BUILD = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]
 APPEARANCE_CATALOG = json.loads((ROOT_DIR / "src/data/appearance.json").read_text())
 LEGACY_FACE_IDS = {f["id"] for f in APPEARANCE_CATALOG["faces"] if not f.get("headAtlas")}
 APPEARANCE_CATALOG["faces"] = [f for f in APPEARANCE_CATALOG["faces"] if f.get("headAtlas")]
@@ -311,7 +313,7 @@ def summarize_transition(
         )
     elif kind == "dividend":
         cid = before.get("current_corporation")
-        rev = (before.get("operating_turn") or {}).get("revenue", 0)
+        rev = (after.get("operating_turn") or {}).get("revenue", 0)
         payout = action.get("payout")
         if payout is None:
             payout = action.get("kind") == "payout"
@@ -489,6 +491,33 @@ def summarize_transition(
         if results:
             best = max(results.values())
             event["winners"] = [pid for pid, value in results.items() if value == best]
+    # Positive cash changes are authoritative receipts, including automatic
+    # private income at round transitions. Presentation never invents an amount
+    # from route revenue or pays anything a second time during history playback.
+    receipts = []
+    for collection, destination in (("players", "purse"), ("corporations", "treasury")):
+        for recipient, account in after.get(collection, {}).items():
+            amount = account.get("cash", 0) - before.get(collection, {}).get(recipient, {}).get("cash", 0)
+            if amount > 0:
+                receipts.append({"recipient": recipient, "destination": destination,
+                                 "amount": amount, "name": account.get("name", recipient)})
+    if receipts:
+        event["cash_receipts"] = receipts
+    if kind == "dividend":
+        corp = before["corporations"][before["current_corporation"]]
+        revenue = (after.get("operating_turn") or {}).get("revenue", 0)
+        event["revenue"] = revenue
+        event["dividend_allocation"] = {
+            "players": {pid: revenue * percent // 100 for pid, percent in corp["holdings"].items() if percent > 0} if event["payout"] else {},
+            "treasury": revenue * corp["pool"] // 100 if event["payout"] else revenue,
+            "ipo_retained_by_bank": revenue * corp["ipo"] // 100 if event["payout"] else 0,
+        }
+    floats = [{"corporation": cid, "name": corp.get("name", cid),
+               "funding": corp.get("par", 0) * 10}
+              for cid, corp in after.get("corporations", {}).items()
+              if corp.get("floated") and not before.get("corporations", {}).get(cid, {}).get("floated")]
+    if floats:
+        event["flotations"] = floats
     return event
 
 
@@ -1557,7 +1586,8 @@ class KoenjiAppService:
             try:
                 with self.db._connect() as conn:
                     conn.execute("SELECT id FROM games LIMIT 1")
-                return 200, {"status": "ok"}
+                return 200, {"status": "ok", "build": BRIDGE_BUILD,
+                             "features": ["route-options", "route-preview", "route-revenues", "cash-receipts"]}
             except sqlite3.Error:
                 return 503, {"detail": "Database unavailable"}
 
