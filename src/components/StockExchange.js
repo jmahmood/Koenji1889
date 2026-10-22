@@ -793,7 +793,7 @@ function renderCorporationGeography(state, selectedCid, meta) {
   }
   const stationText = stations.length
     ? stations.map((s) => `${s.name || s.coord} (${s.coord})`).join(' · ')
-    : 'No station tokens placed yet (Home reserved at ' +
+    : 'No stations placed yet (Home reserved at ' +
       `${meta.homeName || corp.home} ${corp.home})`;
 
   return `
@@ -832,7 +832,7 @@ function renderCorporationDetails(state, selectedCid, meta, prices, perspectiveI
         <div><dt>President</dt><dd>${president}</dd></div>
         <div><dt>${escapeHtml(state.players[perspectiveId]?.name || 'Inspected player')}'s holdings</dt><dd>${corp.holdings?.[perspectiveId] || 0}% (${(corp.holdings?.[perspectiveId] || 0) / 10} share units)</dd></div>
         <div><dt>Float & Treasury</dt><dd>${corp.floated ? `Floated · ${money(corp.cash)}` : `Needs ${Math.max(0, 50 - (100 - corp.ipo))}% more from IPO`}</dd></div>
-        <div><dt>Station Tokens</dt><dd>${corp.token_supply} total (${corp.home_placed ? 'Home placed' : 'Home reserved'})</dd></div>
+        <div><dt>Stations remaining</dt><dd>${corp.token_supply} total (${corp.home_placed ? 'Home placed' : 'Home reserved'})</dd></div>
         <div><dt>Owned Trains</dt><dd>${corp.trains?.length ? corp.trains.join(', ') : 'None'}</dd></div>
       </dl>
     </section>`;
@@ -892,7 +892,7 @@ function renderCorporationTable(state, prices, perspectiveId, perspectivePlayer,
                     ? `Floated · ${money(c.cash)}`
                     : `Needs ${Math.max(0, 50 - (100 - c.ipo))}% to float`
                 }</em>
-                <small>Pres: ${presName}${c.trains?.length ? ` · Trains: ${c.trains.join(',')}` : ''}</small>
+                <small>Pres: ${presName}${c.trains?.length ? `<span class="corp-fleet">Trains: ${c.trains.join(', ')}</span>` : ''}</small>
               </span>
               <span class="corp-holding">
                 <strong>${holdPct}% (${holdPct / 10} sh)</strong>
@@ -1491,7 +1491,7 @@ export function renderStockExchangeView(appState, viewData, catalog) {
               <div><dt>Certificate</dt><dd>${isUnparred ? "One President's (20%)" : `${sharePercent / 10} standard (${sharePercent}%)`} · ${isUnparred ? `¥${parChoices[0]}–¥${parChoices.at(-1)}` : money(unitPrice)} per 10%</dd></div>
               <div><dt>Share supply</dt><dd>IPO ${corp.ipo}% · Bank Pool ${corp.pool}%</dd></div>
               <div><dt>President</dt><dd>${corp.president ? `${escapeHtml(state.players?.[corp.president]?.name || corp.president)} (${corp.holdings?.[corp.president] || 0}%)` : 'Unparred (20% President share in IPO)'}</dd></div>
-              <div><dt>Treasury &amp; fleet</dt><dd>${corp.floated ? money(corp.cash) : `Needs ${Math.max(0, 50 - (100 - corp.ipo))}% from IPO to float`} · ${corp.trains?.length ? corp.trains.join(', ') : '0 trains'} · ${corp.token_supply} tok</dd></div>
+              <div><dt>Treasury &amp; fleet</dt><dd>${corp.floated ? money(corp.cash) : `Needs ${Math.max(0, 50 - (100 - corp.ipo))}% from IPO to float`} · ${corp.trains?.length ? corp.trains.join(', ') : '0 trains'} · ${corp.token_supply} stations</dd></div>
             </dl>
           </div>
 

@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "position": "below",
+      "passed": true
+    },
+    {
+      "position": "right",
+      "passed": true
+    },
+    {
+      "position": "left",
+      "passed": true
+    }
+  ],
+  "browserErrors": []
+}

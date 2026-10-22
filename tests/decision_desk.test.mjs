@@ -99,3 +99,15 @@ test('route decision focuses on routes rather than the financing boardroom',()=>
  assert.doesNotMatch(html,/THE ROUNDHOUSE/);
  assert.match(html,/Next: pay shareholders/);
 });
+
+test('train purchase and company-named finish choice stay together with mandatory guard intact',()=>{
+ const optional=structuredClone(views.train_normal);
+ optional.train_financing=null;optional.legal_actions.choices.mandatory_train=false;optional.legal_actions.types.push('end_turn');
+ const html=renderDetailedMapView(app(optional),optional,catalog);
+ const footer=html.slice(html.indexOf('<footer class="operating-turn-controls'));
+ assert.match(footer,/train-wizard-launcher/);
+ assert.ok(footer.indexOf('data-open-train-wizard')<footer.indexOf('data-op-action="end_turn"'));
+ assert.match(footer,new RegExp(`End ${optional.state.corporations[optional.state.current_corporation].name} Turn`));
+ const mandatory=structuredClone(optional);mandatory.train_financing={mandatory:true};
+ assert.doesNotMatch(renderDetailedMapView(app(mandatory),mandatory,catalog),/data-op-action="end_turn"/);
+});

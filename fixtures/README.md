@@ -1,4 +1,12 @@
-# Expanded route practice games
+# Practice games
+
+## SR track at J3
+
+`tile_j3.json` contains an authored sequence of legal auction, stock and operating actions. `tile_j3` starts SR's second operating turn with I2 connected to J3 and straight tile #9 available. `tile_j3_used` adds the normal lay at I4; J3 then waits until the next SR track step. Every action is validated and saved normally, so both fixtures can be replayed and continued. No private player snapshots are included.
+
+Open `/test?scenario=j3` or `/test?scenario=j3used` on the local development server. **New test game** resets the selected scenario without changing earlier games.
+
+## Expanded route practice games
 
 `route_networks.json` contains a shared recorded prefix and two authored branches. The bridge applies every move through the standard engine and persists every resulting revision. No trains, tiles, tokens, phases, or money are injected into an arbitrary snapshot.
 

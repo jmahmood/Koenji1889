@@ -1,17 +1,20 @@
 {
   "name": "koenji-1889-club-app",
   "private": true,
-  "version": "10.0.0",
+  "version": "11.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "backend": "python3 server_bridge.py",
+    "puppet:operation": "node scripts/puppet-round.mjs operation",
+    "puppet:stock": "node scripts/puppet-round.mjs stock",
     "test": "node --test tests/*.test.mjs && python3 -m unittest discover -s tests -p 'test_*.py' -v && python3 -m unittest discover -s daemon18xx/app/unittests -t daemon18xx -p 'test_Engine1889.py' -q",
     "prebuild": "node scripts/write-build-info.mjs"
   },
   "devDependencies": {
+    "playwright": "^1.64.1",
     "vite": "^6.0.0"
   }
 }

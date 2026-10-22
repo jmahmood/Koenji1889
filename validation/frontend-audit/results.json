@@ -1,0 +1,123 @@
+{
+  "base": "http://10.0.0.32:15173",
+  "results": [
+    {
+      "name": "01 Appearance selection and ordinary gathering creation",
+      "status": "pass"
+    },
+    {
+      "name": "02 Private invitation, separate browser, guest claims seat",
+      "status": "pass"
+    },
+    {
+      "name": "03 Host starts game; both players enter; reload keeps host seat",
+      "status": "pass"
+    },
+    {
+      "name": "04 Auction Buy Now cancel, confirm, payment and turn advance",
+      "status": "pass"
+    },
+    {
+      "name": "05 Auction bid on a later company and auction pass",
+      "status": "pass"
+    },
+    {
+      "name": "06 Stock round passes without buying",
+      "status": "pass"
+    },
+    {
+      "name": "07 Stock certificate purchase and end turn",
+      "status": "pass"
+    },
+    {
+      "name": "08 Historical inspection, replay and Return to Live",
+      "status": "pass"
+    },
+    {
+      "name": "09 Operating map legal tile preview and construction",
+      "status": "pass"
+    },
+    {
+      "name": "10 Operating skip/no-train revenue, purchase and finish turn",
+      "status": "pass"
+    },
+    {
+      "name": "11 routes: edit stops, undo, cancel and restore plan",
+      "status": "pass"
+    },
+    {
+      "name": "12 routes: commit routes and pay dividend",
+      "status": "pass"
+    },
+    {
+      "name": "11 routes3: edit stops, undo, cancel and restore plan",
+      "status": "pass"
+    },
+    {
+      "name": "12 routes3: commit routes and pay dividend",
+      "status": "pass"
+    },
+    {
+      "name": "11 routes4: edit stops, undo, cancel and restore plan",
+      "status": "pass"
+    },
+    {
+      "name": "12 routes4: commit routes and pay dividend",
+      "status": "pass"
+    },
+    {
+      "name": "13 Language switch, preferences, and return to English",
+      "status": "pass"
+    },
+    {
+      "name": "14 Narrow viewport still exposes setup and game actions",
+      "status": "pass"
+    },
+    {
+      "name": "15 Excess-train discards commit and unblock operation",
+      "status": "pass"
+    },
+    {
+      "name": "16 ER optional lay can be declined by its seller",
+      "status": "pass"
+    },
+    {
+      "name": "17 Emergency share sale funds a mandatory train purchase",
+      "status": "pass"
+    },
+    {
+      "name": "18 Bankruptcy confirmation reaches final results",
+      "status": "pass"
+    },
+    {
+      "name": "19 Out-of-turn DR exchange uses the owning seat",
+      "status": "pass"
+    },
+    {
+      "name": "20 Used-train offer is accepted and paid from the company",
+      "status": "pass"
+    },
+    {
+      "name": "21 Private negotiation consent and buyer purchase",
+      "status": "pass"
+    },
+    {
+      "name": "22 Stock sale, presidency transfer and proceeds",
+      "status": "pass"
+    },
+    {
+      "name": "23 Observer sees results and cannot act",
+      "status": "pass"
+    },
+    {
+      "name": "24 Withhold route revenue with normal motion enabled",
+      "status": "pass"
+    },
+    {
+      "name": "25 Non-playing host retains creator identity and starts the table",
+      "status": "pass"
+    }
+  ],
+  "errors": [],
+  "networkErrors": []
+}

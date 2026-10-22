@@ -3,6 +3,7 @@ import {CORP_META} from '../constants1889.js';
 import {moneyCeremony} from './kemonito.js';
 import {setbackCameo} from './kemalito.js';
 import {victoryCelebration} from './victoryCelebration.js';
+import {dividendMilestone} from './dividendMilestones.js';
 
 export const memberKey=(view,pid)=>view?.members?.[pid]?.member_id || pid;
 const cash=n=>Number.isFinite(n)?`¥${n.toLocaleString('en-US')}`:'';
@@ -21,7 +22,7 @@ export function bindCharacterRecipe(key,memberId,{label='',detail='',props={},pr
     staticFallback:{actors:{[memberId]:bind(recipe.staticFallback)}}};
 }
 
-export function buildEventSequence(ev,view) {
+export function buildEventSequence(ev,view,{revision=view?.state?.revision,celebrate=true}={}) {
   if(!ev) return null;
   // The final result gets its own ceremony immediately. No last-move teasing or
   // cash backlog should precede the shared celebration; money is already settled.
@@ -133,7 +134,9 @@ export function buildEventSequence(ev,view) {
   if(setback)append({label:ev.label,detail:ev.detail,...setback});
   const ceremony=moneyCeremony(ev.cash_receipts,view);
   if(ceremony) {
-    append({label:ev.label,detail:ev.detail,frames:ceremony.frames,staticFallback:{actors:{},receipts:ceremony.receipts}});
+    const milestone=celebrate ? dividendMilestone(ev,view,revision) : null;
+    if(milestone)append({frames:[{ms:1800,dividendMilestone:milestone,actors:{}}]});
+    append({label:ev.label,detail:ev.detail,frames:ceremony.frames,staticFallback:{actors:{},receipts:ceremony.receipts,dividendMilestone:milestone}});
   }
   return sequence;
 }

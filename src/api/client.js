@@ -1,5 +1,6 @@
 import {isPortraitFace} from '../ui/invitations.js';
 import {normalizeAppearance} from '../scene/Character.js';
+import {RevisionCache} from './revisionCache.js';
 /**
  * Transport & Session Client for Koenji Railway Club 1889.
  *
@@ -18,6 +19,8 @@ export class KoenjiApiClient {
     this.baseUrl = baseUrl;
     this.hostInvitations = new Map();
     this.appearanceContext=null;
+    let storage=null;try {storage=globalThis.sessionStorage;} catch {}
+    this.revisions=new RevisionCache({storage});
     this.channel =
       typeof BroadcastChannel !== 'undefined'
         ? new BroadcastChannel('koenji-1889-room-sync')
@@ -382,13 +385,13 @@ export class KoenjiApiClient {
   }
 
   async fetchRevisionView(roomCode, token, revision) {
-    return this.request(
+    return this.revisions.read(roomCode,token,revision,()=>this.request(
       `/api/1889/games/${encodeURIComponent(roomCode)}/revisions/${revision}`,
       {
         method: 'GET',
         token,
       }
-    );
+    ));
   }
 
   async submitAction(roomCode, token, expectedRevision, action, commandId = null) {

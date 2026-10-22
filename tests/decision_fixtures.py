@@ -26,20 +26,30 @@ def fixtures():
   f.operating();f.route();f.train_step();save('train_normal')
   f.cash(f.s['corporations']['IR'],20);save('train_purse')
   f.operating();f.route();f.train_step();f.shares('AR','p2',50);f.give_train('AR','3-0')
-  f.act('offer',player='p2',kind='train',item='3-0',seller='AR',buyer='IR',price=100);save('train_used')
+  f.act('offer',player='p2',kind='train',item='3-0',seller='AR',buyer='IR',price=100);save('train_used');save('train_seller')
   f.operating();f.route();f.train_step();f.cash(f.s['corporations']['IR'],0);f.cash(f.s['players']['p1'],0);save('emergency')
   f.shares('AR','p2',50);f.shares('AR','p1',10);save('emergency_other_corporation')
   # A real stock-round transfer supplies the before/after presidency contract.
   # Emergency sales themselves cannot legally transfer a presidency.
   f.stock();f.shares('AR','p1',30);f.shares('AR','p2',30)
   f.s['stock_round']=2;save('presidency_sale')
-  f.operating();f.route();f.train_step();c=f.s['corporations']['IR'];c['holdings'].update(p1=30,p2=30,p3=0);c.update(ipo=40,pool=0);f.cash(c,0);f.cash(f.s['players']['p1'],0);f.act('bankrupt');save('finished')
+  f.operating();f.route();f.train_step();c=f.s['corporations']['IR'];c['holdings'].update(p1=30,p2=30,p3=0);c.update(ipo=40,pool=0);f.cash(c,0);f.cash(f.s['players']['p1'],0);save('train_bankrupt');f.act('bankrupt');save('finished')
   f.operating();save('dr','p2')
   f.operating();f.s['phase']='3';save('negotiation','p3')
   for zone in ['y','o']:
    f.stock();f.shares('IR','p1',50);f.cash(f.s['players']['p1'],3000);f.s['stock_round']=2
    E._position(f.s,f.s['corporations']['IR'],next([r,c] for r,row in enumerate(MARKET) for c,cell in enumerate(row) if cell and cell['zone']==zone))
    save(zone)
+  # Train-wizard edge cases retain real server action previews for browser checks.
+  f.operating();f.route();f.train_step();f.shares('AR','p1',50);f.give_train('AR','2-0');save('train_common')
+  f.operating();f.route();f.train_step();f.shares('AR','p2',50);f.shares('SR','p3',50);f.shares('KO','p2',50)
+  E._phase_change(f.s,'3');f.give_train('IR','2-0')
+  older=[tid for tid,t in f.s['trains'].items() if t['type'] in ('2','3') and t['owner']=='depot']
+  for i,tid in enumerate(older):f.give_train(['AR','SR','KO'][i%3],tid)
+  save('train_rust4')
+  f.operating();f.route();f.give_train('IR','4-0');f.give_train('IR','6-0');E._phase_change(f.s,'6')
+  f.cash(f.s['corporations']['IR'],2000);f.s['operating_turn'].update(step='train',routes=[],revenue=0,dividend=True)
+  save('train_diesel')
   return out
  finally:t.tearDown()
 

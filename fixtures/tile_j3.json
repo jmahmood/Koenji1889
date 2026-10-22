@@ -1,0 +1,157 @@
+{
+  "description": "Authored, rules-validated SR track practice; no copied player snapshots.",
+  "actions": [
+    {
+      "player": "p1",
+      "type": "bid",
+      "company": "TR",
+      "price": 20
+    },
+    {
+      "player": "p2",
+      "type": "bid",
+      "company": "MF",
+      "price": 30
+    },
+    {
+      "player": "p3",
+      "type": "bid",
+      "company": "ER",
+      "price": 40
+    },
+    {
+      "player": "p4",
+      "type": "bid",
+      "company": "SMR",
+      "price": 50
+    },
+    {
+      "player": "p1",
+      "type": "bid",
+      "company": "DR",
+      "price": 60
+    },
+    {
+      "player": "p2",
+      "type": "bid",
+      "company": "SIR",
+      "price": 80
+    },
+    {
+      "player": "p3",
+      "type": "pass"
+    },
+    {
+      "player": "p4",
+      "type": "bid",
+      "company": "UTF",
+      "price": 150
+    },
+    {
+      "player": "p1",
+      "type": "buy_shares",
+      "corporation": "SR",
+      "price": 80
+    },
+    {
+      "player": "p1",
+      "type": "end_turn"
+    },
+    {
+      "player": "p2",
+      "type": "pass"
+    },
+    {
+      "player": "p3",
+      "type": "buy_shares",
+      "corporation": "SR",
+      "source": "ipo"
+    },
+    {
+      "player": "p3",
+      "type": "end_turn"
+    },
+    {
+      "player": "p4",
+      "type": "buy_shares",
+      "corporation": "SR",
+      "source": "ipo"
+    },
+    {
+      "player": "p4",
+      "type": "end_turn"
+    },
+    {
+      "player": "p1",
+      "type": "buy_shares",
+      "corporation": "SR",
+      "source": "ipo"
+    },
+    {
+      "player": "p1",
+      "type": "end_turn"
+    },
+    {
+      "player": "p2",
+      "type": "pass"
+    },
+    {
+      "player": "p3",
+      "type": "pass"
+    },
+    {
+      "player": "p4",
+      "type": "pass"
+    },
+    {
+      "player": "p1",
+      "type": "pass"
+    },
+    {
+      "player": "p1",
+      "type": "lay_tile",
+      "hex": "I2",
+      "tile": "5",
+      "rotation": 5
+    },
+    {
+      "player": "p1",
+      "type": "dividend",
+      "payout": false
+    },
+    {
+      "player": "p1",
+      "type": "buy_train",
+      "train": "2-0"
+    },
+    {
+      "player": "p1",
+      "type": "end_turn"
+    },
+    {
+      "player": "p2",
+      "type": "pass"
+    },
+    {
+      "player": "p3",
+      "type": "pass"
+    },
+    {
+      "player": "p4",
+      "type": "pass"
+    },
+    {
+      "player": "p1",
+      "type": "pass"
+    }
+  ],
+  "used_actions": [
+    {
+      "player": "p1",
+      "type": "lay_tile",
+      "hex": "I4",
+      "tile": "438",
+      "rotation": 1
+    }
+  ]
+}

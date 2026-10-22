@@ -2975,7 +2975,12 @@ input:focus-visible {
 /* Window Content Layouts */
 .corporation-primary-table {
   display: grid;
-  grid-template-rows: 30px repeat(7, minmax(42px, 1fr));
+  grid-template-rows: minmax(44px, auto) repeat(7, minmax(max-content, 1fr));
+  container-type: inline-size;
+  min-width: 960px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.35;
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -2986,9 +2991,9 @@ input:focus-visible {
 
 .corporation-primary-table header,
 .corporation-primary-table .market-company {
-  grid-template-columns: minmax(185px, 1.4fr) 0.65fr 0.65fr 0.9fr 0.65fr;
-  gap: 6px;
-  padding: 4px 12px;
+  grid-template-columns: minmax(290px, 2fr) minmax(120px, 0.8fr) minmax(110px, 0.75fr) minmax(190px, 1.3fr) minmax(135px, 0.9fr);
+  gap: 16px;
+  padding: 6px 16px;
 }
 
 .corporation-primary-table header {
@@ -2997,6 +3002,8 @@ input:focus-visible {
   z-index: 2;
   color: #f0dbad;
   background: #352117;
+  font-size: clamp(15px, 1.15cqi, 18px);
+  font-weight: 700;
 }
 
 .keyboard-column-hint {
@@ -3007,7 +3014,9 @@ input:focus-visible {
 }
 
 .corporation-primary-table .market-company {
-  min-height: 0;
+  min-height: 76px;
+  font-size: clamp(18px, 1.5cqi, 24px);
+  line-height: 1.35;
   color: #2e2018;
   background: #e4d3ad;
   border-top-color: #b39c72;
@@ -3024,27 +3033,67 @@ input:focus-visible {
   box-shadow: inset 6px 0 #a86b1f;
 }
 
+.corporation-primary-table .corp-identity {
+  grid-template-columns: 8px 46px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.corporation-primary-table .market-company > span {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .corporation-primary-table .corp-identity i {
-  height: 28px;
+  height: 44px;
 }
 
 .corporation-primary-table .corp-identity b,
 .corporation-primary-table .corp-pricing strong {
   color: #3b2416;
+  font-size: inherit;
 }
 
 .corporation-primary-table .corp-identity strong,
+.corporation-primary-table .corp-supply em,
 .corporation-primary-table .corp-status em,
 .corporation-primary-table .corp-holding strong {
-  font-size: 10.5px;
+  font-size: inherit;
+}
+
+.corporation-primary-table .market-company .corp-holding {
+  font-size: inherit;
+}
+
+.corporation-primary-table .corp-holding .pres-seal {
+  color: #654113;
+  font-size: clamp(15px, 1.1cqi, 18px);
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.corporation-primary-table .corp-identity b {
+  white-space: nowrap;
+  font-size: clamp(18px, 1.35cqi, 22px);
+}
+
+.corporation-primary-table .keyboard-column-hint {
+  margin-left: 8px;
+  font: 400 14px Arial, sans-serif;
+}
+
+.corporation-primary-table .corp-fleet {
+  display: block;
 }
 
 .corporation-primary-table .corp-identity small,
 .corporation-primary-table .corp-pricing small,
 .corporation-primary-table .corp-supply small,
 .corporation-primary-table .corp-status small {
-  color: #6b583d;
-  font-size: 8.5px;
+  color: #51412d;
+  font-size: clamp(15px, 1.15cqi, 18px);
+  line-height: 1.4;
+  margin-top: 5px;
 }
 
 .corporation-primary-table .floated-tag { color: #245f3b; }
@@ -6677,7 +6726,6 @@ input:focus-visible {
 .stock-player-holdings span { font-size: 11px; }
 .stock-window-titlebar strong { font-size: 12px; }
 .stock-window-body { font-size: 12px; line-height: 1.45; }
-.corporation-primary-table { min-width: 660px; }
 .market-company strong { font-size: 13px; }
 .market-company small, .market-company em, .market-company .corp-holding { font-size: 12px; }
 .win-ctrl-btn { min-width: 28px; min-height: 25px; }
@@ -7529,33 +7577,6 @@ button.stock-player-card, button.meiji-player-card { text-align: left; cursor: p
   height: 24px !important;
   min-height: 24px !important;
   padding: 0 8px !important;
-}
-
-.corporation-primary-table header {
-  padding: 4px 10px !important;
-  font-size: 9px !important;
-}
-
-.corporation-primary-table .market-company {
-  padding: 4px 10px !important;
-  min-height: 38px !important;
-}
-
-.corporation-primary-table .corp-identity i {
-  height: 22px !important;
-}
-
-.corporation-primary-table .corp-identity b,
-.corporation-primary-table .corp-pricing strong {
-  font-size: 11.5px !important;
-}
-
-.corporation-primary-table .corp-identity small,
-.corporation-primary-table .corp-pricing small,
-.corporation-primary-table .corp-supply small,
-.corporation-primary-table .corp-status small {
-  font-size: 8.5px !important;
-  margin-top: 1px !important;
 }
 
 /* Order Ticket: keep sr-only ledger in DOM for tests while showing visual consequence grid */
@@ -8863,6 +8884,549 @@ button.stock-player-card, button.meiji-player-card { text-align: left; cursor: p
 .private-power-actions { margin-top: 14px; padding-top: 12px; border-top: 1px dashed #a78a59; }
 .private-power-actions h4 { margin: 0 0 8px; font: 700 14px/1.3 'Libre Baskerville', serif; color: #302215; }
 .private-power-btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.washi-modal-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.washi-back-btn {
+  padding: 7px 12px;
+  border: 1px solid #96723e;
+  border-radius: 3px;
+  background: #e7d5af;
+  color: #3a2614;
+  font: 500 12px/1.2 'DM Mono', monospace;
+  cursor: pointer;
+}
+.washi-back-btn:hover { background: #dec798; border-color: #6e4e22; }
+
+/* Warm Washi & Brass Ledger Player Details & Corporation Details Modals */
+.modal-card.washi-player-modal {
+  position: relative;
+  width: min(840px, 95vw);
+  padding: 22px 26px 26px;
+  background: linear-gradient(135deg, #f6ecd5, #e5d2a7);
+  color: #2e2013;
+  border: 2px solid #be9350;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.78), inset 0 0 0 1px rgba(255, 250, 236, 0.75);
+}
+.washi-player-modal .washi-player-header {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  background: linear-gradient(180deg, #efe1bf, #e3cfa3);
+  border: 1px solid #a78652;
+  border-bottom: 2px solid #8c6b39;
+  border-radius: 4px;
+  color: #2e2013;
+}
+.washi-player-portrait-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px;
+  background: #2b1b10;
+  border: 2px solid #b58946;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+}
+.washi-player-portrait-art {
+  width: 80px;
+  height: 86px;
+  overflow: hidden;
+  border: 1px solid #8a6938;
+  background: radial-gradient(ellipse at 50% 38%, #f5ebd2, #d4c098);
+}
+.washi-player-portrait-art .custom-character,
+.washi-player-portrait-art .custom-character > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.washi-seat-plaque {
+  margin-top: 3px;
+  padding: 1px 6px;
+  font: 700 9.5px/1.2 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  color: #f6dfa4;
+  background: #3d2616;
+  border-radius: 2px;
+}
+.washi-player-identity { min-width: 0; }
+.washi-player-kicker {
+  margin: 0 0 4px !important;
+  font: 500 11.5px/1.3 'DM Mono', monospace !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6e522b;
+}
+.washi-player-name-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.washi-player-modal .washi-player-name-row h2 {
+  margin: 0;
+  font: 700 28px/1.15 'Libre Baskerville', Georgia, serif;
+  color: #23160c;
+}
+.washi-persona-jp {
+  font: 600 14px/1.3 'Libre Baskerville', Georgia, serif;
+  color: #684b26;
+}
+.washi-player-seals-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.washi-seal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  font: 500 11px/1.25 'DM Mono', monospace;
+  font-style: normal;
+  background: #e5d4ae;
+  border: 1px solid #9e7d4b;
+  color: #3d2815;
+}
+.washi-seal-pill.is-you {
+  background: #23533d;
+  border-color: #173b2a;
+  color: #ebfff4;
+}
+.washi-seal-pill.is-turn {
+  background: #9e2a22;
+  border-color: #6e1812;
+  color: #fff3eb;
+  font-weight: 700;
+}
+.washi-seal-pill.is-priority {
+  background: #87581d;
+  border-color: #5c3a10;
+  color: #fff4d4;
+  font-weight: 600;
+}
+.washi-seal-pill.is-stamped {
+  background: #f7e6de;
+  border: 1.5px solid #b02a20;
+  color: #961f16;
+  font-weight: 600;
+}
+.washi-seal-pill.is-pres {
+  background: #472c14;
+  border-color: #b88b44;
+  color: #f7dfa4;
+}
+.washi-player-modal .close-modal-btn,
+.corporation-details-modal .close-modal-btn {
+  width: 38px;
+  height: 38px;
+  font-size: 22px;
+  background: #332012;
+  border: 1px solid #8f6b39;
+  color: #f5dfb3;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+.washi-player-modal .close-modal-btn:hover,
+.corporation-details-modal .close-modal-btn:hover {
+  background: #4a2e1a;
+}
+
+/* 4-Card Soroban Financial Strip */
+.washi-ledger-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.washi-ledger-stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #fbf3e1;
+  border: 1px solid #b08f5b;
+  border-top: 3px solid #8f6b38;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 #fffdf7;
+}
+.washi-ledger-stat.is-primary {
+  background: linear-gradient(180deg, #fff8e8, #f2e1bc);
+  border-top-color: #9e2a22;
+}
+.washi-ledger-stat .stat-label {
+  font: 600 10px/1.2 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  color: #70522c;
+  margin-bottom: 4px;
+}
+.washi-ledger-stat .stat-figure {
+  font: 700 21px/1.2 'Libre Baskerville', Georgia, serif;
+  color: #21140a;
+}
+.washi-ledger-stat .stat-figure small {
+  font-size: 13px;
+  font-weight: 400;
+  color: #6b502d;
+}
+.washi-ledger-stat .stat-compat-line {
+  margin: 2px 0 !important;
+  font: 500 12.5px/1.35 'DM Mono', monospace !important;
+  color: #26180d;
+}
+.washi-ledger-stat .stat-compat-line b {
+  font: 700 17px/1.2 'Libre Baskerville', Georgia, serif;
+  color: #1f1209;
+}
+.washi-ledger-stat > small {
+  margin-top: 4px;
+  font: 11px/1.3 'DM Mono', monospace !important;
+  color: #685030;
+}
+
+/* Portfolio Sections */
+.washi-portfolio-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1.5px solid #b08e59;
+}
+.washi-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.washi-section-head h3 {
+  margin: 0;
+  font: 700 16px/1.25 'Libre Baskerville', Georgia, serif;
+  color: #24160b;
+}
+.washi-section-head > span {
+  font: 500 11.5px/1.3 'DM Mono', monospace;
+  color: #6b4f2b;
+}
+.washi-subhead {
+  margin: 12px 0 8px;
+  font: 700 12px/1.3 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #5e4322;
+}
+.washi-empty-card {
+  margin: 0 !important;
+  padding: 12px 14px;
+  background: rgba(232, 214, 178, 0.65);
+  border: 1px dashed #a68551;
+  border-radius: 3px;
+  color: #5c4324;
+  font: 500 13px/1.4 'DM Mono', monospace !important;
+}
+
+/* Interactive Private Concession Cards inside Player / Corp Modals */
+.player-privates-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.player-private-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1fr);
+  gap: 14px;
+  padding: 12px 14px;
+  text-align: left;
+  background: #fbf4e3;
+  border: 1.5px solid #a88652;
+  border-left: 6px solid var(--priv-color, #7c431e);
+  border-radius: 4px;
+  color: #2b1d11;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(45, 28, 12, 0.12);
+}
+.player-private-card:hover {
+  background: #fff9ec;
+  border-color: #7d5b2b;
+  border-left-color: var(--priv-color, #7c431e);
+  box-shadow: 0 6px 16px rgba(45, 28, 12, 0.22);
+  transform: translateY(-1px);
+}
+.player-private-card.is-corp-owned {
+  background: #f4ead4;
+}
+.player-private-art-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.player-private-thumb {
+  position: relative;
+  width: 100%;
+  height: 78px;
+  overflow: hidden;
+  border: 1px solid #9e7d4b;
+  border-radius: 3px;
+  background: #dfd0b2;
+}
+.player-private-thumb .priv-scene-svg {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.player-private-face-row {
+  display: flex;
+  justify-content: space-between;
+  font: 500 10.5px/1.2 'DM Mono', monospace;
+  color: #5e4424;
+}
+.player-private-copy-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+.player-private-top {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.player-private-code {
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--priv-color, #7c431e);
+  color: #fff8ee;
+  font: 700 12px/1.2 'Libre Baskerville', Georgia, serif;
+  flex-shrink: 0;
+}
+.player-private-titles {
+  flex: 1;
+  min-width: 0;
+}
+.player-private-titles strong {
+  display: block;
+  font: 700 14.5px/1.25 'Libre Baskerville', Georgia, serif;
+  color: #22150b;
+}
+.player-private-titles small {
+  display: block;
+  font: 500 11.5px/1.25 'DM Mono', monospace !important;
+  color: #6a4f2c;
+}
+.player-private-yield {
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: #e9d7b0;
+  border: 1px solid #a17f4a;
+  color: #2d1d0e;
+  font: 700 12px/1.2 'DM Mono', monospace;
+  white-space: nowrap;
+}
+.player-private-power-box {
+  padding: 8px 10px;
+  background: #f2e4c4;
+  border: 1px solid #bda06c;
+  border-radius: 3px;
+}
+.power-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+.power-benefit-pill {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: #3a2414;
+  color: #f8dfa1;
+  font: 600 10.5px/1.3 'DM Mono', monospace;
+}
+.power-block-pill {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: #9e2a22;
+  color: #fff4ec;
+  font: 600 10.5px/1.3 'DM Mono', monospace;
+}
+.player-private-power-text,
+.player-private-power-box p {
+  margin: 0 !important;
+  font: 500 12.5px/1.45 'DM Mono', monospace !important;
+  color: #2b1d10;
+}
+.player-private-power-jp {
+  margin: 3px 0 0 !important;
+  font: 500 11.5px/1.35 'DM Mono', monospace !important;
+  color: #664c29;
+}
+.player-private-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font: 500 11px/1.25 'DM Mono', monospace;
+}
+.buyout-status-note { color: #5c4324; }
+.inspect-link-hint {
+  color: #87321c;
+  font-weight: 700;
+}
+
+/* Interactive Public Railway Share Cards */
+.player-corps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.player-corp-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 6px 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 0;
+  text-align: left;
+  background: #fbf4e3;
+  border: 1.5px solid #a88652;
+  border-radius: 4px;
+  color: #2b1d11;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(45, 28, 12, 0.1);
+}
+.player-corp-card:hover {
+  background: #fff9ec;
+  border-color: #7d5b2b;
+  box-shadow: 0 5px 14px rgba(45, 28, 12, 0.2);
+  transform: translateY(-1px);
+}
+.player-corp-ribbon {
+  align-self: stretch;
+  background: var(--corp, #9c6b2b);
+  border-radius: 2px 0 0 2px;
+}
+.player-corp-badge {
+  display: grid;
+  place-items: center;
+  height: 36px;
+  border-radius: 3px;
+  background: var(--corp, #9c6b2b);
+  color: var(--corp-text, #fff);
+  font: 700 14px/1 'Libre Baskerville', Georgia, serif;
+}
+.player-corp-main { min-width: 0; }
+.player-corp-compat {
+  margin: 0 0 3px !important;
+  font: 700 14px/1.3 'Libre Baskerville', Georgia, serif !important;
+  color: #23150b;
+}
+.player-corp-main small {
+  display: block;
+  font: 500 11.5px/1.35 'DM Mono', monospace !important;
+  color: #634927;
+}
+.player-corp-valuation {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.player-corp-valuation strong {
+  font: 700 16px/1.2 'Libre Baskerville', Georgia, serif;
+  color: #211309;
+}
+.player-corp-valuation small {
+  font: 500 11px/1.25 'DM Mono', monospace !important;
+  color: #634927;
+}
+
+/* Public Corporation Details Modal */
+.corporation-details-modal {
+  width: min(780px, 95vw);
+}
+.corp-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.corp-modal-emblem {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 4px;
+  background: var(--corp, #9c6b2b);
+  color: var(--corp-text, #fff);
+  border: 2px solid rgba(40, 24, 12, 0.35);
+  font: 700 20px/1 'Libre Baskerville', Georgia, serif;
+  flex-shrink: 0;
+}
+.corp-details-facts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.corp-modal-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #a78a59;
+}
+.corp-modal-section h3 {
+  margin: 0 0 10px;
+  font: 700 17px/1.3 'Libre Baskerville', Georgia, serif;
+  color: #26180c;
+}
+.corp-shareholder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.corp-shareholder-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #fbf4e3;
+  border: 1px solid #a88652;
+  border-radius: 3px;
+  color: #2b1d11;
+  font: 500 13px/1.3 'DM Mono', monospace;
+  cursor: pointer;
+}
+.corp-shareholder-row:hover {
+  background: #fff9ec;
+  border-color: #7a5828;
+}
+.corp-modal-actions {
+  margin-top: 18px;
+}
+
+@media (max-width: 720px) {
+  .modal-card.washi-player-modal { padding: 14px 16px 18px; }
+  .washi-player-modal .washi-player-header {
+    grid-template-columns: 74px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+  .washi-player-portrait-art { width: 64px; height: 70px; }
+  .washi-ledger-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .player-private-card { grid-template-columns: 1fr; }
+  .player-private-thumb { height: 110px; }
+  .player-corp-card { grid-template-columns: 6px 38px minmax(0, 1fr); }
+  .player-corp-valuation { grid-column: 3 / 4; align-items: flex-start; text-align: left; }
+  .corp-details-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .shared-profile-notice {
   display: flex;
   align-items: center;
@@ -9863,4 +10427,793 @@ button.stock-player-card, button.meiji-player-card { text-align: left; cursor: p
   color: #cbb282;
   font-size: 9.5px;
   margin-left: 4px;
+}
+
+/* ==========================================================================
+   5-STEP TRAIN PURCHASE WIZARD & TWO-PLAYER HANDSHAKE (TrainDesk.js)
+   ========================================================================== */
+
+.train-wizard-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #231810;
+  border: 1.5px solid #8a6938;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #f7eed7;
+}
+
+.train-wizard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(212, 171, 78, 0.35);
+}
+
+.train-wizard-header small {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #d4b680;
+}
+
+.train-wizard-header h4 {
+  margin: 2px 0 0;
+  font-size: 15px;
+  color: #ffeed0;
+}
+
+.wizard-phase-pill {
+  background: #170f0a;
+  color: #f7d488;
+  border: 1px solid #8c6934;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.train-wizard-stepper {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 5px;
+  background: #18100a;
+  border: 1px solid #5c4324;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.wizard-step-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 7px;
+  border-radius: 5px;
+  background: #291c12;
+  border: 1px solid #5a4225;
+  color: #dfd0b4;
+  text-align: left;
+  cursor: pointer;
+}
+
+.wizard-step-btn:hover {
+  background: #362518;
+  border-color: #9e7840;
+}
+
+.wizard-step-btn.is-active {
+  background: #decba4;
+  color: #1f140b;
+  border-color: #f5d481;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.wizard-step-btn.is-complete {
+  background: #1f3926;
+  border-color: #45a86d;
+  color: #d5f5e0;
+}
+
+.wizard-step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #5a4225;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.wizard-step-btn.is-active .wizard-step-num {
+  background: #24160c;
+  color: #f7d488;
+}
+
+.wizard-step-btn.is-complete .wizard-step-num {
+  background: #2e7d47;
+  color: #fff;
+}
+
+.wizard-step-label {
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.wizard-step-label b {
+  display: block;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wizard-step-label small {
+  display: block;
+  font-size: 9.5px;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.train-wizard-step {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.train-wizard-step.is-visible {
+  display: flex;
+}
+
+.wizard-step-intro {
+  background: rgba(214, 192, 148, 0.12);
+  border-left: 3px solid #d4ab4e;
+  padding: 6px 10px;
+  border-radius: 0 5px 5px 0;
+}
+
+.wizard-step-intro b {
+  display: block;
+  font-size: 13px;
+  color: #fce4a8;
+}
+
+.wizard-step-intro small {
+  font-size: 11.5px;
+  color: #d6c3a0;
+}
+
+.wizard-roundhouse-stalls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.wizard-stall {
+  background: #17100b;
+  border: 1px dashed #6b4f2c;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 11px;
+  color: #bdab8b;
+}
+
+.wizard-stall.is-occupied {
+  background: #2c1e13;
+  border: 1px solid #c29543;
+  color: #ffeed0;
+}
+
+.wizard-stall.is-staged {
+  background: #1d3625;
+  border: 1.5px solid #45a86d;
+  color: #b8f2cb;
+}
+
+.wizard-stall.is-rusted {
+  background: #3a1614;
+  border: 1px solid #c84237;
+  color: #ffaba0;
+}
+
+.wizard-stall .stall-badge {
+  display: block;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: #fce1a0;
+}
+
+.wizard-obligation-callout {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid #7c5d32;
+  background: #2b1d12;
+}
+
+.wizard-obligation-callout.is-mandatory-alert {
+  background: #3a1714;
+  border-color: #d64538;
+  color: #ffdad4;
+}
+
+.wizard-obligation-callout.is-optional-alert {
+  background: #1a3021;
+  border-color: #45a86d;
+  color: #d7f5e1;
+}
+
+.wizard-source-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.wizard-source-tab {
+  flex: 1;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: #1b120c;
+  border: 1px solid #6b4f2c;
+  color: #dfd0b4;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.wizard-source-tab.is-active {
+  background: #decba4;
+  color: #1f140b;
+  border-color: #f5d481;
+}
+
+.incoming-deal-pill {
+  background: #a62720;
+  color: #fff;
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 10.5px;
+}
+
+.wizard-source-pane {
+  display: none;
+}
+
+.wizard-source-pane.is-visible {
+  display: block;
+}
+
+.inter-company-market {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wizard-deal-card {
+  background: #fbf5e6;
+  color: #26190f;
+  border: 1.5px solid #a88d5e;
+  border-radius: 7px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wizard-deal-card.is-staged {
+  border-color: #2e7d47;
+  box-shadow: 0 0 0 2px rgba(46, 125, 71, 0.35);
+}
+
+.deal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.deal-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  background: #3a2615;
+  color: #fce1a0;
+}
+
+.deal-badge.is-ready {
+  background: #1f5c32;
+  color: #e6ffed;
+}
+
+.deal-badge.is-common {
+  background: #7c4d15;
+  color: #fff4d6;
+}
+
+.deal-hanko-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hanko-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.hanko-pill.is-signed {
+  background: #f8d8d4;
+  color: #8c1d15;
+  border: 1px solid #c74338;
+}
+
+.hanko-pill.is-pending {
+  background: #ece0c8;
+  color: #5c462c;
+  border: 1px dashed #8c704c;
+}
+
+.deal-card-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.wizard-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wizard-price-slider {
+  width: 100%;
+  accent-color: #2e7d47;
+  cursor: pointer;
+}
+
+.wizard-rust-impact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rust-impact-banner {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #7c5d32;
+  background: #2b1d12;
+  font-size: 12px;
+}
+
+.rust-impact-banner.is-cataclysm {
+  background: #3d1613;
+  border-color: #d64538;
+  color: #ffded9;
+}
+
+.rust-impact-banner.is-phase-shift {
+  background: #382811;
+  border-color: #e0a33a;
+  color: #ffefc7;
+}
+
+.rust-impact-banner.is-safe {
+  background: #193020;
+  border-color: #45a86d;
+  color: #dbf5e4;
+}
+
+.wizard-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  background: #fbf5e6;
+  color: #26190f;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.wizard-comparison-table th,
+.wizard-comparison-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid #dcc79e;
+  text-align: left;
+}
+
+.wizard-comparison-table th {
+  background: #d8c296;
+  font-size: 10.5px;
+  text-transform: uppercase;
+}
+
+.wizard-status-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.wizard-status-badge.is-ok {
+  background: #d0ecd4;
+  color: #1c5e29;
+}
+
+.wizard-status-badge.is-warn {
+  background: #fdf0ce;
+  color: #875508;
+}
+
+.wizard-status-badge.is-danger {
+  background: #fadad7;
+  color: #8a1d17;
+}
+
+.wizard-voucher-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 6px 10px;
+  background: #fbf5e6;
+  color: #24170d;
+  border: 1px solid #a88d5e;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 11.5px;
+}
+
+.wizard-voucher-summary-grid small {
+  display: block;
+  font-size: 10px;
+  color: #6b5338;
+  text-transform: uppercase;
+}
+
+.train-wizard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(212, 171, 78, 0.3);
+}
+
+.seller-offer-desk {
+  background: #2a1c12;
+  border: 1.5px solid #b88b3a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #f7eed7;
+}
+
+.seller-desk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.seller-desk-header small {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: #f5d481;
+}
+
+.seller-desk-header h4 {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #ffeed0;
+}
+
+.seller-desk-hint {
+  font-size: 11.5px;
+  color: #decba4;
+  margin: 0;
+}
+
+.seller-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+}
+
+.seller-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11.5px;
+  color: #f2dec0;
+}
+
+.seller-hanko-consent-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.seller-hanko-consent-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid #7c5d32;
+  border-radius: 6px;
+  padding: 5px 9px;
+}
+
+.hanko-stamp-box {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 2px double #d64538;
+  border-radius: 50%;
+  color: #ff9d8f;
+  font-weight: 700;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.posted-seller-offers {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(25, 48, 32, 0.55);
+  border: 1px solid #45a86d;
+  border-radius: 6px;
+  padding: 6px 9px;
+}
+
+.posted-offer-pill {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+}
+
+
+/* Full-page train purchase workspace. Keep legacy boardroom sizing out of it. */
+.train-wizard-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1600;
+  padding: 18px;
+  background: #100c09e8;
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+.modal-card.train-purchase-modal {
+  width: min(1320px, 100%);
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid #b88b3a;
+  border-radius: 12px;
+  background: #231810;
+  color: #f7eed7;
+}
+.train-purchase-modal .train-wizard-shell {
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  padding: 18px 24px 14px;
+  gap: 12px;
+  font: 15px/1.5 Georgia, serif;
+}
+.train-purchase-modal button,
+.train-purchase-modal input,
+.train-purchase-modal select { font: inherit; }
+.train-purchase-modal button { min-height: 42px; white-space: normal; }
+.train-purchase-modal button:focus-visible,
+.train-purchase-modal input:focus-visible,
+.train-purchase-modal select:focus-visible { outline: 3px solid #f5d481; outline-offset: 3px; }
+.train-purchase-modal button:disabled { opacity: .45; cursor: default; }
+.train-purchase-modal h2 { margin: 4px 0 0; font: 700 clamp(20px, 2vw, 26px)/1.25 Georgia, serif; color: #ffeed0; }
+.train-purchase-modal h3 { margin: 6px 0 18px; font-size: 20px; }
+.train-purchase-modal h4 { font-size: 16px; }
+.train-purchase-modal p { font-size: 15px; line-height: 1.55; }
+.wizard-header-actions { display: flex; gap: 16px; align-items: center; }
+.train-purchase-modal .close-modal-btn { position: static; flex: 0 0 44px; font-size: 28px; }
+.train-purchase-modal .train-wizard-header { padding-bottom: 10px; flex-shrink: 0; }
+.train-purchase-modal .train-wizard-header small { font: 12px/1.5 sans-serif; letter-spacing: .12em; }
+.train-purchase-modal .wizard-phase-pill { font: 13px/1.5 sans-serif; padding: 6px 12px; }
+.train-purchase-modal .train-wizard-stepper { flex-shrink: 0; gap: 8px; padding: 8px; }
+.train-purchase-modal .wizard-step-btn { padding: 9px 12px; gap: 10px; }
+.train-purchase-modal .wizard-step-label b { font-size: 14px; }
+.train-purchase-modal .wizard-step-label small { font: 12px/1.4 sans-serif; }
+.train-purchase-modal .wizard-step-num { width: 28px; height: 28px; flex: 0 0 28px; font-size: 14px; }
+.wizard-page-body { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 2px 4px 16px; scrollbar-gutter: stable; }
+.train-purchase-modal .train-wizard-step { padding: 0; outline: none; }
+.train-purchase-modal .train-wizard-step[hidden] { display: none; }
+.train-purchase-modal .wizard-step-intro { padding: 4px 0 12px; }
+.train-purchase-modal .wizard-step-intro b { font-size: 21px; }
+.train-purchase-modal .wizard-step-intro small { font: 14px/1.6 sans-serif; }
+.train-purchase-modal .roundhouse { padding: 20px; }
+.train-purchase-modal .roundhouse-plaque { font-size: 16px; padding: 10px; }
+.train-purchase-modal .owned-fleet { display: none; }
+.train-purchase-modal .wizard-roundhouse-stalls { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; padding: 16px 0; }
+.train-purchase-modal .wizard-stall { min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.train-purchase-modal .wizard-stall .stall-badge { font-size: 17px; }
+.train-purchase-modal .wizard-stall small { font-size: 14px; }
+.train-purchase-modal .wizard-obligation-callout { font-size: 16px; line-height: 1.7; padding: 20px; margin-top: 18px; }
+.train-purchase-modal .depot-card-tray { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; padding: 18px; }
+.train-purchase-modal .depot-card-tray h4,
+.train-purchase-modal .future-train-phases { grid-column: 1 / -1; }
+.train-purchase-modal .locomotive-certificate { padding: 16px; }
+.train-purchase-modal .locomotive-title { font-size: 18px; }
+.train-purchase-modal .locomotive-picture { height: 100px; }
+.train-purchase-modal .locomotive-engraving { max-width: 260px; width: 100%; height: 100px; }
+.train-purchase-modal .depot-stock,
+.train-purchase-modal .locomotive-certificate small,
+.train-purchase-modal .locomotive-ribbon { font-size: 13px; line-height: 1.5; }
+.train-purchase-modal .wizard-source-tab { padding: 12px 18px; font-size: 15px; }
+.train-purchase-modal .wizard-deal-card { padding: 20px; margin-top: 14px; font-size: 15px; }
+.train-purchase-modal .wizard-transfer-form { padding: 16px; border: 1px solid #8a6938; border-radius: 6px; }
+.train-purchase-modal label { display: block; font-size: 14px; margin-bottom: 12px; }
+.train-purchase-modal input { padding: 8px 12px; max-width: 100%; }
+.train-purchase-modal .wizard-comparison-table { font-size: 15px; }
+.train-purchase-modal .wizard-comparison-table th,
+.train-purchase-modal .wizard-comparison-table td { padding: 14px; }
+.train-purchase-modal .wizard-status-badge { font-size: 13px; white-space: normal; }
+.train-purchase-modal .rust-impact-banner { padding: 20px; font-size: 18px; }
+.train-purchase-modal .wizard-rust-impact { overflow-x: auto; }
+.wizard-money-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+.wizard-money-card { padding: 24px; background: #fbf2de; color: #2a1d12; border: 2px solid #b99858; border-radius: 8px; }
+.wizard-money-card small { font: 12px/1.5 sans-serif; letter-spacing: .08em; }
+.wizard-money-card > strong { display: block; font: 700 28px/1.4 Georgia, serif; }
+.wizard-money-card > b { display: block; color: #225438; }
+.train-purchase-modal .wizard-personal-note { margin: 14px 0 0; color: #cbb68e; font: 14px/1.5 sans-serif; }
+.wizard-emergency-contribution { margin-top: 22px; padding: 18px 22px; border: 1px solid #c7793d; border-radius: 8px; background: #3b2518; color: #f7eed7; }
+.train-purchase-modal .wizard-emergency-contribution h3 { margin: 0 0 10px; font-size: 18px; }
+.wizard-emergency-contribution > b { color: #ffd19a; }
+.train-purchase-modal .liquidation-mat { padding: 20px; margin-top: 20px; }
+.train-purchase-modal .engraved-certificate { font-size: 15px; padding: 16px; }
+.train-purchase-modal .engraved-certificate small { font-size: 12px; }
+.train-purchase-modal .wizard-voucher-summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 24px; font-size: 16px; padding: 18px; margin: 0; }
+.wizard-voucher-summary-grid > div { min-width: 0; overflow-wrap: anywhere; }
+.wizard-voucher-summary-grid dt { font: 12px/1.5 sans-serif; text-transform: uppercase; letter-spacing: .06em; color: #6b5338; }
+.wizard-voucher-summary-grid dd { margin: 4px 0 0; font-weight: bold; }
+.train-purchase-modal .dispatch-voucher { padding: 20px; flex-wrap: wrap; }
+.train-purchase-modal .voucher-copy strong { font-size: 18px; }
+.train-purchase-modal .voucher-copy span { font-size: 14px; }
+.train-purchase-modal .voucher-emblem { display: none; }
+.train-purchase-modal .voucher-actions { margin-left: auto; }
+.train-purchase-modal .hanko-button { padding: 12px 22px; font-size: 17px; }
+.train-purchase-modal .train-wizard-footer { flex-shrink: 0; padding-top: 12px; gap: 12px; background: #231810; }
+.train-purchase-modal .train-wizard-footer button { margin: 0; }
+.wizard-footer-right { display: flex; gap: 12px; }
+.wizard-progress-caption { font: 13px/1.5 sans-serif; color: #cbb68e; }
+.train-wizard-launcher { display: grid; gap: 8px; padding: 16px; border: 1px solid #b99858; border-radius: 8px; background: #2a1c12; color: #f7eed7; }
+.train-wizard-launcher small { line-height: 1.5; }
+@media (max-width: 760px) {
+  .train-wizard-backdrop { padding: 0; }
+  .modal-card.train-purchase-modal { border-radius: 0; border-width: 0; }
+  .train-purchase-modal .train-wizard-shell { padding: 16px 12px; gap: 10px; }
+  .train-purchase-modal .train-wizard-header { align-items: flex-start; }
+  .wizard-header-actions { gap: 4px; }
+  .train-purchase-modal .wizard-phase-pill { display: none; }
+  .train-purchase-modal .train-wizard-stepper { gap: 3px; padding: 4px; }
+  .train-purchase-modal .wizard-step-btn { flex-direction: column; padding: 6px 2px; gap: 4px; text-align: center; }
+  .train-purchase-modal .wizard-step-label b { font: 11px/1.3 sans-serif; }
+  .train-purchase-modal .wizard-step-label small { display: none; }
+  .train-purchase-modal .wizard-step-intro b { font-size: 20px; }
+  .train-purchase-modal .wizard-roundhouse-stalls { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .train-purchase-modal .wizard-stall { min-height: 110px; padding: 8px; }
+  .train-purchase-modal .wizard-stall .stall-badge { font-size: 14px; }
+  .train-purchase-modal .roundhouse { padding: 10px; }
+  .train-purchase-modal .wizard-source-tabs { flex-direction: column; }
+  .train-purchase-modal .depot-card-tray { grid-template-columns: 1fr; padding: 8px; }
+  .train-purchase-modal .wizard-comparison-table { min-width: 600px; }
+  .train-purchase-modal .wizard-voucher-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 14px; font-size: 15px; }
+  .train-purchase-modal .train-wizard-footer { flex-wrap: wrap; gap: 8px; }
+  .wizard-progress-caption { display: none; }
+  .wizard-footer-right { flex: 1; justify-content: flex-end; flex-wrap: wrap; }
+  .train-purchase-modal .wizard-nav-btn,
+  .train-purchase-modal [data-wizard-pass] { padding: 8px 10px; font-size: 13px; }
+  .train-purchase-modal .voucher-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+}
+.train-purchase-modal .wizard-step-label b { white-space: normal; }
+.train-purchase-modal .hanko-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(#b93629, #8b211b) !important;
+  border: 2px solid #d88364;
+  color: #fff4de;
+  font: 700 17px/1.4 Georgia, serif !important;
+}
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .train-purchase-modal .wizard-voucher-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 761px) and (max-height: 760px) {
+  .train-wizard-backdrop { padding: 10px; }
+  .train-purchase-modal .train-wizard-shell { padding: 12px 18px; gap: 8px; }
+  .train-purchase-modal h2 { font-size: 22px; }
+  .train-purchase-modal .train-wizard-header { padding-bottom: 8px; }
+  .train-purchase-modal .train-wizard-stepper { padding: 5px; }
+  .train-purchase-modal .wizard-step-btn { padding: 7px 10px; }
+  .train-purchase-modal .wizard-step-intro { padding-bottom: 10px; }
+  .train-purchase-modal .wizard-step-intro b { font-size: 19px; }
+  .train-purchase-modal .train-wizard-footer { padding-top: 8px; }
+  .train-purchase-modal .wizard-voucher-summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 18px; padding: 14px; }
+  .train-purchase-modal .wizard-page-body { padding-bottom: 8px; }
+}
+@media (max-width: 760px) {
+  .train-purchase-modal .train-wizard-footer:has([data-stamp-train]) { display: grid; grid-template-columns: 1fr; }
+  .train-purchase-modal .train-wizard-footer:has([data-stamp-train]) > [data-wizard-prev] { justify-self: start; }
+  .train-purchase-modal .train-wizard-footer:has([data-stamp-train]) .wizard-footer-right { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; }
+  .train-purchase-modal .train-wizard-footer [data-cancel-train] { padding: 8px; font-size: 13px; }
+  .train-purchase-modal .train-wizard-footer .hanko-button { padding: 10px; font-size: 14px !important; }
+  .train-purchase-modal .train-wizard-footer .hanko-button > span { display: none; }
+}
+
+/* Railway ticket launcher and adjacent parchment alternative. */
+.train-wizard-launcher { gap:12px; padding:15px; border:1px solid #b99858; border-radius:12px; background:linear-gradient(135deg,#302217,#21170f); box-shadow:inset 0 0 0 3px #21170f,inset 0 0 0 4px #8f713e; color:#f7eed7; min-width:0; }
+.train-launch-heading { display:flex; align-items:center; gap:10px; min-width:0; }
+.train-launch-art { flex:0 0 76px; color:#d7b46a; }
+.train-launch-art .locomotive-engraving { display:block; width:100%; height:auto; }
+.train-launch-art svg g [fill] { fill:#302217; }
+.train-launch-art svg g { stroke:#d7b46a; }
+.train-launch-copy { flex:1; min-width:0; }
+.train-launch-title { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; border-bottom:1px solid #8f713e; padding-bottom:7px; }
+.train-wizard-launcher .train-launch-title h3 { margin:0; color:#f7eed7; font:700 22px/1.1 Georgia,serif; }
+.train-launch-status { padding:3px 6px; border:1px solid #a58347; border-radius:5px; color:#e3c47d; font:600 10px/1.2 system-ui; letter-spacing:.08em; text-transform:uppercase; }
+.train-launch-status.is-required { color:#ffe3a6; border-color:#e4b05d; }
+.train-wizard-launcher .train-launch-copy p { margin:7px 0 0; color:#e8dcc0; font:12px/1.5 Georgia,serif; }
+.train-wizard-launcher .train-launch-button { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; margin:0; padding:11px 10px; min-height:44px; border:1px solid #d3b577; border-radius:7px; background:linear-gradient(#28634e,#154232); color:#fff4d8; box-shadow:inset 0 0 0 2px #ffffff10,0 2px 3px #0004; font:700 14px/1.3 Georgia,serif; text-align:center; }
+.train-launch-button:hover { filter:brightness(1.15); }
+.train-launch-ticket { color:#e8c06e; font:24px/1 Georgia,serif; transform:rotate(-18deg); }
+.train-launch-stations { display:flex; justify-content:space-between; list-style:none; padding:0; margin:0; }
+.train-launch-stations li { position:relative; flex:1; padding-top:14px; text-align:center; color:#dfd0af; font:11px/1.4 Georgia,serif; }
+.train-launch-stations li::before { content:''; position:absolute; top:4px; left:0; right:0; height:1px; background:#b99550; }
+.train-launch-stations li:first-child::before { left:50%; }
+.train-launch-stations li:last-child::before { right:50%; }
+.train-launch-stations li::after { content:''; position:absolute; top:0; left:calc(50% - 5px); width:8px; height:8px; border:1px solid #d2ae62; border-radius:50%; background:#23513c; }
+.operating-turn-controls.is-train-choice { padding-top:0; border-top:0; }
+.operating-turn-controls.is-train-choice .op-step-row { margin-top:10px; }
+.operating-turn-controls.is-train-choice .finish-turn-highlight { display:flex; align-items:center; justify-content:space-between; width:100%; border:1px solid #35644d; border-radius:7px; padding:10px 12px; background:transparent; color:#214733; box-shadow:none; font:700 16px/1.3 Georgia,serif; }
+.operating-turn-controls.is-train-choice .finish-turn-highlight:hover { background:#f7edce; }
+@media (max-width:400px), (max-height:760px) {
+ .train-wizard-launcher { padding:11px; gap:9px; }
+ .train-launch-art { flex-basis:54px; }
+ .train-wizard-launcher .train-launch-title h3 { font-size:19px; }
+ .train-wizard-launcher .train-launch-button { font-size:13px; padding:8px; }
 }

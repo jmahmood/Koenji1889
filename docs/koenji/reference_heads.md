@@ -1,6 +1,6 @@
 # Photo-reference portraits
 
-Added 2026-10-17. `reference-01` through `reference-07` correspond to the first seven supplied photos in attachment order. `reference-08` through `reference-10` correspond to the next three photos: navy glasses and a silver-chin beard; wavy dark hair and thin oval spectacles; and a shaved head with burgundy glasses and a goatee. The labels describe appearance without assigning identities or resident roles. The original face data and assets are retained for reference; the app and current workbench offer only these seventeen reference portraits. Legacy M1–M5/face selections normalize to Portrait 1, retaining the selected outfit, and can be changed in the look editor.
+Added 2026-10-17. `reference-01` through `reference-07` correspond to the first seven supplied photos in attachment order. `reference-08` through `reference-10` correspond to the next three photos: navy glasses and a silver-chin beard; wavy dark hair and thin oval spectacles; and a shaved head with burgundy glasses and a goatee. The labels describe appearance without assigning identities or resident roles. The original face data and assets are retained for reference; the app and current workbench offer only these twenty-seven reference portraits. Legacy M1–M5/face selections normalize to Portrait 1, retaining the selected outfit, and can be changed in the look editor.
 
 `reference-11` through `reference-17` correspond to the third set of seven supplied photos in attachment order: upright short hair; a low ponytail and wispy fringe; a balding head and subtle stubble; swept hair and browline glasses; shoulder-length hair and a side fringe; short hair and rectangular glasses; and a black cap with a mustache and goatee. The last portrait retains the cap and subtle ear stud as part of its head artwork.
 
@@ -17,11 +17,11 @@ Added 2026-10-17. `reference-01` through `reference-07` correspond to the first 
 
 The nine expressions are derived from a single reference photo per person, so expressions and unseen angles are artistic interpretations. Preview likeness, neck alignment, glasses, hair edges and hand overlap before accepting replacement artwork. Original head assets remain available for comparison.
 
-Each expression also has a `headAtlas.neckAnchors` point in source-image pixels. The renderer attaches that point to the outfit at `(100, 118)` in character coordinates, independently of the crop's silhouette center. This keeps tilted heads, asymmetric hair, caps and ponytails attached to the collar. Head and torso share the same vertical movement when a held pose leans. Adjust the neck anchor when calibrating an expression; translating or tightening its source crop can otherwise reintroduce offset or clipping. All seventeen portraits have per-expression registration, including the opposing offsets in Portraits 8 and 9. Natural head angles remain part of the artwork.
+Each expression also has a `headAtlas.neckAnchors` point in source-image pixels. The renderer attaches that point to the outfit at `(100, 118)` in character coordinates, independently of the crop's silhouette center. This keeps tilted heads, asymmetric hair, caps and ponytails attached to the collar. Head and torso share the same vertical movement when a held pose leans. Adjust the neck anchor when calibrating an expression; translating or tightening its source crop can otherwise reintroduce offset or clipping. All twenty-seven portraits have per-expression registration, including the opposing offsets in Portraits 8 and 9. Natural head angles remain part of the artwork.
 
 ## Preview and generation record
 
-With the Vite app running, open `/docs/koenji/reference_head_gallery.html` to compare all seventeen portraits, expressions, outfits and poses. **Latest additions** filters by `portraitBatch` in the catalogue, keeping all seven newest portraits together; numbered portrait groups let you review earlier sets, including **Portraits 8–10**. `/docs/koenji/semi_photoreal_face_test.html` includes the new portrait buttons alongside the existing members and animation sequences. Use the served URLs so JavaScript module imports work.
+With the Vite app running, open `/docs/koenji/reference_head_gallery.html` to compare all twenty-seven portraits, expressions, outfits and poses. **Latest additions** filters by `portraitBatch` in the catalogue, keeping the newest portrait set together; numbered portrait groups let you review earlier sets, including **Portraits 8–10**. `/docs/koenji/semi_photoreal_face_test.html` includes the new portrait buttons alongside the existing members and animation sequences. Use the served URLs so JavaScript module imports work.
 
 The portraits were created using built-in image generation from the reference photos. Exact prompts and output paths are recorded in [reference_head_generation.json](reference_head_generation.json).
 
@@ -30,3 +30,15 @@ Validation: `node --test tests/reference_heads.test.mjs tests/character_arrivals
 ## Portrait 15 expression scale correction
 
 The Smile, Shock, and Laugh source rectangles included excess horizontal space at the left of their atlas column. Fitting those oversized rectangles into the shared head placement reduced the visible heads by about 20%. Their source crops now closely bound the same head silhouette as the other expressions, retaining the original PNG and absolute neck anchors. All nine expressions render within 3% of Neutral's head-frame height. A renderer regression checks that bound and the existing tests continue to verify collar attachment and exact clipping.
+
+## Portraits 18–24 (2026-10-22)
+
+The fourth set adds seven supplied photos in attachment order: tied-back dark hair with silver glasses and a pointed beard; spiky light-brown hair with silver glasses and a short beard; swept-up dark hair and subtle chin stubble; long dark hair with full bangs; a rounded afro with a full beard and hoop earring; a tall afro with mustache and chin beard; and a chin-length bob with a side-swept fringe.
+
+All seven include nine expressions, per-expression neck registration and the existing twelve outfits. Portraits 18–24 and Portraits 11–17 remain available as their original groups. Built-in image generation produced these atlases; Portrait 18 was regenerated with extra spacing to separate the beard from neighboring rows. Original generated PNGs are copied unchanged, and the supplied photographs are excluded from public assets. Prompts are recorded in reference_head_generation.json.
+
+## Portraits 25–27 (2026-10-22)
+
+The fifth set adds three supplied photos in attachment order: upright short dark hair, strong eyebrows and subtle stubble; side-swept short dark hair with jaw stubble; and shoulder-length dark brown hair with a side part and natural facial moles. The gallery’s Latest additions filter shows these three portraits, and all earlier groups remain available.
+
+Each new portrait includes nine expressions and individual neck anchors for the shared twelve outfits and sixteen poses. Built-in image generation produced the transparent PNG atlases; final assets are copied unchanged and original photographs are excluded from public assets. Prompts and asset paths are recorded in reference_head_generation.json. All 27 rendered frames are shown in validation/reference-heads-25-27/all-expressions.png.

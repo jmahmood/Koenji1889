@@ -1,0 +1,12 @@
+{
+  "url": "http://10.0.0.30:8080",
+  "health": "ok",
+  "entryMatchesBuild": true,
+  "assetsMatchBuild": true,
+  "browserErrors": [],
+  "failedResponses": [],
+  "assetHashes": {
+    "/assets/index-C5XZ8Bs4.js": "cc3946a8684bc3cf48e13f63ee13983e9417548b949ebc359209e6cd5d4cb8a4",
+    "/assets/index-DbWhesUr.css": "240d8d0fdfc152cc1226751fbcd357951c336c902782f43de4711d6df88e3a15"
+  }
+}

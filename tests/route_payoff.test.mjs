@@ -96,6 +96,7 @@ test('changed track disables traversal and a newer unrecorded claim never borrow
  assert.ok(recordedRouteRun(old).routes.every(r=>r.revenue===undefined));
 });
 test('distinct cues reflect actual consequences and financial receipts use accepted account destinations',()=>{
+ assert.equal(renderAcceptedFeedback({event:{type:'lay_tile',corporation:'IR'}}),'');
  assert.equal(actionCue({type:'lay_tile'}),'track');assert.equal(actionCue({type:'place_token'}),'station');
  assert.equal(actionCue({type:'dividend',payout:true,revenue:90}),'cash');assert.equal(actionCue({type:'dividend',payout:false,revenue:90}),'safe');
  assert.equal(actionCue({type:'dividend',payout:true,revenue:0}),'ledger');assert.equal(actionCue({type:'buy_train',rusted_trains:[{}]}),'warning');
@@ -120,4 +121,14 @@ test('effects bound voices, deduplicate, apply mute/volume immediately, and rele
 });
 test('all original sound assets are finite, bounded PCM with silent ends',()=>{
  for(const kind of Object.keys(EFFECT_CUES)){const pcm=effectSamples(kind);assert.ok(pcm.length>0);assert.ok(pcm.every(v=>Number.isFinite(v)&&Math.abs(v)<=.95));assert.equal(Math.abs(pcm[0]),0);assert.ok(Math.abs(pcm.at(-1))<.00001);}
+});
+
+test('dividend receipt keeps balances and bank allocation in collapsed details',()=>{
+ const html=renderAcceptedFeedback({event:{type:'dividend',corporation:'IR',payout:true,revenue:90,account_deltas:[{name:'<Daisuke>',destination:'purse',amount:27,before:140,after:167}],dividend_allocation:{treasury:0,ipo_retained_by_bank:45},market_movements:[{corporation:'IR',price_before:75,price_after:80,before:1,after:2}]}});
+ const [summary,details]=html.split('<details class="dividend-receipt-details">');
+ assert.match(summary,/&lt;Daisuke&gt;/);assert.match(summary,/\+¥27/);assert.match(summary,/Share price ¥75 → ¥80/);
+ assert.doesNotMatch(summary,/Personal purse|¥140|IPO retained/);
+ assert.match(details,/Personal purse: ¥140 → ¥167/);assert.match(details,/IPO retained by bank: ¥45/);
+ assert.doesNotMatch(html,/<details[^>]*\sopen(?:\s|>)/);
+ assert.match(html,/data-dismiss-payoff-receipt/);
 });

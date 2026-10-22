@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { renderDetailedMapView } from '../src/components/HexMap1889.js';
-import { renderInlineTrainDesk } from '../src/components/TrainDesk.js';
+import { renderInlineTrainDesk, renderTrainPurchaseModal } from '../src/components/TrainDesk.js';
 import { renderWaitingTable } from '../src/components/GatheringLobby.js';
 import { renderPrivateDetailsModal } from '../src/components/Modals.js';
 import { renderDecisionDesk, renderDecisionNotice } from '../src/components/DecisionDesk.js';
@@ -32,7 +32,19 @@ const baseApp = (v) => ({
   mapWindows: { corporations: { open: true, z: 5 } },
 });
 
-test('UI-002: mandatory train obligation disables End Turn even with sufficient corporate treasury', () => {
+test('route footer puts Run trains in the action row and hides unavailable End Turn', () => {
+  const v = structuredClone(views.routes);
+  v.state.operating_turn.step = 'routes';
+  v.legal_actions.types = ['run_routes'];
+  const html = renderDetailedMapView(baseApp(v), v, catalog);
+  const footer = html.match(/<footer class="operating-turn-controls"[\s\S]*?<\/footer>/)?.[0];
+  assert.ok(footer);
+  assert.doesNotMatch(footer, /data-testid="op-btn-end-turn"/);
+  assert.equal((footer.match(/data-run-route-plan/g) || []).length, 1);
+  assert.match(footer, /class="op-step-row[^]*data-run-route-plan/);
+});
+
+test('UI-002: mandatory train obligation hides End Turn even with sufficient corporate treasury', () => {
   const v = views.train_normal;
   assert.ok(v.train_financing, 'train_financing must be present when trainless corp has a route');
   assert.equal(v.train_financing.shortfall, 0, 'treasury covers the train in train_normal');
@@ -44,11 +56,15 @@ test('UI-002: mandatory train obligation disables End Turn even with sufficient 
   const mapHtml = renderDetailedMapView(s, v, catalog);
   assert.match(mapHtml, /data-testid="mandatory-train-guard"/);
   assert.match(mapHtml, /Mandatory train purchase:/);
-  assert.match(mapHtml, /data-testid="op-btn-end-turn"[^>]*disabled/);
+  assert.doesNotMatch(mapHtml, /data-testid="op-btn-end-turn"/);
 
   const trainDeskHtml = renderInlineTrainDesk(s, v);
-  assert.match(trainDeskHtml, /MANDATORY · 2-Train/);
-  assert.match(trainDeskHtml, /is-mandatory/);
+  assert.match(trainDeskHtml, /Train purchase required/);
+  assert.match(trainDeskHtml, /data-open-train-wizard/);
+  const wizardHtml = renderTrainPurchaseModal({...s, activeModal:'train'}, v);
+  assert.match(wizardHtml, /MANDATORY · 2-Train/);
+  assert.match(wizardHtml, /is-mandatory/);
+  assert.doesNotMatch(wizardHtml, /data-wizard-pass/);
 });
 
 test('UI-001: shared-profile guest tab hides host controls, discloses shared profile, and preserves host session even after seating reorder to p3', () => {

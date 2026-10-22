@@ -1,0 +1,71 @@
+test_defaults_validation_and_nonplaying_host (test_character_arrivals.CharacterArrivalTests) ... ok
+test_legacy_database_upgrade_preserves_state_and_credentials (test_character_arrivals.CharacterArrivalTests) ... ok
+test_new_reference_portraits_persist_without_changing_game_history (test_character_arrivals.CharacterArrivalTests) ... ok
+test_observer_appearance_is_separate_and_arrivals_leave_history_unchanged (test_character_arrivals.CharacterArrivalTests) ... ok
+test_reordering_preserves_identity_look_host_route_and_credentials (test_character_arrivals.CharacterArrivalTests) ... ok
+test_start_requires_claims_but_not_online_and_cannot_bypass_with_names (test_character_arrivals.CharacterArrivalTests) ... ok
+test_tabs_and_polls_deduplicate_arrivals_returns_are_quiet_and_persistent (test_character_arrivals.CharacterArrivalTests) ... ok
+test_cascade_and_pass_awards_identify_winner_and_actual_escrow_price (test_character_events.CharacterEventTests) ... ok
+test_consequence_facts_come_only_from_snapshot_changes (test_character_events.CharacterEventTests) ... ok
+test_train_payment_is_depot_price_not_personal_cash_delta (test_character_events.CharacterEventTests) ... ok
+test_all_phases_game_journal_restore_and_scoreboard_projection (test_complete_client_game.CompleteClientGameTests) ... ok
+test_authoritative_empty_tile_set_and_laid_flag (test_decision_coverage.DecisionCoverageTests) ... ok
+test_diesel_trade_in_and_block_stock_zone_choices (test_decision_coverage.DecisionCoverageTests) ... ok
+test_emergency_blocks_and_bankruptcy_choices_are_validated (test_decision_coverage.DecisionCoverageTests) ... ok
+test_er_offer_purchase_lay_or_decline_at_every_operating_step (test_decision_coverage.DecisionCoverageTests) ... ok
+test_multi_discard_choices_block_normal_moves_and_resume (test_decision_coverage.DecisionCoverageTests) ... ok
+test_or_out_of_turn_dr_exchange_and_train_consent (test_decision_coverage.DecisionCoverageTests) ... ok
+test_route_quote_is_read_only_and_bad_routes_never_commit (test_decision_coverage.DecisionCoverageTests) ... ok
+test_correct_president_can_edit_run_and_pay_while_other_demo_is_preserved (test_expanded_route_fixtures.ExpandedRouteFixturesTests) ... ok
+test_long_trains_have_many_legal_routes_and_choices_remain_with_other_trains_reserved (test_expanded_route_fixtures.ExpandedRouteFixturesTests) ... ok
+test_rich_networks_are_replayable_and_all_trains_can_run (test_expanded_route_fixtures.ExpandedRouteFixturesTests) ... ok
+test_presence_distinguishes_polling_from_seated_away_and_bad_timestamps (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_public_claim_is_single_use_and_never_leaks_other_seat_tokens (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_waiting_view_claim_stamp_seating_start_and_reload (test_gathering_lifecycle.GatheringLifecycleTests) ... ok
+test_only_host_can_assign_valid_portraits_and_clearing_a_preset_preserves_the_seat (test_invitation_portraits.InvitationPortraitTests) ... FAIL
+test_preset_persists_and_follows_the_token_through_reordering_without_arriving (test_invitation_portraits.InvitationPortraitTests) ... ok
+test_catalog_and_health (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_create_start_and_reload_initial_state (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_current_gathering_updates_remain_distinct_from_historical_game_state (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_history_projects_real_initial_bank_and_timestamp_without_rewriting_game (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_operating_round_fixture_track_routes_and_dividend (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_private_company_auction_start_runoff_cascade_and_completion (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_vertical_slice_stock_purchase_idempotency_rejection_and_rewind (test_koenji_vertical_slice.KoenjiVerticalSliceTests) ... ok
+test_new_journals_skip_legacy_snapshot_reads (test_legacy_mascot_replay.LegacyMascotReplayTests) ... ok
+test_old_auction_preserves_real_outbid_identity (test_legacy_mascot_replay.LegacyMascotReplayTests) ... ok
+test_old_journal_gets_exact_receipts_rust_presidency_and_winners_without_rewriting (test_legacy_mascot_replay.LegacyMascotReplayTests) ... ok
+test_pool_and_ipo_dividends_have_distinct_receipts_and_conserve_money (test_playtest_release.PlaytestReleaseTests) ... ok
+test_receipt_animations_never_report_zero_or_negative_payments (test_playtest_release.PlaytestReleaseTests) ... ok
+test_withholding_delivers_only_company_revenue (test_playtest_release.PlaytestReleaseTests) ... ok
+test_cyeu10_playtest_database_accounting_and_terminal_state (test_playtest_remediation.PlaytestRemediationTests) ... ok
+test_idempotency_stale_revision_and_authorization_guards (test_playtest_remediation.PlaytestRemediationTests) ... ok
+test_phases_5_6_diesel_privates_rust_and_offboard_progression (test_playtest_remediation.PlaytestRemediationTests) ... ok
+test_ui002_mandatory_train_blocks_end_turn_until_train_purchased (test_playtest_remediation.PlaytestRemediationTests) ... ok
+test_each_open_player_private_counts_as_one_certificate (test_playtest_rules_clarity.PlaytestRulesClarityTests) ... ok
+test_no_trade_stock_round_keeps_priority_instead_of_rotating (test_playtest_rules_clarity.PlaytestRulesClarityTests) ... ok
+test_phase_two_or_four_one_pays_every_open_private_owner (test_playtest_rules_clarity.PlaytestRulesClarityTests) ... ok
+test_route_fixture_replays_and_runs_both_trains_then_pays_dividend (test_route_fixture.RouteFixtureTests) ... ok
+test_route_events_keep_exact_train_paths_and_scores_without_moving_cash (test_route_payoff.RoutePayoffTests) ... ok
+test_settlement_facts_include_revised_revenue_net_deltas_and_actual_market_positions (test_route_payoff.RoutePayoffTests) ... ok
+test_capacity_repeat_and_unknown_stop_checks (test_route_stop_editor.RouteStopEditorTests) ... ok
+test_chosen_connection_can_run_without_a_manual_validation_action (test_route_stop_editor.RouteStopEditorTests) ... ok
+test_history_and_other_seats_cannot_edit (test_route_stop_editor.RouteStopEditorTests) ... ok
+test_releasing_other_train_unlocks_its_stops_but_conflicts_never_offered (test_route_stop_editor.RouteStopEditorTests) ... ok
+test_stop_choices_reserve_other_train_and_complete_with_correct_total (test_route_stop_editor.RouteStopEditorTests) ... ok
+test_discovery_omits_no_engine_accepted_tile_orientation (test_tile_discovery.TileDiscoveryTests) ... ok
+test_multiple_connections_produce_more_than_six_valid_j3_choices (test_tile_discovery.TileDiscoveryTests) ... ok
+test_sr_can_build_j3_before_using_its_one_normal_lay (test_tile_discovery.TileDiscoveryTests) ... ok
+test_j3_positions_replay_and_allow_only_the_unused_normal_lay (test_tile_fixture.TileFixtureTests) ... ok
+
+======================================================================
+FAIL: test_only_host_can_assign_valid_portraits_and_clearing_a_preset_preserves_the_seat (test_invitation_portraits.InvitationPortraitTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/jmahmood/Downloads/Koenji_1889_Codex_Starter_Package/koenji-1889/tests/test_invitation_portraits.py", line 62, in test_only_host_can_assign_valid_portraits_and_clearing_a_preset_preserves_the_seat
+    self.assertEqual(len(APPEARANCE_CATALOG['faces']),17)
+AssertionError: 27 != 17
+
+----------------------------------------------------------------------
+Ran 58 tests in 128.352s
+
+FAILED (failures=1)

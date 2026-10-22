@@ -1,0 +1,57 @@
+[
+  {
+    "path": "artwork/2-train-iyo-no1.png",
+    "description": "2-train concept based on original Iyo Railway No. 1; parchment engraving with restrained green, red and brass.",
+    "source": "/Users/jmahmood/.codex/generated_images/01a16535-7f23-7663-966a-6d39737812c1/exec-57cfb426-4999-4faf-babd-b86ff012689f.png",
+    "sha256": "ddcf3eea9878db0ca2fdd8442b50671ac1b97e0690600618a866e0ffeddbf88f",
+    "width": 1426,
+    "height": 1103,
+    "bytes": 3269243,
+    "generation_tool": "built-in image_gen",
+    "purpose": "approved concept reference; not production-ready UI asset"
+  },
+  {
+    "path": "artwork/3-train-8620-58685.png",
+    "description": "3-train concept based on supplied Class 8620 No. 58685 photograph, matching the Iyo engraving style.",
+    "source": "/Users/jmahmood/.codex/generated_images/01a16535-7f23-7663-966a-6d39737812c1/exec-239cee0a-9011-49ff-9ca8-8ba0e0c37a99.png",
+    "sha256": "2a9b3609afe634e039571bf761fccf0307e70caa61f25dcf047b1bd83500b7a4",
+    "width": 1676,
+    "height": 938,
+    "bytes": 3361928,
+    "generation_tool": "built-in image_gen",
+    "purpose": "approved concept reference; not production-ready UI asset"
+  },
+  {
+    "path": "artwork/4-train-c58-333.png",
+    "description": "Corrected C58 333 concept: three large coupled driving wheels, small leading and trailing wheels, separate tender.",
+    "source": "/Users/jmahmood/.codex/generated_images/01a16535-7f23-7663-966a-6d39737812c1/exec-0c4099d7-2d7d-463a-9482-dd4a871d34be.png",
+    "sha256": "fe72d32f1fbf2d948e39c8aae2667db13e9f6fcc6470d8a459cd3a4eddb0bd0b",
+    "width": 1677,
+    "height": 938,
+    "bytes": 2972193,
+    "generation_tool": "built-in image_gen",
+    "purpose": "approved concept reference; not production-ready UI asset"
+  },
+  {
+    "path": "mockups/step-1-roundhouse.png",
+    "description": "Approved first-step wizard proposal: illustrated roundhouse bays on parchment, connected step markers and distinct footer actions.",
+    "source": "/Users/jmahmood/.codex/generated_images/01a16535-7f23-7663-966a-6d39737812c1/exec-94da9d0c-1079-4fe0-9829-bc1d37b94917.png",
+    "sha256": "c7f4c57bf6499c7fefe2c4b9d272b78758301f6d117df4a77ddec55a66fa36e9",
+    "width": 1564,
+    "height": 1006,
+    "bytes": 2219848,
+    "generation_tool": "built-in image_gen",
+    "purpose": "approved concept reference; not production-ready UI asset"
+  },
+  {
+    "path": "mockups/step-2-selection.png",
+    "description": "Selection-step proposal integrating the three historical locomotive concepts; future stock displayed without purchase affordance.",
+    "source": "/Users/jmahmood/.codex/generated_images/01a16535-7f23-7663-966a-6d39737812c1/exec-6d0674ce-265e-4170-867b-1f9952408fc4.png",
+    "sha256": "2a742f6b1fa11e5c159e34c0f4cc4b868948f1e985b2f5559d0bde5d5f44e3ac",
+    "width": 1671,
+    "height": 941,
+    "bytes": 2434600,
+    "generation_tool": "built-in image_gen",
+    "purpose": "approved concept reference; not production-ready UI asset"
+  }
+]

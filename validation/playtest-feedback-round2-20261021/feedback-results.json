@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "name": "Messages and historical inspection preserve workspace bounds; snapshots survive reload without refetching",
+      "passed": true
+    },
+    {
+      "name": "Dividend uses the shared primary button and pays directly; first company milestone rains once and mascot amounts remain visible",
+      "passed": true
+    },
+    {
+      "name": "Buying the first 3-train announces two operating rounds, preserves current set and uses one reviewed purchase",
+      "passed": true
+    }
+  ],
+  "browserErrors": []
+}

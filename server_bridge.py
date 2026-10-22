@@ -555,6 +555,7 @@ def summarize_transition(
               if corp.get("floated") and not before.get("corporations", {}).get(cid, {}).get("floated")]
     if floats:
         event["flotations"] = floats
+    event["presentation_version"] = 1
     return event
 
 
@@ -567,6 +568,7 @@ class KoenjiDatabase:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._locks: Dict[int, threading.Lock] = {}
         self._global_lock = threading.Lock()
+        self._history_presentation_cache = {}
         self.initialize()
 
     def game_lock(self, game_id: int) -> threading.Lock:
@@ -997,6 +999,76 @@ class KoenjiDatabase:
             conn.commit()
 
 
+def enrich_legacy_presentation(db, game_id, revision, event, action):
+    """Read-only compatibility for journals saved before structured mascot facts.
+
+    Never replay rules or rewrite a journal. Only compare the two recorded
+    snapshots; cache small derived facts so ordinary Pi polling stays cheap.
+    """
+    if event.get("presentation_version", 0) >= 1:
+        return event
+    key = (game_id, revision, hashlib.sha256(json.dumps(event, sort_keys=True).encode()).digest())
+    with db._global_lock:
+        cached = db._history_presentation_cache.get(key)
+    if cached is not None:
+        return deepcopy(cached)
+    enriched = deepcopy(event)
+    previous = db.get_game_state_at_revision(game_id, revision - 1)
+    current = db.get_game_state_at_revision(game_id, revision)
+    if previous and current:
+        before, after = json.loads(previous["state_json"]), json.loads(current["state_json"])
+        facts = {}
+        receipts = []
+        for collection, destination in (("players", "purse"), ("corporations", "treasury")):
+            for pid, account in after.get(collection, {}).items():
+                amount = account.get("cash", 0) - before.get(collection, {}).get(pid, {}).get("cash", 0)
+                if amount > 0:
+                    receipts.append(dict(recipient=pid, destination=destination, amount=amount,
+                                         name=account.get("name", pid)))
+        if receipts:
+            facts["cash_receipts"] = receipts
+        changes = []
+        for cid, corp in after.get("corporations", {}).items():
+            old = before.get("corporations", {}).get(cid, {})
+            if old.get("president") and old["president"] != corp.get("president"):
+                changes.append(dict(corporation=cid, **{"from": old["president"], "to": corp.get("president")}))
+        if changes:
+            facts["presidency_changes"] = changes
+        rusted = []
+        for tid, train in after.get("trains", {}).items():
+            old = before.get("trains", {}).get(tid, {})
+            owner = old.get("owner")
+            if train.get("rusted") and not old.get("rusted") and owner in before.get("corporations", {}):
+                rusted.append(dict(train=tid, type=train.get("type"), corporation=owner,
+                                   president=before["corporations"][owner].get("president")))
+        if rusted:
+            facts["rusted_trains"] = rusted
+        awarded = any(not before.get("privates", {}).get(cid, {}).get("owner")
+                      and private.get("owner") in after.get("players", {})
+                      for cid, private in after.get("privates", {}).items())
+        if action.get("type") == "bid" and not awarded:
+            bids = before.get("auction", {}).get("bids", {}).get(action.get("company"), {})
+            high = max(bids.values(), default=None)
+            if high is not None and action.get("price", 0) > high:
+                facts["outbid_players"] = [pid for pid, amount in bids.items()
+                                          if amount == high and pid != action.get("player")]
+        if after.get("finished") and not before.get("finished"):
+            facts["finished"] = True
+            result = after.get("result") or {}
+            if result:
+                best = max(result.values())
+                facts["winners"] = [pid for pid, value in result.items() if value == best]
+        enriched.setdefault("type", action.get("type"))
+        enriched.setdefault("actor_id", action.get("player"))
+        for field, value in facts.items():
+            enriched.setdefault(field, value)
+    with db._global_lock:
+        if len(db._history_presentation_cache) >= 4096:
+            db._history_presentation_cache.pop(next(iter(db._history_presentation_cache)))
+        db._history_presentation_cache[key] = deepcopy(enriched)
+    return enriched
+
+
 def build_history_events(
     db: KoenjiDatabase, game_id: int, latest_state: Dict[str, Any]
 ) -> List[Dict[str, Any]]:
@@ -1027,7 +1099,7 @@ def build_history_events(
     for rev in range(1, latest_state["revision"] + 1):
         if rev in row_by_rev:
             r = row_by_rev[rev]
-            ev = json.loads(r["event_json"])
+            ev = enrich_legacy_presentation(db, game_id, rev, json.loads(r["event_json"]), json.loads(r["move_json"]))
             accepted_at = r["accepted_at"]
             short_time = (
                 accepted_at[11:16] if len(accepted_at) >= 16 else "Unknown"
@@ -1063,7 +1135,7 @@ def build_history_events(
                     "label": f"{actor_name} · {act.get('type', 'move')}",
                     "detail": "",
                     "animation": None,
-                    "event": act,
+                    "event": enrich_legacy_presentation(db, game_id, rev, act, act),
                 }
             )
     return events
@@ -1465,12 +1537,19 @@ def create_fixture_room(
     names = player_names or ["Daisuke", "Haruka", "Kenji", "Alex"]
     if preset in ("route_network_3", "route_network_4") and len(names) != 4:
         raise ValueError("Expanded route practice uses four player seats")
+    if preset in ("tile_j3", "tile_j3_used") and len(names) != 4:
+        raise ValueError("J3 track practice uses four player seats")
     info = db.create_game(variant="1889", max_players=len(names), engine="python")
     game_id = info["game_id"]
     state = new_game(names)
     db.save_initial_state(game_id, state, names)
 
     scripted_moves: List[Dict[str, Any]] = []
+    if preset in ("tile_j3", "tile_j3_used"):
+        practice = json.loads((ROOT_DIR / "fixtures" / "tile_j3.json").read_text())
+        scripted_moves.extend(practice["actions"])
+        if preset == "tile_j3_used":
+            scripted_moves.extend(practice["used_actions"])
     if preset in ("route_network_3", "route_network_4"):
         practice = json.loads((ROOT_DIR / "fixtures" / "route_networks.json").read_text())
         scenario = practice["scenarios"][preset]
@@ -1478,7 +1557,7 @@ def create_fixture_room(
         # than depending on the engine's test directory in deployed installations.
         scripted_moves.extend(practice["reference"]["actions"][:scenario["checkpoint"]])
         scripted_moves.extend(scenario["actions"])
-    if preset in ("stock_round_1", "stock_round_active", "operating_round_1", "route_planning"):
+    if preset in ("stock_round_1", "stock_round_active", "operating_round_1", "route_planning", "operating_cycle"):
         # Deterministic 4-player private company auction that lands in Stock Round 1
         # with Priority Deal on p1 (Daisuke, ¥340 cash).
         if len(names) == 4:
@@ -1500,7 +1579,7 @@ def create_fixture_room(
                     {"player": state["current_player"], "type": "buy_private", "company": priv_id}
                 )
 
-    if preset in ("stock_round_active", "operating_round_1", "route_planning"):
+    if preset in ("stock_round_active", "operating_round_1", "route_planning", "operating_cycle"):
         # Par Iyo Railway (IR) at ¥80 by Daisuke (p1) and Kotohira (KO) at ¥75 by Haruka (p2)
         scripted_moves.extend(
             [
@@ -1515,7 +1594,7 @@ def create_fixture_room(
             ]
         )
 
-    if preset in ("operating_round_1", "route_planning"):
+    if preset in ("operating_round_1", "route_planning", "operating_cycle"):
         # Float IR (50% sold from IPO) and pass around to enter Operating Round 1.1
         scripted_moves.extend(
             [
@@ -1528,7 +1607,7 @@ def create_fixture_room(
             ]
         )
 
-    if preset == "route_planning":
+    if preset in ("route_planning", "operating_cycle"):
         # Buy trains in the first operating turn, then run them in the next one.
         # Separate home-city exits allow both trains to earn without sharing track.
         scripted_moves.extend([
@@ -1541,9 +1620,14 @@ def create_fixture_room(
             {"player": "p3", "type": "pass"},
             {"player": "p4", "type": "pass"},
             {"player": "p1", "type": "pass"},
-            {"player": "p1", "type": "lay_tile", "hex": "F3", "tile": "57", "rotation": 2},
-            {"player": "p1", "type": "skip"},
         ])
+        # The browser walkthrough starts at track, with trains already able to earn.
+        # The route editor practice retains its original checkpoint after station.
+        if preset == "route_planning":
+            scripted_moves.extend([
+                {"player": "p1", "type": "lay_tile", "hex": "F3", "tile": "57", "rotation": 2},
+                {"player": "p1", "type": "skip"},
+            ])
 
     for idx, move in enumerate(scripted_moves):
         actor = move.get("player") or state["current_player"]
@@ -1624,7 +1708,7 @@ class KoenjiAppService:
                 with self.db._connect() as conn:
                     conn.execute("SELECT id FROM games LIMIT 1")
                 return 200, {"status": "ok", "build": BRIDGE_BUILD,
-                             "features": ["route-options", "route-preview", "route-revenues", "cash-receipts"]}
+                             "features": ["route-options", "route-preview", "route-revenues", "cash-receipts", "mascot-history"]}
             except sqlite3.Error:
                 return 503, {"detail": "Database unavailable"}
 

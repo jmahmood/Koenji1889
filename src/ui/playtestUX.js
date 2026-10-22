@@ -1,7 +1,8 @@
-import {escapeHtml as esc, actionBlockReason, roundName} from './presentation.js';
+import {escapeHtml as esc, actionBlockReason, roundName,operatingStepLabel} from './presentation.js';
+import {CORP_META} from '../constants1889.js';
 import {renderKemonitoDelivery} from './kemonito.js';
 const money=value=>`¥${Number(value || 0).toLocaleString()}`;
-export const CONFIRMED_ACTIONS=new Set(['buy_shares','sell_shares','buy_private','buy_train','end_turn','pass','skip','dividend','exchange_private','bankrupt','emergency_sell','discard_train','offer','accept_offer','accept_train_offer','accept_private_offer']);
+export const CONFIRMED_ACTIONS=new Set(['buy_shares','sell_shares','buy_private','buy_train','exchange_private','bankrupt','emergency_sell','discard_train','offer','accept_offer','accept_train_offer','accept_private_offer']);
 export function turnIdentity(app,view){
   const s=view?.state;
   if(!s || s.finished || app.viewRevision!==app.liveRevision || app.isPlayingReplay || app.isLoadingRevision)return null;
@@ -30,7 +31,7 @@ export function renderTurnStatus(app,view){
   const corp=s.corporations?.[s.current_corporation];
   return `<section class="shared-turn-status ${mine?'is-your-turn':''} ${app.turnReminderVisible&&mine?'is-reminding':''}" aria-label="Current turn">
     <div class="turn-person"><span class="turn-lantern" aria-hidden="true">${mine?'◆':'◇'}</span><div><small>${historical?'Historical turn':s.finished?'Match complete':mine?'Your turn':'Current turn'}</small><strong data-no-translate>${esc(s.finished?'—':s.players?.[actor]?.name || actor || '—')}</strong></div></div>
-    <div class="turn-phase"><span>${esc(roundName(s))}</span><b>${corp?`${esc(corp.id)} · `:''}${esc(s.operating_turn?.step && s.round==='operating'?({train:'Train purchase',token:'Station token',track:'Track lay',routes:'Train routes',dividend:'Dividend'})[s.operating_turn.step] || s.operating_turn.step:s.round==='auction'?'Choose a private company':s.round==='stock'?'Buy, sell or pass':'')}</b><span class="turn-bank">Bank ${money(s.bank)} · Phase ${esc(s.phase)}</span></div>
+    <div class="turn-phase"><span>${esc(roundName(s))}</span><b>${corp?`${esc(corp.id)} · `:''}${esc(s.operating_turn?.step && s.round==='operating'?({train:'Train purchase',token:'Station placement',track:'Track lay',routes:'Train routes',dividend:'Dividend'})[s.operating_turn.step] || s.operating_turn.step:s.round==='auction'?'Choose a private company':s.round==='stock'?'Buy, sell or pass':'')}</b><span class="turn-bank">Bank ${money(s.bank)} · Phase ${esc(s.phase)}</span></div>
     ${corp&&s.round==='operating'?`<div class="prominent-treasury"><small>${esc(corp.id)} · Company treasury</small><strong data-account="treasury:${esc(corp.id)}">${money(corp.cash)}</strong></div>`:''}
     ${mine?`<button class="turn-go" data-view="${s.round==='operating'?'map':'market'}">${app.turnReminderVisible?'It is your turn — open your desk':'Open your desk'} →</button>`:''}
   </section>`;
@@ -56,21 +57,73 @@ export function decisionDescription(action,view){
   }
   if(action.type==='end_turn')return ['Finish this turn?',`${cid || player?.name || ''} · The next player or company will act.`];
   if(action.type==='pass')return ['Pass this opportunity?',s.stock_turn?.bought?'Finish this stock turn.':'Continue to the next action.'];
-  if(action.type==='skip')return ['Skip this step?',s.operating_turn?.step || ''];
-  if(action.type==='buy_private')return [`Buy ${action.company} · ${money(action.price)}`,`${action.buyer || cid} · Company treasury`];
+  if(action.type==='skip'){
+    const step=s.operating_turn?.step;
+    const effects={track:'No track will be laid. Continue to station placement.',token:'No station will be placed. Continue to train routes.',routes:'No trains will run. Continue to dividend resolution with ¥0 revenue.'};
+    return [`Skip ${operatingStepLabel(step)}?`,effects[step] || 'Continue to the next available operating step.'];
+  }
+  if(action.type==='buy_private'){
+    if(s.round==='auction'){
+      const price=action.price ?? (s.privates?.[action.company]?.value || 0)-(action.company==='TR' ? s.auction?.discount || 0 : 0);
+      return [`Buy ${action.company} · ${money(price)}`,`Personal cash: ${money(player?.cash)} → ${money((player?.cash || 0)-price)}`];
+    }
+    return [`Buy ${action.company} · ${money(action.price)}`,`${action.buyer || cid} · Company treasury`];
+  }
   if(action.type==='bankrupt')return ['Declare bankruptcy?','This ends the match immediately.'];
   if(action.type==='exchange_private')return ['Exchange DR for 10% IR from IPO','DR will close.'];
   return [action.type.replaceAll('_',' '),[action.train,action.company,action.item,action.price!=null?money(action.price):''].filter(Boolean).join(' · ')];
 }
+export function confirmationLabel(action,view){
+  const train=view.state.trains?.[action.train];
+  return ({buy_shares:'Buy Shares',sell_shares:'Sell Shares',buy_private:'Buy Private Company',
+    buy_train:`Buy ${train?.type || ''}-Train`,end_turn:'Finish Turn',pass:'Pass Turn',
+    skip:`Skip ${operatingStepLabel(view.state.operating_turn?.step)}`,
+    dividend:action.payout?'Pay Dividend':'Withhold Revenue',exchange_private:'Exchange Private Company',
+    bankrupt:'Declare Bankruptcy',emergency_sell:'Sell Shares',discard_train:'Discard Train',
+    offer:'Send Offer',accept_offer:'Accept Offer',accept_train_offer:'Accept Train Offer',accept_private_offer:'Accept Private Offer'})[action.type] || 'Record Decision';
+}
+function renderSharePurchase(action, view) {
+  const cid=action.corporation || view.state.current_corporation;
+  const corp=view.state.corporations?.[cid],meta=CORP_META[cid] || {};
+  const percent=corp?.par==null?20:action.percent || 10;
+  const price=corp?.par==null?action.price:action.source==='pool'?view.prices?.[cid]:corp.par;
+  const cost=percent/10*price,cash=view.state.players?.[view.viewer?.player_id]?.cash || 0;
+  return `<div class="purchase-order">
+    <div class="purchase-art purchase-hero-art"><img src="/assets/exchange/railway-investor.png" alt="A proud investor receives a railway share certificate beside a steam locomotive in the morning sun"></div>
+    <div class="purchase-certificate"><div class="purchase-monogram" style="background:${esc(meta.color || '#795526')};color:${esc(meta.text || '#fff')}">${esc(cid)}</div><div class="purchase-company"><small>SHARE CERTIFICATE</small><strong>${esc(meta.name || corp?.name || cid)}</strong><span>${action.source==='pool'?'Market pool':'Initial public offering'}</span></div><div class="purchase-percent"><strong>${percent}%</strong><small>OWNERSHIP</small></div></div>
+    <dl class="purchase-settlement"><div><dt>Cash on hand</dt><dd>${money(cash)}</dd></div><div><dt>Purchase cost</dt><dd>−${money(cost)}</dd></div><div class="purchase-balance"><dt>Cash remaining</dt><dd>${money(cash-cost)}</dd></div></dl>
+    <div class="purchase-order-note"><span aria-hidden="true">◆</span> Certificate transferred when you confirm</div>
+  </div>`;
+}
+function renderShareSale(action, view) {
+  const cid=action.corporation || view.state.current_corporation;
+  const corp=view.state.corporations?.[cid],meta=CORP_META[cid] || {};
+  const percent=action.percent || 10,price=view.prices?.[cid] || 0;
+  const proceeds=price*percent/10,cash=view.state.players?.[view.viewer?.player_id]?.cash || 0;
+  return `<div class="sale-order">
+    <div class="sale-quote-board"><div class="sale-exchange-label"><span aria-hidden="true">▥</span> KOENJI STOCK EXCHANGE <span>1889</span></div>
+      <img class="sale-trading-floor" src="/assets/exchange/meiji-trading-floor.png" alt="Kimono-clad brokers exchanging share certificates on a busy wooden trading floor"><div class="sale-market-display">
+      <div class="sale-quote"><small>${esc(cid)} · MARKET PRICE / 10%</small><strong>${money(price)}</strong><span>Sale to market pool</span></div><div class="sale-lot"><small>SELL ORDER</small><strong>${percent}%</strong><span>${percent/10} × 10% shares</span></div></div></div>
+    <div class="purchase-certificate"><div class="purchase-monogram" style="background:${esc(meta.color || '#795526')};color:${esc(meta.text || '#fff')}">${esc(cid)}</div><div class="purchase-company"><small>SHARES TO MARKET POOL</small><strong>${esc(meta.name || corp?.name || cid)}</strong><span>${percent}% holding offered for sale</span></div><span class="sale-order-stamp">SELL</span></div>
+    <dl class="purchase-settlement"><div><dt>Cash on hand</dt><dd>${money(cash)}</dd></div><div class="sale-proceeds"><dt>Sale proceeds</dt><dd>+${money(proceeds)}</dd></div><div class="purchase-balance"><dt>Cash after sale</dt><dd>${money(cash+proceeds)}</dd></div></dl>
+    <div class="purchase-order-note"><span aria-hidden="true">◆</span> Shares enter the market pool when you confirm</div>
+  </div>`;
+}
 export function renderConfirmation(app,view){
   const pending=app.pendingDecision;if(!pending)return '';
   const [title,detail]=decisionDescription(pending.action,view);
+  const isSale=['sell_shares','emergency_sell'].includes(pending.action.type);
+  const isShareOrder=pending.action.type==='buy_shares' || isSale;
   const stale=pending.revision!==app.liveRevision || pending.room!==app.roomCode || pending.token!==app.token;
-  const unavailable=Array.isArray(view.legal_actions?.types) && !view.legal_actions.types.includes(pending.action.type);
+  // The engine accepts an auction buy_private as a bid at the offered price.
+  const legalType=view.state.round==='auction' && pending.action.type==='buy_private' ? 'bid'
+    : view.state.round==='stock' && pending.action.type==='pass' ? 'end_turn' : pending.action.type;
+  const unavailable=Array.isArray(view.legal_actions?.types) && !view.legal_actions.types.includes(legalType);
   const blocked=stale?'Position changed. Review the decision again.':actionBlockReason(app,view) || (unavailable?'This action is unavailable for this seat.':null);
-  return `<div class="modal-backdrop decision-confirm-backdrop"><section class="modal-card decision-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-detail">
-    <small>REVIEW YOUR DECISION</small><h2 id="confirm-title">${esc(title)}</h2><p id="confirm-detail">${esc(detail)}</p>
-    ${blocked?`<p role="alert">${esc(blocked)}</p>`:''}<div class="confirm-dialog-actions"><button type="button" data-cancel-decision>Cancel</button><button type="button" class="confirm-button" data-commit-decision ${blocked?'disabled':''}>Confirm</button></div>
+  return `<div class="modal-backdrop decision-confirm-backdrop"><section class="modal-card decision-confirm ${isShareOrder?'share-purchase-confirm':''} ${isSale?'share-sale-confirm':''}" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-detail">
+    <div class="purchase-window-title" aria-hidden="true"><span>1889 · ${isSale?'Share sale':'Share purchase'}</span><span>▪</span></div><small>REVIEW YOUR DECISION</small><h2 id="confirm-title">${esc(title)}</h2><p id="confirm-detail" ${isShareOrder?'class="purchase-accessible-detail"':''}>${esc(detail)}</p>
+    ${isSale?renderShareSale(pending.action,view):pending.action.type==='buy_shares'?renderSharePurchase(pending.action,view):''}
+    ${blocked?`<p role="alert">${esc(blocked)}</p>`:''}<div class="confirm-dialog-actions"><button type="button" data-cancel-decision>Cancel</button><button type="button" class="confirm-button" data-commit-decision ${blocked?'disabled':''}>${esc(confirmationLabel(pending.action,view))}</button></div>
   </section></div>`;
 }
 export function renderFlotation(app){

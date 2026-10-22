@@ -1,0 +1,13 @@
+[
+  {
+    "scenario": "j3",
+    "straightPlaced": true,
+    "refreshResumes": true,
+    "browserErrors": []
+  },
+  {
+    "scenario": "j3used",
+    "blockedReasonShown": true,
+    "browserErrors": []
+  }
+]

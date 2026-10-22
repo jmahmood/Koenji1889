@@ -1,0 +1,12 @@
+[Unit]
+Description=Advertise 1889.local on the home network
+
+[Service]
+Environment=LD_LIBRARY_PATH=/home/jawaad/koenji/tools/avahi/extracted/usr/lib/arm-linux-gnueabihf
+ExecStart=/home/jawaad/koenji/tools/avahi/extracted/usr/bin/avahi-publish -a -R -f 1889.local 10.0.0.30
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

@@ -1,6 +1,10 @@
 # Installed Raspberry Pi deployment
 
-The home installation accepts **http://raspberrypi.local:8080** and **http://10.0.0.30:8080**. The hostname requires local name resolution on the client. HTTPS on port 443 belongs to the existing Pi-hole setup; the game uses HTTP on port 8080.
+The home installation accepts **http://1889.local:8080**, **http://raspberrypi.local:8080**, and **http://10.0.0.30:8080**. The hostnames require local name resolution on the client. HTTPS on port 443 belongs to the existing Pi-hole setup; the game uses HTTP on port 8080.
+
+`koenji-local-name.service` advertises `1889.local` as an additional mDNS name for `10.0.0.30`, keeping the Pi's hostname `raspberrypi`. This user service is enabled at boot through the existing user linger setting. It runs the distro's `avahi-publish -a -R -f` against the existing system Avahi daemon. The `-R` option leaves reverse-name advertising to the Pi's primary hostname. The `avahi-utils` and `libavahi-client3` packages were downloaded with `apt-get download` and extracted with `dpkg-deb -x` into `/home/jawaad/koenji/tools/avahi/extracted`; these private copies require manual updates like the private Nginx copy. If the Pi's reserved IP changes, also update the address in `~/.config/systemd/user/koenji-local-name.service`, run `systemctl --user daemon-reload`, and restart that service.
+
+Manage the alias with `systemctl --user status koenji-local-name.service` or `systemctl --user restart koenji-local-name.service`. To remove it, run `systemctl --user disable --now koenji-local-name.service`. Name resolution and `/health` through `1889.local:8080` were verified from the Mac after installation; a full reboot was not performed.
 
 Target: `jawaad@10.0.0.30`, Raspberry Pi 2, ARMv7, Raspbian 13, Python 3.13.5.
 The source app was built on the Mac; only static output and required Python files were transferred. Local saved games were not transferred. A separate two-player deployment verification game was created on the Pi.

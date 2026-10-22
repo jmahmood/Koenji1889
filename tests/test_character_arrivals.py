@@ -129,7 +129,7 @@ class CharacterArrivalTests(unittest.TestCase):
         self.assertEqual(self.req('POST', '/start', {}, self.host)[0], 200)
         before = self.req()[1]
         faces = [face for face in APPEARANCE_CATALOG['faces'] if face.get('headAtlas')]
-        self.assertEqual(len(faces), 17)
+        self.assertEqual(len(faces), 27)
         for face in faces:
             look = {'face': face['id'], 'clothes': 'charcoal-suit'}
             self.assertEqual(self.req('POST', '/arrival', {'appearance': look})[0], 200)

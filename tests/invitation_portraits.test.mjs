@@ -16,8 +16,8 @@ function client(){const api=new KoenjiApiClient();api.channel?.close();return ap
 const view=(id,face,arrived=false)=>({viewer:{role:'player',player_id:'p1'},members:{p1:{member_id:id,
   appearance:{face,clothes:'plum-kimono'},appearance_configured:true,has_arrived:arrived}}});
 
-test('only the seventeen reference portraits can be selected or rendered by the app',()=>{
-  assert.equal(APPEARANCE_CATALOG.faces.length,17);
+test('only the twenty-seven reference portraits can be selected or rendered by the app',()=>{
+  assert.equal(APPEARANCE_CATALOG.faces.length,27);
   assert.ok(APPEARANCE_CATALOG.faces.every(f=>f.headAtlas && f.id.startsWith('reference-')));
   for(const old of ['member-1','member-5','face-01','face-08','unknown']) {
     assert.equal(normalizeAppearance({face:old}).face,'reference-01');
@@ -25,7 +25,7 @@ test('only the seventeen reference portraits can be selected or rendered by the 
   }
   const html=renderCharacterSetup({face:'member-1'});
   assert.doesNotMatch(html,/option value="(?:member-|face-)/);
-  assert.match(html,/option value="reference-17"/);
+  assert.match(html,/option value="reference-27"/);
 });
 test('person-specific invitation UI exposes a portrait preview and a token-scoped fragment',()=>{
   environment();

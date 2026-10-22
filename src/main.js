@@ -6,7 +6,11 @@ import './payoff.css';
 import './kemonito.css';
 import './kemalito.css';
 import './victory.css';
+import './operatingControls.css';
+import './playtestFeedback.css';
+import {renderDividendMilestone} from './ui/dividendMilestones.js';
 import {renderVictoryCelebration} from './ui/victoryCelebration.js';
+import {ReplayClock,replayDuration} from './replay/ReplayClock.js';
 import {renderKemalito,KemalitoGiggle} from './ui/kemalito.js';
 import {ActionPresentation} from './ui/actionPresentation.js';
 import {patchRouteOverlay,renderRouteResult,renderAcceptedFeedback} from './components/RoutePlaybackOverlay.js';
@@ -15,7 +19,7 @@ import { gameAudio, gameEffects } from './ui/gameAudio.js';
 import {installPreferences, localizePage} from './ui/preferences.js';
 import {CONFIRMED_ACTIONS, TurnReminder, renderTurnStatus, renderConfirmation, renderFlotation, renderCashDelivery} from './ui/playtestUX.js';
 import {bindDistrictSurvey} from './components/DistrictSurvey.js';
-import {syncEmergencyDesk} from './components/TrainDesk.js';
+import {syncTrainPurchaseWizard, renderTrainPurchaseModal} from './components/TrainDesk.js';
 import {renderCharacterSetup,bindAppearanceControls} from './components/CharacterSetup.js';
 import {renderCharacter, setCharacterPresentationResolver, refreshCharacterSlots} from './scene/Character.js';
 import {CharacterDirector} from './ui/characterDirector.js';
@@ -28,7 +32,7 @@ import { KoenjiApiClient } from './api/client.js';
 import {prepareTestRoom,rememberTestRoom,routeTestScenario,renderTestControls,testScenario,testTurnPlayer} from './ui/testSession.js';
 import { CLUB_MEMBERS, CORP_META } from './constants1889.js';
 import { actionBlockReason, clearTilePreview, escapeContext, escapeHtml, mapActionAuthority, renderActionFeedback, roundName, syncFinancialLayout } from './ui/presentation.js';
-import { createRoomTransition, planRoundHandoff, renderRoundHandoff, roomName } from './ui/transitions.js';
+import { createRoomTransition, createHandoffExpiry, planRoundHandoff, renderRoundHandoff, roomName } from './ui/transitions.js';
 import { bindMapNavigation, resetMapView } from './ui/mapNavigation.js';
 import { mapWindowMinimumSize } from './ui/mapWindowSizes.js';
 import { computeTableActionSummary, renderClubRoomScene, renderClubroomBackdropSVG } from './scene/ClubRoom.js';
@@ -49,6 +53,7 @@ import {
   renderPlayerDetailsModal,
   renderPrivateDetailsModal,
   renderPrivateZoomModal,
+  renderCorporationDetailsModal,
 } from './components/Modals.js';
 
 const api = new KoenjiApiClient('');
@@ -143,8 +148,10 @@ const appState = {
   queuedLiveNotice: null,
   view: 'table', // 'table' | 'market' | 'map' | 'history'
   tableSidebarTab: 'chat', // 'chat' | 'log'
-  activeModal: null, // null | 'stamp' | 'seats' | 'player' | 'private'
+  activeModal: null, // null | 'stamp' | 'seats' | 'player' | 'private' | 'corporation'
   privateDetailsId: null,
+  corporationDetailsId: null,
+  modalParentPlayerId: null,
   selectedCompanyId: 'IR',
   selectedParPrice: 80,
   selectedSource: 'ipo',
@@ -247,7 +254,16 @@ function bindSocialControls() {
     appState.appearanceDraft=api.getAppearance();appState.appearanceTab='appearance';appState.needsAppearance=true;render();
   }));
 }
-let replayTimer = null;
+const replayClock=new ReplayClock({
+  step:async()=>{
+    if(!appState.isPlayingReplay||appState.viewRevision>=appState.liveRevision)return false;
+    const previous=appState.viewRevision;
+    await scrubToRevision(previous+1,true);
+    return appState.viewRevision>previous;
+  },
+  delay:()=>currentReplayDuration(),
+  finished:()=>{appState.isPlayingReplay=false;render();},
+});
 let pollTimer = null;
 let toastTimer = null;
 let renderedRoom = null;
@@ -271,6 +287,11 @@ const roomTransition = createRoomTransition({
 function dismissRoomWipe() {
   roomTransition.finish();
 }
+
+const handoffExpiry=createHandoffExpiry({
+  fade(notice){if(appState.roundHandoff===notice){notice.fading=true;render();}},
+  expire(notice){if(appState.roundHandoff===notice){appState.roundHandoff=null;render();}},
+});
 
 function showToast(msg, isError = false) {
   if (toastTimer) clearTimeout(toastTimer);
@@ -304,9 +325,11 @@ function patchActionPresentation() {
     const focused=slot.contains(document.activeElement)?document.activeElement:null;
     const focusSelector=focused?.matches('[data-skip-journey]')?'[data-skip-journey]':focused?.matches('[data-replay-journey]')?'[data-replay-journey]':null;
     const detailsOpen=slot.querySelector('.settled-route-receipt')?.open;
+    const dividendDetailsOpen=slot.querySelector('.dividend-receipt-details')?.open;
     slot.dataset.payoffKey=key;
     slot.innerHTML=(job?renderRouteResult(job,sample,view,{motion:motionEnabled()&&appState.view==='map',speed:actionPresentation.speed}):'')+renderAcceptedFeedback(feedback);
     if(detailsOpen&&slot.querySelector('.settled-route-receipt'))slot.querySelector('.settled-route-receipt').open=true;
+    if(dividendDetailsOpen&&slot.querySelector('.dividend-receipt-details'))slot.querySelector('.dividend-receipt-details').open=true;
     if(focusSelector)(slot.querySelector(focusSelector)||slot.querySelector('[data-replay-journey]'))?.focus({preventScroll:true});
     slot.querySelector('[data-dismiss-payoff-receipt]')?.addEventListener('click',()=>{actionPresentation.feedback=null;actionPresentation.onChange();});
     slot.querySelector('[data-skip-journey]')?.addEventListener('click',()=>actionPresentation.settle());
@@ -354,6 +377,8 @@ function renderCharacterNotice() {
 }
 function patchCharacterPresentation() {
   refreshCharacterSlots(document);
+  const milestone=document.querySelector('[data-dividend-milestone-stage]');
+  if(milestone)milestone.innerHTML=renderDividendMilestone(characters.playback);
   const delivery=document.querySelector('[data-cash-receipt-stage]');
   if(delivery){
     const table=document.querySelector('.clubroom-stage');
@@ -421,7 +446,12 @@ function presentHistoryCharacters(revision,animate) {
   const event=appState.liveViewData?.history_events?.find(e=>e.revision===revision)?.event;
   actionPresentation.history(event,revision,appState.displayedViewData,{animate:animate&&appState.replaySpeedIdx!==2,durationMs:[1300,550,160][appState.replaySpeedIdx],historical:appState.viewRevision!==appState.liveRevision});
   characters.history(event,revision,{...appState.displayedViewData,members:appState.liveViewData?.members},
-    {animate:animate && appState.replaySpeedIdx!==2,durationMs:[1300,550,160][appState.replaySpeedIdx]});
+    {animate:animate && appState.replaySpeedIdx!==2,durationMs:currentReplayDuration(revision)});
+}
+
+function currentReplayDuration(revision=appState.viewRevision){
+  const event=appState.liveViewData?.history_events?.find(e=>e.revision===revision)?.event;
+  return replayDuration(event,appState.displayedViewData,appState.replaySpeedIdx);
 }
 
 function computeMinBidForPrivate(state, pid) {
@@ -541,6 +571,10 @@ async function openTestGame(fresh=false) {
     await enterRoom(bundle.room_code,seat,resolveTokenForSeat(bundle,seat));
     if (activeTestScenario.startsWith('routes')) {
       showRoutePractice(appState.displayedViewData);
+    } else if (activeTestScenario==='j3' || activeTestScenario==='j3used') {
+      showRoutePractice(appState.displayedViewData);
+      appState.selectedHex='J3';appState.inspectedHex='J3';
+      appState.selectedTileId=null;appState.selectedTileRotation=0;appState.activeModal=null;
     }
   } catch(err) {
     appState.errorBanner=`Test game could not open: ${err.message}`;
@@ -649,12 +683,14 @@ function applyFreshLiveView(viewData, forceFollowLive = false) {
     ? planRoundHandoff(appState, appState.liveViewData?.state, viewData.state)
     : null;
   if (forceFollowLive) {
+    handoffExpiry.clear();
     appState.roundHandoff = null;
     pendingRoundWipe = null;
     dismissRoomWipe();
   }
   if (handoff) {
     appState.roundHandoff = handoff;
+    handoffExpiry.start(handoff);
     appState.animation = null;
     // Follow the live work, but never pull someone out of the table, Journal,
     // another inspection room, or an open dialog.
@@ -677,7 +713,7 @@ function applyFreshLiveView(viewData, forceFollowLive = false) {
     appState.queuedLiveCount = 0;
     appState.queuedLiveNotice = null;
     syncRoundWindowsAndSelection(viewData);
-    syncEmergencyDesk(appState,viewData);
+    syncTrainPurchaseWizard(appState,viewData);
     if (viewData?.state?.operating_turn?.step === 'routes') syncRoutePlan(appState, viewData);
 
     if (revAdvanced) {
@@ -741,12 +777,24 @@ function startPolling() {
   }
 }
 
+let warmingRevision=null;
+function warmAdjacentRevision(revision,direction) {
+  const adjacent=revision+direction;
+  if(warmingRevision || adjacent<0 || adjacent>=appState.liveRevision || appState.revisionCache.has(adjacent))return;
+  const room=appState.roomCode,token=appState.token;
+  warmingRevision=api.fetchRevisionView(room,token,adjacent).then(view=>{
+    if(room===appState.roomCode && token===appState.token)appState.revisionCache.set(adjacent,view);
+  }).catch(()=>{}).finally(()=>{warmingRevision=null;});
+}
+
 async function scrubToRevision(targetRev, triggerReplayAnim = false) {
   const rev = Math.max(0, Math.min(appState.liveRevision, Number(targetRev)));
   if (!Number.isInteger(rev)) return;
+  const direction=rev<appState.viewRevision?-1:1;
   characters.playback.clear('game');
   actionPresentation.clear();
   const request = ++appState.revisionRequest;
+  handoffExpiry.clear();
   appState.roundHandoff = null;
   pendingRoundWipe = null;
   dismissRoomWipe();
@@ -786,6 +834,7 @@ async function scrubToRevision(targetRev, triggerReplayAnim = false) {
       if (evObj) presentHistoryCharacters(rev, true);
     }
     render();
+    warmAdjacentRevision(rev,direction);
     return;
   }
 
@@ -812,6 +861,7 @@ async function scrubToRevision(targetRev, triggerReplayAnim = false) {
         if (evObj) presentHistoryCharacters(rev, true);
       }
       render();
+      warmAdjacentRevision(rev,direction);
     }
   } catch (err) {
     if (request !== appState.revisionRequest) return;
@@ -825,29 +875,14 @@ function toggleReplayPlayback() {
   if (appState.isPlayingReplay) {
     appState.isPlayingReplay = false;
     presentHistoryCharacters(appState.viewRevision,false);
-    if (replayTimer) clearInterval(replayTimer);
-    replayTimer = null;
+    replayClock.stop();
     render();
     return;
   }
 
-  if (appState.viewRevision >= appState.liveRevision) {
-    scrubToRevision(0, false);
-  }
+  const rewind=appState.viewRevision>=appState.liveRevision;
   appState.isPlayingReplay = true;
-  const intervals = [1300, 550, 160];
-  const ms = intervals[appState.replaySpeedIdx] || 1300;
-
-  replayTimer = setInterval(async () => {
-    if (appState.viewRevision < appState.liveRevision) {
-      await scrubToRevision(appState.viewRevision + 1, true);
-    } else {
-      appState.isPlayingReplay = false;
-      clearInterval(replayTimer);
-      replayTimer = null;
-      render();
-    }
-  }, ms);
+  replayClock.start(()=>rewind?scrubToRevision(0,false):undefined);
   render();
 }
 
@@ -955,7 +990,7 @@ async function enterRoom(roomCode, seatKey, token) {
   Object.assign(appState, {pendingDecision:null,flotationQueue:[],turnReminderVisible:false,roomCode, seatKey, token, roomBundle:api.getRoomDirectory()[roomCode], needsGathering:false,
     activeModal:null, publicLobby:null, lastSyncedRound:null, financialLayouts:{}, view:'table', reviewAction:null, routeDraftKey:null,
     isPlayingReplay:false, liveRevision:0, viewRevision:0, displayedViewData:null, liveViewData:null, lobbyTab:'invitations', inviteFallback:null});
-  if (replayTimer) clearInterval(replayTimer);
+  replayClock.stop();
   appState.revisionCache.clear();
   applyFreshLiveView(view,true);
   if(isViewerHost && api.getRoomDirectory()[roomCode]?.creator_token) {
@@ -966,7 +1001,7 @@ async function enterRoom(roomCode, seatKey, token) {
 }
 
 function bindDesk() {
-  bindDecisionDesk({app:appState,api,render,execute:(action,options)=>executeGameAction(action,false,Boolean(options?.review)),toast:showToast,enterRoom});
+  bindDecisionDesk({app:appState,api,render,execute:(action,options)=>executeGameAction(action,Boolean(options?.confirmed),Boolean(options?.review)),toast:showToast,enterRoom});
 }
 
 function closeModal() {
@@ -975,7 +1010,11 @@ function closeModal() {
     returnSelector=appState.pendingDecision?.returnSelector || '.turn-go';
     const previous=appState.pendingDecision?.returnModal;
     appState.pendingDecision=null;appState.activeModal=previous || null;
-  } else appState.activeModal = null;
+  } else {
+    if (appState.activeModal === 'train') returnSelector = '[data-open-train-wizard]';
+    appState.activeModal = null;
+    appState.focusSellerDesk = false;
+  }
   appState.routeEditor=null;
   render();
   document.querySelector(returnSelector)?.focus({ preventScroll: true });
@@ -1355,7 +1394,7 @@ function render() {
   disposeMapNavigation();
   actionPresentation.sync(presentationOptions());
   if (appState.displayedViewData?.state) {
-    syncEmergencyDesk(appState,appState.displayedViewData);
+    syncTrainPurchaseWizard(appState,appState.displayedViewData);
     if (appState.displayedViewData.state.operating_turn?.step === 'routes') syncRoutePlan(appState, appState.displayedViewData);
   }
   gameAudio.updateContext(appState, appState.displayedViewData);
@@ -1383,8 +1422,10 @@ function render() {
     return;
   }
   const decisionFocus=document.activeElement?.matches?.('[data-commit-decision]')?'[data-commit-decision]':document.activeElement?.matches?.('[data-cancel-decision]')?'[data-cancel-decision]':null;
-  const mapWindowScrolls = [...document.querySelectorAll('[data-map-window-shell]')].map(shell => ({
-    id: shell.dataset.mapWindowShell,
+  const inspectionWindowScrolls = [...document.querySelectorAll('[data-map-window-shell], [data-stock-window-shell]')].map(shell => ({
+    selector: shell.hasAttribute('data-map-window-shell')
+      ? `[data-map-window-shell="${shell.dataset.mapWindowShell}"]`
+      : `[data-stock-window-shell="${shell.dataset.stockWindowShell}"]`,
     top: shell.querySelector('.stock-window-body').scrollTop,
     left: shell.querySelector('.stock-window-body').scrollLeft,
   }));
@@ -1477,14 +1518,16 @@ function render() {
       ${renderTopbar(viewData)}
       <div class="room-status-band">
         ${renderTurnStatus(appState,viewData)}
-        ${isHistoricalShell ? `<div class="historical-snapshot-ribbon" role="status"><span>📌 HISTORICAL SNAPSHOT · REV ${appState.viewRevision} OF ${appState.liveRevision} (READ-ONLY)</span><button type="button" class="ribbon-live-btn" data-action="live">● Return to Live Match (Rev ${appState.liveRevision}) →</button></div>` : ''}
         ${isTestPage ? renderTestControls(activeTestScenario,appState.liveViewData,testLoading) : ''}
         ${renderRoomContext(viewData)}
-        ${renderActionFeedback(appState)}
-        ${renderDecisionNotice(appState, viewData)}
-      <div class="character-event-notice" data-character-notice data-notice-id="${escapeHtml(characters.playback.notice()?.id || '')}" role="status" aria-live="polite">${renderCharacterNotice()}</div>
+        ${renderDecisionNotice(appState, viewData,{includeAlerts:false})}
       </div>
       <main class="workspace view-${appState.view}" tabindex="-1">
+        <aside class="game-notifications" aria-label="Game messages">
+          ${renderDecisionNotice(appState,viewData,{alertsOnly:true})}
+          ${renderActionFeedback(appState)}
+          <div class="character-event-notice" data-character-notice data-notice-id="${escapeHtml(characters.playback.notice()?.id || '')}" role="status" aria-live="polite">${renderCharacterNotice()}</div>
+        </aside>
         ${renderRoundHandoff(appState.roundHandoff, appState.view)}
         ${renderPlayerRoster(viewData)}
         ${renderMainView(viewData)}
@@ -1492,10 +1535,12 @@ function render() {
       </main>
       ${renderTimelineFooter(appState, appState.liveViewData || viewData)}
       ${renderArrivalDock(appState.arrivalCurrent,{motion:motionEnabled(),pending:appState.arrivalQueue.length,elapsed:(Date.now()-(appState.arrivalStartedAt || Date.now()))/1000})}
+      ${renderTrainPurchaseModal(appState, viewData)}
       ${renderDecisionDesk(appState, viewData)}
       ${renderGathering(appState, api)}
       ${appState.view!=='map'?'<aside class="payoff-offmap" data-offmap-payoff></aside>':''}
       <div class="cash-receipt-stage" data-cash-receipt-stage>${renderCashDelivery(viewData,characters.playback)}</div>
+      <div class="dividend-milestone-stage" data-dividend-milestone-stage>${renderDividendMilestone(characters.playback)}</div>
       <div class="kemalito-stage" data-kemalito-stage>${renderKemalito(viewData,characters.playback)}</div>
       <div class="mascot-victory-stage" data-victory-stage>${renderVictoryCelebration(viewData,characters.playback)}</div>
       ${renderConfirmation(appState,viewData)}
@@ -1511,6 +1556,8 @@ function render() {
               ? renderPrivateZoomModal(appState, viewData)
             : appState.activeModal === 'private'
               ? renderPrivateDetailsModal(appState, viewData)
+            : appState.activeModal === 'corporation'
+              ? renderCorporationDetailsModal(appState, viewData)
             : appState.activeModal === 'shortcut'
               ? `<div class="modal-backdrop" data-close-modal="true"><section class="modal-card player-modal" role="dialog" aria-modal="true" aria-label="Discard tile preview">
                   <header class="modal-header"><h2>Leave the staged tile?</h2><button class="close-modal-btn" data-close-modal="true" aria-label="Keep preview and close">×</button></header>
@@ -1533,8 +1580,8 @@ function render() {
   restoreDeskDrafts();
   restoreDeskLayout();
   recoverWindowGeometry();
-  for (const scroll of mapWindowScrolls) {
-    const body = document.querySelector(`[data-map-window-shell="${scroll.id}"] .stock-window-body`);
+  for (const scroll of inspectionWindowScrolls) {
+    const body = document.querySelector(`${scroll.selector} .stock-window-body`);
     if (body) { body.scrollTop = scroll.top; body.scrollLeft = scroll.left; }
   }
   if(decisionFocus)document.querySelector(decisionFocus)?.focus({preventScroll:true});
@@ -1607,7 +1654,7 @@ function handleGlobalEscape(event) {
   if (result === 'animation') {characters.playback.clear('game');characters.playback.clear('social');}
   if (result === 'replay') characters.playback.clear('game');
   if (result === 'modal') { closeModal(); return; }
-  if (result === 'replay' && replayTimer) { clearInterval(replayTimer); replayTimer = null; }
+  if (result === 'replay') replayClock.stop();
   render();
 }
 
@@ -1724,7 +1771,9 @@ function handleMarketKeyboardNavigation(event) {
   }
   render();
   requestAnimationFrame(() => {
-    document.querySelector(`[data-company="${appState.selectedCompanyId}"]`)?.focus({ preventScroll: true });
+    const selectedRow = document.querySelector(`[data-company="${appState.selectedCompanyId}"]`);
+    selectedRow?.focus({ preventScroll: true });
+    selectedRow?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   });
 }
 
@@ -2304,7 +2353,7 @@ function bindEvents() {
   document.querySelector('[data-commit-decision]')?.addEventListener('click',()=>{
     const pending=appState.pendingDecision;
     if(!pending || pending.revision!==appState.liveRevision || pending.room!==appState.roomCode || pending.token!==appState.token){closeModal();showToast('Position changed. Review the decision again.',true);return;}
-    appState.pendingDecision=null;appState.activeModal=null;
+    appState.pendingDecision=null;appState.activeModal=pending.action.type==='offer' ? pending.returnModal : null;
     executeGameAction(pending.action,true);
   });
   document.querySelector('[data-dismiss-flotation]')?.addEventListener('click',()=>{appState.flotationQueue.shift();render();document.querySelector('.turn-go')?.focus();});
@@ -2350,12 +2399,14 @@ function bindEvents() {
   );
   document.querySelector('[data-handoff-open]')?.addEventListener('click', (event) => {
     appState.view = event.currentTarget.dataset.handoffOpen;
+    handoffExpiry.clear();
     appState.roundHandoff = null;
     clearTilePreview(appState);
     render();
     document.querySelector('.workspace')?.focus({ preventScroll: true });
   });
   document.querySelector('[data-dismiss-handoff]')?.addEventListener('click', () => {
+    handoffExpiry.clear();
     appState.roundHandoff = null;
     dismissRoomWipe();
     render();
@@ -2396,6 +2447,7 @@ function bindEvents() {
 
   document.querySelectorAll('[data-player-details]').forEach((el) => el.addEventListener('click', () => {
     appState.playerDetailsId = el.dataset.playerDetails;
+    appState.modalParentPlayerId = null;
     appState.modalReturnSelector = `[data-player-details="${el.dataset.playerDetails}"]`;
     appState.activeModal = 'player';
     render();
@@ -2552,10 +2604,30 @@ function bindEvents() {
   document.querySelectorAll('[data-private-details]').forEach((el) =>
     el.addEventListener('click', () => {
       appState.privateDetailsId = el.dataset.privateDetails;
+      appState.modalParentPlayerId = el.dataset.fromPlayer || appState.modalParentPlayerId || null;
       appState.modalReturnSelector = `[data-private-details="${el.dataset.privateDetails}"]`;
       appState.activeModal = 'private';
       render();
       document.querySelector('.private-details-modal .close-modal-btn')?.focus({ preventScroll: true });
+    })
+  );
+  document.querySelectorAll('[data-corporation-details]').forEach((el) =>
+    el.addEventListener('click', () => {
+      appState.corporationDetailsId = el.dataset.corporationDetails;
+      appState.selectedCompanyId = el.dataset.corporationDetails;
+      appState.modalParentPlayerId = el.dataset.fromPlayer || appState.modalParentPlayerId || null;
+      appState.modalReturnSelector = `[data-corporation-details="${el.dataset.corporationDetails}"]`;
+      appState.activeModal = 'corporation';
+      render();
+      document.querySelector('.corporation-details-modal .close-modal-btn')?.focus({ preventScroll: true });
+    })
+  );
+  document.querySelectorAll('[data-open-corp-market]').forEach((el) =>
+    el.addEventListener('click', () => {
+      appState.selectedCompanyId = el.dataset.openCorpMarket;
+      appState.activeModal = null;
+      appState.view = 'market';
+      render();
     })
   );
 

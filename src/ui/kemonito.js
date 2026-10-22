@@ -39,8 +39,9 @@ export function renderKemonitoDelivery(view,playback,{atTable=false}={}) {
   const pose=frame?.kemonito?.pose;
   const moving=!job.static&&Number.isInteger(pose);
   const name=esc(receipt.name || view?.state?.players?.[pid]?.name || receipt.recipient);
-  const caption=receipts.map(r=>`<span data-no-translate>${esc(r.name || r.recipient)}</span> <strong>+¥${Number(r.amount).toLocaleString('en-US')}</strong>${r.destination==='treasury'?' · Company treasury':''}`).join('<br>');
-  return `<div class="kemonito-ceremony ${atTable?'at-table':'off-table'} ${moving?'is-animated':'is-summary'}" style="--kemonito-left:${left}%" data-kemonito-recipient="${esc(pid || '')}" data-kemonito-pose="${moving?pose:'still'}">
+  const caption=receipts.map(r=>`<span data-no-translate>${esc(r.name || r.recipient)}</span> <strong class="kemonito-amount" data-no-translate>+¥${Number(r.amount).toLocaleString('en-US')}</strong>${r.destination==='treasury'?' · Company treasury':''}`).join('<br>');
+  return `<div class="kemonito-ceremony ${atTable?'at-table':'off-table'} ${moving?'is-animated':'is-summary'}" style="--kemonito-left:${left}%" data-payment-side="${center>50?'left':'right'}" data-kemonito-recipient="${esc(pid || '')}" data-kemonito-pose="${moving?pose:'still'}">
+    ${moving?`<strong class="kemonito-amount kemonito-payment-label" data-no-translate aria-hidden="true">+¥${Number(receipt.amount).toLocaleString('en-US')}</strong>`:''}
     ${moving?`<div class="kemonito-sprite" role="img" aria-label="Kemonito ${['brings her purse','opens her purse','takes out banknotes','offers the money','hands over the money','finishes the handoff','closes her purse','waves'][pose]}${pose>=3&&pose<=5?` to ${name}`:''}" style="background-position:${(pose%4)*100/3}% ${Math.floor(pose/4)*100}%"></div>`:''}
     <div class="kemonito-caption"><small>${moving?'Kemonito · Assistant Treasurer':'Money received'}</small><div>${caption}</div></div>
   </div>`;

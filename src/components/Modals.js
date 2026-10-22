@@ -4,8 +4,9 @@
  *  2. Multi-Seat Switcher, Two-Browser Window Launcher, Fixture Selector & Protocol Verification Suite
  */
 
-import { CLUB_MEMBERS, HEX_NAMES, PRIVATE_META } from '../constants1889.js';
+import { CLUB_MEMBERS, CORP_META, HEX_NAMES, PRIVATE_META } from '../constants1889.js';
 import { renderPrivateIllustrationSVG, renderVintagePrivateCard } from './PrivateCompanyCards.js';
+import { renderCharacter } from '../scene/Character.js';
 import { escapeHtml, formatTime, mapActionAuthority } from '../ui/presentation.js';
 
 export function renderPrivateZoomModal(appState, viewData) {
@@ -41,14 +42,20 @@ export function renderPrivateDetailsModal(appState, viewData) {
     viewData.legal_actions?.types?.includes('offer') &&
     (viewData.legal_actions?.choices?.offers || []).some(o => o.kind === 'private' && o.item === priv.id)
   );
+  const parentPid = appState.modalParentPlayerId;
+  const parentPlayer = parentPid ? state.players?.[parentPid] : null;
   return `<div class="modal-backdrop" data-close-modal="true">
     <section class="modal-card private-details-modal" role="dialog" aria-modal="true" aria-labelledby="private-details-title" aria-describedby="private-details-context">
       <header class="modal-header">
-        <div><div class="private-details-kicker">PRIVATE COMPANY · ${escapeHtml(priv.id)}</div>
+        <div>
+          <div class="private-details-kicker">PRIVATE COMPANY · ${escapeHtml(priv.id)}</div>
           <h2 id="private-details-title">${escapeHtml(name)}</h2>
           <p lang="ja">${escapeHtml(meta.jp || '')}</p>
         </div>
-        <button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Close private company details">×</button>
+        <div class="washi-modal-header-actions">
+          ${parentPlayer ? `<button type="button" class="washi-back-btn" data-player-details="${escapeHtml(parentPid)}">← Back to ${escapeHtml(parentPlayer.name)}</button>` : ''}
+          <button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Close private company details">×</button>
+        </div>
       </header>
       <p id="private-details-context" class="private-details-context">${historical ? 'Historical position' : 'Live position'} · Rev ${state.revision}${priv.closed ? ' · Closed concession' : ''}</p>
       <div class="private-details-art" aria-hidden="true">${renderPrivateIllustrationSVG(priv.id)}</div>
@@ -81,22 +88,354 @@ export function renderPrivateDetailsModal(appState, viewData) {
   </div>`;
 }
 
+export function renderCorporationDetailsModal(appState, viewData) {
+  const state = viewData.state;
+  const cid = appState.corporationDetailsId || appState.selectedCompanyId || 'IR';
+  const corp = state.corporations?.[cid];
+  if (!corp) return '';
+  const meta = CORP_META[cid] || {
+    id: cid,
+    short: cid,
+    name: corp.name || cid,
+    jp: '',
+    home: corp.home || '—',
+    homeName: HEX_NAMES[corp.home] || corp.home || '—',
+    color: '#9c6b2b',
+    text: '#fff8eb',
+  };
+  const historical = appState.viewRevision !== appState.liveRevision;
+  const money = (value) => `¥${Number(value || 0).toLocaleString()}`;
+  const mktPrice = viewData.prices?.[cid] || 0;
+  const presidentName = corp.president
+    ? state.players?.[corp.president]?.name || corp.president
+    : 'Unparred';
+  const parentPid = appState.modalParentPlayerId;
+  const parentPlayer = parentPid ? state.players?.[parentPid] : null;
+  const shareholders = Object.entries(corp.holdings || {})
+    .filter(([, pct]) => pct > 0)
+    .sort((a, b) => b[1] - a[1]);
+  const corpPrivates = Object.values(state.privates || {}).filter(
+    (p) => p.owner === cid && !p.closed
+  );
+
+  return `<div class="modal-backdrop" data-close-modal="true">
+    <section class="modal-card private-details-modal corporation-details-modal" style="--corp:${meta.color}; --corp-text:${meta.text || '#fff'}" role="dialog" aria-modal="true" aria-labelledby="corp-details-title" aria-describedby="corp-details-context">
+      <header class="modal-header">
+        <div class="corp-modal-title-group">
+          <span class="corp-modal-emblem">${escapeHtml(cid)}</span>
+          <div>
+            <div class="private-details-kicker">PUBLIC RAILWAY CORPORATION · HOME ${escapeHtml(corp.home)} (${escapeHtml(meta.homeName || corp.home)})</div>
+            <h2 id="corp-details-title">${escapeHtml(corp.name)}</h2>
+            <p lang="ja">${escapeHtml(meta.jp || '')}</p>
+          </div>
+        </div>
+        <div class="washi-modal-header-actions">
+          ${parentPlayer ? `<button type="button" class="washi-back-btn" data-player-details="${escapeHtml(parentPid)}">← Back to ${escapeHtml(parentPlayer.name)}</button>` : ''}
+          <button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Close corporation details">×</button>
+        </div>
+      </header>
+      <p id="corp-details-context" class="private-details-context">${historical ? 'Historical position' : 'Live position'} · Rev ${state.revision} · ${corp.floated ? `Floated · Operating Safe ${money(corp.cash)}` : `Unfloated · Needs ${Math.max(0, 50 - (100 - corp.ipo))}% more from IPO`}</p>
+      <dl class="private-details-facts corp-details-facts">
+        <div><dt>Current Market Price</dt><dd>${mktPrice ? money(mktPrice) : 'Unparred'}</dd></div>
+        <div><dt>Par Price</dt><dd>${corp.par ? money(corp.par) : 'Not set (¥65–¥100)'}</dd></div>
+        <div><dt>Corporate Treasury</dt><dd>${corp.floated ? money(corp.cash) : 'Awaiting float'}</dd></div>
+        <div><dt>President</dt><dd>${escapeHtml(presidentName)}</dd></div>
+        <div><dt>IPO / Bank Pool</dt><dd>${corp.ipo}% IPO · ${corp.pool}% Pool</dd></div>
+        <div><dt>Trains &amp; Stations</dt><dd>${corp.trains?.length ? corp.trains.join(', ') : 'No trains'} · ${corp.token_supply} stations</dd></div>
+      </dl>
+      <section class="corp-modal-section" aria-labelledby="corp-shareholders-title">
+        <h3 id="corp-shareholders-title">Shareholder Register</h3>
+        ${shareholders.length ? `<div class="corp-shareholder-list">
+          ${shareholders.map(([holderPid, pct]) => {
+            const pName = state.players?.[holderPid]?.name || holderPid;
+            const isPres = corp.president === holderPid;
+            const val = (pct / 10) * (mktPrice || corp.par || 0);
+            return `<button type="button" class="corp-shareholder-row" data-player-details="${escapeHtml(holderPid)}">
+              <span><b>${escapeHtml(pName)}</b> ${isPres ? '<em class="washi-seal-pill is-pres">★ President</em>' : ''}</span>
+              <span><b>${pct}%</b> (${pct / 10} cert${pct === 10 ? '' : 's'}) · ${val ? money(val) : '—'} →</span>
+            </button>`;
+          }).join('')}
+        </div>` : '<p class="washi-empty-card">No player shares held at this revision.</p>'}
+      </section>
+      ${corpPrivates.length ? `<section class="corp-modal-section" aria-labelledby="corp-privates-title">
+        <h3 id="corp-privates-title">Corporate Concessions &amp; Active Powers</h3>
+        <div class="player-privates-stack">
+          ${corpPrivates.map((p) => {
+            const pMeta = PRIVATE_META[p.id] || {};
+            return `<button type="button" class="player-private-card" style="--priv-color:${pMeta.color || '#7c431e'}" data-private-details="${escapeHtml(p.id)}">
+              <div class="player-private-art-col">
+                <div class="player-private-thumb" aria-hidden="true">${renderPrivateIllustrationSVG(p.id)}</div>
+                <div class="player-private-face-row"><span>Face ${money(p.value)}</span><span>+${money(p.revenue)}/OR</span></div>
+              </div>
+              <div class="player-private-copy-col">
+                <div class="player-private-top">
+                  <span class="player-private-code">${escapeHtml(p.id)}</span>
+                  <div class="player-private-titles">
+                    <strong>${escapeHtml(p.name || pMeta.name || p.id)}</strong>
+                    ${pMeta.jp ? `<small lang="ja">${escapeHtml(pMeta.jp)}</small>` : ''}
+                  </div>
+                  <span class="player-private-yield">+${money(p.revenue)} / OR</span>
+                </div>
+                <div class="player-private-power-box">
+                  <span class="power-benefit-pill">⚡ ${escapeHtml(pMeta.benefitTag || 'Company Power')}</span>
+                  <p>${escapeHtml(pMeta.power || 'No special powers.')}</p>
+                </div>
+                <div class="player-private-footer">
+                  <span class="inspect-link-hint">Inspect Private Concession →</span>
+                </div>
+              </div>
+            </button>`;
+          }).join('')}
+        </div>
+      </section>` : ''}
+      <div class="private-power-actions corp-modal-actions">
+        <div class="private-power-btn-row">
+          <button type="button" class="confirm-button" data-open-corp-market="${escapeHtml(cid)}">Open ${escapeHtml(cid)} in Stock Exchange</button>
+          <button type="button" class="secondary-btn" data-company-map="${escapeHtml(cid)}" data-home-hex="${escapeHtml(corp.home)}" data-close-modal="true">Inspect Home Station (${escapeHtml(corp.home)}) on Map</button>
+          ${!historical && state.round === 'operating' && corp.president === viewData.viewer?.player_id && corp.trains?.length ? `<button type="button" class="secondary-btn" data-propose-corp-train-sale="${escapeHtml(cid)}" data-testid="corp-propose-train-sale-${escapeHtml(cid)}">🤝 Propose Sale / Transfer</button>` : ''}
+        </div>
+      </div>
+    </section>
+  </div>`;
+}
+
 export function renderPlayerDetailsModal(appState, viewData) {
   const pid = appState.playerDetailsId;
   const state = viewData.state;
-  const player = state.players[pid];
+  const player = state.players?.[pid];
   if (!player) return '';
-  const holdings = Object.entries(state.corporations).filter(([, c]) => c.holdings?.[pid] > 0);
-  const privates = Object.values(state.privates).filter((p) => p.owner === pid && !p.closed);
-  return `<div class="modal-backdrop" data-close-modal="true"><section class="modal-card player-modal" role="dialog" aria-modal="true" aria-label="Player details">
-    <header class="modal-header"><h2>${escapeHtml(player.name)}</h2><button class="close-modal-btn" data-close-modal="true" aria-label="Close player details">×</button></header>
-    <p>${appState.viewRevision !== appState.liveRevision ? 'Historical position' : 'Live position'} · Rev ${state.revision} · Seated member${viewData.viewer?.player_id === pid ? ' · You' : ''}</p>
-    <p>Personal cash <b>¥${player.cash.toLocaleString()}</b> · ${viewData.certificates?.[pid] || 0} certificates</p>
-    ${holdings.map(([cid, c]) => `<p>Public ${cid} · ${escapeHtml(c.name)}: <b>${c.holdings[pid]}%</b>${c.president === pid ? ' · President' : ''}</p>`).join('') || '<p>No public shares</p>'}
-    ${privates.map((p) => `<p>Private ${p.id} · ${escapeHtml(p.name)} · ¥${p.revenue}/OR</p>`).join('')}
-    ${state.current_player === pid ? '<p>Current actor at this revision</p>' : ''}
-    ${state.priority === pid ? '<p>Holds Priority Deal</p>' : ''}
-  </section></div>`;
+  const money = (value) => `¥${Number(value || 0).toLocaleString()}`;
+  const order = state.player_order || Object.keys(state.players || {});
+  const seatIdx = Math.max(0, order.indexOf(pid));
+  const persona = CLUB_MEMBERS[seatIdx] || CLUB_MEMBERS[0];
+  const isHistorical = appState.viewRevision !== appState.liveRevision;
+  const isViewer = viewData.viewer?.player_id === pid;
+  const isCurrentActor = state.current_player === pid;
+  const holdsPriority = state.priority === pid;
+  const stamp = viewData.club?.stamps?.[pid];
+
+  const holdings = Object.entries(state.corporations || {}).filter(
+    ([, c]) => c.holdings?.[pid] > 0
+  );
+  const privates = Object.values(state.privates || {}).filter(
+    (p) => p.owner === pid && !p.closed
+  );
+  // Also surface private concessions owned by corporations where this player is President
+  const presidedCorpPrivates = Object.entries(state.corporations || {})
+    .filter(([, c]) => c.president === pid)
+    .flatMap(([cid, c]) =>
+      Object.values(state.privates || {})
+        .filter((p) => p.owner === cid && !p.closed)
+        .map((p) => ({ priv: p, cid, corpName: c.name }))
+    );
+
+  const certCount = viewData.certificates?.[pid] || 0;
+  const certLimit = viewData.certificate_limit || 0;
+  const stockValue = holdings.reduce((sum, [cid, c]) => {
+    const unitPrice = viewData.prices?.[cid] ?? c.par ?? 0;
+    return sum + ((c.holdings?.[pid] || 0) / 10) * unitPrice;
+  }, 0);
+  const privateFaceValue = privates.reduce((sum, p) => sum + (p.value || 0), 0);
+  const privateOrIncome = privates.reduce((sum, p) => sum + (p.revenue || 0), 0);
+  const netWorth = (player.cash || 0) + stockValue + privateFaceValue;
+
+  let escrowedBids = 0;
+  if (state.round === 'auction' && state.auction?.bids) {
+    for (const bmap of Object.values(state.auction.bids)) {
+      escrowedBids += bmap?.[pid] || 0;
+    }
+  }
+
+  const phaseNum = Number(state.phase);
+  const corpBuyoutOpen = phaseNum >= 3 || state.phase === 'D';
+
+  return `<div class="modal-backdrop" data-close-modal="true">
+    <section class="modal-card player-modal washi-player-modal" role="dialog" aria-modal="true" aria-label="Player details">
+      <header class="modal-header washi-player-header">
+        <div class="washi-player-portrait-frame">
+          <div class="washi-player-portrait-art">
+            ${renderCharacter(viewData.members?.[pid]?.appearance, {
+              memberId: pid,
+              name: player.name,
+              surface: 'portrait',
+            })}
+          </div>
+          <span class="washi-seat-plaque">SEAT ${escapeHtml(pid.toUpperCase())}</span>
+        </div>
+
+        <div class="washi-player-identity">
+          <p class="washi-player-kicker">${isHistorical ? 'Historical position' : 'Live position'} · Rev ${state.revision} · Seated member${isViewer ? ' · You' : ''}</p>
+          <div class="washi-player-name-row">
+            <h2>${escapeHtml(player.name)}</h2>
+            ${persona?.jpTitle ? `<span class="washi-persona-jp" lang="ja">${escapeHtml(persona.jpTitle)}</span>` : ''}
+          </div>
+          <div class="washi-player-seals-row">
+            ${persona?.roleTag ? `<span class="washi-seal-pill">${escapeHtml(persona.roleTag)}</span>` : ''}
+            ${isViewer ? '<span class="washi-seal-pill is-you">You</span>' : ''}
+            ${isCurrentActor ? '<span class="washi-seal-pill is-turn">⚡ Current actor at this revision</span>' : ''}
+            ${holdsPriority ? '<span class="washi-seal-pill is-priority">🏮 Holds Priority Deal</span>' : ''}
+            ${stamp ? `<span class="washi-seal-pill is-stamped">印 ${escapeHtml(stamp.seal || '高円寺')} · ${formatTime(stamp.recorded_at)}</span>` : ''}
+          </div>
+        </div>
+
+        <button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Close player details">×</button>
+      </header>
+
+      <div class="washi-ledger-strip" aria-label="Financial summary">
+        <div class="washi-ledger-stat is-primary">
+          <span class="stat-label">NET WORTH · 総資産</span>
+          <strong class="stat-figure">${money(netWorth)}</strong>
+          <small>Cash + Stock ${money(stockValue)} + Privates ${money(privateFaceValue)}</small>
+        </div>
+        <div class="washi-ledger-stat">
+          <span class="stat-label">PURSE · 個人資金</span>
+          <p class="stat-compat-line">Personal cash <b>¥${player.cash.toLocaleString()}</b> · ${certCount} certificates</p>
+          <small>${escrowedBids > 0 ? `¥${escrowedBids.toLocaleString()} escrowed in auction bids` : 'Liquid personal treasury'}</small>
+        </div>
+        <div class="washi-ledger-stat">
+          <span class="stat-label">CERTIFICATES · 株券枚数</span>
+          <strong class="stat-figure">${certCount}${certLimit ? ` <small>/ ${certLimit}</small>` : ''}</strong>
+          <small>${holdings.length} public corp${holdings.length === 1 ? '' : 's'} · ${privates.length} private${privates.length === 1 ? '' : 's'}</small>
+        </div>
+        <div class="washi-ledger-stat">
+          <span class="stat-label">PRIVATE YIELD · 毎OR収入</span>
+          <strong class="stat-figure">+${money(privateOrIncome)}<small>/OR</small></strong>
+          <small>${privates.length ? `Face value ${money(privateFaceValue)}` : 'No active private income'}</small>
+        </div>
+      </div>
+
+      <section class="washi-portfolio-section" aria-labelledby="player-privates-heading">
+        <div class="washi-section-head">
+          <h3 id="player-privates-heading">I. Private Concessions &amp; Special Powers</h3>
+          <span>${privates.length ? `${privates.length} Open · +${money(privateOrIncome)}/OR · Click card for full view &amp; actions` : 'None Held'}</span>
+        </div>
+        ${
+          privates.length
+            ? `<div class="player-privates-stack">
+                ${privates
+                  .map((p) => {
+                    const meta = PRIVATE_META[p.id] || {};
+                    const name = p.name || meta.name || p.id;
+                    const minBuyout = Math.ceil((p.value || 0) / 2);
+                    const maxBuyout = (p.value || 0) * 2;
+                    const hasBlocks = meta.blocks && meta.blocks !== 'None';
+                    return `<button type="button" class="player-private-card" style="--priv-color:${meta.color || '#7c431e'}" data-private-details="${escapeHtml(p.id)}" data-from-player="${escapeHtml(pid)}">
+                      <div class="player-private-art-col">
+                        <div class="player-private-thumb" aria-hidden="true">${renderPrivateIllustrationSVG(p.id)}</div>
+                        <div class="player-private-face-row">
+                          <span>Face ${money(p.value)}</span>
+                          <span>Buyout ${money(minBuyout)}–${money(maxBuyout)}</span>
+                        </div>
+                      </div>
+                      <div class="player-private-copy-col">
+                        <div class="player-private-top">
+                          <span class="player-private-code">${escapeHtml(p.id)}</span>
+                          <div class="player-private-titles">
+                            <strong>Private ${escapeHtml(p.id)} · ${escapeHtml(name)} · ¥${p.revenue}/OR</strong>
+                            ${meta.jp ? `<small lang="ja">${escapeHtml(meta.jp)}</small>` : ''}
+                          </div>
+                          <span class="player-private-yield">+${money(p.revenue)} / OR</span>
+                        </div>
+                        <div class="player-private-power-box">
+                          <div class="power-pill-row">
+                            <span class="power-benefit-pill">⚡ SPECIAL POWER: ${escapeHtml(meta.benefitTag || 'Active Concession')}</span>
+                            ${hasBlocks ? `<span class="power-block-pill">📍 Blocks ${escapeHtml(meta.blocks)}</span>` : ''}
+                          </div>
+                          <p class="player-private-power-text">${escapeHtml(meta.power || 'No special powers.')}</p>
+                          ${meta.powerJp ? `<p class="player-private-power-jp" lang="ja">${escapeHtml(meta.powerJp)}</p>` : ''}
+                        </div>
+                        <div class="player-private-footer">
+                          <span class="buyout-status-note">${corpBuyoutOpen ? `✓ Phase ${escapeHtml(String(state.phase))}: Eligible for corporate buyout (${money(minBuyout)}–${money(maxBuyout)})` : `Phase ${escapeHtml(String(state.phase))}: Player-held (corporate buyouts open in Phase 3)`}</span>
+                          <span class="inspect-link-hint">Open Concession Details &amp; Power Actions →</span>
+                        </div>
+                      </div>
+                    </button>`;
+                  })
+                  .join('')}
+              </div>`
+            : '<p class="washi-empty-card">No open private concessions held by this player.</p>'
+        }
+        ${
+          presidedCorpPrivates.length
+            ? `<div class="presided-corp-privates-box">
+                <div class="washi-subhead">Powers Held by Your Presided Corporations (${presidedCorpPrivates.length})</div>
+                <div class="player-privates-stack">
+                  ${presidedCorpPrivates
+                    .map(({ priv: p, cid, corpName }) => {
+                      const meta = PRIVATE_META[p.id] || {};
+                      return `<button type="button" class="player-private-card is-corp-owned" style="--priv-color:${meta.color || '#4a3267'}" data-private-details="${escapeHtml(p.id)}" data-from-player="${escapeHtml(pid)}">
+                        <div class="player-private-art-col">
+                          <div class="player-private-thumb" aria-hidden="true">${renderPrivateIllustrationSVG(p.id)}</div>
+                          <div class="player-private-face-row"><span>Owned by ${escapeHtml(cid)}</span><span>+${money(p.revenue)}/OR</span></div>
+                        </div>
+                        <div class="player-private-copy-col">
+                          <div class="player-private-top">
+                            <span class="player-private-code">${escapeHtml(p.id)}</span>
+                            <div class="player-private-titles">
+                              <strong>${escapeHtml(p.name || meta.name || p.id)} <small>(Treasury of ${escapeHtml(corpName)})</small></strong>
+                            </div>
+                            <span class="player-private-yield">+${money(p.revenue)} / OR to ${escapeHtml(cid)}</span>
+                          </div>
+                          <div class="player-private-power-box">
+                            <span class="power-benefit-pill">⚡ ${escapeHtml(cid)} CORPORATE POWER: ${escapeHtml(meta.benefitTag || 'Active Power')}</span>
+                            <p class="player-private-power-text">${escapeHtml(meta.power || 'No special powers.')}</p>
+                          </div>
+                          <div class="player-private-footer">
+                            <span class="inspect-link-hint">Open Concession Details →</span>
+                          </div>
+                        </div>
+                      </button>`;
+                    })
+                    .join('')}
+                </div>
+              </div>`
+            : ''
+        }
+      </section>
+
+      <section class="washi-portfolio-section" aria-labelledby="player-public-heading">
+        <div class="washi-section-head">
+          <h3 id="player-public-heading">II. Public Railway Portfolio</h3>
+          <span>${holdings.length ? `${holdings.length} Corporation${holdings.length === 1 ? '' : 's'} · ${money(stockValue)} Market Value · Click share for corporation details` : '0 Shares'}</span>
+        </div>
+        ${
+          holdings.length
+            ? `<div class="player-corps-grid">
+                ${holdings
+                  .map(([cid, c]) => {
+                    const meta = CORP_META[cid] || {
+                      name: c.name,
+                      jp: '',
+                      home: c.home,
+                      homeName: HEX_NAMES[c.home] || c.home,
+                      color: '#9c6b2b',
+                      text: '#fff8eb',
+                    };
+                    const pct = c.holdings[pid];
+                    const isPres = c.president === pid;
+                    const unitPrice = viewData.prices?.[cid] ?? c.par ?? 0;
+                    const holdingVal = (pct / 10) * unitPrice;
+                    return `<button type="button" class="player-corp-card" style="--corp:${meta.color}; --corp-text:${meta.text || '#fff'}" data-corporation-details="${escapeHtml(cid)}" data-from-player="${escapeHtml(pid)}">
+                      <span class="player-corp-ribbon"></span>
+                      <span class="player-corp-badge">${escapeHtml(cid)}</span>
+                      <div class="player-corp-main">
+                        <p class="player-corp-compat">Public ${escapeHtml(cid)} · ${escapeHtml(c.name)}: <b>${pct}%</b>${isPres ? ' · President' : ''}</p>
+                        <small>${escapeHtml(meta.jp ? `${meta.jp} · ` : '')}Home ${escapeHtml(c.home)} (${escapeHtml(meta.homeName || c.home)}) · ${c.floated ? `Floated · Safe ${money(c.cash)}` : `Unfloated · IPO ${c.ipo}%`}${c.trains?.length ? ` · Trains: ${escapeHtml(c.trains.join(', '))}` : ''}</small>
+                      </div>
+                      <div class="player-corp-valuation">
+                        <strong>${money(holdingVal)}</strong>
+                        <small>${pct / 10} sh @ ${unitPrice ? money(unitPrice) : 'Unparred'}${isPres ? ' · ★ Pres' : ''}</small>
+                        <span class="inspect-link-hint">Details →</span>
+                      </div>
+                    </button>`;
+                  })
+                  .join('')}
+              </div>`
+            : '<p class="washi-empty-card">No public shares</p>'
+        }
+      </section>
+    </section>
+  </div>`;
 }
 
 export function renderMemberStampModal(appState, viewData) {

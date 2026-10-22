@@ -1,0 +1,98 @@
+/* Messages float above the workspace instead of adding/removing status rows. */
+.workspace { position:relative; }
+.game-notifications {
+  position:absolute; z-index:800; top:10px; left:50%; transform:translateX(-50%);
+  width:min(620px,calc(100% - 24px)); max-height:35%; overflow:auto;
+  display:grid; gap:6px; pointer-events:none;
+}
+.game-notifications .action-feedback-slot[data-empty="false"],
+.game-notifications .decision-alerts,
+.game-notifications .character-event-notice:not(:empty) {
+  height:auto !important; min-height:0 !important; padding:10px 12px !important;
+  margin:0; background:#241b12f5 !important; color:#f9ebcc;
+  border:1px solid #c09b53 !important; border-radius:6px;
+  box-shadow:0 4px 16px #0006; font:13px/1.5 system-ui !important;
+}
+.game-notifications .action-feedback { flex-wrap:wrap; padding:0 !important; font:inherit !important; }
+.game-notifications .character-event-notice { display:flex; flex-wrap:wrap; gap:6px 12px; }
+.game-notifications .character-event-notice strong,
+.game-notifications .character-event-notice small { white-space:normal; overflow:visible; text-overflow:clip; }
+.game-notifications button { pointer-events:auto; flex-shrink:0; cursor:pointer; }
+.decision-alerts { display:grid; gap:8px; }
+.decision-alerts > span { display:block; padding:0; background:none; border:0; }
+.room-status-band .room-context {
+  flex:1 1 0 !important; min-width:0; flex-wrap:nowrap !important;
+  white-space:nowrap; overflow-x:auto;
+}
+.room-context > * { flex-shrink:0; }
+
+/* Keep room navigation on its own row; excess inspection tabs may scroll. */
+.market-top-deck { flex-wrap:nowrap !important; }
+.market-top-deck .stock-window-launcher {
+  min-width:0; flex-wrap:nowrap !important; overflow-x:auto;
+  justify-content:flex-start !important;
+}
+.market-top-deck .stock-window-launcher > button { flex-shrink:0; }
+.market-top-deck .heading-actions { flex:0 0 auto; flex-wrap:nowrap; }
+@media(max-width:700px) { .market-top-deck .exchange-title-cluster { display:none !important; } }
+
+/* One primary-action treatment on paper, maps, modal reviews and train desks. */
+.app-shell .confirm-button,
+.app-shell .hanko-button.confirm-button {
+  background:linear-gradient(#28684e,#174632) !important;
+  color:#fff8e8 !important; border:2px solid #92b88e !important;
+  border-radius:5px; outline-offset:3px; text-shadow:none !important;
+  box-shadow:0 2px 3px #0004 !important;
+}
+.app-shell .confirm-button:hover:not(:disabled) { background:#327958 !important; }
+.app-shell .confirm-button:disabled { opacity:.55; cursor:default; }
+.app-shell .confirm-button:focus-visible { outline:3px solid #d8f2db; }
+.operating-turn-controls [data-testid="op-btn-skip"] {
+  background:#f5e9ca !important; color:#302518 !important;
+  border:2px solid #79653f !important; font:700 13px/1.4 system-ui !important;
+  min-height:46px; text-transform:none; white-space:normal;
+}
+.optional-step-note { margin:3px 0 8px; font:13px/1.4 system-ui; color:#46351d; }
+
+/* Outline keeps actual amounts readable against both sprite and room artwork. */
+.kemonito-amount {
+  color:#fff5b8 !important; -webkit-text-stroke:1px #172f22;
+  paint-order:stroke fill; text-shadow:-1px -1px #172f22,1px -1px #172f22,-1px 1px #172f22,1px 1px #172f22;
+  font:800 22px/1.3 system-ui; white-space:nowrap; display:inline-block;
+}
+.kemonito-ceremony { position:relative; }
+.kemonito-ceremony.at-table { bottom:8px; }
+.kemonito-caption { position:relative; z-index:1; }
+.kemonito-payment-label { position:absolute; left:calc(100% + 6px); top:50%; transform:translateY(-50%); z-index:2; padding:3px 8px; border-radius:5px; background:#172f22d9; }
+.kemonito-ceremony.at-table[data-payment-side="left"] .kemonito-payment-label { left:auto; right:calc(100% + 6px); }
+.kemonito-ceremony.off-table.is-animated { display:grid; grid-template-columns:96px minmax(0,1fr); }
+.kemonito-ceremony.off-table.is-animated .kemonito-sprite { grid-area:1 / 1; }
+.kemonito-ceremony.off-table.is-animated .kemonito-caption { grid-area:1 / 2; min-width:0; }
+.kemonito-ceremony.off-table .kemonito-payment-label { position:static; grid-area:2 / 1; justify-self:center; transform:none; }
+
+.offboard-value { fill:#b6a995; font-weight:400; }
+.offboard-value.is-current { fill:#fff8cb; font-weight:900; text-decoration:underline; }
+
+.dividend-milestone-stage { position:fixed; inset:0; z-index:850; pointer-events:none; overflow:hidden; }
+.dividend-milestone,.dividend-rain { position:absolute; inset:0; }
+.dividend-milestone-card {
+  position:absolute; top:22%; left:50%; transform:translateX(-50%);
+  display:grid; gap:5px; text-align:center; max-width:calc(100% - 32px);
+  padding:16px 24px; border:3px double #e9c26a; border-radius:8px;
+  background:#183e2ff2; color:#fff0ba; box-shadow:0 6px 25px #0006;
+}
+.dividend-milestone-card strong { font:800 32px/1.3 Georgia,serif; }
+.dividend-milestone-card small,.dividend-milestone-card span { font:700 13px/1.4 system-ui; }
+.dividend-rain span {
+  position:absolute; top:-40px; left:var(--rain-x); width:34px; height:21px;
+  border:2px solid #f7e0a3; outline:1px solid #35624b; background:#477459;
+  color:#fff1b7; text-align:center; font:bold 16px/21px Georgia;
+  animation:dividend-note-fall 1.35s var(--rain-delay) both;
+}
+@keyframes dividend-note-fall {
+  from { opacity:0; transform:translateY(0) rotate(var(--rain-tilt)); }
+  12% { opacity:1; }
+  to { opacity:0; transform:translateY(95vh) rotate(calc(var(--rain-tilt) * -2)); }
+}
+.motion-off .dividend-rain { display:none; }
+@media (prefers-reduced-motion:reduce) { .dividend-rain { display:none; } }

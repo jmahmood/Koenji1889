@@ -4,6 +4,9 @@ export const TEST_SCENARIOS = {
   stock: {label:'Stock round', preset:'stock_round_1'},
   auction: {label:'Private auction', preset:'auction_start'},
   operating: {label:'Operating round', preset:'operating_round_1'},
+  cycle: {label:'Full operating cycle · trains ready', preset:'operating_cycle'},
+  j3: {label:'SR · build at J3', preset:'tile_j3'},
+  j3used: {label:'SR · normal track lay used', preset:'tile_j3_used'},
   routes: {label:'Train routes · two trains', preset:'route_planning'},
   routes3: {label:'Three trains · 3 / 3 / 4 stops', preset:'route_network_3'},
   routes4: {label:'Four trains · branching network', preset:'route_network_4'},
@@ -69,5 +72,7 @@ export function renderTestControls(scenario,view,busy=false) {
     <button type="button" data-edit-look>Change your look</button>
     <a href="/" target="_blank" rel="noopener">Regular app ↗</a>
     <small>All four seats available · refresh resumes this game</small>
+    ${scenario==='j3' ? '<small>SR track practice: select J3, choose a legal tile and confirm placement. Straight tile #9 is available.</small>' : ''}
+    ${scenario==='j3used' ? '<small>SR has already built at I4 this turn. Select J3 to see why another normal track lay must wait.</small>' : ''}
   </nav>`;
 }

@@ -17,6 +17,20 @@ function bind(app,request) {
  return {click:(selector,dataset={})=>handlers[`${selector}:click`]({currentTarget:{dataset},preventDefault(){},stopPropagation(){}}),executed:()=>executed};
 }
 const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve};};
+test('restore recommendations is enabled only for a changed plan and disables again after restoring',async()=>{
+ const app=makeApp();
+ const restore=()=>renderDecisionDesk(app,view).match(/<button[^>]*data-copy-route-plan[^>]*>/)?.[0];
+ assert.match(restore(),/disabled/);
+ app.routeDraft.reverse();
+ assert.match(restore(),/disabled/,'train display order does not change the routes');
+ app.routeDraft[0].vertices.reverse();
+ assert.doesNotMatch(restore(),/disabled/);
+ const ui=bind(app,async()=>({}));
+ await ui.click('[data-copy-route-plan]');
+ assert.match(restore(),/disabled/);
+ app.routeDraft.pop();
+ assert.doesNotMatch(restore(),/disabled/,'not running a recommended train changes the plan');
+});
 test('choose stops, use route, quote automatically and run exactly that plan',async()=>{
  const app=makeApp(),original=structuredClone(app.routeDraft),reversed={train:'2-0',vertices:[...app.routeDraft[0].vertices].reverse()};
  const calls=[];

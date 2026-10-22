@@ -71,6 +71,19 @@ test('a fixture loaded through Demo Tools can become the resumable route scenari
   assert.equal(created(),1);
 });
 
+test('J3 practice scenarios create separate resumable SR positions',async()=>{
+  const {api,created}=setup();
+  for(const [scenario,preset] of [['j3','tile_j3'],['j3used','tile_j3_used']]) {
+    assert.equal(testScenario(`?scenario=${scenario}`),scenario);
+    const first=await prepareTestRoom(api,scenario);
+    assert.equal(first.bundle.preset,preset);
+    assert.equal((await prepareTestRoom(api,scenario)).bundle.room_code,first.bundle.room_code);
+  }
+  assert.equal(created(),2);
+  assert.match(renderTestControls('j3',{}),/Straight tile #9 is available/);
+  assert.match(renderTestControls('j3used',{}),/already built at I4/);
+});
+
 test('expanded route scenarios create, isolate and resume three- and four-train games',async()=>{
  const {api,created}=setup();
  for(const [scenario,preset] of [['routes3','route_network_3'],['routes4','route_network_4']]) {

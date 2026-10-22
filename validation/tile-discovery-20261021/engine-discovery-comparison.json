@@ -1,0 +1,185 @@
+{
+  "seconds": 16.368634939193726,
+  "states": [
+    {
+      "revision": 28,
+      "corporation": "SR",
+      "phase": "2",
+      "attempts": 744,
+      "engine_choices": 6,
+      "shown_choices": 6,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 36,
+      "corporation": "SR",
+      "phase": "2",
+      "attempts": 726,
+      "engine_choices": 2,
+      "shown_choices": 2,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 50,
+      "corporation": "KO",
+      "phase": "2",
+      "attempts": 720,
+      "engine_choices": 10,
+      "shown_choices": 10,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 55,
+      "corporation": "SR",
+      "phase": "2",
+      "attempts": 702,
+      "engine_choices": 0,
+      "shown_choices": 0,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 62,
+      "corporation": "SR",
+      "phase": "2",
+      "attempts": 702,
+      "engine_choices": 0,
+      "shown_choices": 0,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 68,
+      "corporation": "KO",
+      "phase": "2",
+      "attempts": 702,
+      "engine_choices": 7,
+      "shown_choices": 7,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 80,
+      "corporation": "IR",
+      "phase": "2",
+      "attempts": 684,
+      "engine_choices": 6,
+      "shown_choices": 6,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 85,
+      "corporation": "SR",
+      "phase": "2",
+      "attempts": 666,
+      "engine_choices": 0,
+      "shown_choices": 0,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 90,
+      "corporation": "KO",
+      "phase": "2",
+      "attempts": 666,
+      "engine_choices": 7,
+      "shown_choices": 7,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 104,
+      "corporation": "SR",
+      "phase": "2",
+      "attempts": 606,
+      "engine_choices": 0,
+      "shown_choices": 0,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 109,
+      "corporation": "KO",
+      "phase": "2",
+      "attempts": 606,
+      "engine_choices": 9,
+      "shown_choices": 9,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 115,
+      "corporation": "IR",
+      "phase": "2",
+      "attempts": 588,
+      "engine_choices": 2,
+      "shown_choices": 2,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 130,
+      "corporation": "SR",
+      "phase": "3",
+      "attempts": 888,
+      "engine_choices": 4,
+      "shown_choices": 4,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 135,
+      "corporation": "KO",
+      "phase": "3",
+      "attempts": 852,
+      "engine_choices": 16,
+      "shown_choices": 16,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 140,
+      "corporation": "IR",
+      "phase": "3",
+      "attempts": 876,
+      "engine_choices": 11,
+      "shown_choices": 11,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 145,
+      "corporation": "SR",
+      "phase": "3",
+      "attempts": 816,
+      "engine_choices": 8,
+      "shown_choices": 8,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 150,
+      "corporation": "KO",
+      "phase": "3",
+      "attempts": 810,
+      "engine_choices": 34,
+      "shown_choices": 34,
+      "missing": [],
+      "invalid": []
+    },
+    {
+      "revision": 156,
+      "corporation": "IR",
+      "phase": "3",
+      "attempts": 852,
+      "engine_choices": 11,
+      "shown_choices": 11,
+      "missing": [],
+      "invalid": []
+    }
+  ]
+}

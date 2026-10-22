@@ -51,13 +51,19 @@ For a quick practice game, open `/test` on the development server. Available sce
 | URL | Starting position |
 | --- | --- |
 | `/test` | Stock round |
+| `/test?scenario=j3` | SR can build at J3, including straight tile #9 |
+| `/test?scenario=j3used` | SR has already used its normal track lay at I4 |
 | `/test?scenario=routes` | Two trains ready to run |
 | `/test?scenario=routes3` | Three-train western network |
 | `/test?scenario=routes4` | Four-train branching network |
 
 Use **New test game** to create another copy. Practice games are separate from ordinary gatherings. Additional fixtures and protocol checks are available in **Demo Tools**.
 
+For J3, choose a legal tile in the map inspector, preview it, then confirm placement. The second position explains why another normal lay must wait until SR's next operating turn. Both positions are generated through legal moves, with four controllable seats. If an older backend is already running, restart it after updating so it can create these new fixtures.
+
 ## Commands
+
+To watch Chrome play one complete round automatically, double-click **Watch Operation Round.command** or **Watch Stock Round.command** in the parent starter package folder. These use fresh practice games and make no AI calls. See [Chrome round puppets](docs/koenji/chrome_round_puppets.md) for playback speed, single-step controls, and reports.
 
 | Command | Purpose |
 | --- | --- |

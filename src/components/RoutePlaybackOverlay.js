@@ -51,16 +51,32 @@ export function renderRouteResult(job,sample,view,{motion=true,speed='normal',no
     ${(run.idle_trains||[]).map(train=>`<span class="is-idle"><b data-no-translate>${esc(train)}</b> ${t('Idle')}</span>`).join('')}</div>
     <div class="route-payoff-total ${job.completedAt!=null?'is-new-result':''}" style="animation-delay:-${Math.max(0,now-(job.completedAt||0))}ms"><span>${t('Route revenue')}</span><strong>${money(run.revenue)}</strong></div>
     <p>${t(paid?'Dividend decision recorded':'Awaiting dividend decision')}</p>
-    ${playing?`<button type="button" data-skip-journey>${t('Skip animation')}</button>`:motion&&speed!=='instant'&&job.timeline.routes.length>0&&job.timeline.routes.every(r=>r.geometry)?`<button type="button" data-replay-journey>${t('Watch again')}</button>`:''}
   </section>`;
   return paid?`<details class="settled-route-receipt"><summary><span data-no-translate>${esc(run.corporation)}</span> · ${t('Route revenue')} <b>${money(run.revenue)}</b></summary>${body}</details>`:body;
 }
 export function renderAcceptedFeedback(feedback) {
   if(!feedback)return '';
   const e=feedback.event;
+  if(e.type==='lay_tile')return '';
   const labels={lay_tile:'Track laid',place_token:'Station established',buy_train:'Train delivered',dividend:e.payout&&e.revenue>0?'Dividend paid':'Revenue withheld',buy_shares:'Certificate purchased',sell_shares:'Certificate sold',bid:'Bid recorded',buy_private:'Private company acquired'};
   const title=labels[e.type];if(!title&&!e.account_deltas?.length&&!e.market_movements?.length)return '';
   const allocation=e.dividend_allocation;
+  if(e.type==='dividend' && e.payout && e.revenue>0) {
+    const deltas=e.account_deltas||[], movements=e.market_movements||[];
+    const amount=delta=>`${delta.amount>=0?'+':'−'}${money(Math.abs(delta.amount))}`;
+    return `<section class="accepted-action-receipt dividend-payment-receipt" aria-label="${t('Dividend paid')}">
+      <button type="button" class="dismiss-payoff-receipt" data-dismiss-payoff-receipt aria-label="${t('Dismiss receipt')}">×</button>
+      <b><span aria-hidden="true">✓</span> ${t('Dividend paid')} · <span data-no-translate>${esc(e.corporation||'')}</span></b>
+      <ul class="dividend-receipt-payees">${deltas.filter(d=>d.destination!=='treasury').map(d=>`<li><span data-no-translate>${esc(d.name||d.recipient)}</span> <strong class="${d.amount>=0?'is-credit':'is-debit'}">${amount(d)}</strong></li>`).join('')}</ul>
+      <div class="dividend-receipt-bottom"><span>${movements.map(m=>`${t('Share price')} ${money(m.price_before)} → ${money(m.price_after)}`).join(' · ')}</span>
+      <details class="dividend-receipt-details"><summary>${t('Details')}</summary><div class="dividend-receipt-breakdown">
+        ${e.revenue_revision?`<p>${t('Revenue revised')}: ${money(e.revenue_revision.before)} → ${money(e.revenue_revision.after)}</p>`:''}
+        ${deltas.map(d=>`<p><span data-no-translate>${esc(d.name||d.recipient)}</span> · ${t(d.destination==='treasury'?'Company treasury':'Personal purse')}: ${money(d.before)} → ${money(d.after)} <strong>${amount(d)}</strong></p>`).join('')}
+        ${allocation?`<p>${t('Market pool → company')}: ${money(allocation.treasury)} · ${t('IPO retained by bank')}: ${money(allocation.ipo_retained_by_bank)}</p>`:''}
+        ${movements.filter(m=>JSON.stringify(m.before)===JSON.stringify(m.after)).map(m=>`<p><span data-no-translate>${esc(m.corporation)}</span> · ${t('Position unchanged')}</p>`).join('')}
+      </div></details></div>
+    </section>`;
+  }
   return `<section class="accepted-action-receipt" aria-label="${t('Accepted action')}"><button type="button" class="dismiss-payoff-receipt" data-dismiss-payoff-receipt aria-label="${t('Dismiss receipt')}">×</button>
     ${title?`<b>${t(title)}</b>${e.corporation?` <span data-no-translate>${esc(e.corporation)}</span>`:''}`:''}
     ${e.revenue_revision?`<p>${t('Revenue revised')}: ${money(e.revenue_revision.before)} → ${money(e.revenue_revision.after)}</p>`:''}

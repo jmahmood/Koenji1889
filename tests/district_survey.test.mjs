@@ -68,6 +68,8 @@ test('permanent locations, town limits and H/T/K chains retain their actual rule
  assert.equal(model(v,'B11').nextColor,'yellow');
  setTile(v,'B11','3');assert.equal(model(v,'B11').stock.length,0);
  assert.deepEqual(model(v,'I4').stock.map(t=>t.id),['438']);
+ assert.match(survey(v,'I4'),/Kotohira \(I4\) requires H-labeled city tiles/);
+ assert.match(survey(v,'I4'),/Ordinary straight track cannot be laid here/);
  assert.deepEqual(model(v,'K4').stock.map(t=>t.id),['440']);
  assert.deepEqual(model(v,'F9').stock.map(t=>t.id),['465']);
  Object.assign(v.state.board.B11,{port:true});assert.equal(model(v,'B11').fixed,true);

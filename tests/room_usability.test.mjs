@@ -183,12 +183,11 @@ function operatingFixture() {
   ].join('\n')], { encoding: 'utf8' }));
 }
 
-test('real operating fixture preserves shortcuts while historical map only inspects', () => {
+test('real operating fixture omits future-step shortcuts while historical map only inspects', () => {
   const fixture = operatingFixture();
   const s = { ...state(), liveRevision: 22, viewRevision: 22, selectedHex: 'E2', inspectedHex: 'E2', selectedTileId: null };
   const html = renderDetailedMapView(s, fixture.view, fixture.catalog);
-  assert.match(html, /Route resolution shortcut/);
-  assert.match(html, /skips remaining track \/ token opportunities/);
+  assert.doesNotMatch(html, /Route resolution shortcut|Station token shortcut/);
   assert.match(html, /ACTING AS CORPORATION · CORPORATE FUNDS/);
   assert.match(html, /role="button" tabindex="0" aria-label="Matsuyama E2 · Preview track"/);
   const historical = renderDetailedMapView({ ...s, liveRevision: 23 }, fixture.view, fixture.catalog);
@@ -347,7 +346,7 @@ test('operating ticket enables 1-click skip at routes step when corporation has 
   const noTrainHtml = renderDetailedMapView(s, noTrainView, fixture.catalog);
   assert.match(noTrainHtml, /IR has no trains yet — skip route calculation\./);
   assert.match(noTrainHtml, /No trains — Skip to Train Step \(¥0\)/);
-  assert.match(noTrainHtml, /data-op-action="skip"\s*>\s*Skip Routes/);
+  assert.match(noTrainHtml, /data-op-action="skip"\s*>\s*Skip Train Routes/);
 
   // Case 2: Corporation owns a train (2-0) but has no connected route (nowhere to send the train)
   const noRouteView = structuredClone(noTrainView);
@@ -356,7 +355,7 @@ test('operating ticket enables 1-click skip at routes step when corporation has 
   const noRouteHtml = renderDetailedMapView(s, noRouteView, fixture.catalog);
   assert.match(noRouteHtml, /IR's train \(2-0\) has no connected route — skip route calculation\./);
   assert.match(noRouteHtml, /No legal route — Skip to Train Step \(¥0\)/);
-  assert.match(noRouteHtml, /data-op-action="skip"\s*>\s*Skip Routes/);
+  assert.match(noRouteHtml, /data-op-action="skip"\s*>\s*Skip Train Routes/);
   assert.match(noRouteHtml, /data-op-action="dividend_withhold"/);
 });
 
@@ -364,12 +363,12 @@ test('unified 5-step operating panel renders help toggle, step workspaces, inlin
   const fixture = operatingFixture();
   const baseUi = { ...state(), liveRevision: 22, viewRevision: 22, selectedHex: 'E2', inspectedHex: 'E2', selectedTileId: '57', selectedTileRotation: 0 };
 
-  // Step 1: Track — SVG tile swatches, rotation bar, collapsed help drawer by default, open when toggled
+  // Step 1: Track — SVG tile swatches and collapsed help drawer, without the redundant staging row
   const trackHtml = renderDetailedMapView(baseUi, fixture.view, fixture.catalog);
   assert.match(trackHtml, /data-toggle-op-help/);
   assert.match(trackHtml, /op-help-drawer[^>]*is-collapsed/);
   assert.match(trackHtml, /tile-swatch-btn/);
-  assert.match(trackHtml, /tile-rotation-bar/);
+  assert.doesNotMatch(trackHtml, /tile-rotation-bar/);
   assert.match(trackHtml, /ticket-compact-footer/);
 
   const helpOpenHtml = renderDetailedMapView({ ...baseUi, opHelpOpen: true }, fixture.view, fixture.catalog);
@@ -380,7 +379,8 @@ test('unified 5-step operating panel renders help toggle, step workspaces, inlin
   tokenView.state.operating_turn.step = 'token';
   const tokenHtml = renderDetailedMapView(baseUi, tokenView, fixture.catalog);
   assert.match(tokenHtml, /token-charter-rack/);
-  assert.match(tokenHtml, /Station Charter Rack/);
+  assert.match(tokenHtml, /Stations remaining/);
+  assert.doesNotMatch(tokenHtml, />Token<|Station Token Preview|Charter Supply|Tokens Remaining/);
 
   // Step 3: Routes — Inline stop-based route planner embedded directly in panel when routes are runnable
   const routeView = structuredClone(fixture.view);

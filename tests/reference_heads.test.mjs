@@ -7,8 +7,8 @@ import {VALID_EXPRESSIONS, VALID_POSES, renderHead, renderTorso} from '../src/sc
 import {renderCharacterSetup} from '../src/components/CharacterSetup.js';
 
 const faces = APPEARANCE_CATALOG.faces.filter(face => face.headAtlas);
-test('seventeen reference portraits provide nine distinct frames inside real transparent PNGs', () => {
-  assert.deepEqual(faces.map(face => face.id), Array.from({length:17}, (_,i) => `reference-${String(i+1).padStart(2,'0')}`));
+test('twenty-seven reference portraits provide nine distinct frames inside real transparent PNGs', () => {
+  assert.deepEqual(faces.map(face => face.id), Array.from({length:27}, (_,i) => `reference-${String(i+1).padStart(2,'0')}`));
   for (const face of faces) {
     const atlas = face.headAtlas;
     const png = readFileSync(new URL(`../public/assets/koma-sprites/photoreal-heads/${atlas.file}`, import.meta.url));
@@ -32,15 +32,15 @@ test('seventeen reference portraits provide nine distinct frames inside real tra
   }
 });
 
-test('portrait batches retain their original membership and expose all seven latest additions', () => {
+test('portrait batches retain their original membership and expose all three latest additions', () => {
   const batches = new Map();
   for (const face of faces) {
     if (!batches.has(face.portraitBatch)) batches.set(face.portraitBatch, []);
     batches.get(face.portraitBatch).push(face);
   }
-  assert.deepEqual([...batches.values()].map(batch => batch.length), [7,3,7]);
+  assert.deepEqual([...batches.values()].map(batch => batch.length), [7,3,7,7,3]);
   assert.deepEqual(batches.get(faces.at(-1).portraitBatch).map(face => face.id),
-    Array.from({length:7}, (_,i) => `reference-${i+11}`));
+    Array.from({length:3}, (_,i) => `reference-${i+25}`));
 });
 
 test('new faces remain independent of outfits and render across all poses and UI crops', () => {

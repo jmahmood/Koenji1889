@@ -1,12 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {TurnReminder,turnIdentity,renderConfirmation,decisionDescription,renderTurnStatus} from '../src/ui/playtestUX.js';
+import {TurnReminder,turnIdentity,renderConfirmation,decisionDescription,renderTurnStatus,CONFIRMED_ACTIONS} from '../src/ui/playtestUX.js';
 import {translate,translations} from '../src/ui/i18n.js';
 import {renderVintagePrivateCard} from '../src/components/PrivateCompanyCards.js';
 import {renderPrivateZoomModal} from '../src/components/Modals.js';
 import {GameAudioManager,GameEffects,makeSeamlessLoop} from '../src/ui/gameAudio.js';
 const view={viewer:{player_id:'p1'},prices:{IR:100},legal_actions:{player:'p1'},state:{revision:4,round:'operating',stock_round:1,or_number:1,current_player:'p1',current_corporation:'IR',players:{p1:{name:'Daisuke',cash:200}},corporations:{IR:{id:'IR',president:'p1',cash:600,par:100,ipo:30,pool:20,holdings:{p1:50}}},operating_turn:{step:'dividend',revenue:100}}};
 const app=()=>({roomCode:'one',token:'private',liveRevision:4,viewRevision:4});
+test('routine turn actions avoid redundant reviews, while purchase reviews name their action',()=>{
+ for(const type of ['skip','pass','end_turn','dividend'])assert.equal(CONFIRMED_ACTIONS.has(type),false);
+ assert.equal(CONFIRMED_ACTIONS.has('buy_train'),true);assert.equal(CONFIRMED_ACTIONS.has('bankrupt'),true);
+ const a=app();a.pendingDecision={action:{type:'dividend',payout:true},room:a.roomCode,token:a.token,revision:4};
+ assert.match(renderConfirmation(a,view),/data-commit-decision >Pay Dividend<\/button>/);
+});
 test('only the active live seat receives a once-per-turn idle reminder, independent of polls',()=>{
  let now=0,reminders=0,turns=0;
  const reminder=new TurnReminder({now:()=>now,notify:()=>reminders++,onTurn:()=>turns++});
@@ -29,6 +35,46 @@ test('confirmation shows exact allocations and stale revisions disable submissio
  const [title,cash]=decisionDescription({type:'buy_shares',corporation:'IR',source:'ipo',percent:10},view);
  assert.match(title,/10% IR/);assert.match(cash,/¥200 → ¥100/);
 });
+test('auction purchase review accepts the engine bid permission and spends personal cash',()=>{
+ const auction=structuredClone(view);
+ Object.assign(auction.state,{round:'auction',current_corporation:null,privates:{TR:{value:20}},auction:{discount:0}});
+ auction.state.players.p1.cash=420;
+ auction.legal_actions={player:'p1',types:['bid','pass']};
+ const a=app();a.pendingDecision={action:{type:'buy_private',company:'TR',price:20},room:a.roomCode,token:a.token,revision:4};
+ const html=renderConfirmation(a,auction);
+ assert.match(html,/Buy TR · ¥20/);assert.match(html,/Personal cash: ¥420 → ¥400/);
+ assert.doesNotMatch(html,/Company treasury|null|unavailable|data-commit-decision disabled/);
+ assert.match(renderConfirmation(a,{...auction,viewer:{player_id:'p2'}}),/data-commit-decision disabled/);
+ assert.match(renderConfirmation(a,{...auction,legal_actions:{player:'p1',types:['pass']}}),/data-commit-decision disabled/);
+ assert.match(renderConfirmation({...a,liveRevision:5},auction),/data-commit-decision disabled/);
+ auction.state.auction.discount=5;
+ assert.deepEqual(decisionDescription({type:'buy_private',company:'TR'},auction),['Buy TR · ¥15','Personal cash: ¥420 → ¥405']);
+ const operating=structuredClone(view);operating.legal_actions={player:'p1',types:['buy_private']};
+ assert.match(renderConfirmation(a,operating),/IR · Company treasury/);
+ assert.doesNotMatch(renderConfirmation(a,operating),/data-commit-decision disabled/);
+ operating.legal_actions.types=['bid'];
+ assert.match(renderConfirmation(a,operating),/data-commit-decision disabled/,'bid is an alias only during the auction');
+});
+test('stock pass uses end-turn permission but still blocks other seats and stale positions',()=>{
+ const stock=structuredClone(view);stock.state.round='stock';stock.state.stock_turn={bought:false};
+ stock.legal_actions={player:'p1',types:['buy_shares','sell_shares','end_turn']};
+ const a=app();a.pendingDecision={action:{type:'pass'},room:a.roomCode,token:a.token,revision:4};
+ assert.doesNotMatch(renderConfirmation(a,stock),/data-commit-decision disabled|unavailable/);
+ assert.match(renderConfirmation(a,{...stock,viewer:{player_id:'p2'}}),/data-commit-decision disabled/);
+ assert.match(renderConfirmation({...a,liveRevision:5},stock),/data-commit-decision disabled/);
+ stock.legal_actions.types=['buy_shares'];
+ assert.match(renderConfirmation(a,stock),/data-commit-decision disabled/);
+ stock.state.round='operating';stock.legal_actions.types=['end_turn'];
+ assert.match(renderConfirmation(a,stock),/data-commit-decision disabled/);
+});
+test('skip review names the operating action and explains what happens next',()=>{
+ const v=structuredClone(view);
+ for(const [step,title,effect] of [['track','Skip Track Lay?',/No track.*station placement/],['token','Skip Station Placement?',/No station.*train routes/],['routes','Skip Train Routes?',/No trains.*dividend resolution/]]){
+  v.state.operating_turn.step=step;
+  const [heading,detail]=decisionDescription({type:'skip'},v);
+  assert.equal(heading,title);assert.match(detail,effect);
+ }
+});
 test('card zoom is a sibling button and enlarged card retains artwork and rules without auction actions',()=>{
  const priv={id:'TR',name:'Takamatsu',value:20,revenue:5};
  const html=renderVintagePrivateCard(priv,{interactive:true});
@@ -44,6 +90,14 @@ test('locale translates core decisions and preserves IDs, cash and the English o
  assert.equal(translate('End IR Turn','ja'),'IRの手番を終了');
  assert.equal(translate('¥100 · IR · E2','ja'),'¥100 · IR · E2');
  assert.equal(translate('Your turn','en'),'Your turn');
+});
+test('Japanese lobby phrases and seat counts are translated as complete messages',()=>{
+ for(const [en,ja] of [
+  ['Your table is ready','卓の準備ができました'],['Invitations','招待'],['Advanced','詳細設定'],
+  ['2 of 2 seats claimed','2人中2人が着席済み'],['Everyone has a seat.','全員の席がそろいました。'],
+  ['Claimed seats stay ready even when players are away.','離席しても着席済みの状態は保たれます。'],
+  ['Send each invitation privately.','招待は一人ずつ個別に送ってください。'],['Joined','参加済み'],['Online now','オンライン']
+ ]) {assert.equal(translate(en,'ja'),ja);assert.equal(translate(en,'en'),en);}
 });
 function fakeAudio(){
  const starts=[],stops=[],fades=[];

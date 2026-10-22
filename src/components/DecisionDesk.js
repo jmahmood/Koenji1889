@@ -1,6 +1,6 @@
 import {syncRoutePlan,routeQuote,currentRouteEditor,bindRoutePlanning,stopName} from '../ui/routePlanning.js';
 import {renderVintagePrivateCard} from './PrivateCompanyCards.js';
-import {renderRoundhouse, renderDepotTray, renderCountingHouse, renderLiquidationMat, renderMemberPortrait, renderTrainVoucher, stagedDepotAction, trainStageKey, trainCost} from './TrainDesk.js';
+import {renderRoundhouse, renderDepotTray, renderCountingHouse, renderLiquidationMat, renderMemberPortrait, renderTrainVoucher, renderSellerOfferDesk, stagedDepotAction, trainStageKey, trainCost, currentWizardStep, setWizardStep, currentWizardSource, isValidInterCompanyTrainPurchase, trainWizardAvailable} from './TrainDesk.js';
 import {TRAIN_ROUTE_COLORS} from '../constants1889.js';
 import {renderGatheringSetup,bindGatheringSetup} from './GatheringSetup.js';
 import { actionBlockReason, escapeHtml as esc, shortcutDescription } from '../ui/presentation.js';
@@ -15,7 +15,8 @@ export function actionLabel(action, view) {
   if (action.type === 'emergency_sell') return `Sell ${action.percent}% ${cid} for ${money(view.prices[cid] * action.percent / 10)} emergency funds`;
   const trainPrice=action.price ?? (train?.price - (action.trade_in ? 300 : 0));
   if (action.type === 'buy_train') {
-    const contribution=Math.max(0,trainPrice-s.corporations[s.current_corporation].cash);
+    const isInterCompany = action.price !== undefined;
+    const contribution = isInterCompany ? 0 : Math.max(0, trainPrice - s.corporations[s.current_corporation].cash);
     return `${s.current_corporation}: buy ${action.train} for ${money(trainPrice)}${action.trade_in ? `; trade in ${action.trade_in}` : ''}${contribution ? `; president contributes ${money(contribution)}` : ''}`;
   }
   if (action.type === 'buy_private') return `${action.buyer}: buy ${action.company} for ${money(action.price)}`;
@@ -84,7 +85,7 @@ export function activeLiveOffers(view) {
   return [...byDeal.values()];
 }
 
-export function renderDecisionNotice(app, view) {
+export function renderDecisionNotice(app, view, {alertsOnly=false,includeAlerts=true}={}) {
   const s = view.state;
   const pending = s.pending_special ? 'ER special lay or decline is pending' : s.pending_discards?.length ? `Excess trains: ${s.pending_discards.join(', ')}` : '';
   const enabled = !actionBlockReason(app, view);
@@ -103,7 +104,9 @@ export function renderDecisionNotice(app, view) {
     }
     return `<span class="counterparty-offer-status" role="status" data-testid="counterparty-offer-status">Pending offer: ${esc(o.item)} (${esc(o.seller)} → ${esc(o.buyer)} at ${money(o.price)})</span>`;
   }).join('');
-  return `<div class="decision-navigation"><button class="secondary-btn" data-open-desk data-testid="nav-decisions-btn">Decisions & Planning</button><button class="secondary-btn" data-open-gathering data-testid="nav-gathering-btn">Gathering & Invitations</button>${types.includes('exchange_private') && enabled ? commit({type:'exchange_private',source:'ipo'},'DR power · Exchange for 10% IR') : ''}${offerActions}${pending ? `<strong role="status">${esc(pending)} — open Decisions</strong>` : ''}${s.finished ? '<button class="secondary-btn" data-open-desk>View results</button>' : ''}</div>`;
+  const alerts=offerActions+(pending ? `<strong role="status">${esc(pending)} — open Decisions</strong>` : '');
+  if(alertsOnly)return alerts ? `<div class="decision-alerts">${alerts}</div>` : '';
+  return `<div class="decision-navigation"><button class="secondary-btn" data-open-desk data-testid="nav-decisions-btn">Decisions & Planning</button><button class="secondary-btn" data-open-gathering data-testid="nav-gathering-btn">Gathering & Invitations</button>${types.includes('exchange_private') && enabled ? commit({type:'exchange_private',source:'ipo'},'DR power · Exchange for 10% IR') : ''}${includeAlerts ? alerts : ''}${s.finished ? '<button class="secondary-btn" data-open-desk>View results</button>' : ''}</div>`;
 }
 
 export function routePlanner(app, view, enabled, {inline = false} = {}) {
@@ -111,6 +114,8 @@ export function routePlanner(app, view, enabled, {inline = false} = {}) {
   if(!corp)return '<p>No corporation is operating.</p>';
   const synced=app.routeDraftKey===`${app.roomCode}:${s.revision}:${cid}`;
   const draft=(synced || app.routeDraft ? app.routeDraft : s.operating_turn?.step==='routes' ? view.route_quote?.routes : []) || [];
+  const planSignature=routes=>JSON.stringify((routes || []).map(r=>[r.train,r.vertices]).sort(([a],[b])=>a.localeCompare(b)));
+  const routesModified=planSignature(draft)!==planSignature(view.route_quote?.routes);
   const quote=routeQuote(app,view),editor=currentRouteEditor(app,view);
   const owned=corp.trains.filter(t=>!s.operating_turn?.new_trains?.includes(t));
   const selected=editor?.connections?.[editor.connection || 0];
@@ -132,15 +137,16 @@ export function routePlanner(app, view, enabled, {inline = false} = {}) {
     <footer class="route-plan-footer">
       ${editor ? `<div class="route-edit-controls"><button type="button" data-route-undo-stop ${!editor.stops.length ? 'disabled' : ''}>Undo stop</button><button type="button" data-route-cancel>Cancel edit</button></div><button type="button" class="confirm-button" data-route-use ${!selected || editor.loading || !enabled ? 'disabled' : ''}>${selected ? `Use this route · ${money(selected.revenue)}` : 'Choose stops on the map'}</button>` : `${inline ? '' : `<div class="route-revenue-counter" aria-label="Total route revenue"><span>${app.routeQuoting ? 'Updating revenue…' : 'All trains · total revenue'}</span><strong class="route-total-figure">${quote ? money(quote.revenue) : '—'}</strong></div>`}${app.routeError ? `<p role="alert">${esc(app.routeError)}</p><button data-route-retry-quote>Try again</button>` : ''}${enabled && draft.length ? `<button type="button" class="confirm-button" data-run-route-plan ${!quote || app.routeQuoting ? 'disabled' : ''}>${quote ? `Run ${draft.length} train${draft.length===1 ? '' : 's'} · ${money(quote.revenue)}` : 'Updating revenue…'}</button>` : ''}
       ${enabled && !view.route_quote?.routes?.length ? '<button type="button" class="confirm-button" data-quick-skip-routes>Continue to train purchase · ¥0</button>' : ''}
-      ${enabled && owned.length ? '<button type="button" class="secondary-btn" data-copy-route-plan>Restore recommended routes</button>' : ''}${inline ? '' : '<p class="route-next-step">Next: pay shareholders or keep the revenue.</p>'}`}
+      ${enabled && owned.length ? `<button type="button" class="secondary-btn" data-copy-route-plan ${routesModified ? '' : 'disabled'}>Restore recommended routes</button>` : ''}${inline ? '' : '<p class="route-next-step">Next: pay shareholders or keep the revenue.</p>'}`}
     </footer>
   </div>`;
 }
 
-function negotiations(view, enabled) {
+function negotiations(view, enabled, app = null) {
   const s = view.state, types = view.legal_actions.types, cid = s.current_corporation;
   const choices = (view.legal_actions.choices.offers || []).filter(o => s.round === 'operating' && o.buyer === cid && (o.kind === 'train' || ['3','4'].includes(s.phase)));
   const liveOffers = activeLiveOffers(view);
+  const sellerDeskHtml = app ? renderSellerOfferDesk(app, view) : '';
   const offerForm = (o, index) => {
     const seller=s.players[o.seller] ? o.seller : s.corporations[o.seller]?.president;
     const buyer=s.corporations[o.buyer]?.president;
@@ -154,7 +160,7 @@ function negotiations(view, enabled) {
     <div class="hanko-consent-ledger"><div><small>SELLER SEAL · 売主印</small><b class="${common || recorded?.offered_by===seller ? 'seal-recorded' : ''}">${esc(consent(seller))}</b></div><div><small>BUYER SEAL · 買主印</small><b class="${common || recorded?.offered_by===buyer ? 'seal-recorded' : ''}">${esc(consent(buyer))}</b></div></div>
     <button name="intent" value="offer" ${types.includes('offer') && enabled ? '' : 'disabled'}>Review offer / consent</button>${s.corporations[cid]?.president === view.viewer.player_id && enabled ? `<button name="intent" value="buy" ${types.includes(o.kind === 'train' ? 'buy_train' : 'buy_private') ? '' : 'disabled'}>Review purchase</button>` : ''}</form></article>`;
   };
-  return `<p>Both presidents submit matching terms. A common president needs no separate consent. Purchases use the operating corporation's treasury.</p>
+  return `${sellerDeskHtml}<p>Both presidents submit matching terms. A common president needs no separate consent. Purchases use the operating corporation's treasury.</p>
     <section class="recorded-offers"><h4>RECORDED OFFERS · CONSENT LEDGER</h4>${liveOffers.map(o=>`<p>${esc(o.item)}: ${esc(o.seller)} → ${esc(o.buyer)}, ${money(o.price)} · offered by ${esc(s.players[o.offered_by]?.name || o.offered_by)}</p>${enabled && o.buyer===cid && o.offered_by!==view.viewer.player_id ? (s.corporations[cid]?.president===view.viewer.player_id && types.includes(o.kind==='private'?'buy_private':'buy_train') ? commit(o.kind==='private'?{type:'buy_private',company:o.item,buyer:o.buyer,price:o.price}:{type:'buy_train',train:o.item,price:o.price},`Accept & purchase ${o.item} for ${money(o.price)}`) : types.includes('offer') ? commit({type:'offer',kind:o.kind,item:o.item,seller:o.seller,buyer:o.buyer,price:o.price},`Consent to ${o.item} offer at ${money(o.price)}`) : '') : ''}`).join('') || '<p>No offers recorded.</p>'}</section>
     ${choices.map((o,i)=>`<details class="club-deal-choice" ${i===0 ? 'open' : ''}><summary>${esc(o.item)} · ${esc(o.seller)} → ${esc(o.buyer)}</summary>${offerForm(o,i)}</details>`).join('') || `<div class="mahogany-deal-table">${renderMemberPortrait(view,s.corporations[cid]?.president)}<div class="deal-scroll"><b>CLUB DEAL TABLE</b><span>${['2'].includes(s.phase) ? 'Private purchases open in Phase 3' : 'No counterpart available'}</span></div><div class="empty-counterparty">売主印<br><small>Awaiting party</small></div></div><p>No negotiations available for this seat and operating corporation.</p>`}`;
 }
@@ -175,14 +181,14 @@ export function renderDecisionDesk(app, view) {
     return `<div class="modal-backdrop boardroom-backdrop"><section class="modal-card decision-desk tactile-boardroom ${emergency ? 'emergency-boardroom' : ''}" role="dialog" aria-modal="true" aria-label="Decisions and planning"><header class="modal-header"><div><small>KOENJI RAILWAY CLUB 1889 · ${esc(s.current_corporation)} BOARDROOM</small><h2>${emergency ? '⚠ Mandatory Train Shortfall · Presidential Bailout' : 'Decisions & Planning'} · Rev ${s.revision}</h2></div><button class="close-modal-btn" data-close-modal="true" aria-label="Close decisions">×</button></header>${blocked ? `<p class="inspection-only">🔒 ${esc(blocked)}</p>` : ''}
       <div class="boardroom-columns"><section class="boardroom-column"><h3>I. THE ROUNDHOUSE &amp; DEPOT</h3>${renderRoundhouse(view,staged)}${emergency ? `<p class="empty-fleet-warning" role="status">Fleet empty · ${view.train_limit} stalls. Mandatory depot financing: ${money(view.train_financing.cheapest)}.</p>` : ''}${renderDepotTray(app,view,{action:staged,enabled})}</section>
       <section class="boardroom-column"><h3>II. THE COUNTING HOUSE &amp; VAULT</h3>${renderCountingHouse(view,staged)}<div class="funding-note">${staged?.type==='buy_train' && staged.price!==undefined && cost<=corp.cash ? '✓ Treasury covers this used train. No presidential cash or share sales needed.' : emergency ? `${staged?.type==='buy_train' ? 'Staged train order' : 'Cheapest depot alternative'}: Safe pays ${money(Math.min(cost,corp.cash))} · President due ${money(due)} · Unfunded ${money(gap)}.` : '✓ Corporate cash and personal cash are separate. Only a mandatory purchase can call on the president.'}</div>${renderLiquidationMat(view,enabled,actionLabel,staged)}</section>
-      <section class="boardroom-column"><h3>III. CLUB DEAL TABLE &amp; TRANSFERS</h3>${negotiations(view,enabled)}<section class="bankruptcy-gate"><h4>PRESIDENTIAL SOLVENCY</h4>${enabled && choices.some(a=>a.type==='bankrupt') ? choices.filter(a=>a.type==='bankrupt').map(a=>commit(a,actionLabel(a,view))).join('') : '<button type="button" disabled>🔒 Bankruptcy unavailable in this position</button>'}</section>${enabled ? choices.filter(a=>a.type==='exchange_private').map(a=>commit(a,actionLabel(a,view))).join('') : ''}</section></div>
+      <section class="boardroom-column"><h3>III. CLUB DEAL TABLE &amp; TRANSFERS</h3>${negotiations(view,enabled,app)}<section class="bankruptcy-gate"><h4>PRESIDENTIAL SOLVENCY</h4>${enabled && choices.some(a=>a.type==='bankrupt') ? choices.filter(a=>a.type==='bankrupt').map(a=>commit(a,actionLabel(a,view))).join('') : '<button type="button" disabled>🔒 Bankruptcy unavailable in this position</button>'}</section>${enabled ? choices.filter(a=>a.type==='exchange_private').map(a=>commit(a,actionLabel(a,view))).join('') : ''}</section></div>
       ${renderTrainVoucher(app,view,staged,{enabled,label:staged ? actionLabel(staged,view) : ''})}
       <details><summary>Train routes</summary>${routePlanner(app,view,enabled && types.includes('run_routes'))}</details></section></div>`;
   }
-  if (!special && !s.pending_discards?.length && (s.operating_turn?.step === 'routes' || app.routeDraft?.length)) {
+  if (!special && !s.pending_discards?.length && (s.operating_turn?.step === 'routes' || app.routeDraft?.length) && !app.focusSellerDesk) {
     return `<div class="modal-backdrop route-focus-backdrop"><section class="modal-card decision-desk route-focus-desk" role="region" aria-label="Run train routes"><header class="modal-header"><div><small>OPERATING TURN · 3 OF 5</small><h2>Train routes</h2></div><button class="close-modal-btn" data-close-modal="true" aria-label="Close routes">×</button></header>${blocked ? `<p class="inspection-only">${esc(blocked)}</p>` : ''}${app.reviewAction ? `<section class="action-review"><p>${esc(actionLabel(app.reviewAction,view))}</p><button class="confirm-button" data-confirm-reviewed ${enabled ? '' : 'disabled'}>Confirm routes</button><button data-cancel-reviewed>Cancel</button></section>` : ''}${routePlanner(app,view,enabled && types.includes('run_routes'))}</section></div>`;
   }
-  const isMapDocked = app.view === 'map' && (s.operating_turn?.step === 'routes' || app.routeDraft?.length);
+  const isMapDocked = app.view === 'map' && (s.operating_turn?.step === 'routes' || app.routeDraft?.length) && !app.focusSellerDesk;
   return `<div class="modal-backdrop ${isMapDocked ? 'is-map-docked-backdrop' : ''}"><section class="modal-card decision-desk ${isMapDocked ? 'is-map-docked-desk' : ''}" role="dialog" aria-modal="true" aria-label="Decisions and planning"><header class="modal-header"><h2>Decisions & Planning · Rev ${s.revision}</h2><button class="close-modal-btn" data-close-modal="true" aria-label="Close decisions">×</button></header>
     ${blocked ? `<p class="inspection-only">🔒 ${esc(blocked)}</p>` : ''}
     ${renderResults(s,view.prices)}
@@ -193,7 +199,7 @@ export function renderDecisionDesk(app, view) {
     <h3>Trains, emergency funding &amp; private exchange</h3><p>Only server-validated choices are listed. Emergency funds come from personal share sales; train purchases use corporate cash and, when mandatory, the president's contribution. Discards return trains to the depot.</p>
     <div class="decision-options">${enabled ? choices.map(a=>commit(a,actionLabel(a,view))).join('') || '<p>No additional decisions available.</p>' : '<p>🔒 Read-only for this seat or revision.</p>'}</div>
     <details ${s.operating_turn?.step === 'routes' || app.routeDraft?.length ? 'open' : ''}><summary>Train routes</summary>${routePlanner(app,view,enabled && types.includes('run_routes'))}</details>
-    <details><summary>Private companies &amp; corporate train transfers</summary>${negotiations(view,enabled)}</details>
+    <details ${app.focusSellerDesk ? 'open' : ''}><summary>Private companies &amp; corporate train transfers</summary>${negotiations(view,enabled,app)}</details>
   </section></div>`;
 }
 
@@ -202,34 +208,236 @@ export const renderGathering=renderGatheringSetup;
 export function bindDecisionDesk({app, api, render, execute, toast, enterRoom}) {
   const on = (selector, event, fn) => document.querySelectorAll(selector).forEach(el=>el.addEventListener(event,fn));
   bindGatheringSetup({app,render});
-  const review = action => { app.reviewAction=null; execute(action,{review:true}); };
-  on('[data-open-desk]','click',()=>{if(app.displayedViewData.state.operating_turn?.step==='routes') app.view='map';app.activeModal='decisions';app.reviewAction=null;render();});
+  const wizardRender = () => {
+    render();
+    document.querySelector?.('.train-wizard-step.is-visible')?.focus({preventScroll:true});
+  };
+  const review = action => {
+    if (action.type === 'buy_train' && trainWizardAvailable(app.displayedViewData)) {
+      const view = app.displayedViewData;
+      if (actionBlockReason(app,view)) return;
+      const valid = (view.action_options || []).some(a => JSON.stringify(a) === JSON.stringify(action)) || isValidInterCompanyTrainPurchase(action,view);
+      if (!valid) {toast('The seller must agree to these exact terms before you can buy.',true);return;}
+      app.activeModal='train';app.trainStageKey=trainStageKey(app,view);app.trainStage=action;
+      setWizardStep(app,view,3);wizardRender();return;
+    }
+    if (action.type === 'emergency_sell' && app.activeModal === 'train') {
+      app.reviewAction=action;app.reviewRevision=app.liveRevision;setWizardStep(app,app.displayedViewData,4);wizardRender();return;
+    }
+    app.reviewAction=null; execute(action);
+  };
+  on('[data-open-train-wizard]','click',()=>{
+    if (!trainWizardAvailable(app.displayedViewData)) return;
+    app.activeModal='train';app.focusSellerDesk=false;app.reviewAction=null;wizardRender();
+  });
+  on('[data-wizard-pass]','click',async()=>{
+    const view=app.displayedViewData;
+    if (actionBlockReason(app,view) || view.train_financing?.mandatory || !(view.legal_actions?.types || []).includes('end_turn')) return;
+    await execute({type:'end_turn'},{confirmed:true});
+  });
+  on('[data-open-desk]','click',()=>{if(app.displayedViewData.state.operating_turn?.step==='routes' && !app.focusSellerDesk) app.view='map';app.activeModal=trainWizardAvailable(app.displayedViewData) && app.displayedViewData.viewer?.player_id===app.displayedViewData.state.corporations[app.displayedViewData.state.current_corporation]?.president && !app.focusSellerDesk ? 'train' : 'decisions';app.reviewAction=null;render();});
+  on('[data-open-train-planning]','click',()=>{app.focusSellerDesk=true;app.activeModal='decisions';app.reviewAction=null;render();});
+  on('[data-propose-corp-train-sale]','click',e=>{
+    app.sellerDefaultCorp = e.currentTarget.dataset.proposeCorpTrainSale;
+    app.focusSellerDesk = true;
+    app.activeModal = 'decisions';
+    app.reviewAction = null;
+    render();
+  });
   on('[data-next-gathering]','click',()=>{app.nextNames=Object.values(app.displayedViewData.state.players).map(p=>p.name).join('\n');app.gatheringTab='host';app.activeModal='gathering';render();});
   on('[data-open-gathering]','click',()=>{app.gatheringTab='host';app.activeModal='gathering';render();});
   on('[data-stock-quantity]','change',e=>{app[e.target.dataset.stockQuantity]=Number(e.target.value);render();});
   on('[data-review-action]','click',e=>review(JSON.parse(e.currentTarget.dataset.reviewAction)));
-  on('[data-cancel-reviewed]','click',()=>{app.reviewAction=null;app.trainStageKey=trainStageKey(app,app.displayedViewData);app.trainStage=null;render();});
+  on('[data-cancel-reviewed]','click',()=>{
+    const sale=app.reviewAction?.type==='emergency_sell';app.reviewAction=null;
+    if(!sale){app.trainStageKey=trainStageKey(app,app.displayedViewData);app.trainStage=null;}
+    render();
+  });
   on('[data-confirm-reviewed]','click',async()=>{
     if ((app.reviewAction ? app.reviewRevision : app.displayedViewData.state.revision) !== app.liveRevision) { app.reviewAction=null;toast('Position changed. Review the decision again.',true);return; }
     const view=app.displayedViewData;
     const action=app.reviewAction || stagedDepotAction(app,view);
     if (!action || actionBlockReason(app,view)) return;
-    app.reviewAction=null;if(action.type==='run_routes'){app.activeModal=null;app.routeEditor=null;}await execute(action);
+    if (action.type==='buy_train' && trainWizardAvailable(view)){review(action);return;}
+    app.reviewAction=null;if(action.type==='run_routes'){app.activeModal=null;app.routeEditor=null;}await execute(action,{confirmed:true});
+    if(action.type==='emergency_sell' && app.activeModal==='train'){setWizardStep(app,app.displayedViewData,4);wizardRender();}
   });
   on('[data-buy-train]','click',e=>{
     const view=app.displayedViewData;
-    const action=(view.action_options || []).find(a=>a.type==='buy_train' && a.train===e.currentTarget.dataset.buyTrain && !a.trade_in);
+    const tid=e.currentTarget.dataset.buyTrain;
+    const action=(view.action_options || []).find(a=>a.type==='buy_train' && a.train===tid && !a.trade_in) || (view.train_financing?.mandatory && (view.available_depot_trains || []).includes(tid) && view.state.trains[tid]?.price===view.train_financing.cheapest ? {type:'buy_train',train:tid} : null);
     if (!action || actionBlockReason(app,view)) return;
     if (e.currentTarget.closest('[data-inline-train-desk]')) {
-      app.trainStageKey=trainStageKey(app,view);app.trainStage=action;render();
+      app.trainStageKey=trainStageKey(app,view);app.trainStage=action;setWizardStep(app,view,3);wizardRender();
     } else review(action);
   });
-  on('[data-cancel-train]','click',()=>{app.trainStageKey=trainStageKey(app,app.displayedViewData);app.trainStage=null;render();});
+  on('[data-stage-trade-in]','click',e=>{
+    const view=app.displayedViewData;
+    if (actionBlockReason(app,view)) return;
+    app.trainStageKey=trainStageKey(app,view);
+    const action=JSON.parse(e.currentTarget.dataset.stageTradeIn);
+    if (!(view.action_options || []).some(a=>JSON.stringify(a)===JSON.stringify(action))) return;
+    app.trainStage=action;setWizardStep(app,view,3);wizardRender();
+  });
+  on('[data-wizard-step]','click',e=>{
+    const view=app.displayedViewData;
+    const step=Number(e.currentTarget.dataset.wizardStep);
+    if(step>2 && !stagedDepotAction(app,view)) return;
+    setWizardStep(app,view,step);wizardRender();
+  });
+  on('[data-wizard-prev]','click',()=>{
+    const view=app.displayedViewData;
+    setWizardStep(app, view, currentWizardStep(app, view) - 1);wizardRender();
+  });
+  on('[data-wizard-next]','click',()=>{
+    const view=app.displayedViewData;
+    if(currentWizardStep(app,view)>=2 && !stagedDepotAction(app,view)) return;
+    setWizardStep(app, view, currentWizardStep(app, view) + 1);wizardRender();
+  });
+  on('[data-wizard-source]','click',e=>{
+    const view=app.displayedViewData;
+    const source=e.currentTarget.dataset.wizardSource === 'market' ? 'market' : 'depot';
+    if(currentWizardSource(app,view)!==source){app.trainStageKey=trainStageKey(app,view);app.trainStage=null;}
+    app.trainWizardKey = trainStageKey(app, view);
+    app.trainWizardSource = source;
+    setWizardStep(app, view, 2);
+    render();
+  });
+  on('[data-stage-used-train]','click',e=>{
+    const view=app.displayedViewData;
+    if (actionBlockReason(app,view)) return;
+    const buyAction=JSON.parse(e.currentTarget.dataset.stageUsedTrain);
+    if (!isValidInterCompanyTrainPurchase(buyAction,view)) return;
+    app.trainStageKey=trainStageKey(app,view);
+    app.trainStage=buyAction;
+    setWizardStep(app, view, 3);
+    wizardRender();
+  });
+  on('[data-counter-offer-train]','click',e=>{
+    const tid=e.currentTarget.dataset.counterOfferTrain;
+    app.counterOfferTrainId = app.counterOfferTrainId === tid ? null : tid;
+    render();
+  });
+  on('[data-reject-train-offer]','click',e=>{
+    const key=e.currentTarget.dataset.rejectTrainOffer;
+    app.rejectedTrainOffers = {...(app.rejectedTrainOffers || {}), [key]: true};
+    render();
+  });
+  on('[data-restore-train-offers]','click',()=>{
+    app.rejectedTrainOffers = {};
+    render();
+  });
+  on('[data-set-transfer-price]','click',e=>{
+    const form=e.currentTarget.closest('form');
+    if (!form) return;
+    const input=form.elements.price;
+    const slider=form.querySelector('[data-common-price-slider]');
+    const val=Math.min(Number(input.max || Infinity), Math.max(Number(input.min || 1), Number(e.currentTarget.dataset.setTransferPrice)));
+    input.value=val;
+    if (slider) slider.value=val;
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  on('[data-common-transfer-form] input[name="price"]','input',e=>{
+    const form=e.currentTarget.closest('form'), price=Number(e.currentTarget.value);
+    const slider=form.querySelector('[data-common-price-slider]');
+    if(slider) slider.value=price;
+    const label=form.querySelector('[data-common-slider-readout]');
+    if(label) label.textContent=money(price);
+    const action={type:'buy_train',train:form.dataset.commonTransferForm,price};
+    if(isValidInterCompanyTrainPurchase(action,app.displayedViewData)) {
+      app.trainStageKey=trainStageKey(app,app.displayedViewData);app.trainStage=action;
+    } else {app.trainStageKey=trainStageKey(app,app.displayedViewData);app.trainStage=null;}
+  });
+  on('[data-common-price-slider]','input',e=>{
+    const form=e.currentTarget.closest('form');
+    if (form?.elements?.price) form.elements.price.value = e.currentTarget.value;
+    const label=form?.querySelector('[data-common-slider-readout]');
+    if (label) label.textContent = `¥${Number(e.currentTarget.value || 1).toLocaleString()}`;
+  });
+  on('[data-common-price-slider]','change',e=>{
+    const view=app.displayedViewData;
+    if (actionBlockReason(app,view)) return;
+    const tid=e.currentTarget.dataset.commonPriceSlider;
+    const price=Number(e.currentTarget.value);
+    const action={type:'buy_train',train:tid,price};
+    if (!isValidInterCompanyTrainPurchase(action,view)) return;
+    app.trainStageKey=trainStageKey(app,view);app.trainStage=action;render();
+  });
+  on('[data-common-transfer-form]','submit',e=>{
+    e.preventDefault();
+    const view=app.displayedViewData;
+    if (actionBlockReason(app,view)) return;
+    const f=e.currentTarget;
+    const tid=f.dataset.commonTransferForm;
+    const price=Number(new FormData(f).get('price'));
+    const buyAction={type:'buy_train',train:tid,price};
+    if (!isValidInterCompanyTrainPurchase(buyAction,view)) {toast('Choose a whole-yen price within the corporate safe balance.',true);return;}
+    app.trainStageKey=trainStageKey(app,view);app.trainStage=buyAction;
+    setWizardStep(app,view,3);wizardRender();
+  });
+  on('[data-seller-price-chip]','click',e=>{
+    const form=e.currentTarget.closest('form');
+    if (!form?.elements?.price) return;
+    const input=form.elements.price;
+    input.value=Math.min(Number(input.max || Infinity), Math.max(Number(input.min || 1), Number(e.currentTarget.dataset.sellerPriceChip)));
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  on('[data-seller-add-chip]','click',e=>{
+    const form=e.currentTarget.closest('form');
+    if (!form?.elements?.price) return;
+    const input=form.elements.price;
+    const delta=Number(e.currentTarget.dataset.sellerAddChip);
+    input.value=Math.min(Number(input.max || Infinity), Math.max(Number(input.min || 1), Number(input.value || 0) + delta));
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  on('[data-seller-max-chip]','click',e=>{
+    const form=e.currentTarget.closest('form');
+    if (!form?.elements?.price) return;
+    const input=form.elements.price;
+    const buyerId=form.elements.buyer_corp?.value;
+    const buyerCash=app.displayedViewData?.state?.corporations?.[buyerId]?.cash ?? 0;
+    input.value=buyerCash;
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  });
+  on('[data-seller-buyer-select]','change',e=>{
+    const form=e.currentTarget.closest('form');
+    if (!form?.elements?.price) return;
+    const buyerId=e.currentTarget.value;
+    const buyerCash=app.displayedViewData?.state?.corporations?.[buyerId]?.cash ?? 0;
+    form.elements.price.max=buyerCash;
+    if (Number(form.elements.price.value) > buyerCash) form.elements.price.value = buyerCash;
+    const maxHint=form.querySelector('[data-seller-max-label]');
+    if (maxHint) maxHint.textContent = `¥${buyerCash.toLocaleString()}`;
+  });
+  on('[data-seller-train-select]','change',e=>{
+    const form=e.currentTarget.closest('form'), buyer=form?.elements?.buyer_corp;
+    if (!buyer) return;
+    const seller=e.currentTarget.value.split(':')[0];
+    for(const option of buyer.options) option.disabled=option.value===seller;
+    if(buyer.value===seller) buyer.value=[...buyer.options].find(o=>!o.disabled)?.value || '';
+    buyer.dispatchEvent(new Event('change',{bubbles:true}));
+  });
+  on('[data-seller-offer-form]','submit',e=>{
+    e.preventDefault();
+    const view=app.displayedViewData;
+    const f=e.currentTarget, fd=new FormData(f);
+    const [seller, item] = String(fd.get('seller_train') || '').split(':');
+    const buyer = String(fd.get('buyer_corp') || '');
+    const price = Number(fd.get('price'));
+    if (actionBlockReason(app,view) || !(view.legal_actions?.types || []).includes('offer')) return;
+    if (!seller || !item || !buyer || seller === buyer || view.state.corporations[seller]?.president !== view.viewer?.player_id || view.state.trains[item]?.owner !== seller || !Number.isInteger(price) || price < 1 || price > (view.state.corporations[buyer]?.cash || 0)) {
+      toast('Select a valid train and a different target buyer railway.', true);
+      return;
+    }
+    review({type:'offer', kind:'train', item, seller, buyer, price});
+  });
+  on('[data-cancel-train]','click',()=>{app.trainStageKey=trainStageKey(app,app.displayedViewData);app.trainStage=null;setWizardStep(app,app.displayedViewData,2);wizardRender();});
   on('[data-stamp-train]','click',async e=>{
     const view=app.displayedViewData, action=JSON.parse(e.currentTarget.dataset.stampTrain);
     if (Number(e.currentTarget.dataset.stampRevision)!==app.liveRevision || actionBlockReason(app,view)) {toast('Position changed. Review the decision again.',true);return;}
-    if (!(view.action_options || []).some(a=>JSON.stringify(a)===JSON.stringify(action))) {toast('This purchase is no longer available.',true);return;}
-    await execute(action);
+    const legalDepot = (view.action_options || []).some(a=>JSON.stringify(a)===JSON.stringify(action));
+    if (!legalDepot && !isValidInterCompanyTrainPurchase(action, view)) {toast('This purchase is no longer available.',true);return;}
+    await execute(action,{confirmed:true});
   });
   on('[data-deal-chip]','click',e=>{
     const input=e.currentTarget.closest('form').elements.price;

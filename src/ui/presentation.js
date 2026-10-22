@@ -5,7 +5,7 @@ export const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (c)
 
 export function renderActionFeedback({ notice, errorBanner }) {
   const message = errorBanner || notice;
-  // Reserve the same space when empty so notices never move the next action.
+  // Rendered in the overlay rack; notices never consume workspace height.
   return `<div class="action-feedback-slot" data-empty="${message ? 'false' : 'true'}" aria-label="Action feedback">
     ${message ? `<div class="action-feedback ${errorBanner ? 'is-error' : ''}" role="${errorBanner ? 'alert' : 'status'}">
       <span class="feedback-label">${errorBanner ? 'Attention' : 'Latest update'}</span>
@@ -35,6 +35,8 @@ export function operatingRoundNumber(state) {
   // or_index identifies the corporation's turn, not the operating round.
   return `${state.stock_round}.${state.or_number}`;
 }
+
+export const operatingStepLabel=step=>({track:'Track Lay',token:'Station Placement',routes:'Train Routes',dividend:'Dividend',train:'Train Purchase'})[step] || 'Step';
 
 export function clearTilePreview(state) {
   state.selectedTileId = null;

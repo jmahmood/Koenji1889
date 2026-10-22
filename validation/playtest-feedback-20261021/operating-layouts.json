@@ -1,0 +1,742 @@
+[
+  {
+    "step": "track",
+    "height": 900,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 856,
+      "height": 649,
+      "scroll": 649
+    },
+    "actions": [
+      {
+        "action": "lay_tile",
+        "enabled": true,
+        "top": 756,
+        "bottom": 788,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 794,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 794,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "track",
+    "height": 768,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 724,
+      "height": 517,
+      "scroll": 517
+    },
+    "actions": [
+      {
+        "action": "lay_tile",
+        "enabled": true,
+        "top": 624,
+        "bottom": 656,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 662,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 662,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "track",
+    "height": 720,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 676,
+      "height": 469,
+      "scroll": 469
+    },
+    "actions": [
+      {
+        "action": "lay_tile",
+        "enabled": true,
+        "top": 576,
+        "bottom": 608,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 614,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 614,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "track",
+    "height": 640,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 596,
+      "height": 389,
+      "scroll": 389
+    },
+    "actions": [
+      {
+        "action": "lay_tile",
+        "enabled": true,
+        "top": 496,
+        "bottom": 528,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 534,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 534,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "token",
+    "height": 900,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 856,
+      "height": 649,
+      "scroll": 649
+    },
+    "actions": [
+      {
+        "action": "place_token",
+        "enabled": true,
+        "top": 741.21875,
+        "bottom": 773.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 779.21875,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 779.21875,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "token",
+    "height": 768,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 724,
+      "height": 517,
+      "scroll": 517
+    },
+    "actions": [
+      {
+        "action": "place_token",
+        "enabled": true,
+        "top": 609.21875,
+        "bottom": 641.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 647.21875,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 647.21875,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "token",
+    "height": 720,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 676,
+      "height": 469,
+      "scroll": 469
+    },
+    "actions": [
+      {
+        "action": "place_token",
+        "enabled": true,
+        "top": 561.21875,
+        "bottom": 593.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 599.21875,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 599.21875,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "token",
+    "height": 640,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 596,
+      "height": 389,
+      "scroll": 389
+    },
+    "actions": [
+      {
+        "action": "place_token",
+        "enabled": true,
+        "top": 481.21875,
+        "bottom": 513.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 519.21875,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 519.21875,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "routes",
+    "height": 900,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 856,
+      "height": 649,
+      "scroll": 649
+    },
+    "actions": [
+      {
+        "action": "run_best_routes",
+        "enabled": true,
+        "top": 741.21875,
+        "bottom": 773.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 779.21875,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 779.21875,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "routes",
+    "height": 768,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 724,
+      "height": 517,
+      "scroll": 517
+    },
+    "actions": [
+      {
+        "action": "run_best_routes",
+        "enabled": true,
+        "top": 609.21875,
+        "bottom": 641.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 647.21875,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 647.21875,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "routes",
+    "height": 720,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 676,
+      "height": 469,
+      "scroll": 469
+    },
+    "actions": [
+      {
+        "action": "run_best_routes",
+        "enabled": true,
+        "top": 561.21875,
+        "bottom": 593.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 599.21875,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 599.21875,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "routes",
+    "height": 640,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 596,
+      "height": 389,
+      "scroll": 389
+    },
+    "actions": [
+      {
+        "action": "run_best_routes",
+        "enabled": true,
+        "top": 481.21875,
+        "bottom": 513.21875,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": true,
+        "top": 519.21875,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 519.21875,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "train",
+    "height": 900,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 856,
+      "height": 649,
+      "scroll": 649
+    },
+    "actions": [
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 746,
+        "bottom": 788,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 746,
+        "bottom": 788,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": false,
+        "top": 794,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 794,
+        "bottom": 830,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "train",
+    "height": 768,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 724,
+      "height": 517,
+      "scroll": 517
+    },
+    "actions": [
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 614,
+        "bottom": 656,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 614,
+        "bottom": 656,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": false,
+        "top": 662,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 662,
+        "bottom": 698,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "train",
+    "height": 720,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 676,
+      "height": 469,
+      "scroll": 469
+    },
+    "actions": [
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 566,
+        "bottom": 608,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 566,
+        "bottom": 608,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": false,
+        "top": 614,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 614,
+        "bottom": 650,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "train",
+    "height": 640,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 596,
+      "height": 389,
+      "scroll": 389
+    },
+    "actions": [
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 486,
+        "bottom": 528,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "train/route",
+        "enabled": true,
+        "top": 486,
+        "bottom": 528,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "skip",
+        "enabled": false,
+        "top": 534,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "end_turn",
+        "enabled": false,
+        "top": 534,
+        "bottom": 570,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "dividend",
+    "height": 900,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 856,
+      "height": 649,
+      "scroll": 649
+    },
+    "actions": [
+      {
+        "action": "dividend_payout",
+        "enabled": true,
+        "top": 784,
+        "bottom": 826,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "dividend_withhold",
+        "enabled": true,
+        "top": 784,
+        "bottom": 826,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "dividend",
+    "height": 768,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 724,
+      "height": 517,
+      "scroll": 517
+    },
+    "actions": [
+      {
+        "action": "dividend_payout",
+        "enabled": true,
+        "top": 652,
+        "bottom": 694,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "dividend_withhold",
+        "enabled": true,
+        "top": 652,
+        "bottom": 694,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "dividend",
+    "height": 720,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 676,
+      "height": 469,
+      "scroll": 469
+    },
+    "actions": [
+      {
+        "action": "dividend_payout",
+        "enabled": true,
+        "top": 604,
+        "bottom": 646,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "dividend_withhold",
+        "enabled": true,
+        "top": 604,
+        "bottom": 646,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  },
+  {
+    "step": "dividend",
+    "height": 640,
+    "width": 1280,
+    "panel": {
+      "top": 207,
+      "bottom": 596,
+      "height": 389,
+      "scroll": 389
+    },
+    "actions": [
+      {
+        "action": "dividend_payout",
+        "enabled": true,
+        "top": 524,
+        "bottom": 566,
+        "visible": true,
+        "receives": true
+      },
+      {
+        "action": "dividend_withhold",
+        "enabled": true,
+        "top": 524,
+        "bottom": 566,
+        "visible": true,
+        "receives": true
+      }
+    ]
+  }
+]

@@ -31,7 +31,7 @@ import {
   hexEdgePoint,
 } from '../constants1889.js';
 import { renderVintagePrivateCard } from './PrivateCompanyCards.js';
-import { mapActionAuthority, operatingRoundNumber, shortcutDescription } from '../ui/presentation.js';
+import { mapActionAuthority, actionBlockReason, operatingRoundNumber, shortcutDescription,operatingStepLabel,escapeHtml } from '../ui/presentation.js';
 import { mapTransform } from '../ui/mapNavigation.js';
 import { MAP_WINDOW_MIN_SIZES } from '../ui/mapWindowSizes.js';
 
@@ -55,7 +55,7 @@ const MAP_WINDOW_DEFS = [
 
 const OP_STEPS = [
   { id: 'track', num: 1, label: 'Track', jp: '線路' },
-  { id: 'token', num: 2, label: 'Token', jp: '駅設置' },
+  { id: 'token', num: 2, label: 'Station', jp: '駅設置' },
   { id: 'routes', num: 3, label: 'Routes', jp: '運行' },
   { id: 'dividend', num: 4, label: 'Dividend', jp: '配当' },
   { id: 'train', num: 5, label: 'Train', jp: '列車' },
@@ -524,6 +524,57 @@ export function getCandidateTilesForHex(state, catalog, coord, viewData = null) 
   return [...byTile.values()];
 }
 
+export function tilePlacementNotice(app,view,catalog,coord) {
+  const state=view.state,hex=state.board?.[coord],cid=state.current_corporation;
+  if(!hex)return 'Select a board hex to inspect track construction.';
+  if(view.is_historical || app.viewRevision!==app.liveRevision)return 'Historical position. Return to Live before laying track.';
+  if(state.finished)return 'The match is complete. Track construction is closed.';
+  if(state.round!=='operating' || !cid)return 'Normal track is laid during a railway’s Track Lay step in an operating round.';
+  const choices=getLegalPlacementsForHex(state,catalog,coord,cid,view);
+  if(state.pending_special){
+    const target=state.pending_special.hex || 'C4';
+    return coord===target && choices.length
+      ? `Ehime special lay: ${choices.length} legal tile orientations at ${coord}.`
+      : `Resolve the Ehime special lay at ${target} before normal construction continues.`;
+  }
+  if(state.pending_discards?.length)return 'Resolve excess trains before normal construction continues.';
+  const turn=state.operating_turn || {};
+  if(turn.laid)return `${cid} has already laid its normal tile this turn. Build again at ${cid}’s next Track Lay step.`;
+  if(turn.step!=='track')return `${cid} is at ${operatingStepLabel(turn.step)}. Normal construction is available at its next Track Lay step.`;
+  const blocked=actionBlockReason(app,view);
+  if(blocked)return blocked;
+  if(choices.length)return `${cid} has ${choices.length} legal tile orientations at ${coord}. Choose a tile and confirm separately.`;
+  if(['red','gray'].includes(hex.color) || hex.port)return `${coord} is a permanent board location and cannot receive a normal track tile.`;
+  const next={white:'yellow',yellow:'green',green:'brown'}[hex.color];
+  if(!next)return `${coord} has reached its final tile color.`;
+  if(!(catalog?.phases?.[state.phase]?.[1] || ['yellow']).includes(next)){
+    const phase=Object.entries(catalog?.phases || {}).find(([,spec])=>spec[1]?.includes(next))?.[0];
+    return `${coord} needs a ${next} upgrade${phase ? `, available from Phase ${phase}` : ''}. The game is in Phase ${state.phase}.`;
+  }
+  const privateBlock=Object.values(state.privates || {}).find(p=>!p.closed && state.player_order.includes(p.owner) && p.hexes?.includes(coord));
+  if(privateBlock)return `${privateBlock.id} blocks construction at ${coord} while owned by a player.`;
+  const smr=state.privates?.SMR;
+  const cost=smr?.owner===cid && !smr.closed && hex.terrain?.length===1 && hex.terrain[0]==='mountain' ? 0 : hex.cost || 0;
+  if(state.corporations[cid].cash<cost)return `${cid} needs ${money(cost)} for terrain at ${coord}; its treasury has ${money(state.corporations[cid].cash)}.`;
+  // Client reachability is a superset of the engine's route constraints. If
+  // even this graph cannot reach a node or incoming edge, no normal lay fits.
+  const reach=computeReachableVerticesClient(state.board,cid);
+  const connected=(hex.nodes || []).some((_,i)=>reach.has(`${coord}:n${i}`)) ||
+    [0,1,2,3,4,5].some(edge=>reach.has(`${neighborCoord(coord,edge)}:e${(edge+3)%6}`));
+  if(!connected)return `${cid} has no connected railhead reaching ${coord}. Track must connect to one of ${cid}’s stations.`;
+  const compatible=Object.entries(catalog?.tiles || {}).filter(([id,spec])=>{
+    if(id==='437' || spec.color!==next)return false;
+    const tile=parseCatalogTile(spec.code,spec.color);
+    return tile.label===hex.label && (tile.nodes || []).map(n=>n.kind).join(',')===(hex.nodes || []).map(n=>n.kind).join(',');
+  });
+  if(compatible.length && compatible.every(([id,spec])=>(state.tiles?.[id] ?? spec.count ?? 0)<=0))return `All compatible ${next} tiles for ${coord} are out of supply.`;
+  return `No in-stock tile orientation is legal for ${cid} at ${coord}. Existing track, stations, labels, and board boundaries must be preserved.`;
+}
+
+export function revenuePhaseIndex(phase) {
+  return String(phase)==='D' ? 2 : ['5','6'].includes(String(phase)) ? 1 : 0;
+}
+
 export function getCityValuationProfile(coord, hexObj, state, catalog) {
   const name = HEX_NAMES[coord] || `Shikoku Sector ${coord}`;
   const nodes = hexObj?.nodes || [];
@@ -536,12 +587,7 @@ export function getCityValuationProfile(coord, hexObj, state, catalog) {
   let currentRev = 0;
   if (primaryNode) {
     if (Array.isArray(primaryNode.revenue)) {
-      const phaseIdx =
-        state.phase === 'D'
-          ? 2
-          : ['5', '6'].includes(String(state.phase))
-            ? 1
-            : 0;
+      const phaseIdx = revenuePhaseIndex(state.phase);
       currentRev = primaryNode.revenue[phaseIdx] ?? primaryNode.revenue[0] ?? 0;
     } else {
       currentRev = primaryNode.revenue || 0;
@@ -875,7 +921,8 @@ function renderHexTrackAndNodes(
   cy,
   radius,
   highlightedSegments = new Set(),
-  compact = false
+  compact = false,
+  phase = '2'
 ) {
   const paths = hexObj.paths || [];
   const nodes = hexObj.nodes || [];
@@ -940,7 +987,8 @@ function renderHexTrackAndNodes(
         parts.push(
           `<g transform="translate(${pt.x.toFixed(1)}, ${pt.y.toFixed(1)})">
             <rect x="-22" y="-9" width="44" height="18" rx="3" fill="#231411" stroke="#f2c879" stroke-width="1.2"/>
-            <text x="0" y="3" text-anchor="middle" fill="#ffdf9a" font-size="7.5" font-family="DM Mono">${low}/${high}/${diesel}</text>
+            <title>Offboard revenue: ¥${[low,high,diesel][revenuePhaseIndex(phase)]} in Phase ${escapeHtml(phase)}. ¥${low} in Phases 2–4; ¥${high} in Phases 5–6; ¥${diesel} in Phase D.</title>
+            <text x="0" y="3" text-anchor="middle" fill="#ffdf9a" font-size="7.5" font-family="DM Mono">${[low,high,diesel].map((value,i)=>`<tspan class="offboard-value${i===revenuePhaseIndex(phase)?' is-current':''}" data-offboard-phase="${['2-4','5-6','D'][i]}" ${i===revenuePhaseIndex(phase)?'aria-current="true"':''}>${value}</tspan>`).join('<tspan fill="#b6a995">/</tspan>')}</text>
           </g>`
         );
       }
@@ -1487,7 +1535,7 @@ function renderHexAndTileWindow(appState, viewData, catalog, inspectedHex, hexOb
   const profile=getCityValuationProfile(inspectedHex,hexObj,viewData.state,catalog);
   const hexArt=`<svg viewBox="0 0 48 44" class="mini-tile-svg" aria-hidden="true"><polygon points="${flatHexPolygon(24,22,19)}" fill="${TILE_FILL[hexObj.color]}" stroke="#49371f" stroke-width="1.3"/>${renderHexTrackAndNodes(inspectedHex,hexObj,24,22,19,new Set(),true)}</svg>`;
   return renderDistrictSurvey({app:appState,view:viewData,catalog,coord:inspectedHex,profile,parseTile:parseCatalogTile,
-    hexArt,legalPlacements,tileArt:id=>renderMiniTileSVG(catalog.tiles[id].code,catalog.tiles[id].color)});
+    hexArt,legalPlacements,placementNotice:tilePlacementNotice(appState,viewData,catalog,inspectedHex),tileArt:id=>renderMiniTileSVG(catalog.tiles[id].code,catalog.tiles[id].color)});
 }
 
 function renderOperatingCorporationsWindow(appState, viewData) {
@@ -1510,7 +1558,7 @@ function renderOperatingCorporationsWindow(appState, viewData) {
         <span>Corporation / Order</span>
         <span>President</span>
         <span>Treasury / Market</span>
-        <span>Trains & Tokens</span>
+        <span>Trains & Stations</span>
         <span>OR Status</span>
       </header>
       ${orderedCids
@@ -1578,7 +1626,7 @@ function renderOperatingCorporationsWindow(appState, viewData) {
               </span>
               <span class="corp-status">
                 <em>Trains: ${c.trains?.length ? c.trains.join(", ") : "None"}</em>
-                <small>${c.token_supply} tokens left</small>
+                <small>${c.token_supply} stations left</small>
               </span>
               <span class="corp-holding">
                 <em class="${statusClass}">${statusLabel}</em>
@@ -1952,7 +2000,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                   : ""
         } · Shift+Enter or right-click to inspect city value & upgrades</title>
         <polygon points="${poly}" fill="${TILE_FILL[renderObj.color] || fill}" stroke="${strokeColor}" stroke-width="${strokeWidth}" ${(isBuildable && currentStep === "track" && !isSelected) || (isTokenLegalHex && currentStep === "token" && !isSelected) ? "stroke-dasharray=\"4 2\"" : ""} />
-        ${renderHexTrackAndNodes(coord, renderObj, cx, cy, radius, highlightedSegments, false)}
+        ${renderHexTrackAndNodes(coord, renderObj, cx, cy, radius, highlightedSegments, false, state.phase)}
         ${tokenRingOverlay}
         <text x="${cx.toFixed(1)}" y="${(cy - radius * 0.58).toFixed(1)}" text-anchor="middle" fill="#2c1d11" font-size="7.2" font-weight="600" font-family="DM Mono">${coord}${h.label ? ` (${h.label})` : ""}</text>
       </g>`
@@ -2054,6 +2102,28 @@ export function renderDetailedMapView(appState, viewData, catalog) {
       p.rotation === (appState.selectedTileRotation || 0)
   );
 
+  // Keep the current action outside the scrolling receipt and reference content.
+  let commitControls='';
+  if(isActiveActor || authority.canResolveSpecial){
+    if(currentStep==='track' || authority.canResolveSpecial){
+      commitControls=appState.selectedTileId
+        ? `<button type="button" class="confirm-button" data-op-action="lay_tile" ${canLayTrack && activePlacementIdx>=0 ? '' : 'disabled'}>Confirm Tile #${escapeHtml(appState.selectedTileId)} on ${selectedHex}</button>`
+        : '';
+    } else if(currentStep==='token'){
+      commitControls=`<button type="button" class="confirm-button" data-op-action="place_token" data-token-hex="${selectedHex}" ${canPlaceToken ? '' : 'disabled'}>Place ${activeCorpId} Station on ${selectedHex} (¥40)</button>`;
+    } else if(currentStep==='routes'){
+      const quote=routeQuote(appState,viewData),draft=appState.routeDraft || [];
+      commitControls=hasRunnableRoutes
+        ? `<button type="button" class="confirm-button" data-run-route-plan ${canRunRoutes && draft.length && quote && !routeEditor ? '' : 'disabled'}>Run ${draft.length} trains · ${money(quote?.revenue)}</button>`
+        : `<button type="button" class="confirm-button" data-op-action="run_best_routes" ${legalTypes.includes('dividend') ? '' : 'disabled'}>Continue to Train Purchase · ¥0 revenue</button>`;
+    } else if(currentStep==='dividend'){
+      commitControls=`<button type="button" class="secondary-btn" data-op-action="dividend_withhold" ${canDividend ? '' : 'disabled'}>Withhold (${money(opTurn?.revenue)})</button><button type="button" class="confirm-button" data-op-action="dividend_payout" ${canDividend ? '' : 'disabled'}>Pay Dividend (${money(opTurn?.revenue)})</button>`;
+    } else if(currentStep==='train'){
+      // Purchase confirmation lives only on the wizard's dispatch voucher.
+      commitControls='';
+    }
+  }
+
   return `
     <section class="detail-view map-view">
       <div class="market-top-deck map-top-deck">
@@ -2134,11 +2204,11 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                 : currentStep === "token" && canPlaceToken
                   ? `<div class="map-floating-lay-bar token-lay-bar" role="region" aria-label="Staged station token controls">
                       <div class="floating-lay-info">
-                        <b>Station Token Preview · ${selectedHex} (${HEX_NAMES[selectedHex] || "City"})</b>
-                        <small>${activeCorpId} Treasury: ${money(activeCorp?.cash || 0)} → ${money((activeCorp?.cash || 0) - 40)} (−¥40) · Tokens left: ${activeCorp?.token_supply || 0} → ${Math.max(0, (activeCorp?.token_supply || 0) - 1)}</small>
+                        <b>Station Preview · ${selectedHex} (${HEX_NAMES[selectedHex] || "City"})</b>
+                        <small>${activeCorpId} Treasury: ${money(activeCorp?.cash || 0)} → ${money((activeCorp?.cash || 0) - 40)} (−¥40) · Stations left: ${activeCorp?.token_supply || 0} → ${Math.max(0, (activeCorp?.token_supply || 0) - 1)}</small>
                       </div>
                       <div class="floating-lay-actions">
-                        <button type="button" class="confirm-button" data-op-action="place_token">✓ Place ${activeCorpId} Token on ${selectedHex} (¥40)</button>
+                        <button type="button" class="confirm-button" data-op-action="place_token">✓ Place ${activeCorpId} Station on ${selectedHex} (¥40)</button>
                       </div>
                     </div>`
                   : ""
@@ -2165,7 +2235,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
             .join("")}
         </main>
 
-        <aside class="order-ticket stock-action-panel map-action-panel is-step-${currentStep} ${currentStep === 'train' ? 'is-train-step' : ''} ${state.round === 'operating' && activeCorp && (isActiveActor || authority.canResolveSpecial) ? 'is-active-operating' : ''}" aria-label="Corporate Operating Order Ticket and turn guidance">
+        <aside class="order-ticket stock-action-panel map-action-panel is-step-${currentStep} ${authority.canResolveSpecial ? 'is-special-track' : ''} ${currentStep === 'train' ? 'is-train-step' : ''} ${state.round === 'operating' && activeCorp && (isActiveActor || authority.canResolveSpecial) ? 'is-active-operating' : ''}" aria-label="Corporate Operating Order Ticket and turn guidance">
           <div class="ticket-cut"></div>
           <div class="map-ticket-scroll">
           <div data-route-payoff-slot></div>
@@ -2251,8 +2321,8 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                     <b data-account="treasury:${activeCorpId}">${money(activeCorp.cash)}</b>
                   </div>
                   <div>
-                    <span>${activeCorpId} Trains & Tokens</span>
-                    <b>${activeCorp.trains?.length ? activeCorp.trains.join(", ") : "0 trains"} · ${activeCorp.token_supply} tok</b>
+                    <span>${activeCorpId} Trains & Stations</span>
+                    <b>${activeCorp.trains?.length ? activeCorp.trains.join(", ") : "0 trains"} · ${activeCorp.token_supply } stations</b>
                   </div>
                 `
                 : `
@@ -2263,6 +2333,8 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                 `
             }
           </div>
+          ${state.round === 'operating' && (currentStep === 'track' || authority.canResolveSpecial) ? `<p class="tile-placement-notice" role="status">${escapeHtml(tilePlacementNotice(appState,viewData,catalog,selectedHex))}</p>` : ''}
+          ${hexObj.label==='H' ? '<p class="special-tile-rule" role="note">Kotohira (I4) requires H-labeled city tiles. Ordinary straight track cannot be laid here.</p>' : ''}
 
           ${
             state.round === "operating" && activeCorp && (isActiveActor || authority.canResolveSpecial)
@@ -2290,7 +2362,6 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                                 ? `<div class="ticket-inline-tile-bar">
                                     <div class="tile-swatch-grid inline-tile-chips">
                                       ${selectedHexLegalList
-                                        .slice(0, 6)
                                         .map(
                                           (p, idx) =>
                                             `<button type="button" class="tile-swatch-btn par-btn ${appState.selectedTileId === p.tile && (appState.selectedTileRotation || 0) === p.rotation ? 'selected' : ''}" data-select-legal-placement="${selectedHex}:${p.tile}:${p.rotation}" title="Preview legal option ${idx + 1}: Tile #${p.tile} at ${p.rotation * 60}°">
@@ -2301,17 +2372,6 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                                         )
                                         .join("")}
                                     </div>
-                                    ${
-                                      appState.selectedTileId
-                                        ? `<div class="tile-rotation-bar">
-                                            <span>Staged: <b>#${appState.selectedTileId} at ${((appState.selectedTileRotation || 0) * 60) % 360}°</b></span>
-                                            <div class="tile-rot-controls">
-                                              <button type="button" class="rot-btn" data-cycle-legal-placement="1">⟳ Rotate 60°</button>
-                                              <button type="button" class="rot-btn is-clear" data-clear-tile-preview>Clear</button>
-                                            </div>
-                                          </div>`
-                                        : ""
-                                    }
                                   </div>`
                                 : `<div class="op-empty-state-card">Click a highlighted hex on the map to preview legal track tiles for ${activeCorpId}.</div>`
                             }
@@ -2335,24 +2395,24 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                           return `
                             <div class="op-workspace-banner is-token-banner">
                               <div>
-                                <small>Station Charter Rack</small>
-                                <strong>${activeCorp.token_supply} Token${activeCorp.token_supply === 1 ? '' : 's'} Remaining</strong>
+                                <small>Stations</small>
+                                <strong>${activeCorp.token_supply} Station${activeCorp.token_supply === 1 ? '' : 's'} Remaining</strong>
                               </div>
                               <strong class="op-banner-figure">¥40</strong>
                             </div>
-                            <div class="token-charter-rack" aria-label="Charter token supply">
+                            <div class="token-charter-rack" aria-label="Stations available to place">
                               ${Array.from({ length: Math.max(1, totalCharter) }, (_, idx) => {
                                 const isPlaced = idx < placedCount;
                                 const isNext = idx === placedCount && activeCorp.token_supply > 0;
                                 return `<div class="token-rack-slot ${isPlaced ? 'is-placed' : ''} ${isNext ? 'is-next' : ''}">
                                   <span class="token-disc" style="--corp:${displayMeta.color}">${activeCorpId}</span>
-                                  <small>${isPlaced ? (idx === 0 ? `Home ${displayMeta.home} ✓` : 'Placed ✓') : isNext ? 'Next: ¥40' : 'Charter'}</small>
+                                  <small>${isPlaced ? (idx === 0 ? `Home ${displayMeta.home} ✓` : 'Placed ✓') : isNext ? 'Next: ¥40' : 'Available'}</small>
                                 </div>`;
                               }).join("")}
                             </div>
                             ${
                               legalTokenCities.length
-                                ? `<div class="token-city-list" role="list" aria-label="Reachable cities with open token slots">
+                                ? `<div class="token-city-list" role="list" aria-label="Reachable cities with open station slots">
                                     ${legalTokenCities
                                       .map((cKey) => {
                                         const cHex = board[cKey];
@@ -2369,11 +2429,11 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                                       })
                                       .join("")}
                                   </div>`
-                                : `<div class="op-empty-state-card">No reachable connected city has an open station slot (${activeCorp.token_supply} token${activeCorp.token_supply === 1 ? '' : 's'} left). Skip Token to proceed to Routes.</div>`
+                                : `<div class="op-empty-state-card">No reachable connected city has an open station slot (${activeCorp.token_supply} station${activeCorp.token_supply === 1 ? '' : 's'} left). Skip Station Placement to proceed to Routes.</div>`
                             }
                             <div class="op-consequence-strip">
                               <div><span>${activeCorpId} Safe After</span><b>${money(activeCorp.cash)} → ${money(canPlaceToken ? activeCorp.cash - 40 : activeCorp.cash)}</b></div>
-                              <div><span>Charter Supply</span><b>${activeCorp.token_supply} → ${canPlaceToken ? Math.max(0, activeCorp.token_supply - 1) : activeCorp.token_supply} Left</b></div>
+                              <div><span>Stations remaining</span><b>${activeCorp.token_supply} → ${canPlaceToken ? Math.max(0, activeCorp.token_supply - 1) : activeCorp.token_supply} Left</b></div>
                             </div>
                           `;
                         })()
@@ -2397,13 +2457,9 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                 </div>
                 <div class="ticket-primary-actions map-ticket-actions">
                   ${
-                    (currentStep === "track" || authority.canResolveSpecial)
+                    (currentStep === "track" || authority.canResolveSpecial) && appState.selectedTileId
                       ? `<button type="button" class="confirm-button" data-op-action="lay_tile" ${canLayTrack && appState.selectedTileId ? "" : "disabled"}>
-                          ${
-                            appState.selectedTileId
-                              ? `✓ Confirm Lay Tile #${appState.selectedTileId} on ${selectedHex}`
-                              : `Select a highlighted hex to preview track`
-                          }
+                          ✓ Confirm Lay Tile #${appState.selectedTileId} on ${selectedHex}
                         </button>`
                       : ""
                   }
@@ -2415,15 +2471,15 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                       : ""
                   }
                   ${
-                    currentStep === "token" || (currentStepIdx < 1 && canPlaceToken)
-                      ? `${currentStep !== 'token' ? '<details class="op-shortcut"><summary>Station token shortcut</summary>' : ''}<button type="button" class="confirm-button" data-op-action="place_token" data-token-hex="${selectedHex}" ${canPlaceToken ? "" : "disabled"}>
-                          Place ${activeCorpId} Token on ${selectedHex} (¥40)
-                        </button><small class="shortcut-note">${shortcutDescription(currentStep, 'token') || 'Uses corporate treasury. Final connection and slot checks occur on submission.'}</small>${currentStep !== 'token' ? '</details>' : ''}`
+                    currentStep === "token"
+                      ? `<button type="button" class="confirm-button" data-op-action="place_token" data-token-hex="${selectedHex}" ${canPlaceToken ? "" : "disabled"}>
+                          Place ${activeCorpId} Station on ${selectedHex} (¥40)
+                        </button><small class="shortcut-note">${shortcutDescription(currentStep, 'token') || 'Uses corporate treasury. Final connection and slot checks occur on submission.'}</small>`
                       : ""
                   }
                   ${
-                    (currentStep === "routes" && !hasRunnableRoutes) || (currentStepIdx < 2 && canRunRoutes)
-                      ? `${currentStep !== 'routes' ? '<details class="op-shortcut"><summary>Route resolution shortcut</summary>' : ''}<button type="button" class="confirm-button" data-op-action="run_best_routes" ${canRunRoutes ? "" : "disabled"}>
+                    currentStep === "routes" && !hasRunnableRoutes
+                      ? `<button type="button" class="confirm-button" data-op-action="run_best_routes" ${canRunRoutes ? "" : "disabled"}>
                           ${
                             hasRunnableRoutes
                               ? `Choose train routes (${money(viewData.route_quote?.revenue || 0)})`
@@ -2435,7 +2491,7 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                           hasRunnableRoutes
                             ? shortcutDescription(currentStep, 'routes') || 'Shows the recommended stops and total revenue. Run the plan when ready.'
                             : `${activeCorp?.trains?.length ? 'Train has no connected route' : 'Corporation owns 0 trains'} · ${shortcutDescription(currentStep, 'routes') || 'Advances directly past ¥0 route & revenue steps to Train step in one click.'}`
-                        }</small>${currentStep !== 'routes' ? '</details>' : ''}`
+                        }</small>`
                       : ""
                   }
                   ${
@@ -2468,6 +2524,19 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                               <div class="track-cell is-right"><span>${rev > 0 ? '+1 Step →' : '← -1 Step'}</span><small>${rev > 0 ? 'If Paid Out' : '¥0 Revenue'}</small></div>
                             </div>
                           `}<div class="dividend-split visual-dividend-split">
+                            <div class="dividend-option-card is-withhold-card">
+                              <div class="div-card-head">
+                                <strong>Withhold</strong>
+                                <span class="div-stock-step is-down">Mkt ${money(curPrice)} · ← -1 Step</span>
+                              </div>
+                              <div class="div-card-flow is-safe-flow">
+                                <div class="iron-safe-mini" aria-hidden="true">SAFE</div>
+                                <span class="div-treasury-chip">${activeCorpId} Treasury: <b>${money(activeCorp?.cash || 0)} → ${money((activeCorp?.cash || 0) + rev)}</b></span>
+                              </div>
+                              <button type="button" class="secondary-btn" data-op-action="dividend_withhold">
+                                Withhold (${money(rev)})
+                              </button>
+                            </div>
                             <div class="dividend-option-card is-payout-card">
                               <div class="div-card-head">
                                 <strong>Pay Dividend</strong>
@@ -2482,24 +2551,11 @@ export function renderDetailedMapView(appState, viewData, catalog) {
                                 Pay Dividend (${money(rev)})
                               </button>
                             </div>
-                            <div class="dividend-option-card is-withhold-card">
-                              <div class="div-card-head">
-                                <strong>Withhold</strong>
-                                <span class="div-stock-step is-down">Mkt ${money(curPrice)} · ← -1 Step</span>
-                              </div>
-                              <div class="div-card-flow is-safe-flow">
-                                <div class="iron-safe-mini" aria-hidden="true">SAFE</div>
-                                <span class="div-treasury-chip">${activeCorpId} Treasury: <b>${money(activeCorp?.cash || 0)} → ${money((activeCorp?.cash || 0) + rev)}</b></span>
-                              </div>
-                              <button type="button" class="secondary-btn" data-op-action="dividend_withhold">
-                                Withhold (${money(rev)})
-                              </button>
-                            </div>
                           </div><small class="shortcut-note">${shortcutDescription(currentStep, 'dividend') || 'Resolve this operating revenue.'}</small>${currentStep !== 'dividend' ? '</details>' : ''}`;
                         })()
                       : ""
                   }
-                  ${state.round === 'operating' && currentStep === 'train' && activeCorp && !state.pending_special && !state.pending_discards?.length ? renderInlineTrainDesk(appState,viewData) : ''}
+                  ${state.round === 'operating' && currentStep === 'train' && !isActiveActor && activeCorp && !state.pending_special && !state.pending_discards?.length ? renderInlineTrainDesk(appState,viewData) : ''}
                   ${isActiveActor && mandatoryTrain ? `<p class="mandatory-train-guard" role="status" data-testid="mandatory-train-guard">⚠️ <b>Mandatory train purchase:</b> ${activeCorpId} has a connected route and owns no train. Acquire a train above to unlock End ${activeCorpId} Turn.</p>` : ''}
 
                 </div>
@@ -2520,17 +2576,23 @@ export function renderDetailedMapView(appState, viewData, catalog) {
           }
           </div>
           ${state.round === "operating" && activeCorp && (isActiveActor || authority.canResolveSpecial) ? `
-            <footer class="operating-turn-controls" aria-label="Operating turn controls">
+            <footer class="operating-turn-controls${currentStep === 'train' ? ' is-train-choice' : ''}" aria-label="Operating turn controls">
+                  ${currentStep === 'train' && isActiveActor && !state.pending_special && !state.pending_discards?.length ? renderInlineTrainDesk(appState,viewData) : ''}
+                  ${currentStep==='token' ? '<p class="optional-step-note">Station placement is optional. Place a station for ¥40, or skip to train routes.</p>' : ''}
+                  ${!['track','token','routes'].includes(currentStep) && !authority.canResolveSpecial && commitControls ? `<div class="operating-commit-controls" aria-label="Current operating action">${commitControls}</div>` : ''}
                   <div class="op-step-row ${currentStep === 'dividend' ? 'is-dividend-step-row' : ''}">
+                    ${['track','token','routes'].includes(currentStep) || authority.canResolveSpecial ? `
                     <button type="button" class="secondary-btn" data-testid="op-btn-skip" data-op-action="${authority.canResolveSpecial ? 'pass' : 'skip'}" ${canSkipStep ? "" : "disabled"}>
-                      ${authority.canResolveSpecial ? 'Decline ER special lay' : `Skip ${currentStep.charAt(0).toUpperCase() + currentStep.slice(1)}`}
+                      ${authority.canResolveSpecial ? 'Decline ER special lay' : `Skip ${operatingStepLabel(currentStep)}`}
                     </button>
-                    <button type="button" class="confirm-button finish-turn-highlight" data-testid="op-btn-end-turn" data-op-action="end_turn" ${canEndTurn ? "" : "disabled"} title="${mandatoryTrain ? `Disabled: ${activeCorpId} has a route and must buy a train before ending its turn` : `Finish ${activeCorpId} operating turn`}">
-                      End ${activeCorpId} Turn
-                    </button>
+                    ` : ''}
+                    ${(['track','token','routes'].includes(currentStep) || authority.canResolveSpecial) && commitControls ? `<div class="operating-commit-controls" aria-label="Current operating action">${commitControls}</div>` : ''}
+                    ${canEndTurn ? `<button type="button" class="${currentStep === 'train' ? 'secondary-btn' : 'confirm-button'} finish-turn-highlight" data-testid="op-btn-end-turn" data-op-action="end_turn" title="Finish ${activeCorpId} operating turn">
+                      End ${escapeHtml(activeCorp.name || activeCorpId)} Turn <span aria-hidden="true">→</span>
+                    </button>` : ''}
                   </div>
                   <div class="ticket-compact-footer">
-                    <span>Fleet: <b>${activeCorp.trains?.length ? activeCorp.trains.join(", ") : "0 trains"}</b> · Tok: <b>${activeCorp.token_supply}</b></span>
+                    <span>Fleet: <b>${activeCorp.trains?.length ? activeCorp.trains.join(", ") : "0 trains"}</b> · Stations: <b>${activeCorp.token_supply}</b></span>
                     <span>Hex: <b>${selectedHex} ${HEX_NAMES[selectedHex] || ""}</b></span>
                   </div>
             </footer>

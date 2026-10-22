@@ -33,3 +33,15 @@
 @keyframes balance-ink{0%,30%{background:#f5d77e;box-shadow:0 0 0 3px #f5d77e}100%{background:transparent;box-shadow:0 0 0 0 transparent}}
 @media(prefers-reduced-motion:reduce){.accepted-material-emphasis,.accepted-balance-emphasis,.route-payoff-total.is-new-result{animation:none!important}}
 .motion-off .accepted-material-emphasis,.motion-off .accepted-balance-emphasis,.motion-off .route-payoff-total.is-new-result{animation:none!important}
+
+/* Settled dividend receipt: compact summary with the accounting on demand. */
+.dividend-payment-receipt { position:relative; padding:9px 11px 11px; border:0; border-top:1px solid #b5a17b; box-shadow:0 2px 3px #6b533322; background:#faf2dd; }
+.dividend-payment-receipt::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:4px; background:radial-gradient(circle at 4px 4px,transparent 3px,#faf2dd 3.5px) 0 0 / 8px 4px repeat-x; }
+.dividend-payment-receipt .dividend-receipt-payees { display:flex; gap:3px 12px; flex-wrap:wrap; list-style:none; margin:4px 0 6px; padding:0; font:12px/1.5 system-ui; }
+.dividend-receipt-payees li { white-space:nowrap; }
+.accepted-action-receipt .dividend-receipt-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:3px 10px; border-top:1px solid #cfbf9b; padding-top:5px; }
+.dividend-receipt-details { display:contents; }
+.dividend-receipt-details summary { cursor:pointer; color:#375f50; text-align:right; }
+.dividend-receipt-details[open] { display:block; width:100%; }
+.dividend-receipt-breakdown { padding-top:5px; }
+.dividend-receipt-breakdown p { overflow-wrap:anywhere; }

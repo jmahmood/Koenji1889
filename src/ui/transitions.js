@@ -1,5 +1,18 @@
 import { escapeHtml, roundName } from './presentation.js';
 
+export function createHandoffExpiry({fade,expire,schedule=(fn,ms)=>globalThis.setTimeout(fn,ms),cancel=id=>globalThis.clearTimeout(id),holdMs=8000,fadeMs=350}) {
+  let current=null,holdTimer=null,fadeTimer=null;
+  const clear=()=>{cancel(holdTimer);cancel(fadeTimer);holdTimer=fadeTimer=null;current=null;};
+  return {clear,start(notice){
+    clear();if(!notice)return;current=notice;
+    holdTimer=schedule(()=>{
+      if(current!==notice)return;
+      fade(notice);
+      fadeTimer=schedule(()=>{if(current===notice){clear();expire(notice);}},fadeMs);
+    },holdMs);
+  }};
+}
+
 export function createRoomTransition({ show, hide, schedule = setTimeout, cancel = clearTimeout }) {
   let commitTimer = null, endTimer = null, pendingCommit = null, active = false;
   const commit = () => {
@@ -49,9 +62,18 @@ export function roomName(view, state) {
 }
 
 export function planRoundHandoff(appState, previous, next) {
-  if (!previous || next.revision <= previous.revision || roundKey(previous) === roundKey(next)) return null;
+  if (!previous || next.revision <= previous.revision) return null;
   // A replay reaching the live endpoint is still an inspection, not live following.
   if (appState.viewRevision !== appState.liveRevision || appState.isPlayingReplay || appState.isLoadingRevision) return null;
+  const rounds=phase=>appState.catalog?.phases?.[phase]?.[2] || ({2:1,3:2,4:2,5:3,6:3,D:3})[phase];
+  if(previous.phase!=null && next.phase!==previous.phase && rounds(next.phase)>rounds(previous.phase)) {
+    const count=rounds(next.phase),current=next.or_total;
+    return {kind:'phase',revision:next.revision,from:`Phase ${previous.phase}`,
+      title:`Phase ${next.phase} · ${count} Operating Rounds`,
+      detail:`Each stock round will now be followed by ${count} operating rounds.${next.round==='operating' && current<count ? ` The current set still has ${current}; the new schedule begins after the next stock round.` : ''}`,
+      destination:'map',destinationLabel:'Map & Operations',autoNavigate:false};
+  }
+  if(roundKey(previous)===roundKey(next))return null;
   const destination = roundDestination(next);
   const source = roundDestination(previous);
   const autoNavigate = appState.view === source && source !== 'table' &&
@@ -76,7 +98,7 @@ export function planRoundHandoff(appState, previous, next) {
 
 export function renderRoundHandoff(notice, view) {
   if (!notice) return '';
-  return `<aside class="round-handoff" aria-label="Round change announcement">
+  return `<aside class="round-handoff${notice.fading ? ' is-fading' : ''}" aria-label="${notice.kind==='phase'?'Phase':'Round'} change announcement">
     <div class="round-handoff-copy" role="status" aria-live="polite" aria-atomic="true">
       <small>${escapeHtml(notice.from)} concluded · Rev ${notice.revision}</small>
       <strong>${escapeHtml(notice.title)}</strong>

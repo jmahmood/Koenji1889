@@ -4,6 +4,25 @@ let locale=globalThis.localStorage?.getItem('koenji_locale')==='ja'?'ja':'en';
 export const getLocale=()=>locale;
 export function setLocale(value){locale=value==='ja'?'ja':'en';globalThis.localStorage?.setItem('koenji_locale',locale);}
 const pairs=`
+Game messages|対局のお知らせ
+Buy Shares|株券を購入
+Sell Shares|株券を売却
+Buy Private Company|プライベート会社を購入
+Finish Turn|手番を終了
+Pass Turn|手番をパス
+Pay Dividend|配当を支払う
+Withhold Revenue|収入を会社に留保
+Exchange Private Company|プライベート会社を交換
+Declare Bankruptcy|破産を宣言
+Discard Train|列車を廃棄
+Send Offer|取引を提示
+Accept Offer|提示を承諾
+Accept Train Offer|列車取引を承諾
+Accept Private Offer|プライベート会社取引を承諾
+Record Decision|決定を記録
+Station placement is optional. Place a station for ¥40, or skip to train routes.|駅の設置は任意です。¥40で駅を設置するか、スキップして列車の運行に進めます。
+Dividend milestone|配当の節目
+Phase change announcement|フェーズ変更のお知らせ
 Route playback|ルート再生
 Normal|通常
 Quick|速い
@@ -191,6 +210,32 @@ All players' escrow|全員の入札預託金
 Your Escrow|あなたの入札預託金
 Your available cash|使用可能な所持金
 Your recent tables|最近の対局
+Your table is ready|卓の準備ができました
+Welcome to the table|卓へようこそ
+Invitations|招待
+Advanced|詳細設定
+All seats claimed|全員が着席しました
+still to join|人が未参加
+Joined|参加済み
+Not joined|未参加
+Online now|オンライン
+Away · seat stays claimed|離席中・席は確保されています
+Send each invitation privately.|招待は一人ずつ個別に送ってください。
+Friends can claim their seats at different times.|仲間はそれぞれ都合のよい時に着席できます。
+Make yourself at home.|ゆっくりおくつろぎください。
+Everyone has a seat.|全員の席がそろいました。
+Waiting for your friends.|仲間の参加を待っています。
+Claimed seats stay ready even when players are away.|離席しても着席済みの状態は保たれます。
+The host opens the ledger once every seat is claimed.|全員が着席したら、主催者が対局を開始します。
+The host will open the ledger once every seat is claimed.|全員が着席したら、主催者が対局を開始します。
+Waiting for the host to start|主催者の開始を待っています
+Your table is saved|卓は保存されています
+Next legal option|次の合法候補
+Select a board hex to inspect track construction.|ヘックスを選ぶと線路敷設を確認できます。
+Historical position. Return to Live before laying track.|過去の局面です。線路を敷設するには現在の対局に戻ってください。
+The match is complete. Track construction is closed.|対局は終了しました。線路は敷設できません。
+Normal track is laid during a railway’s Track Lay step in an operating round.|通常の線路敷設は、その会社の経営手番の線路敷設ステップで行います。
+Resolve excess trains before normal construction continues.|通常の線路敷設を続ける前に、保有上限を超えた列車を処理してください。
 On Block / Min|出品中・最低額
 Personal Cash|個人資金
 Cash Impact|資金の変化
@@ -622,6 +667,13 @@ TILE|タイル
 Track lay|線路敷設
 Station token|駅トークン配置
 Station|駅
+Stations|駅
+Stations remaining|残りの駅
+Station placement|駅配置
+Station Preview|駅配置プレビュー
+Trains & Stations|列車・駅
+Trains &amp; Stations|列車・駅
+Stations available to place|配置できる駅
 Token|駅トークン
 Lay track|線路を敷設
 Lay tile|タイルを敷設
@@ -885,6 +937,24 @@ const fragmentExcluded=new Set(['on','off','place']);
 const escaped=[...translations.keys()].filter(key=>!fragmentExcluded.has(key)).sort((a,b)=>b.length-a.length).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
 const fragments=new RegExp(`(?<![A-Za-z])(?:${escaped.join('|')})(?![A-Za-z])`,'gi');
 const patterns=[
+ [/^Phase (.+) · (\d+) Operating Rounds$/,(_,phase,n)=>`フェイズ${phase}・経営ラウンド${n}回`],
+ [/^Each stock round will now be followed by (\d+) operating rounds\.(?: The current set still has (\d+); the new schedule begins after the next stock round\.)?$/,(_,n,current)=>`株式ラウンドの後に経営ラウンドを${n}回行います。${current?`現在のセットは${current}回のままで、次の株式ラウンド後から変わります。`:''}`],
+ [/^(.+) · DIVIDEND MILESTONE$/,(_,id)=>`${id}・配当の節目`],
+ [/^(¥[\d,]+) paid$/,(_,amount)=>`${amount}を配当`],
+ [/^First (.+) dividend$/,(_,amount)=>`初めての${amount}配当`],
+ [/^Buy (.+)-Train$/,(_,type)=>`${type}列車を購入`],
+ [/^(.+) has already laid its normal tile this turn\. Build again at (.+)’s next Track Lay step\.$/,(_,id)=>`${id}はこの手番の通常の線路敷設を終えています。次の経営手番の線路敷設まで待ちます。`],
+ [/^(.+) has no connected railhead reaching (.+)\. Track must connect to one of (.+)’s stations\.$/,(_,id,hex)=>`${id}の路線は${hex}に接続していません。線路は${id}の駅からつながっている必要があります。`],
+ [/^(.+) has (\d+) legal tile orientations at (.+)\. Choose a tile and confirm separately\.$/,(_,id,n,hex)=>`${id}が${hex}で使えるタイルと向きは${n}候補です。選択した後で確定してください。`],
+ [/^(.+) is at (.+)\. Normal construction is available at its next Track Lay step\.$/,(_,id,step)=>`${id}は${translateUnprotected(step,'ja')}のステップです。通常の線路敷設は次の経営手番まで行えません。`],
+ [/^(.+) needs a (yellow|green|brown) upgrade, available from Phase (.+)\. The game is in Phase (.+)\.$/,(_,hex,color,phase,current)=>`${hex}の次は${({yellow:'黄色',green:'緑色',brown:'茶色'})[color]}タイルです。フェイズ${phase}から使用できます（現在はフェイズ${current}）。`],
+ [/^(.+) blocks construction at (.+) while owned by a player\.$/,(_,id,hex)=>`${id}が個人所有の間は${hex}に敷設できません。`],
+ [/^(.+) needs (¥[\d,]+) for terrain at (.+); its treasury has (¥[\d,]+)\.$/,(_,id,cost,hex,cash)=>`${id}が${hex}に敷設する地形費は${cost}です（会社資金${cash}）。`],
+ [/^All compatible (yellow|green|brown) tiles for (.+) are out of supply\.$/,(_,color,hex)=>`${hex}に適合する${({yellow:'黄色',green:'緑色',brown:'茶色'})[color]}タイルは在庫切れです。`],
+ [/^(.+) is a permanent board location and cannot receive a normal track tile\.$/,(_,hex)=>`${hex}は固定の盤面です。通常の線路タイルは配置できません。`],
+ [/^(.+) has reached its final tile color\.$/,(_,hex)=>`${hex}は最終色のタイルです。`],
+ [/^No in-stock tile orientation is legal for (.+) at (.+)\. Existing track, stations, labels, and board boundaries must be preserved\.$/,(_,id,hex)=>`${id}が${hex}に敷設できる在庫タイルの向きはありません。既存の線路・駅・記号・盤面境界を守る必要があります。`],
+ [/^(\d+) of (\d+) seats claimed$/,(_,claimed,total)=>`${total}人中${claimed}人が着席済み`],
  [/^(.+) buys (.+)-Train \(#(.+)\) for (¥[\d,]+)$/,(_,id,type,serial,cost)=>`${id}が${type}列車（#${serial}）を${cost}で購入`],
  [/^(.+?) pays out (¥[\d,]+) in dividends to shareholders(?: · Rev (\d+))?$/,(_,id,money,rev)=>`${id}が${money}を配当${rev?`・局面${rev}`:''}`],
  [/^(.+) ends turn( → (.+) Round)?$/,(_,name,transition,round)=>`${name}が手番を終了${round?` → ${round}ラウンド`:''}`],

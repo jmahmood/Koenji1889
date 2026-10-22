@@ -14,11 +14,11 @@ export class CharacterDirector {
   accepted(event,revision,view) {
     // A duplicate response/poll must not clear a celebration already in progress.
     if(event?.finished&&!this.playback.seen.has(`${this.room}:revision:${revision}`))this.playback.clear('game');
-    return this.playback.enqueue(buildEventSequence(event,view),{id:`revision:${revision}`});
+    return this.playback.enqueue(buildEventSequence(event,view,{revision}),{id:`revision:${revision}`});
   }
   history(event,revision,view,{animate=false,speed=1,durationMs=null}={}) {
     this.playback.clear('game');
-    const sequence=buildEventSequence(event,view);
+    const sequence=buildEventSequence(event,view,{revision,celebrate:false});
     if(durationMs && sequence) speed=sequence.frames.reduce((n,f)=>n+f.ms,0)/durationMs;
     this.playback.enqueue(sequence,{
       id:`history:${++this.historySerial}:${revision}`,hold:!animate,speed,
