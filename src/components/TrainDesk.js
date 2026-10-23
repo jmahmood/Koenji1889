@@ -1,4 +1,5 @@
 import {escapeHtml as esc, actionBlockReason} from '../ui/presentation.js';
+import {renderTrainNewspaper} from './TrainNewspaper.js';
 import {renderCharacter} from '../scene/Character.js';
 
 const money = n => `¥${Number(n || 0).toLocaleString()}`;
@@ -108,7 +109,24 @@ export function depotTiers(view) {
   return [...groups.values()];
 }
 
+export const TRAIN_ART = {
+  '2': {name: 'Iyo Railway No. 1', file: 'iyo-no1'},
+  '3': {name: 'Class 8620 · No. 58685', file: '8620-58685'},
+  '4': {name: 'Class C58 · No. C58 333', file: 'c58-333'},
+  '5': {name: 'Class C11', file: 'c11'},
+  '6': {name: 'Class D51', file: 'd51'},
+  'D': {name: 'Class DF50 · Diesel', file: 'df50'},
+};
 export function locomotiveArt(type = '2') {
+  const art = TRAIN_ART[type];
+  const fallback = neutralLocomotiveArt(type);
+  return art ? `<span class="historical-train-art has-illustration" aria-hidden="true">${fallback}<img data-train-art src="/assets/trains/${art.file}-640.webp" srcset="/assets/trains/${art.file}-640.webp 640w, /assets/trains/${art.file}-1280.webp 1280w" sizes="(max-width: 600px) 85vw, 380px" width="1280" height="720" alt="" decoding="async"></span>` : fallback;
+}
+function historicalName(type) {
+  return TRAIN_ART[type] ? `<span class="historical-train-name" data-no-translate>${esc(TRAIN_ART[type].name)}</span>` : '';
+}
+function neutralLocomotiveArt(type) {
+  if(type === 'D') return `<svg class="locomotive-engraving diesel-fallback" viewBox="0 0 180 82" aria-hidden="true"><g stroke="currentColor" stroke-width="2"><path d="M12 57V29l12-13h130l13 13v28Z" fill="#964335"/><path d="M17 32h145V22H24Z" fill="#eee0ba"/><path d="M20 25h19v14H20Zm124 0h14v14h-14Z" fill="#263b3c"/><path d="M49 26h81v24H49Z" fill="#48443b"/><path d="M54 30h70m-70 6h70m-70 6h70"/><path d="M9 57h160v6H9Z" fill="#2c2924"/>${[27,47,80,100,133,153].map(x=>`<circle cx="${x}" cy="66" r="7" fill="#302e29"/>`).join('')}</g></svg>`;
   return `<svg class="locomotive-engraving" viewBox="0 0 180 82" aria-hidden="true"><path d="M8 68Q60 10 118 24T174 14L174 73H8Z" fill="#af9261" opacity=".26"/><path d="M25 25Q59 4 91 23Q62 12 25 25" fill="#fff8d4"/><g stroke="currentColor" stroke-width="2"><path d="M22 54h24V35h23v19h13V29h30v25h18V40h11v17l13 12H22Z" fill="#252d29"/><path d="M49 38h15v13H49Zm37-5h18v18H86Z" fill="#d8ac50"/><path d="m113 18 9 1-3 23h-5Z" fill="#27251e"/><path d="M78 55h53v10H78Z" fill="#444b3a"/><path d="m139 58 18 13h-18Z" fill="#a62720"/>${[36,66,94,124].map((x,i)=>`<circle cx="${x}" cy="65" r="${i===1||i===2?10:7}" fill="#292924"/><circle cx="${x}" cy="65" r="2" fill="#d6a84f"/>`).join('')}<path d="M66 65h28" stroke-width="3"/><circle cx="137" cy="42" r="4" fill="#ffe1a0"/></g><text x="165" y="18" text-anchor="end" font-size="13" font-family="Georgia" fill="currentColor">${esc(type)}</text></svg>`;
 }
 
@@ -142,22 +160,23 @@ export function renderRoundhouse(view, action) {
       const willRust = action?.type === 'buy_train' && !fleet.includes(id) && id !== action.trade_in;
       const isTraded = action?.trade_in === id;
       return `<div class="wizard-stall is-occupied ${willRust ? 'is-rusted' : ''} ${isTraded ? 'is-traded' : ''}">
-        <span class="stall-badge">${esc(t?.type || '?')}-Train (#${esc(id)})</span>
-        <small>${willRust ? '⚠️ Rusts on purchase' : isTraded ? '⇄ Traded in (−¥300)' : `${t?.type === 'D' ? 'Unlimited' : (t?.distance || t?.type)} stops · Active`}</small>
+        ${locomotiveArt(t?.type)}
+        <span class="stall-badge" data-owned-train="${esc(id)}">${esc(t?.type || '?')}-Train (#${esc(id)})</span>
+        ${historicalName(t?.type)}<small>${willRust ? '⚠️ Rusts on purchase' : isTraded ? '⇄ Traded in (−¥300)' : `${t?.type === 'D' ? 'Unlimited' : (t?.distance || t?.type)} stops · Active`}</small>
       </div>`;
     }
     const isStagedSlot = action?.type === 'buy_train' && idx === owned.length && idx < limit;
     if (isStagedSlot) {
       const st = s.trains[action.train];
       return `<div class="wizard-stall is-staged">
-        <span class="stall-badge">+ ${esc(st?.type || '?')}-Train (#${esc(action.train)})</span>
+        ${locomotiveArt(st?.type)}<span class="stall-badge">+ ${esc(st?.type || '?')}-Train (#${esc(action.train)})</span>
         <small>Staged Acquisition · ${money(trainCost(view, action))}</small>
       </div>`;
     }
-    return `<div class="wizard-stall"><span class="stall-badge">Empty Stall #${idx + 1}</span><small>Available Capacity</small></div>`;
+    return `<div class="wizard-stall is-empty"><div class="empty-stall-track" aria-hidden="true">${neutralLocomotiveArt('')}</div><span class="stall-badge">Empty Stall #${idx + 1}</span><small>Available Capacity</small></div>`;
   }).join('');
 
-  return `<section class="roundhouse ${!owned.length ? 'fleet-empty' : ''}" aria-label="Roundhouse fleet"><div class="roundhouse-plaque"><small>ROUNDHOUSE FLEET</small> · Owned now: ${owned.length} · Train limit: ${currentLimit}</div><div class="owned-fleet">${owned.length ? owned.map(id=>`<div class="owned-engine" data-owned-train="${esc(id)}">${locomotiveArt(s.trains[id]?.type)}<strong>${esc(id)}</strong></div>`).join('') : '<p>No trains owned</p>'}</div><div class="wizard-roundhouse-stalls" aria-label="Roundhouse stall breakdown">${stalls}</div>${action?.type==='buy_train' ? `<div class="fleet-after-purchase"><b>After purchase: ${fleet.length} / ${limit}</b><span>${fleet.map(id=>esc(id)).join(' · ') || 'No trains'}${action.trade_in ? ` · Trade in ${esc(action.trade_in)}` : ''}</span><small>Preview only · Purchase not yet confirmed</small></div>` : ''}</section>`;
+  return `<section class="roundhouse ${!owned.length ? 'fleet-empty' : ''}" aria-label="Roundhouse fleet"><div class="roundhouse-plaque"><small>ROUNDHOUSE FLEET</small> · Owned now: ${owned.length} · Train limit: ${currentLimit}</div>${!owned.length ? '<p class="empty-fleet-note">No trains owned</p>' : ''}<div class="wizard-roundhouse-stalls" aria-label="Roundhouse stall breakdown">${stalls}</div>${action?.type==='buy_train' ? `<div class="fleet-after-purchase"><b>After purchase: ${fleet.length} / ${limit}</b><span>${fleet.map(id=>esc(id)).join(' · ') || 'No trains'}${action.trade_in ? ` · Trade in ${esc(action.trade_in)}` : ''}</span><small>Preview only · Purchase not yet confirmed</small></div>` : ''}</section>`;
 }
 
 export function renderDepotTray(app, view, {inline = false, compact = inline, action = null, enabled = true} = {}) {
@@ -171,7 +190,7 @@ export function renderDepotTray(app, view, {inline = false, compact = inline, ac
     const mandatory=Boolean(view.train_financing && tier.available && tier.price===view.train_financing.cheapest);
     const purchase = tier.actions.find(a=>!a.trade_in) || (tier.ids.includes(emergencyDepotPreview(view)?.train) ? emergencyDepotPreview(view) : null);
     const buttonAttr = inline ? `data-buy-train="${esc(purchase?.train)}" data-testid="depot-buy-${esc(tier.type)}"` : `data-review-action="${attr(purchase)}" data-testid="depot-review-${esc(tier.type)}"`;
-    return `<article class="locomotive-certificate ${selected ? 'is-staged' : ''} ${mandatory ? 'is-mandatory' : ''} ${!tier.available ? 'is-locked' : ''}"><button type="button" class="depot-tier-button" ${purchase && enabled ? buttonAttr : 'disabled'} aria-pressed="${selected}"><span class="locomotive-title"><b>${mandatory ? 'MANDATORY · ' : tier.used ? 'RETURNED · ' : ''}${esc(tier.type)}-Train</b><strong>${money(tier.price)}</strong></span><span class="locomotive-picture">${locomotiveArt(tier.type)}${!tier.available ? '<span class="depot-chain">🔒</span>' : ''}</span><span class="depot-stock">${tier.ids.length} in depot <span class="brass-supply" aria-hidden="true">${tier.ids.map(()=>'<i></i>').join('')}</span></span><small>${esc(PHASE_NOTES[tier.type] || '')}</small><span class="locomotive-ribbon">${selected ? `★ STAGED · #${esc(action.train)}` : !tier.available ? tier.type==='D' ? 'LOCKED · Available from Phase 6' : 'LOCKED · Earlier tier must sell out' : !purchase ? 'Financing / train limit prevents purchase' : 'Click certificate to stage'}</span></button>${enabled ? tier.actions.filter(a=>a.trade_in).map(a=>`<button type="button" class="trade-in-option ${JSON.stringify(action)===JSON.stringify(a)?'is-staged':''}" ${inline ? `data-stage-trade-in="${attr(a)}"` : `data-review-action="${attr(a)}"`}>Trade in ${esc(a.trade_in)} · Pay ${money(tier.price-300)}</button>`).join('') : ''}</article>`;
+    return `<article class="locomotive-certificate ${selected ? 'is-staged' : ''} ${mandatory ? 'is-mandatory' : ''} ${!tier.available ? 'is-locked' : ''}"><button type="button" class="depot-tier-button" ${purchase && enabled ? buttonAttr : 'disabled'} aria-pressed="${selected}"><span class="locomotive-title"><b>${mandatory ? 'MANDATORY · ' : tier.used ? 'RETURNED · ' : ''}${esc(tier.type)}-Train</b><strong>${money(tier.price)}</strong></span><span class="locomotive-picture">${locomotiveArt(tier.type)}${!tier.available ? '<span class="depot-chain">🔒</span>' : ''}</span>${historicalName(tier.type)}${tier.type==='D' ? '<small class="diesel-capacity">Unlimited stops</small>' : ''}<span class="depot-stock">${tier.ids.length} in depot <span class="brass-supply" aria-hidden="true">${tier.ids.map(()=>'<i></i>').join('')}</span></span><small>${esc(PHASE_NOTES[tier.type] || '')}</small><span class="locomotive-ribbon">${selected ? `★ STAGED · #${esc(action.train)}` : !tier.available ? tier.type==='D' ? 'LOCKED · Available from Phase 6' : 'LOCKED · Earlier tier must sell out' : !purchase ? 'Financing / train limit prevents purchase' : 'Click certificate to stage'}</span></button>${enabled ? tier.actions.filter(a=>a.trade_in).map(a=>`<button type="button" class="trade-in-option ${JSON.stringify(action)===JSON.stringify(a)?'is-staged':''}" ${inline ? `data-stage-trade-in="${attr(a)}"` : `data-review-action="${attr(a)}"`}>Trade in ${esc(a.trade_in)} · Pay ${money(tier.price-300)}</button>`).join('') : ''}</article>`;
   };
   return `<section class="depot-card-tray" aria-label="Depot locomotive certificates"><h4>LOCOMOTIVE WORKS · DEPOT TRAY</h4>${visible.map(renderTier).join('') || '<p>No depot engines remain.</p>'}${!compact && later.length ? `<details class="future-train-phases"><summary>Later train phases · ${later.map(t=>esc(t.type)).join(' / ')}</summary>${later.map(renderTier).join('')}</details>` : ''}</section>`;
 }
@@ -235,7 +254,7 @@ export function renderVoucherSummaryStep(view, action) {
     ['Fleet After', `${trains.join(', ')} · ${trains.length} of ${limit} stalls`],
     ['Phase & Rust Impact', `Phase ${s.phase} → ${phase}${rusts ? ` · ALL ${rusts}-TRAINS WILL RUST` : ' · No rust'}`],
   ];
-  return `<dl class="wizard-voucher-summary-grid">${rows.map(([label, value]) => `<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${contribution ? '' : '<p class="wizard-personal-note">✓ No personal contribution required.</p>'}`;
+  return `<div class="dispatch-train-portrait">${locomotiveArt(s.trains[action.train]?.type)}${historicalName(s.trains[action.train]?.type)}</div><dl class="wizard-voucher-summary-grid">${rows.map(([label, value]) => `<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${contribution ? '' : '<p class="wizard-personal-note">✓ No personal contribution required.</p>'}`;
 }
 
 export function renderLiquidationMat(view, enabled, labelAction, stagedAction=null) {
@@ -316,7 +335,7 @@ export function renderInterCompanyMarket(app, view, {action = null, enabled = tr
         const maxPrice = Math.max(1, corp.cash || 1);
         const counterDefault = Math.min(maxPrice, Math.max(1, o.price - 10));
         return `<article class="wizard-deal-card is-incoming-offer ${isStaged ? 'is-staged' : ''}" data-testid="incoming-train-deal-${esc(o.item)}">
-          <div class="deal-card-header">
+          <div class="deal-train-portrait">${locomotiveArt(t?.type)}${historicalName(t?.type)}</div><div class="deal-card-header">
             <span class="deal-badge is-ready">🤝 INCOMING DEAL · 売主印 SELLER SIGNED</span>
             <strong>${esc(t?.type)}-Train (#${esc(o.item)}) · ${money(o.price)}</strong>
           </div>
@@ -360,7 +379,7 @@ export function renderInterCompanyMarket(app, view, {action = null, enabled = tr
         const maxPrice = Math.max(1, corp.cash || 1);
         const isStaged = action?.type === 'buy_train' && action?.train === tid && action?.price !== undefined;
         return `<article class="wizard-deal-card is-common-president ${isStaged ? 'is-staged' : ''}" data-testid="common-train-deal-${esc(tid)}">
-          <div class="deal-card-header">
+          <div class="deal-train-portrait">${locomotiveArt(train.type)}${historicalName(train.type)}</div><div class="deal-card-header">
             <span class="deal-badge is-common">★ COMMON PRESIDENT · SELF-TRANSFER</span>
             <strong>${esc(train.type)}-Train (#${esc(tid)}) from ${esc(seller)}</strong>
           </div>
@@ -401,7 +420,7 @@ export function renderInterCompanyMarket(app, view, {action = null, enabled = tr
           const maxPrice = Math.max(1, corp.cash || 1);
           const defaultPrice = buyerOffer?.price || Math.min(50, maxPrice);
           return `<article class="wizard-deal-card is-solicit-card" data-testid="solicit-train-${esc(tid)}">
-            <div class="deal-card-header">
+            <div class="deal-train-portrait">${locomotiveArt(train.type)}${historicalName(train.type)}</div><div class="deal-card-header">
               <span class="deal-badge">SOLICIT ENGINE FROM ${esc(seller)}</span>
               <strong>${esc(train.type)}-Train (#${esc(tid)}) · Owned by ${esc(seller)} (Pres: ${esc(sellerName)})</strong>
             </div>
@@ -464,9 +483,9 @@ export function renderRustImpactStep(view, action) {
       const overLimit = afterTrains.length > nextLimit;
       let statusBadge = '<span class="wizard-status-badge is-ok">Unchanged</span>';
       if (rustedCount > 0 && afterTrains.length === 0) {
-        statusBadge = `<span class="wizard-status-badge is-danger">⚠️ ${rustedCount} Rusted! (0 Trains Left)</span>`;
+        statusBadge = `<span class="wizard-status-badge is-danger">⚠️ ${rustedCount} Will rust (0 trains after purchase)</span>`;
       } else if (rustedCount > 0) {
-        statusBadge = `<span class="wizard-status-badge is-warn">⚠️ ${rustedCount} Rusted (${rustedType}-Train)</span>`;
+        statusBadge = `<span class="wizard-status-badge is-warn">⚠️ ${rustedCount} Will rust (${rustedType}-Train)</span>`;
       } else if (overLimit) {
         statusBadge = `<span class="wizard-status-badge is-warn">⚠️ Exceeds Limit (${afterTrains.length}/${nextLimit})</span>`;
       } else if (c.id === cid && action?.type === 'buy_train') {
@@ -483,17 +502,16 @@ export function renderRustImpactStep(view, action) {
     }).join('');
 
   return `<section class="wizard-rust-impact" aria-label="Phase and rust impact preview">
-    <div class="rust-impact-banner ${rustedType ? 'is-cataclysm' : phaseChanged ? 'is-phase-shift' : 'is-safe'}">
+    ${rustedType ? renderTrainNewspaper(view,action,{phase:nextPhase,rusts:rustedType,limit:nextLimit},locomotiveArt) : `    <div class="rust-impact-banner ${rustedType ? 'is-cataclysm' : phaseChanged ? 'is-phase-shift' : 'is-safe'}">
       ${
         !action || action.type !== 'buy_train'
           ? `<strong>Select a locomotive in Step 2 to preview phase &amp; rust consequences.</strong><p>Phase ${esc(s.phase)} is currently active (Train limit: ${view.train_limit || 4}).</p>`
-          : rustedType
-            ? `<strong>🔥 PHASE ${esc(nextPhase)} TRANSITION PREVIEW · ALL ${esc(rustedType)}-TRAINS WILL RUST</strong><p>Purchasing this <b>${esc(train?.type)}-Train (#${esc(action.train)})</b> advances the match from Phase ${esc(s.phase)} to <b>Phase ${esc(nextPhase)}</b>. Every <b>${esc(rustedType)}-Train</b> across Shikoku is immediately rusted and removed from play, and the corporate train limit becomes <b>${nextLimit}</b>.</p>`
-            : phaseChanged
-              ? `<strong>⚡ PHASE ${esc(nextPhase)} UNLOCKED!</strong><p>Purchasing this <b>${esc(train?.type)}-Train (#${esc(action.train)})</b> advances the match from Phase ${esc(s.phase)} to <b>Phase ${esc(nextPhase)}</b>. Corporate train limit becomes <b>${nextLimit}</b>. No trains rust on this transition.</p>`
+          : phaseChanged
+              ? `<strong>PHASE ${esc(nextPhase)} TRANSITION PREVIEW</strong><p>Purchasing this <b>${esc(train?.type)}-Train (#${esc(action.train)})</b> advances the match from Phase ${esc(s.phase)} to <b>Phase ${esc(nextPhase)}</b>. Corporate train limit becomes <b>${nextLimit}</b>. No trains rust on this transition.</p>`
               : `<strong>✓ No Phase Change or Rust Triggered</strong><p>Acquiring <b>${esc(train?.type)}-Train (#${esc(action.train)})</b> keeps the match in <b>Phase ${esc(s.phase)}</b> (Train limit: ${nextLimit}). All existing locomotives remain active.</p>`
       }
     </div>
+`}
     <table class="wizard-comparison-table">
       <thead>
         <tr>
@@ -684,18 +702,18 @@ export function renderTrainWizardBody(app, view) {
     .reduce((acc, [, c]) => acc + (c.trains?.length || 0), 0);
 
   const steps = [
-    {num: 1, title: 'Obligation', sub: `${owned.length}/${limit} Owned`},
+    {num: 1, title: 'Fleet', sub: `${owned.length}/${limit} Owned`},
     {num: 2, title: 'Selection', sub: action?.type === 'buy_train' ? `#${action.train} (${money(cost)})` : 'Choose Engine'},
     {num: 3, title: 'Rust & Impact', sub: rustedType ? `Rusts ${rustedType}s!` : nextPhase !== String(s.phase) ? `Phase ${nextPhase}` : 'Phase Check'},
     {num: 4, title: 'Financing', sub: contribution > 0 ? 'Emergency funding' : 'Corporate payment'},
-    {num: 5, title: 'Dispatch Stamp', sub: 'Hanko Seal'},
+    {num: 5, title: 'Dispatch', sub: 'Hanko Seal'},
   ];
 
-  return `<div class="train-wizard-shell" data-inline-train-desk data-active-wizard-step="${activeStep}">
+  return `<div class="train-wizard-shell" data-inline-train-desk data-active-wizard-step="${activeStep}" data-scroll-key="${esc(`${trainStageKey(app,view)}:${view.viewer?.player_id}:${activeStep}:${JSON.stringify(action)}`)}">
     <header class="train-wizard-header">
       <div>
-        <small>OPERATING ROUND · TRAIN PURCHASE · ${showingCompletion ? 'COMPLETE' : `STEP ${activeStep} OF 5`}</small>
-        <h2 id="train-wizard-title">${esc(cid)} · ${showingCompletion ? 'Train Purchase Complete' : mandatory ? '⚠️ Mandatory Train Acquisition' : 'Locomotive Dispatch & Acquisition'}</h2>
+        <small><span data-no-translate>${esc(corp?.name || cid)}</span> · OPERATING ROUND · ${showingCompletion ? 'COMPLETE' : `STEP ${activeStep} OF 5`}</small>
+        <h2 id="train-wizard-title">${esc(cid)} · ${showingCompletion ? 'Train Purchase Complete' : mandatory ? '⚠️ Mandatory Train Acquisition' : 'Train purchase'}</h2>
       </div>
       <div class="wizard-header-actions"><span class="wizard-phase-pill">Phase ${esc(s.phase)} · Limit ${limit}</span><button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Close train purchase wizard">×</button></div>
     </header>
@@ -719,8 +737,8 @@ export function renderTrainWizardBody(app, view) {
     <!-- STEP 1: OBLIGATION & ROUNDHOUSE CAPACITY -->
     <article class="train-wizard-step ${activeStep === 1 ? 'is-visible' : ''}" data-wizard-panel="1" ${activeStep === 1 ? '' : 'hidden'} tabindex="-1">
       <div class="wizard-step-intro">
-        <b>${showingCompletion ? 'Locomotive acquired' : 'Step 1: Fleet Status &amp; Purchase Obligation'}</b>
-        <small>${showingCompletion ? `Your purchase is complete. Finish ${esc(cid)}’s turn when you’re ready.` : `Inspect ${esc(cid)}'s Roundhouse stalls and whether 1889 rules require a purchase this turn.`}</small>
+        <b>${showingCompletion ? 'Locomotive acquired' : 'Your roundhouse'}</b>
+        <small>${showingCompletion ? `Your purchase is complete. Finish ${esc(cid)}’s turn when you’re ready.` : `${owned.length} trains owned · ${Math.max(0,limit-owned.length)} spaces available`}</small>
       </div>
       ${renderRoundhouse(view, action)}
       <div class="wizard-obligation-callout ${mandatory ? 'is-mandatory-alert' : owned.length >= limit ? 'is-limit-alert' : 'is-optional-alert'}">
@@ -731,7 +749,7 @@ export function renderTrainWizardBody(app, view) {
             ? `<strong>⚠️ Mandatory Purchase Required:</strong> ${esc(cid)} owns 0 trains and has a connected route. You must acquire at least one locomotive before ending your turn.`
             : owned.length >= limit
               ? `<strong>🔒 At Train Limit (${owned.length}/${limit}):</strong> ${esc(cid)} has filled all Roundhouse stalls for Phase ${esc(s.phase)}. You may still inspect any available Diesel trade-in.`
-              : `<strong>✓ Optional Acquisition:</strong> ${owned.length ? `${esc(cid)} operates ${owned.length} train(s) (${esc(owned.join(', '))}).` : `${esc(cid)} has no connected route requiring a train.`} You can finish this operating turn, or choose a train if you need one.`
+              : `<strong>✓ Purchase optional</strong> · ${owned.length ? 'Your railway can operate with its current fleet.' : 'No connected route requires a train.'}`
         }
       </div>
     </article>
@@ -739,7 +757,7 @@ export function renderTrainWizardBody(app, view) {
     <!-- STEP 2: CHOOSE LOCOMOTIVE & SOURCE (BANK DEPOT OR INTER-COMPANY DEAL) -->
     <article class="train-wizard-step ${activeStep === 2 ? 'is-visible' : ''}" data-wizard-panel="2" ${activeStep === 2 ? '' : 'hidden'} tabindex="-1">
       <div class="wizard-step-intro">
-        <b>Step 2: Choose Locomotive &amp; Source</b>
+        <b>Choose your locomotive</b>
         <small>Select a new or returned engine from the Bank Depot, or acquire a used train from another railway.</small>
       </div>
       <div class="wizard-source-tabs" role="tablist" aria-label="Locomotive acquisition source">
@@ -762,7 +780,7 @@ export function renderTrainWizardBody(app, view) {
     <!-- STEP 3: RUST & PHASE IMPACT -->
     <article class="train-wizard-step ${activeStep === 3 ? 'is-visible' : ''}" data-wizard-panel="3" ${activeStep === 3 ? '' : 'hidden'} tabindex="-1">
       <div class="wizard-step-intro">
-        <b>Step 3: Strategic Consequences &amp; Phase Shift</b>
+        <b>Rust &amp; phase impact</b>
         <small>Preview how this acquisition affects game phase, train limits, and older locomotives across Shikoku.</small>
       </div>
       ${renderRustImpactStep(view, action)}
@@ -771,7 +789,7 @@ export function renderTrainWizardBody(app, view) {
     <!-- STEP 4: FINANCING & COUNTING HOUSE -->
     <article class="train-wizard-step ${activeStep === 4 ? 'is-visible' : ''}" data-wizard-panel="4" ${activeStep === 4 ? '' : 'hidden'} tabindex="-1">
       <div class="wizard-step-intro">
-        <b>Step 4: ${contribution > 0 ? 'Corporate Payment &amp; Emergency Funding' : 'Corporate Payment'}</b>
+        <b>${contribution > 0 ? 'Corporate Payment &amp; Emergency Funding' : 'Corporate Payment'}</b>
         <small>${contribution > 0 ? 'Review the treasury payment and the emergency funds required to cover the remaining cost.' : `Review the payment from ${esc(cid)}’s corporate treasury.`}</small>
       </div>
       ${renderFinancingStep(view, action)}
@@ -800,7 +818,7 @@ export function renderTrainWizardBody(app, view) {
       <div class="wizard-footer-right">
         ${activeStep === 5 && action?.type === 'buy_train' ? `<button type="button" class="secondary-btn" data-cancel-train>Cancel Order</button><button type="button" class="hanko-button confirm-button" data-stamp-train="${attr(action)}" data-stamp-revision="${s.revision}" ${enabled && ((view.action_options || []).some(a=>JSON.stringify(a)===JSON.stringify(action)) || isValidInterCompanyTrainPurchase(action, view)) ? '' : 'disabled'}><span aria-hidden="true">承認</span>Stamp &amp; Buy ${esc(s.trains[action.train]?.type)}-Train · ${money(cost)}</button>` : ''}
         ${showingCompletion ? '<button type="button" class="secondary-btn wizard-nav-btn" data-wizard-next>Buy Another Train</button>' : ''}
-        ${activeStep === 1 && !mandatory && (view.legal_actions?.types || []).includes('end_turn') ? `<button type="button" class="confirm-button" data-wizard-pass ${enabled ? '' : 'disabled'}>Finish ${esc(cid)}’s Turn</button>` : ''}
+        ${activeStep === 1 && !mandatory && (view.legal_actions?.types || []).includes('end_turn') ? `<button type="button" class="secondary-btn wizard-finish-turn" data-wizard-pass ${enabled ? '' : 'disabled'}>End ${esc(corp?.name || cid)} Turn</button>` : ''}
         ${
           activeStep < 5 && !showingCompletion
             ? `<button type="button" class="confirm-button wizard-nav-btn" data-wizard-next ${activeStep >= 2 && !action ? 'disabled' : ''}>

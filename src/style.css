@@ -7635,6 +7635,13 @@ button.stock-player-card, button.meiji-player-card { text-align: left; cursor: p
   font-size: 9.5px !important;
 }
 
+.order-ticket .stock-ticket-reference {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  justify-content: flex-start !important;
+}
+
 .order-ticket .consequence-preview-card {
   padding: 5px 7px !important;
   margin: 0 !important;
@@ -7653,32 +7660,82 @@ button.stock-player-card, button.meiji-player-card { text-align: left; cursor: p
   font-size: 11px !important;
 }
 
-.order-ticket > label {
+.order-ticket > label,
+.order-ticket .stock-ticket-reference > label {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   gap: 6px !important;
-  font-size: 9.5px !important;
+  font-size: 11px !important;
   margin: 2px 0 !important;
 }
 
-.order-ticket > label select {
+.order-ticket > label select,
+.order-ticket .stock-ticket-reference > label select {
   width: auto !important;
   padding: 2px 6px !important;
-  font-size: 10px !important;
+  font-size: 11px !important;
 }
 
 .stock-action-buttons {
   margin-top: auto !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 4px !important;
+  padding-top: 6px !important;
+  border-top: 1px solid #9e8456 !important;
+  background: transparent !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  align-items: stretch !important;
+}
+
+.stock-action-buttons > button:only-child,
+.stock-action-buttons > button:nth-child(3):last-child {
+  grid-column: 1 / -1 !important;
 }
 
 .stock-action-buttons button {
-  padding: 6px 8px !important;
-  margin-top: 0 !important;
-  font-size: 10.5px !important;
+  min-width: 0 !important;
+  min-height: 46px !important;
+  height: 100% !important;
+  padding: 7px 8px !important;
+  margin: 0 !important;
+  border-radius: 5px !important;
+  font: 700 13px/1.35 system-ui !important;
+  text-align: center !important;
+  white-space: normal !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.stock-action-panel .stock-action-buttons .pass-turn-btn,
+.stock-action-panel .stock-action-buttons .finish-turn-primary,
+.stock-action-panel .stock-action-buttons .action-exchange {
+  background: #f5e9ca !important;
+  color: #302518 !important;
+  border: 2px solid #79653f !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.stock-action-panel .stock-action-buttons .pass-turn-btn:hover:not(:disabled),
+.stock-action-panel .stock-action-buttons .finish-turn-primary:hover:not(:disabled),
+.stock-action-panel .stock-action-buttons .action-exchange:hover:not(:disabled) {
+  background: #efe0b9 !important;
+}
+
+.stock-action-panel .stock-action-buttons .action-buy,
+.stock-action-panel .stock-action-buttons .action-sell {
+  background: linear-gradient(#28684e, #174632) !important;
+  color: #fff8e8 !important;
+  border: 2px solid #92b88e !important;
+  box-shadow: 0 2px 3px #0004 !important;
+  text-shadow: none !important;
+}
+
+.stock-action-panel .stock-action-buttons .action-buy:hover:not(:disabled),
+.stock-action-panel .stock-action-buttons .action-sell:hover:not(:disabled) {
+  background: #327958 !important;
 }
 
 /* 4. Private Company Auction (All 7 Cards & All Bidding Buttons Visible Without Scrolling) */

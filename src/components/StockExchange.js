@@ -1,3 +1,4 @@
+import { layoutMarket } from '../ui/elasticMarket.js';
 import {renderCharacter} from '../scene/Character.js';
 /**
  * 1889 Stock Exchange, Share Order Ticket, 2D Market Grid, and Dedicated
@@ -170,60 +171,38 @@ export function getAuctionContext(appState, viewData) {
   };
 }
 
-function render2DStockMarketGrid(state, catalog) {
+export function render2DStockMarketGrid(state, catalog) {
   const market = catalog?.market || [];
   if (!market.length) return '';
-
-  const posMap = {};
-  for (const [cid, corp] of Object.entries(state.corporations || {})) {
-    if (Array.isArray(corp.position) && corp.position.length === 2) {
-      const key = `${corp.position[0]},${corp.position[1]}`;
-      if (!posMap[key]) posMap[key] = [];
-      posMap[key].push(cid);
+  const layout = layoutMarket(market, state.corporations);
+  const geometry = p => `left:${p.x}px;top:${p.y}px;width:${p.w}px;height:${p.h}px`;
+  const signature = JSON.stringify([...layout.tokens]);
+  const lines = [];
+  market.forEach((row,r) => row.forEach((cell,c) => {
+    const a=layout.cells.get(`${r},${c}`);
+    for (const [nr,nc] of [[r,c+1],[r+1,c]]) {
+      const b=layout.cells.get(`${nr},${nc}`);
+      if(b) lines.push(`<i data-market-link="${r},${c}:${nr},${nc}" class="elastic-market-link" style="left:${a.x+a.w/2}px;top:${a.y+a.h/2}px;width:${Math.max(1,b.x+b.w/2-a.x-a.w/2)}px;height:${Math.max(1,b.y+b.h/2-a.y-a.h/2)}px"></i>`);
     }
-  }
-
-  return `
-    <div class="market-chart-card">
-      <div class="section-label">SHIKOKU STOCK MARKET LEDGER · 株価ボード (PAR SLOTS MARKED "P")</div>
-      <div class="market-grid-scroll">
-        <div class="stock-2d-grid">
-          ${market
-            .map(
-              (row, rIdx) => `
-              <div class="stock-2d-row">
-                ${row
-                  .map((cell, cIdx) => {
-                    const key = `${rIdx},${cIdx}`;
-                    const tokens = posMap[key] || [];
-                    const zoneClass =
-                      cell.zone === 'y'
-                        ? 'zone-yellow'
-                        : cell.zone === 'o'
-                          ? 'zone-orange'
-                          : 'zone-white';
-                    return `
-                      <div data-market-position="${rIdx},${cIdx}" class="stock-cell ${zoneClass} ${cell.par ? 'par-slot' : ''}" title="Row ${rIdx + 1}, Col ${cIdx + 1} · ¥${cell.price}${cell.par ? ' (Par slot)' : ''}">
-                        <span class="cell-price">${cell.price}${cell.par ? 'P' : ''}</span>
-                        <div class="cell-tokens">
-                          ${tokens
-                            .map(
-                              (cid) =>
-                                `<b data-market-corporation="${cid}" class="cell-token" style="background:${CORP_META[cid]?.color || '#c9a236'};color:${CORP_META[cid]?.text || '#fff'}">${cid}</b>`
-                            )
-                            .join('')}
-                        </div>
-                      </div>
-                    `;
-                  })
-                  .join('')}
-              </div>`
-            )
-            .join('')}
-        </div>
+  }));
+  return `<div class="market-chart-card elastic-market-card">
+    <div class="market-grid-scroll" tabindex="0" role="region" aria-label="Stock market prices">
+      <div class="elastic-market" data-elastic-market="${escapeHtml(signature)}" style="width:${layout.width}px;height:${layout.height}px">
+        <div aria-hidden="true">${lines.join('')}</div>
+        ${market.map((row,r) => row.map((cell,c) => {
+          const key=`${r},${c}`, p=layout.cells.get(key);
+          const zone=cell.zone==='y'?'yellow':cell.zone==='o'?'orange':'white';
+          return `<div data-market-position="${key}" class="stock-cell zone-${zone} ${cell.par?'par-slot':''} ${p.occupied?'is-occupied':p.near?'is-near':''}" style="${geometry(p)}" title="Row ${r+1}, Col ${c+1} · ¥${cell.price}${cell.par?' (Par slot)':''}">
+            <span class="cell-price">${cell.price}</span>${cell.par?'<span class="elastic-par" aria-label="Par price">P</span>':''}
+          </div>`;
+        }).join('')).join('')}
+        ${[...layout.tokens].map(([id,p]) => `<b data-market-corporation="${escapeHtml(id)}" class="cell-token elastic-company-token" style="${geometry(p)};background:${CORP_META[id]?.color || '#c9a236'};color:${CORP_META[id]?.text || '#fff'}" title="${escapeHtml(state.corporations[id].name || id)}">${escapeHtml(id)}</b>`).join('')}
       </div>
     </div>
-  `;
+    <div class="elastic-market-key" aria-label="Market colour key">
+      <span><i class="zone-white"></i>Ordinary</span><span><i class="zone-yellow"></i>Yellow zone</span><span><i class="zone-orange"></i>Orange zone</span><span><i class="key-par">P</i>Par price</span><span><i class="key-company"></i>Company marker</span>
+    </div>
+  </div>`;
 }
 
 function renderPrivateCardsGrid(appState, viewData, interactive = true) {
@@ -1343,21 +1322,6 @@ export function renderStockExchangeView(appState, viewData, catalog) {
               `
           }
 
-          <dl class="ticket-ledger compact-ledger">
-            <div><dt>Acting player</dt><dd>${perspectivePlayer?.name || perspectiveId} (${perspectiveId.toUpperCase()})</dd></div>
-            <div><dt>Current actor</dt><dd>${activePlayer?.name || 'Match complete'}</dd></div>
-            <div><dt>Certificate</dt><dd>${isUnparred ? "One President's (20%)" : `${sharePercent / 10} standard (${sharePercent}%)`} · ${money(unitPrice)} per 10%</dd></div>
-            <div><dt>${repeatBuy ? 'Personal cash → after purchase' : 'Personal cash'}</dt><dd class="${playerCash - totalCost < 0 ? 'neg-cash' : ''}">${money(playerCash)}${repeatBuy ? ` → <b>${money(playerCash - totalCost)}</b>` : ''}</dd></div>
-            <div><dt>Certificates held</dt><dd>${certCounts[perspectiveId] || 0} / ${certLimit} limit${['y','o','b'].includes(zone) ? ' · selected stock exempt' : ''}${repeatBuy ? ` → ${(certCounts[perspectiveId] || 0) + certificateDelta}` : ''}</dd></div>
-            <div><dt>Ownership</dt><dd>${playerHoldings}%${repeatBuy ? ` → ${playerHoldings + sharePercent}% (${['o','b'].includes(zone) ? 'market-zone exemption' : '60% limit'})` : ''}</dd></div>
-          </dl>
-
-          <div class="order-total">
-            <span>${repeatBuy ? 'Purchase settlement' : 'Indicative certificate price'}</span>
-            <b>${money(totalCost)}</b>
-          </div>
-          </div>
-
           <div class="settlement-summary consequence-preview-card" aria-label="Settlement preview">
             <div class="consequence-card-header">
               <b>${repeatBuy ? `Before → After Preview · ${money(totalCost)} · ${isUnparred ? '20% President' : `${sharePercent}% standard`} · ${source.toUpperCase()}` : `${escapeHtml(perspectivePlayer?.name || 'Inspected player')}'s position`}</b>
@@ -1389,23 +1353,34 @@ export function renderStockExchangeView(appState, viewData, catalog) {
             <span class="sr-only-ledger-line">${repeatBuy ? `Cash ${money(playerCash)} → ${money(playerCash - totalCost)} · Certificates ${certCounts[perspectiveId] || 0} → ${(certCounts[perspectiveId] || 0) + certificateDelta}/${certLimit}` : `Cash ${money(playerCash)} · ${playerHoldings}% ${selectedCid} · ${certCounts[perspectiveId] || 0}/${certLimit} certificates`}</span>
           </div>
 
+          <label>Sale block (one per corporation per turn)
+            <select data-stock-quantity="sellPercent" aria-label="Sale percentage">${[10,20,30,40,50].map(p => `<option value="${p}" ${sellPercent === p ? 'selected' : ''}>${p}%</option>`).join('')}</select></label>
+          ${brown && !isUnparred ? `<label>Brown-zone purchase block<select data-stock-quantity="buyPercent" aria-label="Purchase percentage">${[10,20,30,40,50,60,70,80,90,100].map(p => `<option value="${p}" ${sharePercent === p ? 'selected' : ''}>${p}%</option>`).join('')}</select></label>` : ''}
+
+          <dl class="ticket-ledger compact-ledger">
+            <div><dt>Acting player</dt><dd>${perspectivePlayer?.name || perspectiveId} (${perspectiveId.toUpperCase()})</dd></div>
+            <div><dt>Current actor</dt><dd>${activePlayer?.name || 'Match complete'}</dd></div>
+            <div><dt>Certificate</dt><dd>${isUnparred ? "One President's (20%)" : `${sharePercent / 10} standard (${sharePercent}%)`} · ${money(unitPrice)} per 10%</dd></div>
+            <div><dt>${repeatBuy ? 'Personal cash → after purchase' : 'Personal cash'}</dt><dd class="${playerCash - totalCost < 0 ? 'neg-cash' : ''}">${money(playerCash)}${repeatBuy ? ` → <b>${money(playerCash - totalCost)}</b>` : ''}</dd></div>
+            <div><dt>Certificates held</dt><dd>${certCounts[perspectiveId] || 0} / ${certLimit} limit${['y','o','b'].includes(zone) ? ' · selected stock exempt' : ''}${repeatBuy ? ` → ${(certCounts[perspectiveId] || 0) + certificateDelta}` : ''}</dd></div>
+            <div><dt>Ownership</dt><dd>${playerHoldings}%${repeatBuy ? ` → ${playerHoldings + sharePercent}% (${['o','b'].includes(zone) ? 'market-zone exemption' : '60% limit'})` : ''}</dd></div>
+          </dl>
+
+          <div class="order-total">
+            <span>${repeatBuy ? 'Purchase settlement' : 'Indicative certificate price'}</span>
+            <b>${money(totalCost)}</b>
+          </div>
+
           <div class="action-panel-heading">
             <span>CHOOSE AN ACTION · アクション</span>
             <small>Submit for validation</small>
           </div>
+          </div>
 
-          <label>Sale block (one per corporation per turn)
-            <select data-stock-quantity="sellPercent" aria-label="Sale percentage">${[10,20,30,40,50].map(p => `<option value="${p}" ${sellPercent === p ? 'selected' : ''}>${p}%</option>`).join('')}</select></label>
-          ${brown && !isUnparred ? `<label>Brown-zone purchase block<select data-stock-quantity="buyPercent" aria-label="Purchase percentage">${[10,20,30,40,50,60,70,80,90,100].map(p => `<option value="${p}" ${sharePercent === p ? 'selected' : ''}>${p}%</option>`).join('')}</select></label>` : ''}
           <div class="stock-action-buttons ${alreadyBoughtThisTurn ? 'turn-ready' : ''}">
-            ${
-              alreadyBoughtThisTurn
-                ? `
-              <button class="pass-turn-btn finish-turn-primary" data-action="end_stock_turn" ${canEndStockTurn ? '' : 'disabled'}>
-                Finish Turn & Advance Seat →
-              </button>`
-                : ''
-            }
+            <button type="button" class="secondary-btn pass-turn-btn ${alreadyBoughtThisTurn ? 'finish-turn-primary' : ''}" data-action="end_stock_turn" ${canEndStockTurn ? '' : 'disabled'}>
+              ${alreadyBoughtThisTurn ? 'Finish Turn →' : 'Pass Stock Turn →'}
+            </button>
 
             ${
               repeatBuy
@@ -1421,7 +1396,7 @@ export function renderStockExchangeView(appState, viewData, catalog) {
 
             ${
               canSellBlock
-                ? `<button class="secondary-ticket-btn action-sell" data-action="sell_shares">
+                ? `<button class="confirm-button secondary-ticket-btn action-sell" data-action="sell_shares">
               Sell ${sellPercent}% ${selectedCid} to Pool (+${money(prices[selectedCid] * sellPercent / 10)})
             </button>`
                 : ''
@@ -1429,18 +1404,9 @@ export function renderStockExchangeView(appState, viewData, catalog) {
 
             ${
               canExchangeDR
-                ? `<button class="secondary-ticket-btn action-exchange" data-action="exchange_dr">
+                ? `<button class="secondary-btn secondary-ticket-btn action-exchange" data-action="exchange_dr">
               Exchange Dougo Railway (DR) → 10% IR
             </button>`
-                : ''
-            }
-
-            ${
-              !alreadyBoughtThisTurn
-                ? `
-              <button class="pass-turn-btn" data-action="end_stock_turn" ${canEndStockTurn ? '' : 'disabled'}>
-                Pass Stock Turn →
-              </button>`
                 : ''
             }
           </div>
@@ -1493,11 +1459,11 @@ export function renderStockExchangeView(appState, viewData, catalog) {
               <div><dt>President</dt><dd>${corp.president ? `${escapeHtml(state.players?.[corp.president]?.name || corp.president)} (${corp.holdings?.[corp.president] || 0}%)` : 'Unparred (20% President share in IPO)'}</dd></div>
               <div><dt>Treasury &amp; fleet</dt><dd>${corp.floated ? money(corp.cash) : `Needs ${Math.max(0, 50 - (100 - corp.ipo))}% from IPO to float`} · ${corp.trains?.length ? corp.trains.join(', ') : '0 trains'} · ${corp.token_supply} stations</dd></div>
             </dl>
-          </div>
 
-          <div class="settlement-summary" aria-label="Player position summary">
-            <b>${escapeHtml(perspectivePlayer?.name || 'Inspected player')}'s position</b>
-            <span>Cash ${money(playerCash)} · ${playerHoldings}% ${selectedCid} · ${certCounts[perspectiveId] || 0}/${certLimit} certificates</span>
+            <div class="settlement-summary" aria-label="Player position summary">
+              <b>${escapeHtml(perspectivePlayer?.name || 'Inspected player')}'s position</b>
+              <span>Cash ${money(playerCash)} · ${playerHoldings}% ${selectedCid} · ${certCounts[perspectiveId] || 0}/${certLimit} certificates</span>
+            </div>
           </div>
 
           ${

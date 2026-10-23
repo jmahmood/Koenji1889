@@ -1,0 +1,43 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "height": 900,
+      "imagesFit": true,
+      "stampVisible": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "imagesFit": true,
+      "stampVisible": true
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "imagesFit": true,
+      "stampVisible": true
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "imagesFit": true,
+      "stampVisible": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "imagesFit": true,
+      "stampVisible": true
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "imagesFit": true,
+      "stampVisible": true
+    }
+  ],
+  "japanese": true,
+  "brokenAssetFallback": true,
+  "errors": []
+}

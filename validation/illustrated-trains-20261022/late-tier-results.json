@@ -1,0 +1,26 @@
+{
+  "results": [
+    {
+      "tier": "5",
+      "artLoaded": true,
+      "purchase": true,
+      "price": 450,
+      "mobileFits": true
+    },
+    {
+      "tier": "6",
+      "artLoaded": true,
+      "purchase": true,
+      "price": 630,
+      "mobileFits": true
+    },
+    {
+      "tier": "D",
+      "artLoaded": true,
+      "purchase": true,
+      "price": 800,
+      "mobileFits": true
+    }
+  ],
+  "errors": []
+}

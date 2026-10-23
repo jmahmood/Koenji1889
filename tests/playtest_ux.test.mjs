@@ -190,9 +190,9 @@ test('staged trains never appear as owned engines when the company owns zero or 
  v.state.trains={'2-0':{type:'2',price:80,owner:'depot'},'2-1':{type:'2',price:80,owner:'depot'}};
  let html=renderRoundhouse(v,{type:'buy_train',train:'2-0'});
  assert.match(html,/Owned now: 0/);assert.match(html,/No trains owned/);assert.match(html,/After purchase: 1 \/ 4/);
- assert.equal((html.match(/class="owned-engine"/g)||[]).length,0);
+ assert.equal((html.match(/data-owned-train=/g)||[]).length,0);
  v.state.corporations.IR.trains=['2-0'];v.state.trains['2-0'].owner='IR';
  html=renderRoundhouse(v,{type:'buy_train',train:'2-1'});
  assert.match(html,/Owned now: 1/);assert.match(html,/After purchase: 2 \/ 4/);
- assert.equal((html.match(/class="owned-engine"/g)||[]).length,1);
+ assert.equal((html.match(/data-owned-train=/g)||[]).length,1);
 });

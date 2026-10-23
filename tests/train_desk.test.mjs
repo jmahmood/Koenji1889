@@ -243,7 +243,8 @@ test('renderRustImpactStep and renderFinancingStep render full impact details',(
 
  const action = {type: 'buy_train', train: '4-0'};
  const rustHtml = renderRustImpactStep(v, action);
- assert.match(rustHtml, /PHASE 4 TRANSITION PREVIEW/);
+ assert.match(rustHtml, /Phase 3 → Phase 4/);
+ assert.match(rustHtml, /PURCHASE PREVIEW/);
  assert.match(rustHtml, /ALL 2-TRAINS WILL RUST/);
  assert.match(rustHtml, /Awa Railroad/);
 
@@ -350,4 +351,53 @@ test('canceling an emergency share sale keeps the chosen locomotive staged',()=>
   bindDecisionDesk({app:s,render:()=>{},execute:()=>{},toast:()=>{}});
   handlers.get('cancel')();assert.equal(s.reviewAction,null);assert.deepEqual(stagedDepotAction(s,v),train);
  } finally {globalThis.document=previous;}
+});
+
+test('historical illustrations keep live identity and fallbacks separate from game tier',async()=>{
+ const {locomotiveArt,TRAIN_ART,renderRoundhouse,renderDepotTray}=await import('../src/components/TrainDesk.js');
+ for(const type of ['2','3','4','5','6','D']) {
+  const html=locomotiveArt(type);
+  assert.match(html,/data-train-art/);assert.match(html,/alt=""/);assert.match(html,/locomotive-engraving/);
+  assert.ok(html.includes(TRAIN_ART[type].file+'-640.webp'));
+ }
+ for(const type of ['unknown'])assert.doesNotMatch(locomotiveArt(type),/data-train-art/);
+ const v=structuredClone(views.train_normal);v.state.corporations.IR.trains=['2-0','3-0'];
+ const fleet=renderRoundhouse(v,null);
+ assert.equal((fleet.match(/data-owned-train=/g)||[]).length,2);
+ assert.doesNotMatch(fleet,/class="owned-fleet"/);
+ assert.match(fleet,/Iyo Railway No. 1/);assert.match(fleet,/2-Train \(#2-0\)/);
+ const depot=renderDepotTray(app(v),v,{inline:true,compact:false});
+ assert.match(depot,/Class C58/);assert.match(depot,/disabled/);assert.match(depot,/depot-stock/);
+});
+
+test('every engine tier has a distinct production asset and Diesel has a diesel fallback',async()=>{
+ const {TRAIN_ART,locomotiveArt,renderRoundhouse}=await import('../src/components/TrainDesk.js');
+ const {readFile}=await import('node:fs/promises');
+ const types=[...new Set(Object.values(views.train_normal.state.trains).map(t=>t.type))].sort();
+ assert.deepEqual(Object.keys(TRAIN_ART).sort(),types);
+ assert.equal(new Set(Object.values(TRAIN_ART).map(a=>a.file)).size,types.length);
+ for(const type of types)for(const width of [640,1280]) {
+  const data=await readFile(new URL(`../public/assets/trains/${TRAIN_ART[type].file}-${width}.webp`,import.meta.url));assert.equal(data.toString('ascii',0,4),'RIFF');
+ }
+ assert.match(locomotiveArt('D'),/diesel-fallback/);
+ const diesel=structuredClone(views.train_diesel);diesel.state.corporations.IR.trains=['D-0'];
+ const fleet=renderRoundhouse(diesel,null);assert.match(fleet,/Unlimited stops/);assert.match(fleet,/Class DF50/);
+});
+
+test('newspaper editions follow real rust tiers and never appear for a transfer or quiet purchase',async()=>{
+ const {setLocale}=await import('../src/ui/i18n.js');
+ try {
+  for(const [name,tier,old]of [['train_rust4','4','2'],['train_late6','6','3'],['train_diesel','D','4']]) {
+   const v=views[name],train=Object.entries(v.state.trains).find(([,t])=>t.type===tier&&t.owner==='depot')[0];
+   const action={type:'buy_train',train};setLocale('en');const en=renderRustImpactStep(v,action);
+   assert.match(en,new RegExp(`THE ${old}-TRAIN ERA NEARS ITS END`));assert.match(en,/PURCHASE PREVIEW/);
+   assert.match(en,/wizard-comparison-table/);assert.match(en,/Takes effect only when/);
+   if(old!=='2')assert.doesNotMatch(en,/newspaper-station.webp/);
+   setLocale('ja');const ja=renderRustImpactStep(v,action);assert.match(ja,/edition-ja/);assert.match(ja,new RegExp(`${{'2':'二','3':'三','4':'四'}[old]}型列車、引退へ`));assert.match(ja,/購入前の見通し/);
+  }
+  setLocale('en');const v=views.train_normal;
+  assert.doesNotMatch(renderRustImpactStep(v,{type:'buy_train',train:'2-0'}),/class="train-newspaper/);
+  assert.doesNotMatch(renderRustImpactStep(views.train_used,{type:'buy_train',train:'3-0',price:100}),/class="train-newspaper/);
+  assert.doesNotMatch(renderRustImpactStep(v,null),/class="train-newspaper/);
+ }finally{setLocale('en');}
 });

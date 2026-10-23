@@ -1,0 +1,98 @@
+[
+  {
+    "file": "public/assets/trains/iyo-no1-640.webp",
+    "size": 106234,
+    "dimensions": [
+      640,
+      495
+    ]
+  },
+  {
+    "file": "public/assets/trains/iyo-no1-1280.webp",
+    "size": 386402,
+    "dimensions": [
+      1280,
+      990
+    ]
+  },
+  {
+    "file": "public/assets/trains/8620-58685-640.webp",
+    "size": 66486,
+    "dimensions": [
+      640,
+      259
+    ]
+  },
+  {
+    "file": "public/assets/trains/8620-58685-1280.webp",
+    "size": 233862,
+    "dimensions": [
+      1279,
+      518
+    ]
+  },
+  {
+    "file": "public/assets/trains/c58-333-640.webp",
+    "size": 63530,
+    "dimensions": [
+      639,
+      267
+    ]
+  },
+  {
+    "file": "public/assets/trains/c58-333-1280.webp",
+    "size": 218676,
+    "dimensions": [
+      1279,
+      534
+    ]
+  },
+  {
+    "file": "public/assets/trains/c11-640.webp",
+    "dimensions": [
+      640,
+      266
+    ],
+    "size": 70698
+  },
+  {
+    "file": "public/assets/trains/c11-1280.webp",
+    "dimensions": [
+      1280,
+      532
+    ],
+    "size": 239968
+  },
+  {
+    "file": "public/assets/trains/d51-640.webp",
+    "dimensions": [
+      640,
+      267
+    ],
+    "size": 69744
+  },
+  {
+    "file": "public/assets/trains/d51-1280.webp",
+    "dimensions": [
+      1280,
+      533
+    ],
+    "size": 249838
+  },
+  {
+    "file": "public/assets/trains/df50-640.webp",
+    "dimensions": [
+      640,
+      267
+    ],
+    "size": 65850
+  },
+  {
+    "file": "public/assets/trains/df50-1280.webp",
+    "dimensions": [
+      1280,
+      534
+    ],
+    "size": 258902
+  }
+]

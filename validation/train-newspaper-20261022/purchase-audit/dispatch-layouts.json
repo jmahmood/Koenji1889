@@ -1,0 +1,98 @@
+[
+  {
+    "x": 1209.28125,
+    "y": 835,
+    "width": 344.71875,
+    "height": 61,
+    "viewportWidth": 1840,
+    "viewportHeight": 928,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 1009.28125,
+    "y": 807,
+    "width": 344.71875,
+    "height": 61,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 972.28125,
+    "y": 675,
+    "width": 344.71875,
+    "height": 61,
+    "viewportWidth": 1366,
+    "viewportHeight": 768,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 905.28125,
+    "y": 637,
+    "width": 344.71875,
+    "height": 61,
+    "viewportWidth": 1280,
+    "viewportHeight": 720,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 649.28125,
+    "y": 557,
+    "width": 344.71875,
+    "height": 61,
+    "viewportWidth": 1024,
+    "viewportHeight": 640,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 425.28125,
+    "y": 517,
+    "width": 344.71875,
+    "height": 61,
+    "viewportWidth": 800,
+    "viewportHeight": 600,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 113.703125,
+    "y": 790.40625,
+    "width": 264.296875,
+    "height": 43.59375,
+    "viewportWidth": 390,
+    "viewportHeight": 844,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 0,
+    "duplicateVouchers": 0
+  },
+  {
+    "x": 113.703125,
+    "y": 586.40625,
+    "width": 234.296875,
+    "height": 43.59375,
+    "viewportWidth": 360,
+    "viewportHeight": 640,
+    "inFooter": true,
+    "unobscured": true,
+    "bodyOverflow": 151,
+    "duplicateVouchers": 0
+  }
+]

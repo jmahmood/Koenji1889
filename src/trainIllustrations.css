@@ -1,0 +1,196 @@
+/* Historical train artwork is decorative; game tier, price and status remain HTML. */
+.historical-train-art { display:inline-grid; width:100%; height:100%; min-width:0; place-items:center; }
+.historical-train-art > img { display:block; width:100%; height:100%; object-fit:contain; object-position:center bottom; }
+.historical-train-art > img[hidden], .historical-train-art.has-illustration > svg { display:none; }
+.historical-train-name { display:block; font:600 13px/1.4 Georgia,serif; }
+.train-launch-art .historical-train-art { height:60px; }
+.train-purchase-modal .train-wizard-shell { padding:0; gap:0; background:#f3e6c5; color:#302317; }
+.train-purchase-modal .train-wizard-header { padding:18px 24px 12px; margin:0; background:#281b12; }
+.train-purchase-modal .train-wizard-stepper { margin:0; padding:10px 24px 16px; background:#281b12; border:0; border-radius:0; gap:0; }
+.train-purchase-modal .wizard-step-btn { position:relative; display:flex; flex-direction:column; align-items:center; gap:5px; border:0; border-radius:0; background:transparent; box-shadow:none; padding:0 4px; color:#d5bc85; opacity:1; min-width:0; }
+.train-purchase-modal .wizard-step-btn::before { content:''; position:absolute; left:0; right:0; top:16px; height:1px; background:#977641; }
+.train-purchase-modal .wizard-step-btn:first-child::before { left:50%; }
+.train-purchase-modal .wizard-step-btn:last-child::before { right:50%; }
+.train-purchase-modal .wizard-step-btn .wizard-step-num { z-index:1; width:32px; height:32px; flex-basis:32px; border:2px solid #bc9653; background:#281b12; color:#e4cc93; }
+.train-purchase-modal .wizard-step-btn.is-active { color:#fff0c9; }
+.train-purchase-modal .wizard-step-btn.is-active .wizard-step-num { background:#f5e6b7; color:#281b12; outline:1px solid #dfbf7d; outline-offset:3px; }
+.train-purchase-modal .wizard-step-btn.is-complete .wizard-step-num { background:#23523e; color:#fff0c9; }
+.train-purchase-modal .wizard-step-btn:disabled { opacity:1; color:#b5a17e; }
+.train-purchase-modal .wizard-step-label { text-align:center; }
+.train-purchase-modal .wizard-step-label small { display:none; }
+.train-purchase-modal .wizard-page-body { padding:18px 24px; background:radial-gradient(ellipse at top,#fff6de77,transparent 80%),#f3e6c5; }
+.train-purchase-modal .wizard-step-intro { border:0; border-radius:0; padding:0 0 14px; margin:0; background:transparent; color:#302317; }
+.train-purchase-modal .wizard-step-intro b { font:700 28px/1.2 Georgia,serif; color:#302317; }
+.train-purchase-modal .wizard-step-intro small { color:#66553d; }
+.train-purchase-modal .roundhouse { background:transparent; border:0; padding:0; box-shadow:none; }
+.train-purchase-modal .roundhouse-plaque { position:static; transform:none; display:none; }
+.train-purchase-modal .wizard-roundhouse-stalls { grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); padding:8px 0; gap:16px; }
+.train-purchase-modal .wizard-stall { min-height:210px; gap:5px; padding:16px 10px 10px; background:linear-gradient(#fff7e5,#e9d8af); border:1px solid #b39863; border-radius:50% 50% 5px 5px / 16% 16% 5px 5px; color:#302317; box-shadow:inset 0 0 0 4px #f3e6c5; }
+.train-purchase-modal .wizard-stall .historical-train-art,.train-purchase-modal .wizard-stall > .locomotive-engraving { height:150px; width:100%; max-width:100%; }
+.train-purchase-modal .wizard-stall .stall-badge { color:#302317; background:transparent; font:700 16px/1.4 Georgia,serif; }
+.train-purchase-modal .wizard-stall small { color:#31533c; font:13px/1.4 system-ui; }
+.train-purchase-modal .wizard-stall.is-empty { background:transparent; border-style:dashed; box-shadow:none; }
+.empty-stall-track { width:100%; height:150px; display:grid; place-items:center; opacity:.16; filter:sepia(1); }
+.train-purchase-modal .empty-stall-track svg { width:80%; height:auto; }
+.train-purchase-modal .wizard-stall.is-rusted { border-color:#a84e39; background:#f5d9c6; }
+.train-purchase-modal .wizard-stall.is-traded { border-color:#64768a; }
+.train-purchase-modal .wizard-stall.is-staged { border:2px dashed #35664d; background:#e2ebce; }
+.train-purchase-modal .wizard-obligation-callout { margin:16px 0 0; padding:12px 16px; font:14px/1.6 system-ui; }
+.train-purchase-modal .wizard-obligation-callout.is-optional-alert { background:#e1e9ce; color:#254a36; border-color:#4d7651; }
+.train-purchase-modal .depot-card-tray { padding:0; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr)); background:transparent; border:0; }
+.train-purchase-modal .depot-card-tray h4 { color:#66553d; font:12px/1.4 system-ui; margin:8px 0 0; }
+.train-purchase-modal .locomotive-certificate { background:#fff5dc; color:#302317; border:1px solid #b39863; padding:12px; border-radius:8px; box-shadow:inset 0 0 0 3px #eadab3; min-width:0; }
+.train-purchase-modal .locomotive-certificate.is-staged { border:2px solid #35664d; box-shadow:inset 0 0 0 3px #d8e6c8; }
+.train-purchase-modal .locomotive-certificate.is-locked { opacity:1; filter:none; }
+.train-purchase-modal .depot-tier-button { color:#302317; width:100%; padding:0; }
+.train-purchase-modal .depot-tier-button:disabled { opacity:1; }
+.train-purchase-modal .locomotive-title { font-size:17px; color:#302317; }
+.train-purchase-modal .locomotive-picture { height:160px; background:transparent; }
+.train-purchase-modal .locomotive-picture .historical-train-art { height:160px; }
+.train-purchase-modal .depot-stock,.train-purchase-modal .locomotive-certificate small { color:#66553d; font:12px/1.45 system-ui; }
+.train-purchase-modal .locomotive-ribbon { background:#e1e9ce; color:#254a36; font:12px/1.4 system-ui; margin-top:8px; padding:6px; }
+.train-purchase-modal .is-locked .locomotive-ribbon { background:#e9ddc2; color:#735936; }
+.train-purchase-modal .future-train-phases { color:#66553d; }
+.train-purchase-modal .future-train-phases[open] { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.train-purchase-modal .future-train-phases summary { grid-column:1/-1; cursor:pointer; }
+.train-purchase-modal .wizard-source-tabs { background:transparent; border:0; padding:0 0 12px; }
+.train-purchase-modal .wizard-source-tab { background:transparent; border:1px solid #ad9569; color:#59472e; }
+.train-purchase-modal .wizard-source-tab.is-active { background:#28543e; color:#fff3d5; }
+.train-purchase-modal .wizard-deal-card { background:#fff5dc; color:#302317; }
+.train-purchase-modal .wizard-transfer-form { background:#efe0bb; color:#302317; }
+.train-purchase-modal .wizard-transfer-form label { color:#302317; }
+.train-purchase-modal .wizard-personal-note { color:#31533c; }
+.train-purchase-modal .wizard-voucher-summary-grid { background:#fff5dc; }
+.dispatch-train-portrait { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:12px; }
+.dispatch-train-portrait .historical-train-art { width:180px; height:90px; }
+.train-purchase-modal .train-wizard-footer { padding:12px 24px; margin:0; background:#eee0ba; border-top:1px solid #b39863; color:#302317; }
+.train-purchase-modal .wizard-progress-caption { color:#66553d; }
+.train-purchase-modal .secondary-btn { background:transparent; color:#28543e; border:1px solid #35664d; box-shadow:none; }
+.app-shell .train-purchase-modal .wizard-finish-turn { background:transparent!important; color:#28543e!important; border:2px solid #35664d!important; box-shadow:none!important; }
+.train-purchase-modal .wizard-comparison-table { min-width:500px; }
+.train-purchase-modal .wizard-rust-impact { overflow:auto; }
+@media(max-width:900px) {
+ .train-purchase-modal .wizard-roundhouse-stalls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .train-purchase-modal .depot-card-tray,.train-purchase-modal .future-train-phases[open] { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:600px) {
+ .train-purchase-modal .train-wizard-header { padding:12px; align-items:flex-start; }
+ .train-purchase-modal .train-wizard-stepper { padding:10px 12px 12px; }
+ .train-purchase-modal .wizard-page-body { padding:16px 12px; }
+ .train-purchase-modal .wizard-step-intro b { font-size:23px; }
+ .train-purchase-modal .depot-card-tray,.train-purchase-modal .future-train-phases[open] { grid-template-columns:1fr; }
+ .train-purchase-modal .wizard-roundhouse-stalls { gap:8px; }
+ .train-purchase-modal .wizard-stall { padding:12px 6px; min-height:160px; }
+ .train-purchase-modal .wizard-stall .historical-train-art,.empty-stall-track { height:105px; }
+ .train-purchase-modal .historical-train-name { font-size:11px; }
+ .train-purchase-modal .wizard-stall .stall-badge { font-size:13px; }
+ .train-purchase-modal .train-wizard-footer { padding:10px 12px; }
+ .train-purchase-modal .wizard-footer-right { flex-wrap:wrap; justify-content:flex-end; gap:6px; }
+ .train-purchase-modal .wizard-step-label b { font-size:11px; }
+ .train-purchase-modal .wizard-header-actions { gap:4px; }
+ .train-purchase-modal .wizard-progress-caption { display:none; }
+ .train-purchase-modal .train-wizard-footer > button { padding:6px; }
+ .train-purchase-modal .train-wizard-footer { gap:6px; }
+ .train-purchase-modal .dispatch-train-portrait { display:none; }
+}
+@media(max-width:360px) {
+ .train-purchase-modal .wizard-roundhouse-stalls { grid-template-columns:1fr; }
+}
+@media(max-height:760px) and (min-width:601px) {
+ .train-purchase-modal .train-wizard-header { padding:10px 18px; }
+ .train-purchase-modal .train-wizard-stepper { padding:6px 18px 10px; }
+ .train-purchase-modal .wizard-page-body { padding:12px 18px; }
+ .train-purchase-modal .wizard-stall { min-height:170px; }
+ .train-purchase-modal .wizard-stall .historical-train-art,.empty-stall-track { height:110px; }
+ .train-purchase-modal .dispatch-train-portrait { display:none; }
+ .train-purchase-modal .train-wizard-footer { padding:10px 18px; }
+}
+/* Definite image boxes prevent intrinsic grid sizing from covering live labels. */
+.historical-train-art { position:relative; display:block; }
+.historical-train-art > img { position:absolute; inset:0; min-height:0; min-width:0; }
+.train-purchase-modal .depot-card-tray { box-shadow:none; }
+.train-purchase-modal .locomotive-title { background:transparent; }
+.train-purchase-modal .is-mandatory .locomotive-title { background:#f0ddbc; color:#793523; }
+.train-purchase-modal .locomotive-engraving { object-fit:contain; }
+.deal-train-portrait { display:flex; align-items:center; gap:12px; }
+.deal-train-portrait .historical-train-art { width:180px; height:100px; }
+.train-purchase-modal .empty-fleet-note { margin:0; color:#66553d; font:13px/1.5 system-ui; }
+.train-purchase-modal .wizard-footer-right .wizard-finish-turn { width:auto; min-width:210px; flex:0 0 auto; white-space:nowrap; padding:10px 16px; }
+@media(max-width:600px) {
+ .train-purchase-modal .wizard-footer-right:has(.wizard-finish-turn) { width:100%; }
+ .train-purchase-modal .wizard-footer-right .wizard-finish-turn { width:100%; min-width:0; }
+}
+
+/* Fictional railway newspaper: typography and facts remain live, selectable text. */
+.train-purchase-modal .train-newspaper { padding:16px; border:3px double #493d2c; background:radial-gradient(ellipse at top,#fff9e7,#eddfbf); color:#211e17; font-family:Georgia,'Yu Mincho','Hiragino Mincho ProN',serif; box-shadow:0 2px 6px #493d2c25; }
+.newspaper-masthead { display:flex; align-items:center; justify-content:space-between; gap:14px; border-top:2px solid #30291f; border-bottom:3px double #30291f; padding:8px 0; }
+.newspaper-masthead > span { font-size:clamp(21px,2.6vw,38px); font-weight:900; line-height:1.1; letter-spacing:-.04em; }
+.newspaper-masthead > b { color:#933c2b; border:3px double currentColor; padding:6px; font-size:13px; text-align:center; }
+.newspaper-hero { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:16px; margin-top:12px; }
+.newspaper-hero figure { margin:0; min-width:0; }
+.newspaper-station-scene { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; mix-blend-mode:multiply; }
+.newspaper-hero figcaption { font-size:12px; font-style:italic; text-align:center; padding:5px; }
+.newspaper-headlines { border-left:1px solid #6f6047; padding-left:16px; }
+.train-purchase-modal .newspaper-headlines h3 { margin:0; color:#211e17; font-size:clamp(24px,3.5vw,48px); line-height:1.08; font-weight:900; }
+.train-purchase-modal .newspaper-headlines > p { font:700 21px/1.3 Georgia,serif; padding-top:12px; border-top:3px double #493d2c; }
+.newspaper-lower { display:grid; grid-template-columns:minmax(0,3fr) minmax(180px,1fr); gap:16px; border-top:3px double #493d2c; margin-top:12px; padding-top:12px; }
+.newspaper-columns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.train-purchase-modal .newspaper-columns p { margin:0; font:16px/1.5 Georgia,serif; padding-right:12px; border-right:1px solid #a99672; }
+.train-purchase-modal .train-newspaper .newspaper-game-effects { background:transparent; color:#30291f; border:1px solid #493d2c; border-radius:0; padding:10px; font-size:15px; }
+.train-purchase-modal .newspaper-game-effects h4 { background:#30291f; color:#fff0ce; padding:6px; margin:-10px -10px 10px; text-align:center; }
+.train-purchase-modal .newspaper-game-effects p { margin:6px 0; font-size:15px; }
+.newspaper-preview { display:flex; align-items:center; gap:16px; border-top:3px double #493d2c; margin-top:12px; padding-top:12px; font-size:14px; }
+.newspaper-preview b { flex-shrink:0; border:3px double #993d29; padding:8px; color:#993d29; }
+.newspaper-era-art { display:flex; align-items:center; gap:8px; min-height:200px; }
+.newspaper-era-art > div { flex:1; min-width:0; text-align:center; }
+.newspaper-era-art .historical-train-art { height:180px; filter:sepia(1) saturate(.3); mix-blend-mode:multiply; }
+.newspaper-era-arrow { font-size:26px; }
+.train-newspaper.edition-ja .newspaper-masthead > span { font-size:38px; letter-spacing:.15em; }
+.edition-ja .newspaper-hero { grid-template-columns:minmax(0,1fr) 160px; }
+.edition-ja .newspaper-headlines { display:flex; flex-direction:row-reverse; justify-content:center; gap:14px; }
+.train-purchase-modal .edition-ja .newspaper-headlines h3 { writing-mode:vertical-rl; text-orientation:upright; font-size:34px; letter-spacing:.06em; line-height:1.3; }
+.train-purchase-modal .edition-ja .newspaper-headlines > p { writing-mode:vertical-rl; text-orientation:upright; font:700 19px/1.5 'Yu Mincho','Hiragino Mincho ProN',serif; padding:0; margin:0; border:0; }
+.edition-ja .newspaper-columns { display:flex; flex-direction:row-reverse; height:250px; overflow-x:auto; }
+.train-purchase-modal .edition-ja .newspaper-columns p { writing-mode:vertical-rl; text-orientation:mixed; font:16px/1.8 'Yu Mincho','Hiragino Mincho ProN',serif; margin:0; padding:0 10px; border:0; flex:1; }
+@media(max-width:700px) {
+ .train-purchase-modal .train-newspaper { padding:10px; }
+ .newspaper-hero { grid-template-columns:1fr; gap:10px; }
+ .newspaper-headlines { border-left:0; padding-left:0; }
+ .train-purchase-modal .newspaper-headlines h3 { font-size:30px; }
+ .newspaper-lower { grid-template-columns:1fr; }
+ .newspaper-columns { grid-template-columns:1fr; }
+ .train-purchase-modal .newspaper-columns p { border:0; padding:0; }
+ .newspaper-preview { flex-wrap:wrap; gap:8px; }
+ .edition-ja .newspaper-hero { grid-template-columns:minmax(0,1fr) 100px; }
+ .train-purchase-modal .edition-ja .newspaper-headlines h3 { font-size:25px; }
+ .train-purchase-modal .edition-ja .newspaper-headlines > p { font-size:14px; }
+ .edition-ja .newspaper-headlines { gap:6px; }
+ .train-newspaper.edition-ja .newspaper-masthead > span { font-size:26px; }
+ .newspaper-masthead > b { font-size:11px; }
+ .newspaper-era-art { min-height:120px; }
+ .newspaper-era-art .historical-train-art { height:100px; }
+}
+.train-purchase-modal .train-wizard-step:has(.train-newspaper) > .wizard-step-intro { display:none; }
+.train-purchase-modal .train-newspaper { width:100%; max-width:1000px; margin:0 auto; box-sizing:border-box; }
+.train-newspaper.edition-ja { display:grid; grid-template-columns:minmax(0,1fr) 76px; column-gap:12px; }
+.edition-ja .newspaper-masthead { grid-column:2; grid-row:1/3; display:flex; flex-direction:column; justify-content:space-between; padding:10px 4px; border:3px double #30291f; }
+.edition-ja .newspaper-masthead > span { writing-mode:vertical-rl; text-orientation:upright; }
+.edition-ja .newspaper-hero,.edition-ja .newspaper-lower { grid-column:1; min-width:0; }
+.edition-ja .newspaper-hero { margin-top:0; }
+.edition-ja .newspaper-preview { grid-column:1/-1; }
+@media(max-width:700px) {
+ .train-newspaper.edition-ja { grid-template-columns:minmax(0,1fr) 42px; column-gap:8px; }
+ .edition-ja .newspaper-hero { grid-template-columns:minmax(0,1fr) 75px; }
+ .train-purchase-modal .edition-ja .newspaper-headlines h3 { font-size:21px; }
+ .train-purchase-modal .edition-ja .newspaper-headlines > p { font-size:12px; }
+ .edition-ja .newspaper-masthead { padding:8px 2px; }
+ .train-newspaper.edition-ja .newspaper-masthead > span { font-size:26px; letter-spacing:.05em; }
+ .edition-ja .newspaper-masthead > b { padding:3px; }
+ .edition-ja .newspaper-columns { height:300px; }
+}
+/* Each Japanese article owns its columns; narrow layouts must not overlap text. */
+.edition-ja .newspaper-columns { display:grid; direction:rtl; grid-template-columns:repeat(3,minmax(0,1fr)); height:auto; overflow:visible; }
+.train-purchase-modal .edition-ja .newspaper-columns p { direction:ltr; height:280px; width:100%; min-width:0; box-sizing:border-box; padding:0 4px; }
+@media(max-width:700px) {
+ .train-purchase-modal .edition-ja .newspaper-columns p { height:540px; font-size:15px; line-height:1.6; }
+}

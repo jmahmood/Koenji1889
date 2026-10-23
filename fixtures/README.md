@@ -1,5 +1,13 @@
 # Practice games
 
+## Retirement newspaper
+
+Open `/test?scenario=newspaper` or select **Newspaper · 2-train retirement** in the test game's **Start position** menu. The same fixture is available under **Demo Tools → Fixtures → Newspaper — Farewell to the 2-Trains**.
+
+`train_newspaper` replays the first 178 legal moves from the attributed shared recording in `route_networks.json`, stopping immediately before the first 4-train purchase. Kenji (p3) operates Tosa Electric Railway (TR), which owns 2-5 and 3-0 and has ¥341. The ¥300 4-train is staged locally and the wizard opens at **Rust & Impact**, showing the retirement newspaper. Switch **English / 日本語** in the top bar to compare editions. This preview leaves the game in Phase 3 with all 2-trains still active; stamping the purchase in Dispatch advances to Phase 4, reduces the train limit to 3, and retires all 2-trains.
+
+Selecting a **Start position** or clicking **New test game** creates a fresh copy at the defined checkpoint without changing earlier games. Refresh resumes the room in this tab's address, even when another tab has created a newer fixture. The newspaper also retains this tab's wizard step, selected order, open/closed state and reading position at the same game revision. After purchasing, refresh keeps the resulting position instead of recreating the retirement preview. The backend validates and persists the entire history using normal engine actions.
+
 ## SR track at J3
 
 `tile_j3.json` contains an authored sequence of legal auction, stock and operating actions. `tile_j3` starts SR's second operating turn with I2 connected to J3 and straight tile #9 available. `tile_j3_used` adds the normal lay at I4; J3 then waits until the next SR track step. Every action is validated and saved normally, so both fixtures can be replayed and continued. No private player snapshots are included.

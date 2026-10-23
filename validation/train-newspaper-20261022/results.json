@@ -1,0 +1,113 @@
+{
+  "results": [
+    {
+      "old": "2",
+      "locale": "en",
+      "width": 1366,
+      "preview": true
+    },
+    {
+      "old": "2",
+      "locale": "en",
+      "width": 390,
+      "preview": true
+    },
+    {
+      "old": "2",
+      "locale": "en",
+      "width": 360,
+      "preview": true
+    },
+    {
+      "old": "2",
+      "locale": "ja",
+      "width": 1366,
+      "preview": true
+    },
+    {
+      "old": "2",
+      "locale": "ja",
+      "width": 390,
+      "preview": true
+    },
+    {
+      "old": "2",
+      "locale": "ja",
+      "width": 360,
+      "preview": true
+    },
+    {
+      "old": "3",
+      "locale": "en",
+      "width": 1366,
+      "preview": true
+    },
+    {
+      "old": "3",
+      "locale": "en",
+      "width": 390,
+      "preview": true
+    },
+    {
+      "old": "3",
+      "locale": "en",
+      "width": 360,
+      "preview": true
+    },
+    {
+      "old": "3",
+      "locale": "ja",
+      "width": 1366,
+      "preview": true
+    },
+    {
+      "old": "3",
+      "locale": "ja",
+      "width": 390,
+      "preview": true
+    },
+    {
+      "old": "3",
+      "locale": "ja",
+      "width": 360,
+      "preview": true
+    },
+    {
+      "old": "4",
+      "locale": "en",
+      "width": 1366,
+      "preview": true
+    },
+    {
+      "old": "4",
+      "locale": "en",
+      "width": 390,
+      "preview": true
+    },
+    {
+      "old": "4",
+      "locale": "en",
+      "width": 360,
+      "preview": true
+    },
+    {
+      "old": "4",
+      "locale": "ja",
+      "width": 1366,
+      "preview": true
+    },
+    {
+      "old": "4",
+      "locale": "ja",
+      "width": 390,
+      "preview": true
+    },
+    {
+      "old": "4",
+      "locale": "ja",
+      "width": 360,
+      "preview": true
+    }
+  ],
+  "errors": []
+}

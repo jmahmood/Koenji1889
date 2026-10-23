@@ -668,6 +668,10 @@ export function renderSeatsAndDemoModal(appState, viewData, roomBundle) {
                 <b>Operating Round 1.1 — First Track & Train Purchase (Rev 22)</b>
                 <small>Iyo Railway (IR) is floated with ¥800 treasury at E2 (Matsuyama); no trains yet. Lay the first track and buy trains for the next operating round.</small>
               </button>
+              <button class="confirm-button" data-load-fixture="train_newspaper">
+                <b>Newspaper — Farewell to the 2-Trains</b>
+                <small>Opens the retirement newspaper before the first 4-train purchase, as Kenji of Tosa Electric Railway. Switch English / 日本語 to compare editions. Nothing is purchased until you stamp in Dispatch.</small>
+              </button>
             </div>
             </section>
             <section ${appState.developerTab !== 'protocol' ? 'hidden' : ''}>

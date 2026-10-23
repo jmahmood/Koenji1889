@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {prepareTestRoom,rememberTestRoom,routeTestScenario,testScenario,testTurnPlayer,renderTestControls} from '../src/ui/testSession.js';
+import {prepareTestRoom,rememberTestRoom,rememberNewspaperTestView,restoreNewspaperTestView,routeTestScenario,stageNewspaperTestPreview,testScenario,testTurnPlayer,renderTestControls} from '../src/ui/testSession.js';
+import {currentWizardStep, stagedDepotAction} from '../src/components/TrainDesk.js';
 
 function setup() {
   const storage=new Map();
@@ -106,4 +107,77 @@ test('Demo Tools exposes distinct fleet sizes and longer train types',async()=>{
  assert.match(html,/data-load-fixture="route_network_4"/);
  assert.match(html,/3 \/ 3 \/ 4 stops/);
  assert.match(html,/18 laid hexes/);assert.match(html,/16 laid hexes/);
+ assert.match(html,/data-load-fixture="train_newspaper"/);
+});
+
+test('newspaper fixture resumes separately and exposes the retirement start position',async()=>{
+ const {api,created}=setup();
+ assert.equal(testScenario('?scenario=newspaper'),'newspaper');
+ const first=await prepareTestRoom(api,'newspaper');
+ assert.equal(first.bundle.preset,'train_newspaper');
+ assert.equal((await prepareTestRoom(api,'newspaper')).bundle.room_code,first.bundle.room_code);
+ assert.equal(created(),1);
+ assert.notEqual((await prepareTestRoom(api,'newspaper',{fresh:true})).bundle.room_code,first.bundle.room_code);
+ const html=renderTestControls('newspaper',{});
+ assert.match(html,/value="newspaper" selected/);
+ assert.match(html,/2-train retirement/);
+ assert.match(html,/Purchase only takes effect after stamping/);
+});
+
+test('newspaper start stages an exact legal depot action without changing the game',()=>{
+ const view={state:{phase:'3',revision:178,current_corporation:'TR',operating_turn:{step:'train'},
+   trains:{'4-0':{type:'4',owner:'depot',rusted:false}}},action_options:[{type:'buy_train',train:'4-0'}]};
+ const original=JSON.stringify(view);
+ const app={roomCode:'PAPER'};
+ assert.equal(stageNewspaperTestPreview(app,view),true);
+ assert.equal(app.activeModal,'train');
+ assert.equal(currentWizardStep(app,view),3);
+ assert.deepEqual(stagedDepotAction(app,view),view.action_options[0]);
+ assert.equal(JSON.stringify(view),original);
+ for(const changes of [{state:{...view.state,phase:'4'}},{state:{...view.state,operating_turn:{step:'track'}}},
+   {action_options:[]},{action_options:[{type:'buy_train',train:'4-0',price:300}]},{is_historical:true}]) {
+  const resumed={roomCode:'PAPER',activeModal:null};
+  assert.equal(stageNewspaperTestPreview(resumed,{...view,...changes}),false);
+  assert.deepEqual(resumed,{roomCode:'PAPER',activeModal:null});
+ }
+});
+
+test('refresh follows the room in this tab even after another tab starts a new fixture',async()=>{
+ const {api,directory,created}=setup();
+ const first=await prepareTestRoom(api,'newspaper');
+ const second=await prepareTestRoom(api,'newspaper',{fresh:true});
+ assert.notEqual(first.bundle.room_code,second.bundle.room_code);
+ assert.equal((await prepareTestRoom(api,'newspaper',{roomCode:first.bundle.room_code})).bundle.room_code,first.bundle.room_code);
+ assert.equal(created(),2);
+ assert.equal((await prepareTestRoom(api,'newspaper',{roomCode:'REAL'})).bundle.room_code,second.bundle.room_code,'An ordinary room is never treated as a fixture');
+ const restarted=await prepareTestRoom(api,'newspaper',{fresh:true,roomCode:first.bundle.room_code});
+ assert.notEqual(restarted.bundle.room_code,first.bundle.room_code);
+ assert.notEqual(restarted.bundle.room_code,second.bundle.room_code);
+ assert.ok(directory[first.bundle.room_code]);
+});
+
+test('newspaper refresh restores this tab’s step, selected order, open state and scroll only at the same position',()=>{
+ const values=new Map();
+ globalThis.sessionStorage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
+ const view={viewer:{player_id:'p3'},state:{phase:'3',revision:178,current_corporation:'TR',operating_turn:{step:'train'},
+   trains:{'4-0':{type:'4',owner:'depot',rusted:false}}},action_options:[{type:'buy_train',train:'4-0'}]};
+ const app={roomCode:'PAPER',view:'map',viewRevision:178,liveRevision:178};
+ stageNewspaperTestPreview(app,view);
+ app.trainWizardStep=4;
+ rememberNewspaperTestView(app,view,{top:217,left:0});
+ const resumed={roomCode:'PAPER'};
+ assert.deepEqual(restoreNewspaperTestView(resumed,view),{top:217,left:0});
+ assert.equal(currentWizardStep(resumed,view),4);
+ assert.equal(resumed.activeModal,'train');
+ assert.deepEqual(stagedDepotAction(resumed,view),view.action_options[0]);
+ app.activeModal=null;
+ rememberNewspaperTestView(app,view);
+ restoreNewspaperTestView(resumed,view);
+ assert.equal(resumed.activeModal,null,'A deliberately closed wizard stays closed');
+ for(const [target,current] of [[{roomCode:'OTHER'},view],[{roomCode:'PAPER'},{...view,state:{...view.state,revision:179}}],
+   [{roomCode:'PAPER'},{...view,viewer:{player_id:'p1'}}],[{roomCode:'PAPER'},{...view,action_options:[]}]]) {
+  const before=JSON.stringify(target);
+  assert.equal(restoreNewspaperTestView(target,current),null);
+  assert.equal(JSON.stringify(target),before);
+ }
 });

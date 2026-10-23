@@ -1,3 +1,4 @@
+import {captureMarket, animateMarket} from './ui/elasticMarket.js';
 import './style.css';
 import './booking.css';
 import './appearance.css';
@@ -8,6 +9,16 @@ import './kemalito.css';
 import './victory.css';
 import './operatingControls.css';
 import './playtestFeedback.css';
+import './trainIllustrations.css';
+import './elasticMarket.css';
+
+// Asset failures keep the neutral locomotive visible without changing actions.
+document.addEventListener('error', event => {
+  if (event.target?.matches?.('img[data-train-art]')) {
+    event.target.hidden = true;
+    event.target.closest('.historical-train-art')?.classList.remove('has-illustration');
+  }
+}, true);
 import {renderDividendMilestone} from './ui/dividendMilestones.js';
 import {renderVictoryCelebration} from './ui/victoryCelebration.js';
 import {ReplayClock,replayDuration} from './replay/ReplayClock.js';
@@ -29,7 +40,7 @@ import {renderWaitingTable, bindWaitingTable} from './components/GatheringLobby.
 import { bindDecisionDesk, renderDecisionDesk, renderDecisionNotice, renderGathering } from './components/DecisionDesk.js';
 import { syncRoutePlan } from './ui/routePlanning.js';
 import { KoenjiApiClient } from './api/client.js';
-import {prepareTestRoom,rememberTestRoom,routeTestScenario,renderTestControls,testScenario,testTurnPlayer} from './ui/testSession.js';
+import {prepareTestRoom,rememberTestRoom,rememberNewspaperTestView,restoreNewspaperTestView,routeTestScenario,renderTestControls,stageNewspaperTestPreview,testScenario,testTurnPlayer} from './ui/testSession.js';
 import { CLUB_MEMBERS, CORP_META } from './constants1889.js';
 import { actionBlockReason, clearTilePreview, escapeContext, escapeHtml, mapActionAuthority, renderActionFeedback, roundName, syncFinancialLayout } from './ui/presentation.js';
 import { createRoomTransition, createHandoffExpiry, planRoundHandoff, renderRoundHandoff, roomName } from './ui/transitions.js';
@@ -59,6 +70,7 @@ import {
 const api = new KoenjiApiClient('');
 const isTestPage = import.meta.env.DEV && /^\/test\/?$/.test(window.location.pathname);
 let activeTestScenario = testScenario(window.location.search);
+let restoredNewspaperScroll = null;
 let testLoading = false;
 const $app = document.querySelector('#app');
 const money = (n) => `¥${Number(n || 0).toLocaleString()}`;
@@ -562,20 +574,25 @@ async function openTestGame(fresh=false) {
   testLoading=true;
   render();
   try {
-    const {bundle,view}=await prepareTestRoom(api,activeTestScenario,{fresh});
+    const {bundle,view}=await prepareTestRoom(api,activeTestScenario,{fresh,roomCode:new URLSearchParams(location.search).get('room')});
     const current=api.getTabSession();
     const seat=current?.room_code===bundle.room_code && bundle.player_tokens.includes(current.token)
       ? `p${bundle.player_tokens.indexOf(current.token)+1}`
       : testTurnPlayer(view) || 'p1';
     appState.needsAppearance=false;appState.needsGathering=false;appState.errorBanner=null;
-    await enterRoom(bundle.room_code,seat,resolveTokenForSeat(bundle,seat));
-    if (activeTestScenario.startsWith('routes')) {
-      showRoutePractice(appState.displayedViewData);
-    } else if (activeTestScenario==='j3' || activeTestScenario==='j3used') {
-      showRoutePractice(appState.displayedViewData);
-      appState.selectedHex='J3';appState.inspectedHex='J3';
-      appState.selectedTileId=null;appState.selectedTileRotation=0;appState.activeModal=null;
-    }
+    await enterRoom(bundle.room_code,seat,resolveTokenForSeat(bundle,seat),freshView=>{
+      if (activeTestScenario.startsWith('routes')) {
+        showRoutePractice(freshView);
+      } else if (activeTestScenario==='newspaper') {
+        showRoutePractice(freshView);
+        restoredNewspaperScroll=fresh ? null : restoreNewspaperTestView(appState,freshView);
+        if(!restoredNewspaperScroll) stageNewspaperTestPreview(appState,freshView);
+      } else if (activeTestScenario==='j3' || activeTestScenario==='j3used') {
+        showRoutePractice(freshView);
+        appState.selectedHex='J3';appState.inspectedHex='J3';
+        appState.selectedTileId=null;appState.selectedTileRotation=0;appState.activeModal=null;
+      }
+    });
   } catch(err) {
     appState.errorBanner=`Test game could not open: ${err.message}`;
   } finally {testLoading=false;render();}
@@ -588,7 +605,7 @@ function bindTestControls() {
     activeTestScenario=e.target.value;
     const url=new URL(window.location.href);url.searchParams.set('scenario',activeTestScenario);
     window.history.replaceState({},'',url);
-    await openTestGame();
+    await openTestGame(true);
   });
   document.querySelector('[data-test-turn]')?.addEventListener('click',async()=>{
     try {
@@ -610,43 +627,30 @@ export async function loadFixturePreset(preset = 'auction_start') {
       'Alex',
     ]);
     const routeScenario=routeTestScenario(preset);
-    const desiredSeat = routeScenario ? res.view.state.current_player :
+    const practiceScenario=routeScenario || (preset==='train_newspaper' ? 'newspaper' : null);
+    const desiredSeat = practiceScenario ? res.view.state.current_player :
       appState.seatKey && appState.seatKey !== 'spectator'
         ? appState.seatKey
         : 'p1';
     const token = resolveTokenForSeat(res, desiredSeat);
-    api.setTabSession(res.room_code, desiredSeat, token);
-    appState.roomCode = res.room_code;
-    appState.seatKey = desiredSeat;
-    appState.token = token;
-    appState.roomBundle = res;
-    appState.revisionCache.clear();
-    appState.queuedLiveCount = 0;
-    appState.queuedLiveNotice = null;
     appState.lastProbeResult = null;
     appState.lastSyncedRound = null;
     appState.financialLayouts = {};
     appState.journalReturn = null;
     clearTilePreview(appState);
-    const freshView = await api.fetchGameView(res.room_code, token);
-    if (appState.view !== 'table') {
-      if (freshView.state?.round === 'operating') {
-        appState.view = 'map';
-      } else {
-        appState.view = 'market';
-      }
+    const destination=appState.view==='table' ? 'table' : res.view.state.round==='operating' ? 'map' : 'market';
+    if (practiceScenario && isTestPage) {
+      activeTestScenario=practiceScenario;
+      rememberTestRoom(practiceScenario,{...res,is_demo_fixture:true});
+      const url=new URL(location.href);url.searchParams.set('scenario',practiceScenario);history.replaceState({},'',url);
     }
-    if (routeScenario) {
-      if (isTestPage) {
-        activeTestScenario=routeScenario;
-        rememberTestRoom(routeScenario,{...res,is_demo_fixture:true});
-        const url=new URL(location.href);url.searchParams.set('scenario',routeScenario);history.replaceState({},'',url);
-      }
-      showRoutePractice(freshView);
-    }
-    applyFreshLiveView(freshView, true);
+    await enterRoom(res.room_code,desiredSeat,token,freshView=>{
+      appState.view=destination;
+      if(practiceScenario) showRoutePractice(freshView);
+      if(preset==='train_newspaper') stageNewspaperTestPreview(appState,freshView);
+    });
     showToast(
-      `Loaded ${preset.replace(/_/g, ' ')} in Room ${res.room_code} (Rev ${freshView.state.revision})`
+      `Loaded ${preset.replace(/_/g, ' ')} in Room ${res.room_code} (Rev ${appState.liveRevision})`
     );
   } catch (err) {
     showToast(`Failed to create fixture: ${err.message}`, true);
@@ -975,8 +979,10 @@ async function executeGameAction(actionPayload, confirmed = false, forceReview =
   }
 }
 
-async function enterRoom(roomCode, seatKey, token) {
+async function enterRoom(roomCode, seatKey, token, initializeView=null) {
   const view = await api.fetchGameView(roomCode, token);
+  dismissRoomWipe();
+  pendingRoundWipe=null;
   if(arrivalTimer) clearTimeout(arrivalTimer);
   appState.arrivalQueue=[];appState.arrivalCurrent=null;
   appState.arrivalCursor=Math.max(0,...(view.arrival_events || []).map(e=>e.id));
@@ -989,9 +995,12 @@ async function enterRoom(roomCode, seatKey, token) {
   api.saveOwnRoom(roomCode, seatKey, token, {isHost:isViewerHost, memberId:viewerMember?.member_id || null});
   Object.assign(appState, {pendingDecision:null,flotationQueue:[],turnReminderVisible:false,roomCode, seatKey, token, roomBundle:api.getRoomDirectory()[roomCode], needsGathering:false,
     activeModal:null, publicLobby:null, lastSyncedRound:null, financialLayouts:{}, view:'table', reviewAction:null, routeDraftKey:null,
-    isPlayingReplay:false, liveRevision:0, viewRevision:0, displayedViewData:null, liveViewData:null, lobbyTab:'invitations', inviteFallback:null});
+    isPlayingReplay:false, isLoadingRevision:false, journalReturn:null, mapReturn:null, historyStartedAt:null,
+    queuedLiveCount:0,queuedLiveNotice:null,focusSellerDesk:false,
+    liveRevision:0, viewRevision:0, displayedViewData:null, liveViewData:null, lobbyTab:'invitations', inviteFallback:null});
   replayClock.stop();
   appState.revisionCache.clear();
+  initializeView?.(view);
   applyFreshLiveView(view,true);
   if(isViewerHost && api.getRoomDirectory()[roomCode]?.creator_token) {
     try {await api.loadHostInvitations(roomCode);render();} catch(err) {showToast(`Invitations could not be loaded: ${err.message}`,true);}
@@ -1389,6 +1398,7 @@ let disposeMapNavigation = () => {};
 function render() {
   // Polls and other updates stay behind the card until the covered scene cut.
   if (roomTransition.pending) return;
+  const marketBefore=captureMarket(document, appState.roomCode);
   const payoffFocus=document.activeElement?.matches('[data-skip-journey]')?'[data-skip-journey]':document.activeElement?.matches('[data-replay-journey]')?'[data-replay-journey]':null;
   const routeReceiptOpen=document.querySelector('.settled-route-receipt')?.open;
   disposeMapNavigation();
@@ -1437,6 +1447,12 @@ function render() {
   }));
   const bookingScroll=document.querySelector('.booking-setup')?.scrollTop || 0;
   const oldDesk = document.querySelector('.decision-desk');
+  const oldWizard = document.querySelector('.train-wizard-shell');
+  const wizardScroll = oldWizard ? {
+    key:oldWizard.dataset.scrollKey,
+    top:oldWizard.querySelector('.wizard-page-body').scrollTop,
+    left:oldWizard.querySelector('.wizard-page-body').scrollLeft,
+  } : null;
   const deskScroll = oldDesk?.scrollTop || 0;
   const detailsState = [...document.querySelectorAll('.decision-desk details, .booking-window details')].map(el=>({name:el.querySelector('summary')?.textContent,open:el.open}));
   const restoreDeskLayout = () => {
@@ -1577,6 +1593,18 @@ function render() {
   bindEvents();bindSocialControls();bindTestControls();
   if(appState.roomBundle?.preset==='gathering') document.querySelectorAll('[data-switch-seat], .open-second-browser-btn').forEach(el=>{el.style.display='none';});
   bindDesk();
+  const wizard=document.querySelector('.train-wizard-shell');
+  const wizardBody=wizard?.querySelector('.wizard-page-body');
+  if(wizardBody) {
+    const scroll=restoredNewspaperScroll || (wizardScroll?.key===wizard.dataset.scrollKey ? wizardScroll : null);
+    if(scroll) {wizardBody.scrollTop=scroll.top;wizardBody.scrollLeft=scroll.left;}
+  }
+  restoredNewspaperScroll=null;
+  if(isTestPage && activeTestScenario==='newspaper' && !testLoading) {
+    const remember=()=>rememberNewspaperTestView(appState,appState.displayedViewData,{top:wizardBody?.scrollTop || 0,left:wizardBody?.scrollLeft || 0});
+    remember();
+    wizardBody?.addEventListener('scroll',remember,{passive:true});
+  }
   restoreDeskDrafts();
   restoreDeskLayout();
   recoverWindowGeometry();
@@ -1584,6 +1612,7 @@ function render() {
     const body = document.querySelector(`${scroll.selector} .stock-window-body`);
     if (body) { body.scrollTop = scroll.top; body.scrollLeft = scroll.left; }
   }
+  animateMarket(document, marketBefore, {identity:appState.roomCode,motion:motionEnabled()});
   if(decisionFocus)document.querySelector(decisionFocus)?.focus({preventScroll:true});
   const flotation=document.querySelector('.flotation-notice');
   if(flotation && !flotation.contains(document.activeElement))flotation.querySelector('button')?.focus({preventScroll:true});

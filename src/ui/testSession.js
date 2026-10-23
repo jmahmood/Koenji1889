@@ -1,10 +1,12 @@
 import {escapeHtml} from './presentation.js';
+import {currentWizardStep, setWizardStep, stagedDepotAction, trainStageKey} from '../components/TrainDesk.js';
 
 export const TEST_SCENARIOS = {
   stock: {label:'Stock round', preset:'stock_round_1'},
   auction: {label:'Private auction', preset:'auction_start'},
   operating: {label:'Operating round', preset:'operating_round_1'},
   cycle: {label:'Full operating cycle · trains ready', preset:'operating_cycle'},
+  newspaper: {label:'Newspaper · 2-train retirement', preset:'train_newspaper'},
   j3: {label:'SR · build at J3', preset:'tile_j3'},
   j3used: {label:'SR · normal track lay used', preset:'tile_j3_used'},
   routes: {label:'Train routes · two trains', preset:'route_planning'},
@@ -15,6 +17,7 @@ export function routeTestScenario(preset) {
   return Object.entries(TEST_SCENARIOS).find(([id,item])=>id.startsWith('routes') && item.preset===preset)?.[0] || null;
 }
 const TEST_ROOMS_KEY = 'koenji_1889_test_rooms_v1';
+const NEWSPAPER_VIEW_KEY = 'koenji_1889_newspaper_view_v1';
 const TEST_LOOKS = ['reference-01','reference-02','reference-08','reference-15'];
 
 export function testScenario(search='') {
@@ -26,6 +29,49 @@ export function testTurnPlayer(view) {
   return view?.legal_actions?.active_player || view?.state?.current_player;
 }
 
+// Stage a legal purchase locally; nothing is submitted until the player stamps
+// it in Dispatch. A resumed game that has moved on keeps its current position.
+export function stageNewspaperTestPreview(app,view) {
+  const state=view?.state;
+  if(state?.phase!=='3' || state.operating_turn?.step!=='train' || view.is_historical) return false;
+  const action=view.action_options?.find(a=>a.type==='buy_train' && a.price===undefined && !a.trade_in &&
+    state.trains[a.train]?.type==='4' && state.trains[a.train]?.owner==='depot' && !state.trains[a.train]?.rusted);
+  if(!action) return false;
+  app.trainStageKey=trainStageKey(app,view);
+  app.trainStage=action;
+  setWizardStep(app,view,3);
+  app.trainWizardSource='depot';
+  app.activeModal='train';
+  return true;
+}
+
+// Presentation belongs to this tab and exact position, never to another tab's
+// latest fixture. Store no credentials and revalidate the staged order on load.
+export function rememberNewspaperTestView(app,view,scroll={top:0,left:0}) {
+  if(!view?.state || app.viewRevision!==app.liveRevision) return;
+  try {
+    sessionStorage.setItem(NEWSPAPER_VIEW_KEY,JSON.stringify({
+      room:app.roomCode,revision:view.state.revision,player:view.viewer?.player_id,
+      view:app.view,open:app.activeModal==='train',step:currentWizardStep(app,view),
+      source:app.trainWizardSource,action:stagedDepotAction(app,view),scroll,
+    }));
+  } catch {} // Storage may be unavailable; the legal preview still works.
+}
+
+export function restoreNewspaperTestView(app,view) {
+  let saved;
+  try {saved=JSON.parse(sessionStorage.getItem(NEWSPAPER_VIEW_KEY));} catch {return null;}
+  if(!saved || saved.room!==app.roomCode || saved.revision!==view.state.revision || saved.player!==view.viewer?.player_id) return null;
+  const action=(view.action_options || []).find(a=>JSON.stringify(a)===JSON.stringify(saved.action));
+  if(saved.action && !action) return null;
+  app.view=['map','table','market','history'].includes(saved.view) ? saved.view : 'map';
+  app.trainStageKey=trainStageKey(app,view);app.trainStage=action || null;
+  setWizardStep(app,view,action || saved.step<=2 ? saved.step : 2);
+  app.trainWizardSource=saved.source==='market' ? 'market' : 'depot';
+  app.activeModal=saved.open ? 'train' : null;
+  return {top:Math.max(0,Number(saved.scroll?.top)||0),left:Math.max(0,Number(saved.scroll?.left)||0)};
+}
+
 export function rememberTestRoom(scenario,bundle) {
   if (!Object.hasOwn(TEST_SCENARIOS,scenario) || !bundle?.is_demo_fixture || bundle.preset !== TEST_SCENARIOS[scenario].preset) return;
   let saved={};
@@ -35,11 +81,14 @@ export function rememberTestRoom(scenario,bundle) {
 }
 
 // Only reuse rooms explicitly created by this shortcut, never an ordinary gathering.
-export async function prepareTestRoom(api,scenario='stock',{fresh=false}={}) {
+export async function prepareTestRoom(api,scenario='stock',{fresh=false,roomCode=null}={}) {
   if(!Object.hasOwn(TEST_SCENARIOS,scenario)) scenario='stock';
   let saved={};
   try {saved=JSON.parse(localStorage.getItem(TEST_ROOMS_KEY) || '{}') || {};} catch {}
-  const previous=api.getRoomDirectory()[saved[scenario]];
+  const directory=api.getRoomDirectory();
+  const pinned=directory[roomCode];
+  const previous=pinned?.is_demo_fixture && pinned.preset===TEST_SCENARIOS[scenario].preset
+    ? pinned : directory[saved[scenario]];
   if(!fresh && previous?.is_demo_fixture && previous.preset===TEST_SCENARIOS[scenario].preset) {
     try {
       const view=await api.fetchGameView(previous.room_code,previous.player_tokens[0]);
@@ -74,5 +123,6 @@ export function renderTestControls(scenario,view,busy=false) {
     <small>All four seats available · refresh resumes this game</small>
     ${scenario==='j3' ? '<small>SR track practice: select J3, choose a legal tile and confirm placement. Straight tile #9 is available.</small>' : ''}
     ${scenario==='j3used' ? '<small>SR has already built at I4 this turn. Select J3 to see why another normal track lay must wait.</small>' : ''}
+    ${scenario==='newspaper' ? '<small>Retirement preview · switch English / 日本語 above. Purchase only takes effect after stamping in Dispatch.</small>' : ''}
   </nav>`;
 }

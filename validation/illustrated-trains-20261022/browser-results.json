@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "name": "Desktop: five steps, close/resume, depot purchase and optional pass",
+      "status": "pass"
+    },
+    {
+      "name": "Inter-company seller offer: staged consent and corporate treasury transfer",
+      "status": "pass"
+    },
+    {
+      "name": "Emergency: preview unfunded train, sell shares, return to financing",
+      "status": "pass"
+    },
+    {
+      "name": "Common president: exact price and final stamp, with no immediate execution",
+      "status": "pass"
+    },
+    {
+      "name": "Phase 4: preview every rusted fleet before buying and apply exact result",
+      "status": "pass"
+    },
+    {
+      "name": "Diesel trade-in: available at capacity, correct credit, rust and final fleet",
+      "status": "pass"
+    },
+    {
+      "name": "Seller desk: out-of-turn posting, buyer receives and stamps agreed terms",
+      "status": "pass"
+    },
+    {
+      "name": "Insolvency: bankruptcy remains accessible in Financing and requires review",
+      "status": "pass"
+    },
+    {
+      "name": "Mobile: page width, usable footer and one active screen",
+      "status": "pass"
+    }
+  ],
+  "errors": []
+}

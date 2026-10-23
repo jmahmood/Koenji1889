@@ -1,0 +1,24 @@
+[Unit]
+Description=Route home-network HTTP requests to Koenji or Pi-hole
+Wants=network-online.target
+After=network-online.target pihole-FTL.service
+
+[Service]
+Type=simple
+User=jawaad
+Group=jawaad
+RuntimeDirectory=koenji-frontdoor
+ExecStartPre=/opt/koenji-frontdoor/nginx -t -p /run/koenji-frontdoor/ -c /etc/koenji-frontdoor/nginx.conf
+ExecStart=/opt/koenji-frontdoor/nginx -p /run/koenji-frontdoor/ -c /etc/koenji-frontdoor/nginx.conf -g "daemon off;"
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

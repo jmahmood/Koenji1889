@@ -50,6 +50,14 @@ def fixtures():
   f.operating();f.route();f.give_train('IR','4-0');f.give_train('IR','6-0');E._phase_change(f.s,'6')
   f.cash(f.s['corporations']['IR'],2000);f.s['operating_turn'].update(step='train',routes=[],revenue=0,dividend=True)
   save('train_diesel')
+  # Late-tier depot purchases exercise artwork and the same authoritative engine rules.
+  for tier,phase,owned in [('5','4','4-0'),('6','5','5-0')]:
+   f.operating();f.route();f.train_step();E._phase_change(f.s,phase)
+   f.give_train('IR',owned);f.cash(f.s['corporations']['IR'],3000)
+   others=[cid for cid in f.s['corporations'] if cid!='IR']
+   earlier=[tid for tid,tr in f.s['trains'].items() if tr['type']!='D' and int(tr['type'])<int(tier) and tr['owner']=='depot' and not tr.get('rusted')]
+   for i,tid in enumerate(earlier):f.give_train(others[i%len(others)],tid)
+   save('train_late'+tier)
   return out
  finally:t.tearDown()
 

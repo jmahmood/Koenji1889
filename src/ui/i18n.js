@@ -4,6 +4,26 @@ let locale=globalThis.localStorage?.getItem('koenji_locale')==='ja'?'ja':'en';
 export const getLocale=()=>locale;
 export function setLocale(value){locale=value==='ja'?'ja':'en';globalThis.localStorage?.setItem('koenji_locale',locale);}
 const pairs=`
+Stock market prices|株価ボード
+Market colour key|株価ボードの凡例
+Ordinary|通常
+Yellow zone|黄色ゾーン
+Orange zone|橙色ゾーン
+Par price|額面価格
+Company marker|会社マーカー
+Selection|選択
+Dispatch|購入確定
+Rust & Impact|廃車と影響
+Financing|資金手当
+Preview how this acquisition affects game phase, train limits, and older locomotives across Shikoku.|購入によるフェーズ、保有上限、四国の旧型列車への影響を確認します。
+Your roundhouse|保有列車
+Choose your locomotive|購入する列車を選択
+Train purchase|列車購入
+Purchase optional|購入は任意です
+Your railway can operate with its current fleet.|現在の保有列車で運行できます。
+No connected route requires a train.|列車の購入が必要な接続路線はありません。
+Rust & phase impact|廃車とフェーズへの影響
+
 Game messages|対局のお知らせ
 Buy Shares|株券を購入
 Sell Shares|株券を売却
@@ -937,6 +957,8 @@ const fragmentExcluded=new Set(['on','off','place']);
 const escaped=[...translations.keys()].filter(key=>!fragmentExcluded.has(key)).sort((a,b)=>b.length-a.length).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
 const fragments=new RegExp(`(?<![A-Za-z])(?:${escaped.join('|')})(?![A-Za-z])`,'gi');
 const patterns=[
+ [/^(\d+) trains owned · (\d+) spaces available$/,(_,owned,spaces)=>`保有列車${owned}両・空き${spaces}両`],
+
  [/^Phase (.+) · (\d+) Operating Rounds$/,(_,phase,n)=>`フェイズ${phase}・経営ラウンド${n}回`],
  [/^Each stock round will now be followed by (\d+) operating rounds\.(?: The current set still has (\d+); the new schedule begins after the next stock round\.)?$/,(_,n,current)=>`株式ラウンドの後に経営ラウンドを${n}回行います。${current?`現在のセットは${current}回のままで、次の株式ラウンド後から変わります。`:''}`],
  [/^(.+) · DIVIDEND MILESTONE$/,(_,id)=>`${id}・配当の節目`],

@@ -1,6 +1,6 @@
 # Illustrated train purchase wizard — implementation plan
 
-Status: approved visual direction; implementation has not started.
+Status: implemented locally; see IMPLEMENTATION_REPORT.md for verification and publication status.
 Date: 22 October 2026.
 
 ## Intended result
@@ -27,7 +27,7 @@ Approved layout references: [Fleet](mockups/step-1-roundhouse.png), [Selection](
 - Normalize baseline and padding across assets while retaining visually believable relative proportions. Test at card size, not only enlarged.
 - Export lightweight, appropriately sized runtime assets into `public/assets/trains/`; retain high-resolution masters here. Use responsive resolutions and explicit dimensions to prevent layout shift. Set a target of roughly 150–300 KB per normal card image and inspect visual quality before accepting compression.
 - Record source-photo credit, permission/licence status, and generation provenance in an asset credits file. Supplied photographs are reference material; do not assume public-domain status. Resolve reuse terms before shipping derived artwork.
-- Maintain the existing neutral illustration fallback for 5-, 6-, D-trains and failed asset loads. Do not assign historical identities to those tiers in this change.
+- Expanded by the user after the initial implementation: provide dedicated C11-, D51- and DF50-inspired artwork for 5-, 6- and D-trains. Keep neutral artwork only for unknown types and failed asset loads, with a diesel-shaped fallback for D. See IMPLEMENTATION_REPORT.md.
 
 Deliverable: three reviewed illustration-only assets and an asset mapping with a fallback.
 
@@ -66,7 +66,7 @@ Primary files: `src/components/TrainDesk.js`, wizard rules in `src/style.css`; r
 - Integrate historical artwork into the existing depot certificates. Retain authoritative price, stock count, phase/rust notes, returned-train status, trade-in terms and exact action payloads.
 - Use distinct available, selected and future-stock states. Future stock remains viewable but unselectable. Derive locks from existing server projections, not hardcoded phase labels.
 - The approved mockup is an artwork/layout reference: its omission of prices and stock details is not a requirement to remove those live purchase details.
-- Support every tier, including 5/6/D through the fallback. Reflow long catalogues into a responsive grid; never restrict the depot to the three illustrated examples.
+- Support every tier, including dedicated illustrations for 5/6/D. Reflow long catalogues into a responsive grid; never restrict the depot to the three illustrated examples.
 - Preserve the depot/inter-company source switch, seller identity, negotiated prices, consent requirements and offer handling. Apply artwork to used trains without changing transfer permissions.
 
 ## 5. Carry the style through Rust, Financing and Dispatch

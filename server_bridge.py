@@ -1539,12 +1539,22 @@ def create_fixture_room(
         raise ValueError("Expanded route practice uses four player seats")
     if preset in ("tile_j3", "tile_j3_used") and len(names) != 4:
         raise ValueError("J3 track practice uses four player seats")
+    if preset == "train_newspaper" and len(names) != 4:
+        raise ValueError("Train newspaper practice uses four player seats")
     info = db.create_game(variant="1889", max_players=len(names), engine="python")
     game_id = info["game_id"]
     state = new_game(names)
     db.save_initial_state(game_id, state, names)
 
     scripted_moves: List[Dict[str, Any]] = []
+    if preset == "train_newspaper":
+        practice = json.loads((ROOT_DIR / "fixtures" / "route_networks.json").read_text())
+        actions = practice["reference"]["actions"]
+        # Stop before the first 4-train purchase, leaving the retirement as a
+        # preview. Reuse the attributed recording and validate every move below.
+        checkpoint = next(i for i, move in enumerate(actions)
+                          if move["type"] == "buy_train" and move["train"].startswith("4-"))
+        scripted_moves.extend(actions[:checkpoint])
     if preset in ("tile_j3", "tile_j3_used"):
         practice = json.loads((ROOT_DIR / "fixtures" / "tile_j3.json").read_text())
         scripted_moves.extend(practice["actions"])

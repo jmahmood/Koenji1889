@@ -20,7 +20,9 @@ async function page(name,{mobile=false,seat=0}={}){
  await p.addInitScript(()=>localStorage.setItem('koenji_1889_appearance_v1',JSON.stringify({face:'reference-05',clothes:'charcoal-suit'})));
  const f=fixtures[name];
  await p.goto(base+'/?wizard-audit#'+new URLSearchParams({room:f.room,token:seat?f.tokens[seat-1]:f.token,role:'player'}));
- await p.locator('.room-context').waitFor();return p;
+ await p.locator('.room-context').waitFor();
+ if(!seat){await p.locator('[data-view="map"]').filter({visible:true}).first().click();await p.locator('[data-open-train-wizard]').click();}
+ return p;
 }
 async function view(p){return p.evaluate(async()=>{
  const s=JSON.parse(sessionStorage.getItem('koenji_1889_tab_session_v1'));
@@ -76,7 +78,7 @@ try {
   const after=await view(p),cid=before.state.current_corporation;
   assert.equal(after.state.corporations[cid].trains.length,1);assert.equal(after.state.corporations[cid].cash,before.state.corporations[cid].cash-80);
   assert.equal(after.state.players[before.viewer.player_id].cash,before.state.players[before.viewer.player_id].cash);
-  await p.locator('[data-wizard-panel="1"]:visible').waitFor();assert.match(await p.locator('[data-wizard-pass]').innerText(),/Finish/);await p.locator('[data-wizard-pass]').click();
+  await p.locator('[data-wizard-panel="1"]:visible').waitFor();assert.match(await p.locator('[data-wizard-pass]').innerText(),/End/);await p.locator('[data-wizard-pass]').click();
   await p.waitForFunction(()=>!document.querySelector('.train-purchase-modal'));await p.close();
  });
  await check('Inter-company seller offer: staged consent and corporate treasury transfer',async()=>{

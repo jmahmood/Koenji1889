@@ -9,6 +9,28 @@ Manage the alias with `systemctl --user status koenji-local-name.service` or `sy
 Target: `jawaad@10.0.0.30`, Raspberry Pi 2, ARMv7, Raspbian 13, Python 3.13.5.
 The source app was built on the Mac; only static output and required Python files were transferred. Local saved games were not transferred. A separate two-player deployment verification game was created on the Pi.
 
+## Port-free hostname access (staged; administrator activation required)
+
+The `frontdoor/` files are staged at `/home/jawaad/koenji/tools/port-free/`. Hostname routing was tested on a temporary loopback-only port: `1889.local` served the game HTML and health endpoint, while `pi.hole` and the Pi's IPv4 address served Pi-hole administration. Port 80 has **not** been changed yet because the SSH account requires a password for sudo.
+
+To activate, run from the Mac's Terminal:
+
+```sh
+ssh -t jawaad@10.0.0.30 'sudo python3 /home/jawaad/koenji/tools/port-free/install.py'
+```
+
+The installer saves the original Pi-hole ports and configuration under root-only `/var/lib/koenji-frontdoor/`, moves Pi-hole HTTP to `127.0.0.1:8081`, and preserves its existing HTTPS listeners. FTL restarts once, briefly interrupting DNS. A separate system service listens on IPv4 `10.0.0.30:80` and routes `1889.local` to the existing game on port 8080; other HTTP hostnames go to Pi-hole. The IPv6 port-80 listener continues serving Pi-hole. The game backend and database are not restarted or modified. The original port-8080 game address continues working.
+
+The frontdoor service runs as `jawaad` with only the capability to bind privileged ports; its Nginx binary and configuration are root-owned under `/opt/koenji-frontdoor/` and `/etc/koenji-frontdoor/`. This binary is copied from the existing extracted distro Nginx and also needs manual security updates. `systemctl status koenji-frontdoor` shows service status. Activation checks game HTML, game health, Pi-hole administration, and DNS, and attempts to restore the original ports if activation fails.
+
+Manual rollback:
+
+```sh
+ssh -t jawaad@10.0.0.30 'sudo python3 /home/jawaad/koenji/tools/port-free/install.py --rollback'
+```
+
+Rollback disables the proxy and restores the original Pi-hole HTTP ports; game access on port 8080 remains available. Keep using the same browser origin for game credentials, or rejoin via an invitation when changing from `1889.local:8080` to `1889.local`.
+
 ## Layout
 
 - `/home/jawaad/koenji/app`: server_bridge.py, appearance catalog, bundled 1889 engine

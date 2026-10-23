@@ -1,0 +1,18 @@
+{
+  "directLink": true,
+  "refresh": true,
+  "editions": [
+    "en",
+    "ja"
+  ],
+  "reset": true,
+  "purchaseConfirmed": true,
+  "purchasePersists": true,
+  "demoTools": true,
+  "startPositionResets": true,
+  "tabIsolation": true,
+  "stepPreserved": true,
+  "readingPositionPreserved": true,
+  "oldReplayStopped": true,
+  "errors": []
+}

@@ -1,0 +1,18 @@
+Generated using built-in image_gen. Design proposal only; fictional newspaper.
+
+Use case: historical-scene / game newspaper design concept. Produce ONE beautiful fictional Japanese railway newspaper special edition, inspired by Meiji-era letterpress, as a visual alternative to the game's rust-preview screen. It is a newspaper publishing the approaching end of the 2-train era. CRITICAL reading direction: genuine VERTICAL JAPANESE TYPE, characters upright TOP TO BOTTOM, successive columns RIGHT TO LEFT. Not horizontal Japanese paragraphs rotated sideways. Use legible Japanese Mincho / old movable-type aesthetic, black ink on lightly aged ivory washi newsprint, thin editorial column rules and a single muted vermilion publisher seal. Mostly monochrome engravings. Flat top-down FRONT PAGE filling frame, portrait aspect approximately 1200x1500, no desk props, browser chrome, UI buttons or decorative gold game frame.
+
+Input image1 is narrative/game visual reference only. Preserve small Iyo No.1 locomotive identity for the old 2-trains and C58-style locomotive for the new 4-train from reference. The user wants RUST represented as SOCIAL OBSOLESCENCE: the trains still work but are so old passengers no longer want to ride them. Do NOT show literal rust, destroyed engines, fire, accidents, broken wheels, crumbling metal or danger. Old engine is intact and dignified at a deserted platform, while a modest group of period-clothed Japanese passengers carrying small luggage gathers at the newer train. Fine wood-engraved/etched newspaper illustration, not photoreal or cartoon. Railways modernizing, melancholy farewell plus anticipation, no derisive humor.
+
+Rightmost vertical masthead exact '四國鐵道新報' (a FICTIONAL newspaper). Separate small vertical boxed '號外'. Large bold vertical headline in adjacent columns, read right to left, exact '二型列車、引退へ'. Secondary vertical headline exact '旅客は新型四型列車へ'. Large central engraved illustration spanning a few columns: old small green Iyo-style tank engine near quiet empty platform in foreground, its colour reduced to black hatching; new black C58 tender engine farther along adjacent platform with waiting passengers. Keep architecture and clothing late nineteenth/early twentieth-century inspired, no modern electric wires, smartphones, advertisements or road vehicles. A subtle sign by old platform says '引退予定'. No crossed-out train stamps.
+
+Use SHORT meaningful Japanese vertical article text with enough whitespace to stay legible instead of filler microtext. Article copy:
+'長く親しまれた二型列車が、役目を終えようとしている。'
+'新型四型列車の登場を前に、旅客の足は新しい列車へ向かう。'
+'四型列車の購入が確定すると、すべての二型列車が運行を終える。'
+Separate narrow vertical editorial fact sidebar:
+'第三期から第四期へ'
+'列車の保有上限、四両から三両へ'
+A small clearly readable vermilion vertical forecast notice exact '購入前の見通し', and supporting short notice '購入確定時に適用'. This is a preview: do not claim the purchase or retirement already happened.
+A smaller lower-page black engraving of the small Iyo No.1 engine as a commemorative vignette, with vertical caption '一つの時代に幕'.
+No invented actual date, no claim of an actual historical newspaper issue, no real newspaper logos, no English display text, no fabricated tiny unreadable filler. Convincing classic Japanese newspaper composition rather than a Western newspaper with a Japanese title. Strong visual hierarchy, readable kanji, columns flowing top-down and right-to-left. Design proposal only; do not generate code.
